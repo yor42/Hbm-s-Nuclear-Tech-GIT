@@ -1,20 +1,35 @@
-## TemplateDevEnv
+# <u>**HBM Nuclear Tech Mod - 1.12.2 Extended Edition**</u>
 
-Template workspace for modding Minecraft 1.12.2. Licensed under MIT, it is made for public use.
+This is my 1.12.2 custom version of the mod
 
-This template currently utilizies **Gradle 8.1.1** + **[RetroFuturaGradle](https://github.com/GTNewHorizons/RetroFuturaGradle) 1.3.6** + **Forge 14.23.5.2847**.
+which is forked from the fork made by [TheOriginalGolem](https://github.com/TheOriginalGolem/Hbm-s-Nuclear-Tech-GIT)
+which is forked from the port made by [Drillgon200](https://github.com/Drillgon200/Hbm-s-Nuclear-Tech-GIT)
+which is ported from the original mod made by [HBMTheBobcat](https://github.com/HbmMods/Hbm-s-Nuclear-Tech-GIT).
 
-With **coremod and mixin support** that is easy to configure.
 
-### Instructions:
+The latest version can be found on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/hbms-nuclear-tech-mod-extended-edition) or [Modrinth](https://modrinth.com/mod/ntm-extended) or under the [Releases page](https://github.com/Alcatergit/Hbm-s-Nuclear-Tech-GIT/releases).
 
-1. Click `use this template` at the top.
-2. Clone the repository you have created with this template.
-3. In the local repository, run the command `gradlew setupDecompWorkspace`
-4. Open the project folder in IDEA.
-5. Right-click in IDEA `build.gradle` of your project, and select `Link Gradle Project`, after completion, hit `Refresh All` in the gradle tab on the right.
-6. Run `gradlew runClient` and `gradlew runServer`, or use the auto-imported run configurations in IntelliJ like `1. Run Client`.
+If you have question or suggestions you can post them on our [NTM Extended Discord](https://discord.gg/Auq95eCEtD)
 
-### Mixins:
+### **Want to contribute?**
 
-- When writing Mixins on IntelliJ, it is advisable to use latest [MinecraftDev Fork for RetroFuturaGradle](https://github.com/eigenraven/MinecraftDev/releases).
+If you want to contribute make a pull request and I'll review it as soon as possible.
+Every contribution is very much appreciated by me and the players.
+
+### **Build Guide:**
+
+Download the repository, then open a shell prompt in that folder, then type the following:
+
+`.\gradlew build`
+
+Press enter.
+
+Now just wait for the build to finish and the new Jar file will be in `Hbm-s-Nuclear-Tech-GIT\build\libs`.
+
+
+#### Discords:
+
+Alcater#2644
+Golem#9568
+Drillgon200#0288
+The Bobcat#8817
