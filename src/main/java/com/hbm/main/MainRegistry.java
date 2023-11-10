@@ -7,6 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import api.hbm.energy.IBatteryItem;
+import api.hbm.energy.IEnergyConnector;
+import com.hbm.handler.gs.NTM;
+import com.hbm.handler.rf.ItemCapabilityProvider;
+import com.hbm.handler.rf.TEHeRfCompatLayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.Logger;
 
 import com.hbm.blocks.ModBlocks;
@@ -395,13 +403,16 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
-
+@Mod.EventBusSubscriber(modid = RefStrings.MODID)
 @Mod(modid = RefStrings.MODID, version = RefStrings.VERSION, name = RefStrings.NAME)
 public class MainRegistry {
 
 	static {
 		HBMSoundHandler.init();
 		FluidRegistry.enableUniversalBucket();
+		if(Loader.isModLoaded("groovyscript")){
+			NTM.register();
+		}
 	}
 
 	@SidedProxy(clientSide = RefStrings.CLIENTSIDE, serverSide = RefStrings.SERVERSIDE)
@@ -506,6 +517,30 @@ public class MainRegistry {
 	public static ToolMaterial matHF = EnumHelper.addToolMaterial("CRUCIBLE", 3, 10000, 50.0F, 100.0F, 200);
 
 	Random rand = new Random();
+
+	@SubscribeEvent
+	public static void attachItemCapability(AttachCapabilitiesEvent<ItemStack> event){
+		if(MachineConfig.directRFSupport) {
+			ItemStack stack = event.getObject();
+			Item item = stack.getItem();
+			if (item instanceof IBatteryItem) {
+				event.addCapability(ITEM_CAPABILITY_RF_HFBridge, new ItemCapabilityProvider(stack));
+			}
+		}
+	}
+
+	private static final ResourceLocation ITEM_CAPABILITY_RF_HFBridge = new ResourceLocation(RefStrings.MODID, "item_fe_cap");
+	private static final ResourceLocation TE_CAPABILITY_RF_HFBridge = new ResourceLocation(RefStrings.MODID, "te_fe_cap");
+
+	@SubscribeEvent
+	public static void attachTECapability(AttachCapabilitiesEvent<TileEntity> event){
+		if(MachineConfig.directRFSupport) {
+			TileEntity te = event.getObject();
+			if (te instanceof IEnergyConnector) {
+				event.addCapability(TE_CAPABILITY_RF_HFBridge, new TEHeRfCompatLayer((IEnergyConnector) te));
+			}
+		}
+	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {

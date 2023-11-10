@@ -41,6 +41,8 @@ public class MachineConfig {
 
 	public static int uuMixerFluidRatio = 100;
 	public static boolean uuMixerFluidListIsWhitelist = false;
+
+	public static boolean directRFSupport = false;
 	public static HashSet blacklistedMixerFluids;
 
 	public static int crateByteSize = 8;
@@ -97,5 +99,7 @@ public class MachineConfig {
 		blacklistedMixerFluids = CommonConfig.createConfigHashSet(config, CATEGORY_MACHINE, generateConfigName(26, "blacklistedUUMixerFluids"), "List of fluids that can not be made by UU Mixer. - <fluid> (String)", "String", new String[]{ "liquid_osmiridium" });
 		
 		crateByteSize = CommonConfig.createConfigInt(config, CATEGORY_MACHINE, generateConfigName(27, "crateMaxByteSize"), "Controls how big the maximum storage size of mined crates can be. Warning going beond 32kb can cause freezing/crashes. - <kb> (int)", 8);
+		directRFSupport = CommonConfig.createConfigBool(config, CATEGORY_MACHINE, generateConfigName(28, "directRFsupport"), "Setting this to true will enable machine to accept FE/RF directly.", false);
+
 	}
 }
