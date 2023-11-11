@@ -20,8 +20,8 @@ import net.minecraft.item.ItemStack;
 public class DFC {
 	
 	private static class ActionAddRecipe implements IAction{
-		private ItemStack input;
-		private ItemStack output;
+		private final ItemStack input;
+		private final ItemStack output;
 		private long spark = 0;
 		public ActionAddRecipe(IItemStack input, IItemStack output, long spark){
 			this.input = CraftTweakerMC.getItemStack(input);
@@ -58,7 +58,7 @@ public class DFC {
 
 
 	public static class ActionRemoveRecipe implements IAction{
-		private ItemStack input;
+		private final ItemStack input;
 
 		public ActionRemoveRecipe(IItemStack input){
 			this.input = CraftTweakerMC.getItemStack(input);

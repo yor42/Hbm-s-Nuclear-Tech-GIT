@@ -9,9 +9,9 @@ public class ParticleContrailBalefire extends ParticleContrail {
 
 	public ParticleContrailBalefire(TextureManager manage, World worldIn, double posXIn, double posYIn, double posZIn) {
 		super(manage, worldIn, posXIn, posYIn, posZIn, 0.15F, 0.2F, 0.1F, 1F);
-		this.flameRed = 0.6F;
-		this.flameGreen = 1F;
-		this.flameBlue = 0.2F;
+		flameRed = 0.6F;
+		flameGreen = 1F;
+		flameBlue = 0.2F;
 		this.doFlames = true;
 	}
 }

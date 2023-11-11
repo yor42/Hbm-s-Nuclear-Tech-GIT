@@ -143,7 +143,7 @@ public class BedrockOreRegistry {
 			}
 		}
 		if(tierCount > 0)
-			return (int)(tierSum/tierCount);
+			return tierSum/tierCount;
 		return 0;
 	}
 

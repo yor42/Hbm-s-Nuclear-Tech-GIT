@@ -29,7 +29,7 @@ public class ItemSelfcharger extends Item implements IBatteryItem {
 		if(charge == Long.MAX_VALUE)
 			tooltip.add(TextFormatting.YELLOW + "Infinite HE/s");
 		else
-			tooltip.add(TextFormatting.YELLOW + "" + Library.getShortNumber(charge*20) + "HE/s");
+			tooltip.add(TextFormatting.YELLOW + Library.getShortNumber(charge*20) + "HE/s");
 	}
 	
 	@Override

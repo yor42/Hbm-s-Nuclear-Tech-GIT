@@ -112,7 +112,7 @@ public class TileEntityMachineBoilerRTG extends TileEntityMachineBase implements
 	}
 
 	public long getRTGPowerScaled(int i) {
-		return (rtgPower * i) / maxRTGPower;
+		return ((long) rtgPower * i) / maxRTGPower;
 	}
 
 	@Override
@@ -202,11 +202,8 @@ public class TileEntityMachineBoilerRTG extends TileEntityMachineBase implements
 	}
 
 	protected boolean inputValidForTank(int tank, int slot) {
-		if(isValidFluid(FluidUtil.getFluidContained(inventory.getStackInSlot(slot)))) {
-			return true;
-		}
-		return false;
-	}
+        return isValidFluid(FluidUtil.getFluidContained(inventory.getStackInSlot(slot)));
+    }
 
 	private boolean isValidFluid(FluidStack stack) {
 		if(stack == null)
@@ -217,8 +214,7 @@ public class TileEntityMachineBoilerRTG extends TileEntityMachineBase implements
 	@Override
 	public void recievePacket(NBTTagCompound[] tags) {
 		if(tags.length != 2) {
-			return;
-		} else {
+        } else {
 			tanks[0].readFromNBT(tags[0]);
 			tanks[1].readFromNBT(tags[1]);
 		}
@@ -266,7 +262,7 @@ public class TileEntityMachineBoilerRTG extends TileEntityMachineBase implements
 	
 	private int detectRTGPower;
 	private int detectHeat;
-	private FluidTank[] detectTanks = new FluidTank[] { null, null };
+	private final FluidTank[] detectTanks = new FluidTank[] { null, null };
 
 	private void detectAndSendChanges() {
 		boolean mark = false;

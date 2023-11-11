@@ -23,8 +23,8 @@ import net.minecraft.util.math.MathHelper;
 
 public class GUICoreStabilizer extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/dfc/gui_stabilizer.png");
-	private TileEntityCoreStabilizer stabilizer;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/dfc/gui_stabilizer.png");
+	private final TileEntityCoreStabilizer stabilizer;
     private GuiTextField field;
 
     protected short saveButtonCoolDown = 0;
@@ -97,7 +97,7 @@ public class GUICoreStabilizer extends GuiInfoContainer {
 		if(field.isFocused())
 			drawTexturedModalRect(guiLeft + 53, guiTop + 58, 192, 0, 32, 14);
 
-		int stabilizerWatts = (int)(stabilizer.watts * 35 / 100);
+		int stabilizerWatts = stabilizer.watts * 35 / 100;
 		drawTexturedModalRect(guiLeft + 81, guiTop + 52 - stabilizerWatts, 176, 87 - stabilizerWatts, 4, stabilizerWatts);
 		
 		int i = (int) stabilizer.getPowerScaled(52);

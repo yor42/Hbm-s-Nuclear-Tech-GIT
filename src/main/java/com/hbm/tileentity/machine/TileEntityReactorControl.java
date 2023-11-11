@@ -138,7 +138,7 @@ public class TileEntityReactorControl extends TileEntity implements ITickable {
         		maxCool = reactor.tanks[1].getCapacity();
         		maxSteam = reactor.tanks[2].getCapacity();
         		rods = reactor.rods;
-        		maxRods = reactor.rodsMax;
+        		maxRods = TileEntityMachineReactorSmall.rodsMax;
         		isOn = !reactor.retracting;
         		isLinked = true;
         		

@@ -25,5 +25,5 @@ public class NTM extends ModPropertyContainer {
         addRegistry(SHREDDER);
     }
 
-    public static void register(){};
+    public static void register(){}
 }

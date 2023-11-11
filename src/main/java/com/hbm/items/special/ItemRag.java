@@ -54,7 +54,7 @@ public class ItemRag extends Item {
 				player.dropItem(new ItemStack(ModItems.mask_piss, 1, 0), false);
 			stack.shrink(1);
 		}
-		return ActionResult.<ItemStack> newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 	
 	@Override

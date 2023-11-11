@@ -283,22 +283,20 @@ public class ItemMachineUpgrade extends Item {
 		}
 	}
 
-	public static final Set<Item> scrapItems = Sets.newHashSet(new Item[] {
-			Item.getItemFromBlock(Blocks.GRASS),
-			Item.getItemFromBlock(Blocks.DIRT),
-			Item.getItemFromBlock(Blocks.STONE),
-			Item.getItemFromBlock(Blocks.COBBLESTONE),
-			Item.getItemFromBlock(Blocks.SAND),
-			Item.getItemFromBlock(Blocks.SANDSTONE),
-			Item.getItemFromBlock(Blocks.GRAVEL),
-			Item.getItemFromBlock(Blocks.NETHERRACK),
-			Item.getItemFromBlock(Blocks.END_STONE),
-			Item.getItemFromBlock(ModBlocks.stone_gneiss),
-			Items.FLINT,
-			Items.SNOWBALL,
-			Items.WHEAT_SEEDS,
-			Items.STICK
-			});
+	public static final Set<Item> scrapItems = Sets.newHashSet(Item.getItemFromBlock(Blocks.GRASS),
+            Item.getItemFromBlock(Blocks.DIRT),
+            Item.getItemFromBlock(Blocks.STONE),
+            Item.getItemFromBlock(Blocks.COBBLESTONE),
+            Item.getItemFromBlock(Blocks.SAND),
+            Item.getItemFromBlock(Blocks.SANDSTONE),
+            Item.getItemFromBlock(Blocks.GRAVEL),
+            Item.getItemFromBlock(Blocks.NETHERRACK),
+            Item.getItemFromBlock(Blocks.END_STONE),
+            Item.getItemFromBlock(ModBlocks.stone_gneiss),
+            Items.FLINT,
+            Items.SNOWBALL,
+            Items.WHEAT_SEEDS,
+            Items.STICK);
 
 	public enum UpgradeType {
 		SPEED,

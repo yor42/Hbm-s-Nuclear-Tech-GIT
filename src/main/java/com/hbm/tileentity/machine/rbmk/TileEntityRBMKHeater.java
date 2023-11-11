@@ -61,7 +61,7 @@ public class TileEntityRBMKHeater extends TileEntityRBMKSlottedBase implements I
 		
 		if(!world.isRemote) {
 			setFluidType();
-            PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, new FluidTank[] { tanks[0], tanks[1] }), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 50));
+            PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, tanks[0], tanks[1]), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 50));
 
 			if(HeatRecipes.hasBoilRecipe(tankTypes[0])) {
 				Fluid hotFluid = HeatRecipes.getBoilFluid(tankTypes[0]);
@@ -184,7 +184,6 @@ public class TileEntityRBMKHeater extends TileEntityRBMKSlottedBase implements I
 	@Override
     public void recievePacket(NBTTagCompound[] tags) {
         if (tags.length != 2) {
-            return;
         } else {
             tanks[0].readFromNBT(tags[0]);
             tanks[1].readFromNBT(tags[1]);

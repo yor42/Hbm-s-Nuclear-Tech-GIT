@@ -40,7 +40,7 @@ public class BlockNTMDirt extends BlockDirt {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public String getLocalizedName() {
-		return ("" + I18n.format(Blocks.DIRT.getUnlocalizedName()) + ".name").trim();
+		return (I18n.format(Blocks.DIRT.getUnlocalizedName()) + ".name").trim();
 	}
 	
 	@Override

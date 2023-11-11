@@ -14,8 +14,8 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 public class ItemModMedal extends ItemArmorMod {
-	private float minusRads;
-	private float decayRate;
+	private final float minusRads;
+	private final float decayRate;
 
 	public ItemModMedal(String s, float minusRads) {
 		super(ArmorModHandler.extra, false, true, false, false, s);

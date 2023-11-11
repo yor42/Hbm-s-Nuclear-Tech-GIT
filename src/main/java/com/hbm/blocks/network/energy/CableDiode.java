@@ -59,12 +59,12 @@ public class CableDiode extends BlockContainer implements IEnergyConnectorBlock,
 
 	@Override
 	protected BlockStateContainer createBlockState(){
-		return new BlockStateContainer(this, new IProperty[] { FACING });
+		return new BlockStateContainer(this, FACING);
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state){
-		return ((EnumFacing)state.getValue(FACING)).getIndex();
+		return state.getValue(FACING).getIndex();
 	}
 
 	@Override
@@ -75,12 +75,12 @@ public class CableDiode extends BlockContainer implements IEnergyConnectorBlock,
 
 	@Override
 	public IBlockState withRotation(IBlockState state, Rotation rot){
-		return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
 	@Override
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn){
-		return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+		return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 	
 	@Override
@@ -105,7 +105,7 @@ public class CableDiode extends BlockContainer implements IEnergyConnectorBlock,
 			if(te.level < 17)
 				te.level++;
 			te.markDirty();
-			INBTPacketReceiver.networkPack((TileEntity)te, te.packValues(), 20);
+			INBTPacketReceiver.networkPack(te, te.packValues(), 20);
 			return true;
 		}
 		
@@ -113,7 +113,7 @@ public class CableDiode extends BlockContainer implements IEnergyConnectorBlock,
 			if(te.level > 1)
 				te.level--;
 			te.markDirty();
-			INBTPacketReceiver.networkPack((TileEntity)te, te.packValues(), 20);
+			INBTPacketReceiver.networkPack(te, te.packValues(), 20);
 			return true;
 		}
 		
@@ -122,7 +122,7 @@ public class CableDiode extends BlockContainer implements IEnergyConnectorBlock,
 			if(p > 2) p = 0;
 			te.priority = ConnectionPriority.values()[p];
 			te.markDirty();
-			INBTPacketReceiver.networkPack((TileEntity)te, te.packValues(), 20);
+			INBTPacketReceiver.networkPack(te, te.packValues(), 20);
 			return true;
 		}
 		
@@ -131,8 +131,8 @@ public class CableDiode extends BlockContainer implements IEnergyConnectorBlock,
 
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> list, ITooltipFlag flagIn) {
-        this.addStandardInfo((List)list);
-        super.addInformation(stack, worldIn, (List)list, flagIn);
+        this.addStandardInfo(list);
+        super.addInformation(stack, worldIn, list, flagIn);
     }
 
 	@Override

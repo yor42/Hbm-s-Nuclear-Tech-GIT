@@ -551,7 +551,7 @@ public class HbmWorldGen implements IWorldGenerator {
 							case 2:
 							case 3:
 								WeightedRandomChestContentFrom1710.generateChestContents(rand, HbmChestContents.getLoot(10),
-										(TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z)), rand.nextInt(4) + 3);
+                                        world.getTileEntity(new BlockPos(x, y, z)), rand.nextInt(4) + 3);
 								((TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z))).setPins(rand.nextInt(999) + 1);
 								((TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z))).setMod(1);
 								((TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z))).lock();
@@ -560,7 +560,7 @@ public class HbmWorldGen implements IWorldGenerator {
 							case 5:
 							case 6:
 								WeightedRandomChestContentFrom1710.generateChestContents(rand, HbmChestContents.getLoot(11),
-								(TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z)), rand.nextInt(3) + 2);
+                                        world.getTileEntity(new BlockPos(x, y, z)), rand.nextInt(3) + 2);
 								((TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z))).setPins(rand.nextInt(999) + 1);
 								((TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z))).setMod(0.1);
 								((TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z))).lock();
@@ -568,14 +568,14 @@ public class HbmWorldGen implements IWorldGenerator {
 							case 7:
 							case 8:
 								WeightedRandomChestContentFrom1710.generateChestContents(rand, HbmChestContents.getLoot(12),
-										(TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z)), rand.nextInt(3) + 1);
+                                        world.getTileEntity(new BlockPos(x, y, z)), rand.nextInt(3) + 1);
 								((TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z))).setPins(rand.nextInt(999) + 1);
 								((TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z))).setMod(0.02);
 								((TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z))).lock();
 								break;
 							case 9:
 								WeightedRandomChestContentFrom1710.generateChestContents(rand, HbmChestContents.getLoot(13),
-										(TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z)), rand.nextInt(2) + 1);
+                                        world.getTileEntity(new BlockPos(x, y, z)), rand.nextInt(2) + 1);
 								((TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z))).setPins(rand.nextInt(999) + 1);
 								((TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z))).setMod(0.0);
 								((TileEntitySafe) world.getTileEntity(new BlockPos(x, y, z))).lock();

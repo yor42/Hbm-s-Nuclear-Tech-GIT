@@ -23,9 +23,9 @@ public class SILEX {
 		private int wavelength = -1;
 		private int solution = 0;
 		private int consumption = 0;
-		private ItemStack input;
-		private ItemStack[] outputs;
-		private int[] outputWeights;
+		private final ItemStack input;
+		private final ItemStack[] outputs;
+		private final int[] outputWeights;
 
 		public ActionAddRecipe(int wavelength, int solution, int consumption, IItemStack input, IItemStack[] outputItems, int[] outputWeights){
 			this.wavelength = wavelength;
@@ -104,7 +104,7 @@ public class SILEX {
 
 
 	public static class ActionRemoveRecipe implements IAction{
-		private ItemStack input;
+		private final ItemStack input;
 
 		public ActionRemoveRecipe(IItemStack input){
 			this.input = CraftTweakerMC.getItemStack(input);

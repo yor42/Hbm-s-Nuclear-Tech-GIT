@@ -22,8 +22,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineUUCreator extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_uu_creator.png");
-	private TileEntityMachineUUCreator uu_creator;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_uu_creator.png");
+	private final TileEntityMachineUUCreator uu_creator;
 	
 	public GUIMachineUUCreator(InventoryPlayer invPlayer, TileEntityMachineUUCreator tedf) {
 		super(new ContainerMachineUUCreator(invPlayer, tedf));

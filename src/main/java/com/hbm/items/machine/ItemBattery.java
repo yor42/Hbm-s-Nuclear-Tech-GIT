@@ -16,9 +16,9 @@ import net.minecraft.world.World;
 
 public class ItemBattery extends Item implements IBatteryItem {
 
-	private long maxCharge;
-	private long chargeRate;
-	private long dischargeRate;
+	private final long maxCharge;
+	private final long chargeRate;
+	private final long dischargeRate;
 	
 	public ItemBattery(long dura, long chargeRate, long dischargeRate, String s){
 		this.maxCharge = dura;
@@ -96,8 +96,8 @@ public class ItemBattery extends Item implements IBatteryItem {
     		if(stack.hasTagCompound()) {
     			stack.getTagCompound().setLong("charge", i);
     		} else {
-    			stack.setTagCompound(new NBTTagCompound());;
-    			stack.getTagCompound().setLong("charge", i);
+    			stack.setTagCompound(new NBTTagCompound());
+                stack.getTagCompound().setLong("charge", i);
     		}
     	}
     }
@@ -109,8 +109,8 @@ public class ItemBattery extends Item implements IBatteryItem {
     		if(stack.hasTagCompound()) {
     			stack.getTagCompound().setLong("charge", stack.getTagCompound().getLong("charge") - i);
     		} else {
-    			stack.setTagCompound(new NBTTagCompound());;
-    			stack.getTagCompound().setLong("charge", this.maxCharge - i);
+    			stack.setTagCompound(new NBTTagCompound());
+                stack.getTagCompound().setLong("charge", this.maxCharge - i);
     		}
     	}
     }
@@ -122,8 +122,8 @@ public class ItemBattery extends Item implements IBatteryItem {
     		if(stack.hasTagCompound()) {
     			return stack.getTagCompound().getLong("charge");
     		} else {
-    			stack.setTagCompound(new NBTTagCompound());;
-    			stack.getTagCompound().setLong("charge", ((ItemBattery)stack.getItem()).maxCharge);
+    			stack.setTagCompound(new NBTTagCompound());
+                stack.getTagCompound().setLong("charge", ((ItemBattery)stack.getItem()).maxCharge);
     			return stack.getTagCompound().getLong("charge");
     		}
     	}
@@ -147,8 +147,8 @@ public class ItemBattery extends Item implements IBatteryItem {
     	
     	if(item instanceof ItemBattery) {
     		ItemStack stack = new ItemStack(item);
-    		stack.setTagCompound(new NBTTagCompound());;
-    		stack.getTagCompound().setLong("charge", 0);
+    		stack.setTagCompound(new NBTTagCompound());
+            stack.getTagCompound().setLong("charge", 0);
     		//stack.setItemDamage(100);
     		return stack.copy();
     	}
@@ -160,8 +160,8 @@ public class ItemBattery extends Item implements IBatteryItem {
     	
     	if(item instanceof ItemBattery) {
     		ItemStack stack = new ItemStack(item);
-    		stack.setTagCompound(new NBTTagCompound());;
-    		stack.getTagCompound().setLong("charge", ((ItemBattery)item).getMaxCharge());
+    		stack.setTagCompound(new NBTTagCompound());
+            stack.getTagCompound().setLong("charge", ((ItemBattery)item).getMaxCharge());
     		return stack.copy();
     	}
     	
@@ -170,10 +170,8 @@ public class ItemBattery extends Item implements IBatteryItem {
 	
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
-		if(stack.getItem() == ModItems.battery_creative)
-			return false;
-		return true;
-	}
+        return stack.getItem() != ModItems.battery_creative;
+    }
 	
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {

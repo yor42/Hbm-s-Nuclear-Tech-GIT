@@ -117,7 +117,7 @@ public class TileEntityMachineTeleporter extends TileEntityLoadedBase implements
 			entity.attackEntityFrom(ModDamageSource.teleporter, 10000);
 		} else {
 			if ((entity instanceof EntityPlayerMP)) {
-				((EntityPlayerMP) entity).setPositionAndUpdate(target.getX() + 0.5D, target.getY() + 1.6D + entity.getYOffset(), target.getZ() + 0.5D);
+				entity.setPositionAndUpdate(target.getX() + 0.5D, target.getY() + 1.6D + entity.getYOffset(), target.getZ() + 0.5D);
 			} else {
 				entity.setPositionAndRotation(target.getX() + 0.5D, target.getY() + 1.6D + entity.getYOffset(), target.getZ() + 0.5D, entity.rotationYaw, entity.rotationPitch);
 			}

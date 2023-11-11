@@ -15,8 +15,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 public class FluidCombustion {
 	
 	private static class ActionAddBurnableFluid implements IAction {
-		private String inputFluid;
-		private int heatPerMiliBucket;
+		private final String inputFluid;
+		private final int heatPerMiliBucket;
 		public ActionAddBurnableFluid(String inputFluid, int heatPerMiliBucket){
 			this.inputFluid = inputFluid;
 			this.heatPerMiliBucket = heatPerMiliBucket;
@@ -53,7 +53,7 @@ public class FluidCombustion {
 	}
 
 	private static class ActionRemoveBurnableFluid implements IAction{
-		private String inputFluid;
+		private final String inputFluid;
 		public ActionRemoveBurnableFluid(String inputFluid){
 			this.inputFluid = inputFluid;
 		}

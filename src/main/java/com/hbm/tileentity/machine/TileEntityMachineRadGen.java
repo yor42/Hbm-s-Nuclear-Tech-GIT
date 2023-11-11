@@ -58,7 +58,7 @@ public class TileEntityMachineRadGen extends TileEntityLoadedBase implements ITi
 		};
 	}
 
-	private static int[] accessibleSlots = new int[]{0};
+	private static final int[] accessibleSlots = new int[]{0};
 
 	public String getInventoryName() {
 		return this.hasCustomInventoryName() ? this.customName : "container.radGen";
@@ -151,7 +151,7 @@ public class TileEntityMachineRadGen extends TileEntityLoadedBase implements ITi
 			if(fuel > 0) {
 				fuel--;
 				if(strength < maxStrength){
-					strength = (int)(maxStrength * fuel / maxFuel);
+					strength = maxStrength * fuel / maxFuel;
 				} else{
 					strength = maxStrength;
 				}
@@ -203,7 +203,7 @@ public class TileEntityMachineRadGen extends TileEntityLoadedBase implements ITi
 	}
 	
 	public int getStrengthScaled(int i) {
-		return (int)(strength * i / maxStrength);
+		return strength * i / maxStrength;
 	}
 	
 	@Override

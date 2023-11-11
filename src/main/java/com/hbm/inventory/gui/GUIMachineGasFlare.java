@@ -23,8 +23,8 @@ import java.io.IOException;
 
 public class GUIMachineGasFlare extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/generators/gui_flare_stack.png");
-	private TileEntityMachineGasFlare flare;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/generators/gui_flare_stack.png");
+	private final TileEntityMachineGasFlare flare;
 	
 	public GUIMachineGasFlare(InventoryPlayer invPlayer, TileEntityMachineGasFlare tedf) {
 		super(new ContainerMachineGasFlare(invPlayer, tedf));

@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class ContainerRadioTorchSender extends Container {
 	
-	private TileEntityRadioTorchSender diFurnace;
+	private final TileEntityRadioTorchSender diFurnace;
 	
 	BlockPos detectTarget = null;
 	EntityPlayerMP player;

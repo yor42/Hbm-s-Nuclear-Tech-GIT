@@ -112,7 +112,7 @@ public class TileEntityMachineMiningLaser extends TileEntityMachineBase implemen
 			
 			this.trySubscribe(world, pos.add(0, 2, 0), ForgeDirection.UP);
 			power = Library.chargeTEFromItems(inventory, 0, power, maxPower);
-			PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, new FluidTank[]{tank}), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 10));
+			PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, tank), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 10));
 
 			//reset progress if the position changes
 			if(lastTargetX != targetX ||
@@ -428,9 +428,8 @@ public class TileEntityMachineMiningLaser extends TileEntityMachineBase implemen
 		if(b instanceof BlockGasBase) return false;
 		float hardness = block.getBlockHardness(world, new BlockPos(x, y, z));
 		if(hardness < 0 || hardness > 3_500_000) return false;
-		if(block.getMaterial().isLiquid()) return false;
-		return true;
-	}
+        return !block.getMaterial().isLiquid();
+    }
 
 	public int getOverdrive() {
 

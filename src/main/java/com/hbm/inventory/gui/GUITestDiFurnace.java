@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUITestDiFurnace extends GuiInfoContainer {
 	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/GUIDiFurnace.png");
-	private TileEntityDiFurnace diFurnace;
+	private final TileEntityDiFurnace diFurnace;
 
 	public GUITestDiFurnace(InventoryPlayer invPlayer, TileEntityDiFurnace tedf) {
 		super(new ContainerDiFurnace(invPlayer, tedf));
@@ -59,7 +59,7 @@ public class GUITestDiFurnace extends GuiInfoContainer {
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		drawCustomInfoStat(mouseX, mouseY, guiLeft + 43, guiTop + 17, 18, 54, mouseX, mouseY, new String[] {String.valueOf(diFurnace.getPowerRemainingScaled(100)) + "%"});
+		drawCustomInfoStat(mouseX, mouseY, guiLeft + 43, guiTop + 17, 18, 54, mouseX, mouseY, new String[] {diFurnace.getPowerRemainingScaled(100) + "%"});
 		super.renderHoveredToolTip(mouseX, mouseY);
 	}
 }

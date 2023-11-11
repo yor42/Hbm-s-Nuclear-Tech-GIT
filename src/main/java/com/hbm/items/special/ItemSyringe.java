@@ -58,7 +58,7 @@ public class ItemSyringe extends Item {
             	world.playSound(null,  player.posX,  player.posY,  player.posZ, HBMSoundHandler.syringeUse, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
             	if (player.getHeldItem(hand).isEmpty()) {
-					return ActionResult.<ItemStack> newResult(EnumActionResult.SUCCESS, new ItemStack(ModItems.syringe_empty));
+					return ActionResult.newResult(EnumActionResult.SUCCESS, new ItemStack(ModItems.syringe_empty));
 				}
 
             	if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.syringe_empty))) {
@@ -83,7 +83,7 @@ public class ItemSyringe extends Item {
 				world.playSound(null,  player.posX,  player.posY,  player.posZ, HBMSoundHandler.syringeUse, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
 				if (player.getHeldItem(hand).isEmpty()) {
-					return ActionResult.<ItemStack> newResult(EnumActionResult.SUCCESS, new ItemStack(ModItems.syringe_empty));
+					return ActionResult.newResult(EnumActionResult.SUCCESS, new ItemStack(ModItems.syringe_empty));
 				}
 
 				if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.syringe_empty))) {
@@ -111,7 +111,7 @@ public class ItemSyringe extends Item {
                 world.playSound(null,  player.posX,  player.posY,  player.posZ, HBMSoundHandler.syringeUse, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
                 if (player.getHeldItem(hand).isEmpty()) {
-					return ActionResult.<ItemStack> newResult(EnumActionResult.SUCCESS, new ItemStack(ModItems.syringe_empty));
+					return ActionResult.newResult(EnumActionResult.SUCCESS, new ItemStack(ModItems.syringe_empty));
 				}
             }
 		}
@@ -123,7 +123,7 @@ public class ItemSyringe extends Item {
 				player.getHeldItem(hand).shrink(1);
 				world.playSound(null,  player.posX,  player.posY,  player.posZ, HBMSoundHandler.syringeUse, SoundCategory.PLAYERS, 1.0F, 1.0F);
 				if (player.getHeldItem(hand).isEmpty()) {
-					return ActionResult.<ItemStack> newResult(EnumActionResult.SUCCESS, new ItemStack(ModItems.syringe_metal_empty));
+					return ActionResult.newResult(EnumActionResult.SUCCESS, new ItemStack(ModItems.syringe_metal_empty));
 				}
 
 				if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.syringe_metal_empty))) {
@@ -142,7 +142,7 @@ public class ItemSyringe extends Item {
 				world.playSound(null,  player.posX,  player.posY,  player.posZ, HBMSoundHandler.syringeUse, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
 				if (player.getHeldItem(hand).isEmpty()) {
-					return ActionResult.<ItemStack> newResult(EnumActionResult.SUCCESS, new ItemStack(ModItems.syringe_metal_empty));
+					return ActionResult.newResult(EnumActionResult.SUCCESS, new ItemStack(ModItems.syringe_metal_empty));
 				}
 
 				if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.syringe_metal_empty))) {
@@ -162,7 +162,7 @@ public class ItemSyringe extends Item {
 				world.playSound(null,  player.posX,  player.posY,  player.posZ, HBMSoundHandler.syringeUse, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
 				if (player.getHeldItem(hand).isEmpty()) {
-					return ActionResult.<ItemStack> newResult(EnumActionResult.SUCCESS, new ItemStack(ModItems.syringe_metal_empty));
+					return ActionResult.newResult(EnumActionResult.SUCCESS, new ItemStack(ModItems.syringe_metal_empty));
 				}
 
 				if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.syringe_metal_empty))) {
@@ -182,7 +182,7 @@ public class ItemSyringe extends Item {
 				world.playSound(null,  player.posX,  player.posY,  player.posZ, HBMSoundHandler.syringeUse, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
 				if (player.getHeldItem(hand).isEmpty()) {
-					return ActionResult.<ItemStack> newResult(EnumActionResult.SUCCESS, new ItemStack(ModItems.syringe_metal_empty));
+					return ActionResult.newResult(EnumActionResult.SUCCESS, new ItemStack(ModItems.syringe_metal_empty));
 				}
 
 				if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.syringe_metal_empty))) {
@@ -248,7 +248,7 @@ public class ItemSyringe extends Item {
             		fill = jetItem.maxFuel;
 
 				if (JetpackBase.getFuel(jetpack) == fill)
-					return ActionResult.<ItemStack> newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+					return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 
 				JetpackBase.setFuel(jetpack, fill);
 				world.playSound(null, player.posX, player.posY, player.posZ, HBMSoundHandler.jetpackTank, SoundCategory.PLAYERS, 1.0F, 1.0F);
@@ -312,17 +312,14 @@ public class ItemSyringe extends Item {
             }
 		}
 		
-		return ActionResult.<ItemStack> newResult(EnumActionResult.PASS, player.getHeldItem(hand));
+		return ActionResult.newResult(EnumActionResult.PASS, player.getHeldItem(hand));
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean hasEffect(ItemStack stack) {
-		if (this == ModItems.syringe_awesome) {
-			return true;
-		}
-		return false;
-	}
+        return this == ModItems.syringe_awesome;
+    }
 
 	@Override
 	public EnumRarity getRarity(ItemStack stack) {
@@ -372,8 +369,7 @@ public class ItemSyringe extends Item {
 				entity.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 5 * 20, 4));
 
 				stack.shrink(1);
-				;
-				world.playSound(null,  entity.posX,  entity.posY,  entity.posZ, HBMSoundHandler.syringeUse, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                world.playSound(null,  entity.posX,  entity.posY,  entity.posZ, HBMSoundHandler.syringeUse, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
 				if (attacker instanceof EntityPlayer) {
 					EntityPlayer player = (EntityPlayer) attacker;

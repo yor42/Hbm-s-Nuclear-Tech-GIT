@@ -24,7 +24,7 @@ public class RenderLaserMiner extends TileEntitySpecialRenderer<TileEntityMachin
 		GL11.glPushMatrix();
 		GL11.glTranslated(x + 0.5, y - 1, z + 0.5);
 
-		TileEntityMachineMiningLaser laser = (TileEntityMachineMiningLaser)te;
+		TileEntityMachineMiningLaser laser = te;
 		double tx = x;
 		double ty = 0;
 		double tz = z;

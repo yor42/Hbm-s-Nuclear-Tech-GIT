@@ -20,8 +20,8 @@ import net.minecraft.item.ItemStack;
 public class Shredder {
 	
 	private static class ActionAddRecipe implements IAction{
-		private ItemStack input;
-		private ItemStack output;
+		private final ItemStack input;
+		private final ItemStack output;
 		public ActionAddRecipe(IItemStack input, IItemStack output){
 			this.input = CraftTweakerMC.getItemStack(input);
 			this.output = CraftTweakerMC.getItemStack(output);
@@ -52,7 +52,7 @@ public class Shredder {
 
 
 	public static class ActionRemoveRecipe implements IAction{
-		private ItemStack input;
+		private final ItemStack input;
 
 		public ActionRemoveRecipe(IItemStack input){
 			this.input = CraftTweakerMC.getItemStack(input);

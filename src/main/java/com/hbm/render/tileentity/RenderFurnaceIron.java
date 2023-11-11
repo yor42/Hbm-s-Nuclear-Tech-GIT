@@ -27,7 +27,7 @@ public class RenderFurnaceIron extends TileEntitySpecialRenderer<TileEntityFurna
 		
 		GL11.glTranslated(-0.5D, 0, -0.5D);
 		
-		TileEntityFurnaceIron furnace = (TileEntityFurnaceIron) tileEntity;
+		TileEntityFurnaceIron furnace = tileEntity;
 		
 		bindTexture(ResourceManager.furnace_iron_tex);
 		ResourceManager.furnace_iron.renderPart("Main");

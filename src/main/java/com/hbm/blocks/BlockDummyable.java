@@ -318,7 +318,7 @@ public abstract class BlockDummyable extends BlockContainer {
 	
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[]{META});
+		return new BlockStateContainer(this, META);
 	}
 	
 	@Override

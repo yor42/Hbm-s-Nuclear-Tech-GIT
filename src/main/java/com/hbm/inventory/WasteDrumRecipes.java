@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 public class WasteDrumRecipes {
 
 	public static HashMap<Item, ItemStack> recipes = new HashMap<>();
-	private static HashSet<Item> outputs = new HashSet<>();
+	private static final HashSet<Item> outputs = new HashSet<>();
 	
 	public static void registerRecipes() {
 

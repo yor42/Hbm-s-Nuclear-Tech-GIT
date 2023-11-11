@@ -92,12 +92,7 @@ public class TileEntityWatzCore extends TileEntityLoadedBase implements ITickabl
 	}
 	
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		if(world.getTileEntity(pos) != this)
-		{
-			return false;
-		}else{
-			return true;
-		}
+        return world.getTileEntity(pos) == this;
 	}
 	
 	@Override
@@ -189,7 +184,7 @@ public class TileEntityWatzCore extends TileEntityLoadedBase implements ITickabl
 				needsUpdate = false;
 			}
 			
-			PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, new FluidTank[]{tank}), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
+			PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, tank), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
 			PacketDispatcher.wrapper.sendToAllAround(new AuxElectricityPacket(pos, power), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
 		}
 	}
@@ -340,8 +335,7 @@ public class TileEntityWatzCore extends TileEntityLoadedBase implements ITickabl
 	@Override
 	public void recievePacket(NBTTagCompound[] tags) {
 		if(tags.length != 1){
-			return;
-		} else {
+        } else {
 			tank.readFromNBT(tags[0]);
 		}
 	}

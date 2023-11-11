@@ -12,7 +12,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerMachineFluidTank extends Container {
 
-	private TileEntityMachineFluidTank diFurnace;
+	private final TileEntityMachineFluidTank diFurnace;
 	
 	public ContainerMachineFluidTank(InventoryPlayer invPlayer, TileEntityMachineFluidTank tedf) {
 		//What the heck is a diFurnace
@@ -43,7 +43,7 @@ public class ContainerMachineFluidTank extends Container {
     public ItemStack transferStackInSlot(EntityPlayer p_82846_1_, int par2)
     {
 		ItemStack var3 = ItemStack.EMPTY;
-		Slot var4 = (Slot) this.inventorySlots.get(par2);
+		Slot var4 = this.inventorySlots.get(par2);
 		
 		if (var4 != null && var4.getHasStack())
 		{

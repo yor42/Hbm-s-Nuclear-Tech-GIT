@@ -181,12 +181,12 @@ public class TileEntityMachineSatDock extends TileEntity implements ITickable {
 		rand = new Random();
 
 		for(int i = 0; i < items; i++) {
-			ItemStack stack = ((WeightedRandomObject)WeightedRandom.getRandomItem(rand, Arrays.asList(cargo))).asStack();
+			ItemStack stack = WeightedRandom.getRandomItem(rand, Arrays.asList(cargo)).asStack();
 			addToInv(stack);
 		}
 	}
 
-	private WeightedRandomObject[] cargo = new WeightedRandomObject[] { 
+	private final WeightedRandomObject[] cargo = new WeightedRandomObject[] {
 		new WeightedRandomObject(new ItemStack(ModItems.powder_aluminium, 3), 10), 
 		new WeightedRandomObject(new ItemStack(ModItems.powder_iron, 3), 10), 
 		new WeightedRandomObject(new ItemStack(ModItems.powder_titanium, 2), 8), 
@@ -214,7 +214,7 @@ public class TileEntityMachineSatDock extends TileEntity implements ITickable {
 		new WeightedRandomObject(new ItemStack(ModItems.crystal_starmetal, 1), 1)
 	};
 
-	private WeightedRandomObject[] cargoGerald = new WeightedRandomObject[] { 
+	private final WeightedRandomObject[] cargoGerald = new WeightedRandomObject[] {
 		new WeightedRandomObject(new ItemStack(ModItems.powder_meteorite, 12), 128),
 		new WeightedRandomObject(new ItemStack(ModItems.powder_plutonium, 4), 64), 
 		new WeightedRandomObject(new ItemStack(ModItems.powder_combine_steel, 6), 64),

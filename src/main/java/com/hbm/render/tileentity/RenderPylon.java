@@ -25,7 +25,7 @@ public class RenderPylon extends TileEntitySpecialRenderer<TileEntityPylon> {
 	private static final float cableColorG = 0.16F;
 	private static final float cableColorB = 0.16F;
 
-	private ModelPylon pylon;
+	private final ModelPylon pylon;
 
 	public RenderPylon() {
 		this.pylon = new ModelPylon();
@@ -45,7 +45,7 @@ public class RenderPylon extends TileEntitySpecialRenderer<TileEntityPylon> {
 			this.pylon.renderAll(0.0625F);
 		GL11.glPopMatrix();
 
-		this.renderPowerLines(pyl, x, y, z);
+		renderPowerLines(pyl, x, y, z);
 	}
 
 	public static void renderPowerLines(TileEntityPylonBase pyl, double x, double y, double z) {

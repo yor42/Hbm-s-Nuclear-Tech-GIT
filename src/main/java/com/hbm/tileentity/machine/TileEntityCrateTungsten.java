@@ -30,7 +30,7 @@ public class TileEntityCrateTungsten extends TileEntityLockableBase implements I
 
 	public ItemStackHandler inventory;
 
-	private Random rand = new Random();
+	private final Random rand = new Random();
 
 	public int heatTimer = 0;
 	public int age = 0;

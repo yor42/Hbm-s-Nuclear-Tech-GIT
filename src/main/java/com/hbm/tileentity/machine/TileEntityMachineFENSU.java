@@ -40,7 +40,7 @@ public class TileEntityMachineFENSU extends TileEntityMachineBattery {
 	@Override
 	protected void transmitPower() {
 		
-		short mode = (short) this.getRelevantMode();
+		short mode = this.getRelevantMode();
 		
 		ForgeDirection dir = ForgeDirection.DOWN;
 			

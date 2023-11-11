@@ -9,9 +9,9 @@ public class ParticleContrailDark extends ParticleContrail {
 
 	public ParticleContrailDark(TextureManager manage, World worldIn, double posXIn, double posYIn, double posZIn) {
 		super(manage, worldIn, posXIn, posYIn, posZIn, 0.4F, 0.4F, 0.4F, 1F);
-		this.flameRed = 1F;
-		this.flameGreen = 0.75F;
-		this.flameBlue = 0F;
+		flameRed = 1F;
+		flameGreen = 0.75F;
+		flameBlue = 0F;
 		this.doFlames = true;
 	}
 }

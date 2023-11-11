@@ -74,7 +74,7 @@ public class EntityNukeExplosionMK3 extends Entity implements IChunkLoader {
 		
 		long time = nbt.getLong("milliTime");
 		
-		if(BombConfig.limitExplosionLifespan > 0 && System.currentTimeMillis() - time > BombConfig.limitExplosionLifespan * 1000)
+		if(BombConfig.limitExplosionLifespan > 0 && System.currentTimeMillis() - time > BombConfig.limitExplosionLifespan * 1000L)
 			this.setDead();
 		
     	if(this.waste)
@@ -353,9 +353,7 @@ public class EntityNukeExplosionMK3 extends Entity implements IChunkLoader {
 				return false;
 			if(y != other.y)
 				return false;
-			if(z != other.z)
-				return false;
-			return true;
-		}
+            return z == other.z;
+        }
 	}
 }

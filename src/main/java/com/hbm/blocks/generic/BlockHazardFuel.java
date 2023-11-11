@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 
 public class BlockHazardFuel extends BlockHazard {
 
-	private int burntime;
+	private final int burntime;
 	public int encouragement;
 	public int flammability;
 	

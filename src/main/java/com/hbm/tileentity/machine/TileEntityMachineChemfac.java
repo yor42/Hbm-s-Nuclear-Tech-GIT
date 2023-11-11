@@ -275,10 +275,10 @@ public class TileEntityMachineChemfac extends TileEntityMachineChemplantBase imp
 		ForgeDirection rot = dir.getRotation(ForgeDirection.UP);
 
 		inPos = new BlockPos[]{
-				pos.add(dir.offsetX * 4 - rot.offsetX * 1, 0, dir.offsetZ * 4 - rot.offsetZ * 1),
+				pos.add(dir.offsetX * 4 - rot.offsetX, 0, dir.offsetZ * 4 - rot.offsetZ),
 				pos.add(-dir.offsetX * 5 + rot.offsetX * 2, 0, -dir.offsetZ * 5 + rot.offsetZ * 2),
 				pos.add(-dir.offsetX * 2 - rot.offsetX * 4, 0, -dir.offsetZ * 2 - rot.offsetZ * 4),
-				pos.add(dir.offsetX * 1 + rot.offsetX * 5, 0, dir.offsetZ * 1 + rot.offsetZ * 5)
+				pos.add(dir.offsetX + rot.offsetX * 5, 0, dir.offsetZ + rot.offsetZ * 5)
 		};
 
 		return inPos;
@@ -294,8 +294,8 @@ public class TileEntityMachineChemfac extends TileEntityMachineChemplantBase imp
 
 		outPos = new BlockPos[]{
 				pos.add(dir.offsetX * 4 + rot.offsetX * 2, 0, dir.offsetZ * 4 + rot.offsetZ * 2),
-				pos.add(-dir.offsetX * 5 - rot.offsetX * 1, 0, -dir.offsetZ * 5 - rot.offsetZ * 1),
-				pos.add(dir.offsetX * 1 - rot.offsetX * 4, 0, dir.offsetZ * 1 - rot.offsetZ * 4),
+				pos.add(-dir.offsetX * 5 - rot.offsetX, 0, -dir.offsetZ * 5 - rot.offsetZ),
+				pos.add(dir.offsetX - rot.offsetX * 4, 0, dir.offsetZ - rot.offsetZ * 4),
 				pos.add(-dir.offsetX * 2 + rot.offsetX * 5, 0, -dir.offsetZ * 2 + rot.offsetZ * 5)
 		};
 

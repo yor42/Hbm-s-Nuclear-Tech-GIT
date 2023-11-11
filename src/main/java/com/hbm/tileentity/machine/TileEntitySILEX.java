@@ -208,7 +208,7 @@ public class TileEntitySILEX extends TileEntityMachineBase implements ITickable,
 			
 			currentFill -= recipe.fluidConsumed;
 			
-			ItemStack out = ((WeightedRandomObject)WeightedRandom.getRandomItem(world.rand, recipe.outputs)).asStack();
+			ItemStack out = WeightedRandom.getRandomItem(world.rand, recipe.outputs).asStack();
 			inventory.setStackInSlot(3, out.copy());
 			progress = 0;
 			this.markDirty();

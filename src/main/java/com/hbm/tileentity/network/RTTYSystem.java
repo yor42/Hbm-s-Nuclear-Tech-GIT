@@ -50,7 +50,7 @@ public class RTTYSystem {
 	}
 
 	/* Special objects for signifying specific signals to be used with RTTY machines (or telex) */
-	public static enum RTTYSpecialSignal {
+	public enum RTTYSpecialSignal {
 		BEGIN_TTY,		//start a new message block
 		STOP_TTY,		//end the message block
 		PRINT_BUFFER	//print message, literally, it makes a paper printout

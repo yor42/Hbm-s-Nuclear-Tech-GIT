@@ -219,7 +219,7 @@ public class BlockHazard extends Block implements IItemHazard {
         }
 	}
 	
-	public static enum ExtDisplayEffect {
+	public enum ExtDisplayEffect {
 		RADFOG,
 		SPARKS,
 		SCHRAB,
@@ -236,8 +236,7 @@ public class BlockHazard extends Block implements IItemHazard {
     	if (entity instanceof EntityLivingBase && this == ModBlocks.brick_jungle_mystic)
     	{
     		((EntityLivingBase) entity).addPotionEffect(new PotionEffect(HbmPotion.taint, 15 * 20, 2));
-    		return;
-    	}
+        }
 	}
 
 	@Override
@@ -249,8 +248,7 @@ public class BlockHazard extends Block implements IItemHazard {
     	if (entity instanceof EntityLivingBase && this == ModBlocks.brick_jungle_mystic)
     	{
     		((EntityLivingBase) entity).addPotionEffect(new PotionEffect(HbmPotion.taint, 15 * 20, 2));
-    		return;
-    	}
+        }
 	}
 
 	@Override

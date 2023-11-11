@@ -186,7 +186,7 @@ public abstract class TileEntityPylonBase extends TileEntityCableBaseNT {
 		this.readFromNBT(pkt.getNbtCompound());
 	}
 
-	public static enum ConnectionType {
+	public enum ConnectionType {
 		SINGLE,
 		QUAD
 		//more to follow

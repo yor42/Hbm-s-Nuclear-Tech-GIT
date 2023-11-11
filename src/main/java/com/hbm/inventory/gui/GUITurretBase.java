@@ -89,7 +89,7 @@ public abstract class GUITurretBase extends GuiInfoContainer {
 				int highLight = 0;
 				if(list.size() > 1) {
 					int cycle = (int) ((System.currentTimeMillis() % (1000 * list.size())) / 1000);
-					selected = ((ItemStack) list.get(cycle)).copy();
+					selected = list.get(cycle).copy();
 					highLight = cycle;
 					list.set(cycle, selected);
 				}
@@ -198,8 +198,7 @@ public abstract class GUITurretBase extends GuiInfoContainer {
 			NBTTagCompound data = new NBTTagCompound();
 			data.setInteger("del", this.index);
 			PacketDispatcher.wrapper.sendToServer(new NBTControlPacket(data, turret.getPos().getX(), turret.getPos().getY(), turret.getPos().getZ()));
-			return;
-		}
+        }
 	}
 
 	public int getTurretFontColor(){
@@ -232,7 +231,7 @@ public abstract class GUITurretBase extends GuiInfoContainer {
 		String cursor = System.currentTimeMillis() % 1000 < 500 ? " " : "||";
 		
 		if(this.field.isFocused())
-			t = t.substring(0, this.field.getCursorPosition()) + cursor + t.substring(this.field.getCursorPosition(), t.length());
+			t = t.substring(0, this.field.getCursorPosition()) + cursor + t.substring(this.field.getCursorPosition());
 		
 		double scale = 2;
 		

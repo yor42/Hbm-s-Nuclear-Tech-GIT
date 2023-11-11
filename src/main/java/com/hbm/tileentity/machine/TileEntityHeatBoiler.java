@@ -225,8 +225,8 @@ public class TileEntityHeatBoiler extends TileEntity implements INBTPacketReceiv
                 diff = (int) Math.ceil(diff * diffusion);
                 source.useUpHeat(diff);
                 this.heat += diff;
-                if(this.heat > this.maxHeat)
-                    this.heat = this.maxHeat;
+                if(this.heat > maxHeat)
+                    this.heat = maxHeat;
                 return;
             }
         }

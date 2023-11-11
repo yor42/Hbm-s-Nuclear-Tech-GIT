@@ -2,6 +2,7 @@ package com.hbm.world;
 
 import com.hbm.blocks.ModBlocks;
 
+import com.hbm.main.MainRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;

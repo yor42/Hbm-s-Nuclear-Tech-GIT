@@ -2,6 +2,7 @@ package com.hbm.inventory.gui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.lang.Math;
 
@@ -25,10 +26,10 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineBattery extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/storage/gui_battery.png");
-	private TileEntityMachineBattery battery;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/storage/gui_battery.png");
+	private final TileEntityMachineBattery battery;
 
-	private ConnectionPriority lastPrio = ConnectionPriority.LOW;
+	private final ConnectionPriority lastPrio = ConnectionPriority.LOW;
 
 	public GUIMachineBattery(InventoryPlayer invPlayer, TileEntityMachineBattery tedf) {
 		super(new ContainerMachineBattery(invPlayer, tedf));
@@ -65,8 +66,7 @@ public class GUIMachineBattery extends GuiInfoContainer {
 		priority.add(I18nUtil.resolveKey("battery.priority." + lang));
 		priority.add(I18nUtil.resolveKey("battery.priority.recommended"));
 		String[] desc = I18nUtil.resolveKeyArray("battery.priority." + lang + ".desc");
-		for(String s : desc) 
-			priority.add(s);
+        Collections.addAll(priority, desc);
 		
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 151, guiTop + 16, 16, 16, mouseX, mouseY, priority.toArray(new String[priority.size()]));
 

@@ -1,10 +1,6 @@
 package com.hbm.inventory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
 
 import static com.hbm.inventory.OreDictManager.*;
@@ -33,9 +29,9 @@ import net.minecraftforge.fluids.FluidRegistry;
 public class CrystallizerRecipes {
 
 	//'Object' is either a ComparableStack or the String for the ore dict
-	private static HashMap<Object, ItemStack> itemOutputRecipes = new HashMap<Object, ItemStack>();
-	private static HashMap<Object, FluidStack> fluidInputRecipes = new HashMap<Object, FluidStack>();
-	private static HashSet<Fluid> allowedFluids = new HashSet<Fluid>();
+	private static final HashMap<Object, ItemStack> itemOutputRecipes = new HashMap<Object, ItemStack>();
+	private static final HashMap<Object, FluidStack> fluidInputRecipes = new HashMap<Object, FluidStack>();
+	private static final HashSet<Fluid> allowedFluids = new HashSet<Fluid>();
 	private static List<CrystallizerRecipe> jeiCrystalRecipes = null;
 
 	public static void register() {
@@ -196,7 +192,7 @@ public class CrystallizerRecipes {
 
 			List<List<ItemStack>> totalInput = new ArrayList<List<ItemStack>>();
 			totalInput.add(ingredients);
-			totalInput.add(Arrays.asList(inputFluid));
+			totalInput.add(Collections.singletonList(inputFluid));
 
 
 			jeiCrystalRecipes.add(new CrystallizerRecipe(totalInput, outputItem));

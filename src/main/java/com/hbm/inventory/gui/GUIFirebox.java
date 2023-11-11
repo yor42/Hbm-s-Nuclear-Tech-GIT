@@ -11,7 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 public class GUIFirebox extends GuiInfoContainer {
 	
-	private TileEntityFireboxBase firebox;
+	private final TileEntityFireboxBase firebox;
 	private final ResourceLocation texture;
 
 	public GUIFirebox(InventoryPlayer invPlayer, TileEntityFireboxBase tedf, ResourceLocation texture) {

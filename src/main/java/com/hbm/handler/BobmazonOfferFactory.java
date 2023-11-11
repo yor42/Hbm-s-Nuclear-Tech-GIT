@@ -185,7 +185,7 @@ public class BobmazonOfferFactory {
 		special.add(new Offer(new ItemStack(ModItems.gun_hk69, 24), Requirement.HIDDEN, 8 * inflation));
 		special.add(new Offer(new ItemStack(ModItems.ammo_grenade, 6), Requirement.HIDDEN, 4 * inflation));
 		special.add(new Offer(new ItemStack(ModItems.ammo_grenade_sleek, 6), Requirement.HIDDEN, 6 * inflation));
-		special.add(new Offer(new ItemStack(ModItems.gun_kit_1, 10), Requirement.HIDDEN, 1 * inflation));
+		special.add(new Offer(new ItemStack(ModItems.gun_kit_1, 10), Requirement.HIDDEN, inflation));
 		special.add(new Offer(new ItemStack(ModItems.gun_kit_2, 5), Requirement.HIDDEN, 3 * inflation));
 		special.add(new Offer(new ItemStack(ModBlocks.machine_epress, 2), Requirement.HIDDEN, 5 * inflation));
 		special.add(new Offer(new ItemStack(ModBlocks.machine_assembler, 1), Requirement.HIDDEN, 5 * inflation));
@@ -207,7 +207,7 @@ public class BobmazonOfferFactory {
 		special.add(new Offer(new ItemStack(ModItems.loot_10, 1), Requirement.HIDDEN, 2 * inflation));
 		special.add(new Offer(new ItemStack(ModItems.loot_15, 1), Requirement.HIDDEN, 2 * inflation));
 		special.add(new Offer(new ItemStack(ModItems.loot_misc, 1), Requirement.HIDDEN, 2 * inflation));
-		special.add(new Offer(new ItemStack(ModBlocks.crate_can, 1), Requirement.HIDDEN, 1 * inflation));
+		special.add(new Offer(new ItemStack(ModBlocks.crate_can, 1), Requirement.HIDDEN, inflation));
 		special.add(new Offer(new ItemStack(ModBlocks.crate_ammo, 1), Requirement.HIDDEN, 15 * inflation));
 		special.add(new Offer(new ItemStack(ModItems.crucible, 1, 3), Requirement.STEEL, 10 * inflation));
 		special.add(new Offer(new ItemStack(ModItems.spawn_chopper, 1), Requirement.STEEL, 100 * inflation));

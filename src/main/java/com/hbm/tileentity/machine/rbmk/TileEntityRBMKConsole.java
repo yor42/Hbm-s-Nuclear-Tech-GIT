@@ -542,7 +542,7 @@ public class TileEntityRBMKConsole extends TileEntityMachineBase implements ICon
 		}
 	}
 	
-	public static enum ColumnType {
+	public enum ColumnType {
 		BLANK(0),
 		FUEL(10),
 		FUEL_SIM(90),
@@ -560,7 +560,7 @@ public class TileEntityRBMKConsole extends TileEntityMachineBase implements ICon
 		
 		public int offset;
 		
-		private ColumnType(int offset) {
+		ColumnType(int offset) {
 			this.offset = offset;
 		}
 	}
@@ -598,9 +598,9 @@ public class TileEntityRBMKConsole extends TileEntityMachineBase implements ICon
 		}
 	}
 	
-	public static enum ScreenType {
-		NONE(0 * 18),
-		COL_TEMP(1 * 18),
+	public enum ScreenType {
+		NONE(0),
+		COL_TEMP(18),
 		FUEL_TEMP(5 * 18),
 		ROD_EXTRACTION(2 * 18),
 		FLUX(6 * 18),
@@ -609,7 +609,7 @@ public class TileEntityRBMKConsole extends TileEntityMachineBase implements ICon
 		
 		public int offset;
 		
-		private ScreenType(int offset) {
+		ScreenType(int offset) {
 			this.offset = offset;
 		}
 	}

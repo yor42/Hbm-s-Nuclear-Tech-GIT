@@ -218,8 +218,7 @@ public class TileEntityMachineTurbine extends TileEntityLoadedBase implements IT
 	@Override
 	public void recievePacket(NBTTagCompound[] tags) {
 		if(tags.length != 2) {
-			return;
-		} else {
+        } else {
 			tanks[0].readFromNBT(tags[0]);
 			tanks[1].readFromNBT(tags[1]);
 		}
@@ -279,8 +278,8 @@ public class TileEntityMachineTurbine extends TileEntityLoadedBase implements IT
 	}
 
 	private long detectPower;
-	private FluidTank[] detectTanks = new FluidTank[] { null, null };
-	private Fluid[] detectFluids = new Fluid[] { null, null };
+	private final FluidTank[] detectTanks = new FluidTank[] { null, null };
+	private final Fluid[] detectFluids = new Fluid[] { null, null };
 
 	private void detectAndSendChanges() {
 

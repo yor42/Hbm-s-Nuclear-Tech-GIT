@@ -30,7 +30,7 @@ public class TileEntityCrateDesh extends TileEntityLockableBase implements ITick
 	public ItemStackHandler inventory;
 	private String customName;
 
-	private Random rand = new Random();
+	private final Random rand = new Random();
 
 	public int heatTimer;
 

@@ -21,8 +21,8 @@ import net.minecraft.item.ItemStack;
 public class Centrifuge {
 	
 	private static class ActionAddRecipe implements IAction{
-		private ItemStack[] outputs;
-		private ItemStack input;
+		private final ItemStack[] outputs;
+		private final ItemStack input;
 		public ActionAddRecipe(IItemStack input, IItemStack[] outputs){
 			this.outputs = new ItemStack[outputs.length];
 			for(int i = 0; i < outputs.length; i++)
@@ -65,7 +65,7 @@ public class Centrifuge {
 
 
 	public static class ActionRemoveRecipe implements IAction{
-		private ItemStack input;
+		private final ItemStack input;
 
 		public ActionRemoveRecipe(IItemStack input){
 			this.input = CraftTweakerMC.getItemStack(input);

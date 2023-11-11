@@ -188,7 +188,7 @@ public class TileEntityMachineFrackingTower extends TileEntityOilDrillBase {
             }
 
             PacketDispatcher.wrapper.sendToAllAround(new AuxElectricityPacket(pos, power), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 10));
-            PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, new FluidTank[] { tanks[0], tanks[1], tanks[2] }), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 10));
+            PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, tanks[0], tanks[1], tanks[2]), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 10));
             if(tank0Amount != tanks[0].getFluidAmount() || tank1Amount != tanks[1].getFluidAmount() || tank2Amount != tanks[2].getFluidAmount()){
                 markDirty();
             }
@@ -284,7 +284,6 @@ public class TileEntityMachineFrackingTower extends TileEntityOilDrillBase {
     @Override
     public void recievePacket(NBTTagCompound[] tags) {
         if(tags.length != 3) {
-            return;
         } else {
             tanks[0].readFromNBT(tags[0]);
             tanks[1].readFromNBT(tags[1]);

@@ -22,7 +22,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class PressRecipes {
 
-	public static enum PressType {
+	public enum PressType {
 		NONE,
 		FLAT,
 		PLATE,
@@ -31,8 +31,8 @@ public class PressRecipes {
 		THREEFIFESEVEN,
 		FOURFOUR,
 		NINE,
-		FIVEZERO;
-	}
+		FIVEZERO
+    }
 
 	public static HashMap<Pair<PressType, AStack>, ItemStack> pressRecipes = new HashMap<Pair<PressType, AStack>, ItemStack>();
 

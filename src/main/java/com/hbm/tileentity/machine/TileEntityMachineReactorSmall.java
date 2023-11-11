@@ -95,8 +95,7 @@ public class TileEntityMachineReactorSmall extends TileEntity implements ITickab
 					if(FFUtils.containsFluid(itemStack, FluidRegistry.WATER))
 						return true;
 				if(i == 14)
-					if(FFUtils.containsFluid(itemStack, ModForgeFluids.coolant))
-						return true;
+                    return FFUtils.containsFluid(itemStack, ModForgeFluids.coolant);
 				return false;
 			}
 
@@ -161,7 +160,7 @@ public class TileEntityMachineReactorSmall extends TileEntity implements ITickab
 			if(compression == 1) {
 				if(level == 0) {
 					tankTypes[2] = ModForgeFluids.steam;
-					int newAmount = (int) (tanks[2].getFluidAmount() * 10);
+					int newAmount = tanks[2].getFluidAmount() * 10;
 					tanks[2].drain(tanks[2].getCapacity(), true);
 					tanks[2].fill(new FluidStack(tankTypes[2], newAmount), true);
 				}
@@ -175,7 +174,7 @@ public class TileEntityMachineReactorSmall extends TileEntity implements ITickab
 			if(compression == 2) {
 				if(level == 0) {
 					tankTypes[2] = ModForgeFluids.steam;
-					int newAmount = (int) (tanks[2].getFluidAmount() * 100);
+					int newAmount = tanks[2].getFluidAmount() * 100;
 					tanks[2].drain(tanks[2].getCapacity(), true);
 					tanks[2].fill(new FluidStack(tankTypes[2], newAmount), true);
 				}
@@ -246,7 +245,7 @@ public class TileEntityMachineReactorSmall extends TileEntity implements ITickab
 
 			getInteractions();
 
-			if(this.coreHeat > 0 && this.tanks[1].getFluidAmount() > 0 && this.hullHeat < this.maxHullHeat) {
+			if(this.coreHeat > 0 && this.tanks[1].getFluidAmount() > 0 && this.hullHeat < maxHullHeat) {
 				this.hullHeat += this.coreHeat * 0.175 * hullHeatMod;
 				this.coreHeat -= this.coreHeat * 0.1;
 
@@ -323,12 +322,8 @@ public class TileEntityMachineReactorSmall extends TileEntity implements ITickab
 		}
 
 		boolean side4 = blocksRad(pos.add(0, 1, -1));
-		if(!side4){
-			return false;
-		}
-
-		return true;
-	}
+        return side4;
+    }
 
 	@SuppressWarnings("deprecation")
 	private boolean blocksRad(BlockPos pos) {
@@ -338,11 +333,8 @@ public class TileEntityMachineReactorSmall extends TileEntity implements ITickab
 		if(b instanceof IRadResistantBlock)
 			return ((IRadResistantBlock)b).isRadResistant(world, pos);
 
-		if(b == Blocks.FLOWING_WATER || b == Blocks.WATER)
-			return true;
-
-		return false;
-	}
+        return b == Blocks.FLOWING_WATER || b == Blocks.WATER;
+    }
 
 	private void generateSteam() {
 
@@ -563,9 +555,7 @@ public class TileEntityMachineReactorSmall extends TileEntity implements ITickab
 
 	protected boolean inputValidForTank(int tank, int slot) {
 		if(inventory.getStackInSlot(slot) != ItemStack.EMPTY && tanks[tank] != null) {
-			if(isValidFluidForTank(tank, FluidUtil.getFluidContained(inventory.getStackInSlot(slot)))) {
-				return true;
-			}
+            return isValidFluidForTank(tank, FluidUtil.getFluidContained(inventory.getStackInSlot(slot)));
 		}
 		return false;
 	}
@@ -756,8 +746,7 @@ public class TileEntityMachineReactorSmall extends TileEntity implements ITickab
 	@Override
 	public void recievePacket(NBTTagCompound[] tags) {
 		if(tags.length != 3) {
-			return;
-		} else {
+        } else {
 			tanks[0].readFromNBT(tags[0]);
 			tanks[1].readFromNBT(tags[1]);
 			tanks[2].readFromNBT(tags[2]);
@@ -789,7 +778,7 @@ public class TileEntityMachineReactorSmall extends TileEntity implements ITickab
 	private int detectRods;
 	private boolean detectRetracting;
 	private int detectCompression;
-	private FluidTank[] detectTanks = new FluidTank[] { null, null, null };
+	private final FluidTank[] detectTanks = new FluidTank[] { null, null, null };
 
 	private void detectAndSendChanges() {
 		boolean mark = false;

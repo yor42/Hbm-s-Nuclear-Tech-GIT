@@ -116,7 +116,7 @@ public class TileEntityMachineCrystallizer extends TileEntityMachineBase impleme
 				}
 			}
 
-			PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, new FluidTank[]{tank}), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 10));
+			PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, tank), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 10));
 
 			NBTTagCompound data = new NBTTagCompound();
 			data.setShort("progress", progress);
@@ -213,11 +213,8 @@ public class TileEntityMachineCrystallizer extends TileEntityMachineBase impleme
 			return false;
 		acidRequired = acidFluid.amount;
 
-		if(tank.getFluidAmount() < getRequiredAcid())
-			return false;
-
-		return true;
-	}
+        return tank.getFluidAmount() >= getRequiredAcid();
+    }
 
 	public int getRequiredAcid() {
 
@@ -288,7 +285,7 @@ public class TileEntityMachineCrystallizer extends TileEntityMachineBase impleme
 				consumption += 6000;
 		}
 
-		return (int) (demand + Math.min(consumption, 6000));
+		return demand + Math.min(consumption, 6000);
 	}
 
 	public float getCycleCount() {

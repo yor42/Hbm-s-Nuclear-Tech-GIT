@@ -19,6 +19,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class GUIHeaterHeatex extends GuiInfoContainer {
     private final static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_heatex.png");
@@ -63,10 +64,10 @@ public class GUIHeaterHeatex extends GuiInfoContainer {
         FFUtils.renderTankInfo(this, x, y, guiLeft + 116, guiTop + 36, 16, 52, heater.tanks[1]);
 
         if (guiLeft + 70 <= x && guiLeft + 70 + 36 > x && guiTop + 26 < y && guiTop + 26 + 18 >= y) {
-            drawHoveringText(Arrays.asList("Amount per cycle"), x, y);
+            drawHoveringText(Collections.singletonList("Amount per cycle"), x, y);
         }
         if (guiLeft + 70 <= x && guiLeft + 70 + 36 > x && guiTop + 44 < y && guiTop + 44 + 18 >= y) {
-            drawHoveringText(Arrays.asList("Cycle tick delay"), x, y);
+            drawHoveringText(Collections.singletonList("Cycle tick delay"), x, y);
         }
 
         super.renderHoveredToolTip(x, y);

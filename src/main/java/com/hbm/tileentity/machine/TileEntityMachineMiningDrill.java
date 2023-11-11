@@ -266,7 +266,7 @@ public class TileEntityMachineMiningDrill extends TileEntityMachineBase implemen
 			}
 
 			if(te != null && te instanceof ICapabilityProvider){
-				ICapabilityProvider capte = (ICapabilityProvider)te;
+				ICapabilityProvider capte = te;
 				if(capte.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, MultiblockHandler.intToEnumFacing(meta).rotateY())){
 					IItemHandler cap = capte.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, MultiblockHandler.intToEnumFacing(meta).rotateY());
 					for(int i = 1; i < 10; i ++)
@@ -352,9 +352,8 @@ public class TileEntityMachineMiningDrill extends TileEntityMachineBase implemen
 			if(inv.getStackInSlot(i).getItem() == Items.AIR && sta2 != null) {
 				sta2.setCount(1);
 				inventory.getStackInSlot(slot).shrink(1);
-				;
 
-				if(inventory.getStackInSlot(slot).isEmpty())
+                if(inventory.getStackInSlot(slot).isEmpty())
 					inventory.setStackInSlot(slot, ItemStack.EMPTY);
 
 				inv.insertItem(i, sta2, false);
@@ -436,8 +435,7 @@ public class TileEntityMachineMiningDrill extends TileEntityMachineBase implemen
 																				if(!tryDrill(x + 1, y, z - 2))
 																					if(!tryDrill(x + 2, y, z - 1))
 
-																						if(!tryDrill(x, y - 1, z))
-																							return false;
+                                                                                        return tryDrill(x, y - 1, z);
 
 		return true;
 	}
@@ -486,8 +484,7 @@ public class TileEntityMachineMiningDrill extends TileEntityMachineBase implemen
 																																				if(!tryDrill(x + 2, y, z - 2))
 																																					if(!tryDrill(x + 3, y, z - 1))
 
-																																						if(!tryDrill(x, y - 1, z))
-																																							return false;
+                                                                                                                                                        return tryDrill(x, y - 1, z);
 
 		return true;
 	}
@@ -569,8 +566,7 @@ public class TileEntityMachineMiningDrill extends TileEntityMachineBase implemen
 																																																																				if(!tryDrill(x + 4, y, z - 2))
 																																																																					if(!tryDrill(x + 4, y, z - 1))
 
-																																																																						if(!tryDrill(x, y - 1, z))
-																																																																							return false;
+                                                                                                                                                                                                                                                                                        return tryDrill(x, y - 1, z);
 
 		return true;
 	}

@@ -144,7 +144,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ITick
 			PacketDispatcher.wrapper.sendToAllAround(new AuxElectricityPacket(pos, power), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
 			PacketDispatcher.wrapper.sendToAllAround(new AuxGaugePacket(pos, solid, 0), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
 			PacketDispatcher.wrapper.sendToAllAround(new AuxGaugePacket(pos, padSize.ordinal(), 1), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
-			PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, new FluidTank[]{tanks[0], tanks[1]}), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
+			PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, tanks[0], tanks[1]), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
 			
 			MissileStruct multipart = getStruct(inventory.getStackInSlot(0));
 			if(needsUpdate){
@@ -193,12 +193,9 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ITick
 	}
 	
 	public boolean canLaunch() {
-		
-		if(power >= maxPower * 0.75 && isMissileValid() && hasDesignator() && hasFuel())
-			return true;
-		
-		return false;
-	}
+
+        return power >= maxPower * 0.75 && isMissileValid() && hasDesignator() && hasFuel();
+    }
 	
 	public void launch() {
 
@@ -227,7 +224,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ITick
 		if(multipart == null || multipart.fuselage == null)
 			return;
 		
-		ItemMissile fuselage = (ItemMissile)multipart.fuselage;
+		ItemMissile fuselage = multipart.fuselage;
 		
 		float f = (Float)fuselage.attributes[1];
 		int fuel = (int)f;
@@ -268,7 +265,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ITick
 		if(multipart == null || multipart.fuselage == null)
 			return false;
 		
-		ItemMissile fuselage = (ItemMissile)multipart.fuselage;
+		ItemMissile fuselage = multipart.fuselage;
 		
 		return fuselage.top == padSize;
 	}
@@ -290,9 +287,9 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ITick
 		if(multipart == null || multipart.fuselage == null)
 			return -1;
 		
-		ItemMissile fuselage = (ItemMissile)multipart.fuselage;
+		ItemMissile fuselage = multipart.fuselage;
 		
-		if((FuelType)fuselage.attributes[0] == FuelType.SOLID) {
+		if(fuselage.attributes[0] == FuelType.SOLID) {
 			
 			if(solid >= (Float)fuselage.attributes[1])
 				return 1;
@@ -310,7 +307,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ITick
 		if(multipart == null || multipart.fuselage == null)
 			return -1;
 		
-		ItemMissile fuselage = (ItemMissile)multipart.fuselage;
+		ItemMissile fuselage = multipart.fuselage;
 		
 		switch((FuelType)fuselage.attributes[0]) {
 			case KEROSENE:
@@ -335,7 +332,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ITick
 		if(multipart == null || multipart.fuselage == null)
 			return -1;
 		
-		ItemMissile fuselage = (ItemMissile)multipart.fuselage;
+		ItemMissile fuselage = multipart.fuselage;
 		
 		switch((FuelType)fuselage.attributes[0]) {
 			case KEROSENE:
@@ -359,7 +356,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ITick
 		if(multipart == null || multipart.fuselage == null)
 			return;
 		
-		ItemMissile fuselage = (ItemMissile)multipart.fuselage;
+		ItemMissile fuselage = multipart.fuselage;
 		
 		switch((FuelType)fuselage.attributes[0]) {
 			case KEROSENE:
@@ -383,9 +380,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ITick
 
 	protected boolean inputValidForTank(int tank, int slot){
 		if(tanks[tank] != null){
-			if(isValidFluidForTank(tank, FluidUtil.getFluidContained(inventory.getStackInSlot(slot)))){
-				return true;
-			}
+            return isValidFluidForTank(tank, FluidUtil.getFluidContained(inventory.getStackInSlot(slot)));
 		}
 		return false;
 	}
@@ -484,8 +479,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ITick
 	@Override
 	public void recievePacket(NBTTagCompound[] tags) {
 		if(tags.length != 2){
-			return;
-		} else {
+        } else {
 			tanks[0].readFromNBT(tags[0]);
 			tanks[1].readFromNBT(tags[1]);
 		}

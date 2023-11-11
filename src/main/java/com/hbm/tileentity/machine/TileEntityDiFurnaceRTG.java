@@ -97,11 +97,8 @@ public class TileEntityDiFurnaceRTG extends TileEntityMachineBase implements ITi
 	
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack stack) {
-		if(i == 2) {
-			return false;
-		}
-		return true;
-	}
+        return i != 2;
+    }
 	
 	@Override
 	public boolean canInsertItem(int slot, ItemStack itemStack, int amount) {

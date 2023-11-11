@@ -71,7 +71,7 @@ public class RenderFluidTank extends TileEntitySpecialRenderer<TileEntityMachine
 			if(((TileEntityMachineFluidTank)tileEntity).tank.getFluid() != null){
 				type = ((TileEntityMachineFluidTank)tileEntity).tank.getFluid().getFluid();
 				s = FluidRegistry.getFluidName(type).toUpperCase();
-				if(s.substring(0, 3).equals("HBM")){
+				if(s.startsWith("HBM")){
 					s = s.substring(3);
 				}
 			}

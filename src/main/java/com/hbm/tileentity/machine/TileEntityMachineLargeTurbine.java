@@ -108,7 +108,7 @@ public class TileEntityMachineLargeTurbine extends TileEntityMachineBase impleme
 				tanks[0].drain((Integer)outs[2] * cycles, true);
 				tanks[1].fill(new FluidStack(types[1], (Integer)outs[1] * cycles), true);
 
-				power += (Integer)outs[3] * cycles;
+				power += (long) (Integer) outs[3] * cycles;
 
 				if(power > maxPower)
 					power = maxPower;
@@ -118,7 +118,7 @@ public class TileEntityMachineLargeTurbine extends TileEntityMachineBase impleme
 
 			FFUtils.fillFluidContainer(inventory, tanks[1], 5, 6);
 
-			PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, new FluidTank[]{tanks[0], tanks[1]}), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
+			PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, tanks[0], tanks[1]), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
 			PacketDispatcher.wrapper.sendToAllAround(new FluidTypePacketTest(pos.getX(), pos.getY(), pos.getZ(), new Fluid[]{types[0], types[1]}), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
 			
 			NBTTagCompound data = new NBTTagCompound();
@@ -144,8 +144,7 @@ public class TileEntityMachineLargeTurbine extends TileEntityMachineBase impleme
 	protected boolean inputValidForTank(int tank, int slot) {
 		if(inventory.getStackInSlot(slot) != ItemStack.EMPTY && tanks[tank] != null) {
 			FluidStack f = FluidUtil.getFluidContained(inventory.getStackInSlot(slot));
-			if(f != null && f.getFluid() == types[tank])
-				return true;
+            return f != null && f.getFluid() == types[tank];
 		}
 		return false;
 	}

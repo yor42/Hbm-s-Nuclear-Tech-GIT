@@ -77,7 +77,7 @@ public class BlockFallout extends Block implements IItemHazard {
 	public boolean canPlaceBlockAt(World world, BlockPos pos){
 		IBlockState state = world.getBlockState(pos.down());
 		Block block = state.getBlock();
-		return block != Blocks.ICE && block != Blocks.PACKED_ICE ? (block.isLeaves(state, world, pos.down()) ? true : (block == this && (state.getValue(META) & 7) == 7 ? true : state.isOpaqueCube() && state.getMaterial().blocksMovement())) : false;
+		return block != Blocks.ICE && block != Blocks.PACKED_ICE && (block.isLeaves(state, world, pos.down()) || (block == this && (state.getValue(META) & 7) == 7 || state.isOpaqueCube() && state.getMaterial().blocksMovement()));
 	}
 	
 	@Override
@@ -123,7 +123,7 @@ public class BlockFallout extends Block implements IItemHazard {
 	
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[]{META});
+		return new BlockStateContainer(this, META);
 	}
 	
 	@Override

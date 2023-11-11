@@ -208,9 +208,7 @@ public class TileEntityMachineSeleniumEngine extends TileEntityLoadedBase implem
 
 	protected boolean inputValidForTank(int tank, int slot){
 		if(this.tank != null){
-			if(isValidFluidForTank(tank, FluidUtil.getFluidContained(inventory.getStackInSlot(slot)))){
-				return true;
-			}
+            return isValidFluidForTank(tank, FluidUtil.getFluidContained(inventory.getStackInSlot(slot)));
 		}
 		return false;
 	}
@@ -250,8 +248,7 @@ public class TileEntityMachineSeleniumEngine extends TileEntityLoadedBase implem
 	@Override
 	public void recievePacket(NBTTagCompound[] tags) {
 		if(tags.length != 1){
-			return;
-		} else {
+        } else {
 			tank.readFromNBT(tags[0]);
 		}
 	}

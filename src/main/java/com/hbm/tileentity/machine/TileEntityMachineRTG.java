@@ -49,10 +49,8 @@ public class TileEntityMachineRTG extends TileEntityLoadedBase implements ITicka
 			
 			@Override
 			public boolean isItemValid(int slot, ItemStack itemStack) {
-				if(itemStack != null && (itemStack.getItem() instanceof ItemRTGPellet))
-					return true;
-				return false;
-			}
+                return itemStack != null && (itemStack.getItem() instanceof ItemRTGPellet);
+            }
 			@Override
 			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
 				if(isItemValid(slot, stack))
@@ -87,7 +85,7 @@ public class TileEntityMachineRTG extends TileEntityLoadedBase implements ITicka
 			if(heat > heatMax)
 				heat = heatMax;
 			
-			power += heat*5;
+			power += heat* 5L;
 			if(power > maxPower)
 				power = maxPower;
 			

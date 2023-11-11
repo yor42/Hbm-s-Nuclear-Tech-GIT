@@ -49,9 +49,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityNuclearCreeper extends EntityMob implements IRadiationImmune {
-	private static final DataParameter<Integer> STATE = EntityDataManager.<Integer> createKey(EntityNuclearCreeper.class, DataSerializers.VARINT);
-	public static final DataParameter<Boolean> POWERED = EntityDataManager.<Boolean> createKey(EntityNuclearCreeper.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> IGNITED = EntityDataManager.<Boolean> createKey(EntityNuclearCreeper.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> STATE = EntityDataManager.createKey(EntityNuclearCreeper.class, DataSerializers.VARINT);
+	public static final DataParameter<Boolean> POWERED = EntityDataManager.createKey(EntityNuclearCreeper.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(EntityNuclearCreeper.class, DataSerializers.BOOLEAN);
 	/**
 	 * Time when this creeper was last in an active state (Messed up code here,
 	 * probably causes creeper animation to go weird)
@@ -141,7 +141,7 @@ public class EntityNuclearCreeper extends EntityMob implements IRadiationImmune 
 	public void writeEntityToNBT(NBTTagCompound compound){
 		super.writeEntityToNBT(compound);
 
-		if((Boolean) this.dataManager.get(POWERED)) {
+		if(this.dataManager.get(POWERED)) {
 			compound.setBoolean("powered", true);
 		}
 

@@ -13,8 +13,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIRadioThermal extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_heater_rtg.png");
-	private TileEntityHeaterRadioThermal heater;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_heater_rtg.png");
+	private final TileEntityHeaterRadioThermal heater;
 	
 	public GUIRadioThermal(InventoryPlayer invPlayer, TileEntityHeaterRadioThermal tedf) {
 		super(new ContainerRadioThermal(invPlayer, tedf));
@@ -54,7 +54,7 @@ public class GUIRadioThermal extends GuiInfoContainer {
 			drawTexturedModalRect(guiLeft + 134, guiTop + 74 - i, 176, 52 - i, 16, i);
 		}
 		if(heater.hasHeat()){
-			int i = (int)heater.getHeatScaled(52);
+			int i = heater.getHeatScaled(52);
 			drawTexturedModalRect(guiLeft + 152, guiTop + 74 - i, 192, 52 - i, 16, i);
 		}
 	}

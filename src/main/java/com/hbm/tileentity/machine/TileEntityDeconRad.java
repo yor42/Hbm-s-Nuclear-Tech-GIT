@@ -22,12 +22,12 @@ public class TileEntityDeconRad extends TileEntity implements ITickable {
 
 	public TileEntityDeconRad() {
 		super();
-		this.radRemove = 0.5F;
+		radRemove = 0.5F;
 	}
 
 	public TileEntityDeconRad(float rad) {
 		super();
-		this.radRemove = rad;
+		radRemove = rad;
 	}
 
 	@Override
@@ -43,8 +43,8 @@ public class TileEntityDeconRad extends TileEntity implements ITickable {
 						}
 					}
 					if(e.hasCapability(EntityHbmPropsProvider.ENT_HBM_PROPS_CAP, null)){
-						if(this.radRemove > 0.0F){
-							e.getCapability(EntityHbmPropsProvider.ENT_HBM_PROPS_CAP, null).decreaseRads(this.radRemove);
+						if(radRemove > 0.0F){
+							e.getCapability(EntityHbmPropsProvider.ENT_HBM_PROPS_CAP, null).decreaseRads(radRemove);
 						}
 					}
 					if(e instanceof EntityPlayer){

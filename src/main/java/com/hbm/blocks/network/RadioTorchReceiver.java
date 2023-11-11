@@ -70,12 +70,12 @@ public class RadioTorchReceiver extends BlockContainer {
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[]{FACING});
+		return new BlockStateContainer(this, FACING);
 	}
 	
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((EnumFacing)state.getValue(FACING)).getIndex();
+		return state.getValue(FACING).getIndex();
 	}
 	
 	@Override
@@ -87,12 +87,12 @@ public class RadioTorchReceiver extends BlockContainer {
 
 	@Override
 	public IBlockState withRotation(IBlockState state, Rotation rot) {
-		return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+		return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	}
 	
 	@Override
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-	   return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+	   return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
 	}
 
 	
@@ -115,7 +115,7 @@ public class RadioTorchReceiver extends BlockContainer {
 
 	@Override
 	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-		if(side == (EnumFacing)blockState.getValue(FACING).getOpposite())
+		if(side == blockState.getValue(FACING).getOpposite())
 			return getWeakPower(blockState, blockAccess, pos, side);
 		return 0;
 	}

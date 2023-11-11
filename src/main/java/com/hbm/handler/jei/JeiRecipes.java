@@ -1,10 +1,6 @@
 package com.hbm.handler.jei;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 import com.hbm.blocks.ModBlocks;
@@ -95,13 +91,13 @@ public class JeiRecipes {
 	private static List<SAFERecipe> safeRecipes = null;
 	private static List<HadronRecipe> hadronRecipes = null;
 	private static List<SILEXRecipe> silexRecipes = null;
-	private static Map<EnumWavelengths, List<SILEXRecipe>> waveSilexRecipes = new HashMap<EnumWavelengths, List<SILEXRecipe>>();
+	private static final Map<EnumWavelengths, List<SILEXRecipe>> waveSilexRecipes = new HashMap<EnumWavelengths, List<SILEXRecipe>>();
 	private static List<SmithingRecipe> smithingRecipes = null;
 	private static List<AnvilRecipe> anvilRecipes = null;
 	private static List<TransmutationRecipe> transmutationRecipes = null;
 	
 	private static List<ItemStack> batteries = null;
-	private static Map<Integer, List<ItemStack>> reactorFuelMap = new HashMap<Integer, List<ItemStack>>();
+	private static final Map<Integer, List<ItemStack>> reactorFuelMap = new HashMap<Integer, List<ItemStack>>();
 	private static List<ItemStack> blades = null;
 	private static List<ItemStack> alloyFuels = null;
 	
@@ -454,7 +450,7 @@ public class JeiRecipes {
 		public void getIngredients(IIngredients ingredients) {
 			List<List<ItemStack>> in = Library.copyItemStackListList(inputs);
 			while(in.size() < 12)
-				in.add(Arrays.asList(new ItemStack(ModItems.nothing)));
+				in.add(Collections.singletonList(new ItemStack(ModItems.nothing)));
 			int index = -1;
 			for(int i = 0; i < AssemblerRecipes.recipeList.size(); i++){ // finding the template item
 				if(AssemblerRecipes.recipeList.get(i).isApplicable(output)){
@@ -463,9 +459,9 @@ public class JeiRecipes {
 				}
 			}
 			if(index >= 0) // adding the template item
-				in.add(Arrays.asList(ItemAssemblyTemplate.getTemplate(index)));
+				in.add(Collections.singletonList(ItemAssemblyTemplate.getTemplate(index)));
 			else {
-				in.add(Arrays.asList(new ItemStack(ModItems.nothing)));
+				in.add(Collections.singletonList(new ItemStack(ModItems.nothing)));
 			}
 			ingredients.setInputLists(VanillaTypes.ITEM, in);
 			ingredients.setOutput(VanillaTypes.ITEM, output);

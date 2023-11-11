@@ -33,7 +33,7 @@ public class BossSpawnHandler {
 
 				if(world.rand.nextInt(MobConfig.maskmanChance) == 0 && !world.playerEntities.isEmpty() && world.provider.isSurfaceWorld()) {	//33% chance only if there is a player online
 
-					EntityPlayer player = (EntityPlayer) world.playerEntities.get(world.rand.nextInt(world.playerEntities.size()));	//choose a random player
+					EntityPlayer player = world.playerEntities.get(world.rand.nextInt(world.playerEntities.size()));	//choose a random player
 					
 					
 					if(ContaminationUtil.getRads(player) >= MobConfig.maskmanMinRad && (world.getHeight((int)player.posX, (int)player.posZ) > player.posY + 3 || !MobConfig.maskmanUnderground)) {	//if the player has more than 50 RAD and is underground
@@ -55,7 +55,7 @@ public class BossSpawnHandler {
 
 				if(world.rand.nextInt(MobConfig.raidChance) == 0 && !world.playerEntities.isEmpty() && world.provider.isSurfaceWorld()) {
 
-					EntityPlayer player = (EntityPlayer) world.playerEntities.get(world.rand.nextInt(world.playerEntities.size()));
+					EntityPlayer player = world.playerEntities.get(world.rand.nextInt(world.playerEntities.size()));
 					player.sendMessage(new TextComponentString("FBI, OPEN UP!").setStyle(new Style().setColor(TextFormatting.RED)));
 					
 					Vec3 vec = Vec3.createVectorHelper(MobConfig.raidAttackDistance, 0, 0);
@@ -79,7 +79,7 @@ public class BossSpawnHandler {
 				
 				if(world.rand.nextInt(MobConfig.raidChance) == 0 && !world.playerEntities.isEmpty() && world.provider.isSurfaceWorld()) {
 					
-					EntityPlayer player = (EntityPlayer) world.playerEntities.get(world.rand.nextInt(world.playerEntities.size()));
+					EntityPlayer player = world.playerEntities.get(world.rand.nextInt(world.playerEntities.size()));
 					
 					if(player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).getLong("fbiMark") < world.getTotalWorldTime()) {
 						player.sendMessage(new TextComponentString("FBI, OPEN UP!").setStyle(new Style().setColor(TextFormatting.RED)));
@@ -106,7 +106,7 @@ public class BossSpawnHandler {
 
 				if(world.rand.nextInt(MobConfig.elementalChance) == 0 && !world.playerEntities.isEmpty() && world.provider.isSurfaceWorld()) {
 
-					EntityPlayer player = (EntityPlayer) world.playerEntities.get(world.rand.nextInt(world.playerEntities.size()));
+					EntityPlayer player = world.playerEntities.get(world.rand.nextInt(world.playerEntities.size()));
 
 					if(player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).getBoolean("radMark")) {
 
@@ -165,7 +165,7 @@ public class BossSpawnHandler {
 		if(dimMeteorShowerChance > 0 && dimMeteorStrikeChance > 0){
 			if(world.rand.nextInt(meteorShower > 0 ? dimMeteorShowerChance : dimMeteorStrikeChance) == 0) {
 				if(!world.playerEntities.isEmpty()) {
-					EntityPlayer p = (EntityPlayer) world.playerEntities.get(world.rand.nextInt(world.playerEntities.size()));
+					EntityPlayer p = world.playerEntities.get(world.rand.nextInt(world.playerEntities.size()));
 					if(p != null && p.dimension == 0) {
 						boolean repell = false;
 						boolean strike = true;

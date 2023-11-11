@@ -20,8 +20,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineExcavator extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_mining_drill.png");
-	private TileEntityMachineExcavator drill;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_mining_drill.png");
+	private final TileEntityMachineExcavator drill;
 
 	public GUIMachineExcavator(InventoryPlayer inventory, TileEntityMachineExcavator tile) {
 		super(new ContainerMachineExcavator(inventory, tile));
@@ -42,7 +42,7 @@ public class GUIMachineExcavator extends GuiInfoContainer {
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 79, guiTop + 16, 18, 18, mouseX, mouseY, new String[] { "Vein mining" });
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 103, guiTop + 16, 18, 18, mouseX, mouseY, new String[] { "Construct walls" });
 		
-		this.drawElectricityInfo(this, mouseX, mouseY, guiLeft + 220, guiTop + 17, 16, 52, drill.getPower(), drill.maxPower);
+		this.drawElectricityInfo(this, mouseX, mouseY, guiLeft + 220, guiTop + 17, 16, 52, drill.getPower(), TileEntityMachineExcavator.maxPower);
 		FFUtils.renderTankInfo(this, mouseX, mouseY, guiLeft + 202, guiTop + 17, 16, 52, drill.tank, drill.fluidType);
 		super.renderHoveredToolTip(mouseX, mouseY);
 	}

@@ -31,7 +31,7 @@ public class ItemFilter extends Item {
 		ItemStack helmet = player.inventory.armorInventory.get(3);
 		ItemStack stack = player.getHeldItem(hand);
 		if(helmet == null || helmet.isEmpty())
-			return ActionResult.<ItemStack> newResult(EnumActionResult.PASS, player.getHeldItem(hand));
+			return ActionResult.newResult(EnumActionResult.PASS, player.getHeldItem(hand));
 		
 		if(!(helmet.getItem() instanceof IGasMask)) {
 			
@@ -43,12 +43,12 @@ public class ItemFilter extends Item {
 					
 					ItemStack ret = installFilterOn(mask, stack, world, player);
 					ArmorModHandler.applyMod(helmet, mask);
-					return ActionResult.<ItemStack> newResult(EnumActionResult.SUCCESS, ret);
+					return ActionResult.newResult(EnumActionResult.SUCCESS, ret);
 				}
 			}
 		}
 		
-		return ActionResult.<ItemStack> newResult(EnumActionResult.SUCCESS, installFilterOn(helmet, stack, world, player));
+		return ActionResult.newResult(EnumActionResult.SUCCESS, installFilterOn(helmet, stack, world, player));
 	}
 	
 	private ItemStack installFilterOn(ItemStack helmet, ItemStack filter, World world, EntityPlayer player) {

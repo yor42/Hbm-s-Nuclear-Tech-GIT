@@ -330,7 +330,7 @@ public class Mat4 extends Mat {
     }
 
     public void print(String title) {
-        System.out.println("" + title);
+        System.out.println(title);
         System.out.println(c0.x + " " + c1.x + " " + c2.x + " " + c3.x + "\n");
         System.out.println(c0.y + " " + c1.y + " " + c2.y + " " + c3.y + "\n");
         System.out.println(c0.z + " " + c1.z + " " + c2.z + " " + c3.z + "\n");

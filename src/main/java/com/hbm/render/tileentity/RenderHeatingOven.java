@@ -28,7 +28,7 @@ public class RenderHeatingOven extends TileEntitySpecialRenderer<TileEntityHeate
         }
         GL11.glRotatef(-90, 0F, 1F, 0F);
 
-        TileEntityHeaterOven oven = (TileEntityHeaterOven) tile;
+        TileEntityHeaterOven oven = tile;
 
         bindTexture(ResourceManager.heater_oven_tex);
         ResourceManager.heater_oven.renderPart("Main");

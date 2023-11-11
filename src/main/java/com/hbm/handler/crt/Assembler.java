@@ -21,8 +21,8 @@ import net.minecraft.item.ItemStack;
 public class Assembler {
 	
 	private static class ActionAddRecipe implements IAction{
-		private ItemStack[] inputs;
-		private ItemStack output;
+		private final ItemStack[] inputs;
+		private final ItemStack output;
 		private int duration = 0;
 		public ActionAddRecipe(IItemStack output, IItemStack[] inputs, int duration){
 			this.inputs = new ItemStack[inputs.length];
@@ -80,7 +80,7 @@ public class Assembler {
 
 
 	public static class ActionRemoveRecipe implements IAction{
-		private ItemStack output;
+		private final ItemStack output;
 
 		public ActionRemoveRecipe(IItemStack output){
 			this.output = CraftTweakerMC.getItemStack(output);

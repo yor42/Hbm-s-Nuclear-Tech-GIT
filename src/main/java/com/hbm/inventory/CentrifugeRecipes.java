@@ -1,9 +1,6 @@
 package com.hbm.inventory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
 
 import static com.hbm.inventory.OreDictManager.*;
@@ -23,7 +20,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class CentrifugeRecipes {
 
-	private static HashMap<Object, ItemStack[]> recipes = new HashMap<Object, ItemStack[]>();
+	private static final HashMap<Object, ItemStack[]> recipes = new HashMap<Object, ItemStack[]>();
 	private static List<CentrifugeRecipe> centrifugeRecipes = null;
 	
 	public static void register() {
@@ -379,7 +376,7 @@ public class CentrifugeRecipes {
 		@Override
 		public void getIngredients(IIngredients ingredients) {
 			if(inputs != null){
-				ingredients.setInputLists(VanillaTypes.ITEM, Arrays.asList(inputs));
+				ingredients.setInputLists(VanillaTypes.ITEM, Collections.singletonList(inputs));
 			} else {
 				ingredients.setInput(VanillaTypes.ITEM, input);
 			}

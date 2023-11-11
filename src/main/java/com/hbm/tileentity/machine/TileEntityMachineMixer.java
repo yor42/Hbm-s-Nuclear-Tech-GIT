@@ -256,11 +256,8 @@ public class TileEntityMachineMixer extends TileEntityMachineBase implements ITi
 		//Mixing uu matter?
 		if(uuMixer){
 			this.processTime = 200;
-			if(outputFluid != null && tanks[2].getFluidAmount() < tanks[2].getCapacity() && FFUtils.hasEnoughFluid(tanks[0], new FluidStack(ModForgeFluids.uu_matter, MachineConfig.uuMixerFluidRatio))){
-				return true;
-			}
-			return false;
-		}
+            return outputFluid != null && tanks[2].getFluidAmount() < tanks[2].getCapacity() && FFUtils.hasEnoughFluid(tanks[0], new FluidStack(ModForgeFluids.uu_matter, MachineConfig.uuMixerFluidRatio));
+        }
 
 		//has recipe?
 		if(!MixerRecipes.hasMixerRecipe(outputFluid)) {
@@ -426,8 +423,7 @@ public class TileEntityMachineMixer extends TileEntityMachineBase implements ITi
 	@Override
 	public void recievePacket(NBTTagCompound[] tags) {
 		if(tags.length != 3) {
-			return;
-		} else {
+        } else {
 			tanks[0].readFromNBT(tags[0]);
 			tanks[1].readFromNBT(tags[1]);
 			tanks[2].readFromNBT(tags[2]);

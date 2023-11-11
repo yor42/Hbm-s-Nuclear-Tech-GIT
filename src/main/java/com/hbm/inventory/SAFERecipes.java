@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 
 public class SAFERecipes {
 
-	private static HashMap<ComparableStack, ItemStack> recipes = new HashMap<>();
+	private static final HashMap<ComparableStack, ItemStack> recipes = new HashMap<>();
 	
 	public static void registerRecipes() {
 		addRecipe(new ComparableStack(ModItems.tiny_singularity), new ItemStack(ModItems.singularity));

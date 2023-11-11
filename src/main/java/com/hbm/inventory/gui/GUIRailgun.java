@@ -17,8 +17,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIRailgun extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_railgun.png");
-	private TileEntityRailgun railgun;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_railgun.png");
+	private final TileEntityRailgun railgun;
 
 	public GUIRailgun(InventoryPlayer invPlayer, TileEntityRailgun tedf) {
 		super(new ContainerRailgun(invPlayer, tedf));

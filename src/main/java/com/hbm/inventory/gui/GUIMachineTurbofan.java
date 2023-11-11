@@ -14,8 +14,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineTurbofan extends GuiInfoContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/generators/gui_turbofan.png");
-	private TileEntityMachineTurbofan turbofan;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/generators/gui_turbofan.png");
+	private final TileEntityMachineTurbofan turbofan;
 
 	public GUIMachineTurbofan(InventoryPlayer invPlayer, TileEntityMachineTurbofan tedf) {
 		super(new ContainerMachineTurbofan(invPlayer, tedf));
@@ -30,7 +30,7 @@ public class GUIMachineTurbofan extends GuiInfoContainer {
 		super.drawScreen(mouseX, mouseY, f);
 
 		FFUtils.renderTankInfo(this, mouseX, mouseY, guiLeft + 35, guiTop + 16, 34, 52, turbofan.tank);
-		this.drawElectricityInfo(this, mouseX, mouseY, guiLeft + 143, guiTop + 16, 16, 52, turbofan.power, turbofan.maxPower);
+		this.drawElectricityInfo(this, mouseX, mouseY, guiLeft + 143, guiTop + 16, 16, 52, turbofan.power, TileEntityMachineTurbofan.maxPower);
 
 		super.renderHoveredToolTip(mouseX, mouseY);
 	}

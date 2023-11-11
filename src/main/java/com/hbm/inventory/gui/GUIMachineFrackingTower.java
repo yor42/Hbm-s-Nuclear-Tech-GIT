@@ -13,8 +13,8 @@ import org.lwjgl.opengl.GL11;
 
 public class GUIMachineFrackingTower extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_fracking_tower.png");
-	private TileEntityMachineFrackingTower frackingTower;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_fracking_tower.png");
+	private final TileEntityMachineFrackingTower frackingTower;
 
 	public GUIMachineFrackingTower(InventoryPlayer invPlayer, TileEntityMachineFrackingTower tedf) {
 		super(new ContainerMachineFrackingTower(invPlayer, tedf));

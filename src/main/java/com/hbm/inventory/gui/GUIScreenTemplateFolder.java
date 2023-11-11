@@ -176,11 +176,7 @@ public class GUIScreenTemplateFolder extends GuiScreen {
     }
 
     protected void mouseClicked(int i, int j, int k) {
-		if(i >= guiLeft + 45 && i < guiLeft + 117 && j >= guiTop + 211 && j < guiTop + 223) {
-			this.search.setFocused(true);
-		} else  {
-			this.search.setFocused(false);
-		}
+        this.search.setFocused(i >= guiLeft + 45 && i < guiLeft + 117 && j >= guiTop + 211 && j < guiTop + 223);
 
     	try {
     		for(FolderButton b : buttons)
@@ -294,7 +290,7 @@ public class GUIScreenTemplateFolder extends GuiScreen {
 					s = TrackType.getEnum(stack.getItemDamage()).getTrackTitle();
 			}
 
-			drawHoveringText(Arrays.asList(new String[] { s }), x, y);
+			drawHoveringText(Arrays.asList(s), x, y);
 		}
 		
 		public void executeAction() {

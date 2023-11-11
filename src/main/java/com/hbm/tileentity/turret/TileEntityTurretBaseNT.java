@@ -273,10 +273,10 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		this.trySubscribe(world, pos.add(dir.offsetX * -1 + rot.offsetX * -1, 0, dir.offsetZ * -1 + rot.offsetZ * -1), dir.getOpposite());
 
 		this.trySubscribe(world, pos.add(rot.offsetX * -2, 0, rot.offsetZ * -2), rot.getOpposite());
-		this.trySubscribe(world, pos.add(dir.offsetX * 1 + rot.offsetX * -2, 0, dir.offsetZ * 1 + rot.offsetZ * -2), rot.getOpposite());
+		this.trySubscribe(world, pos.add(dir.offsetX + rot.offsetX * -2, 0, dir.offsetZ + rot.offsetZ * -2), rot.getOpposite());
 
-		this.trySubscribe(world, pos.add(rot.offsetX * 1, 0, rot.offsetZ * 1), rot);
-		this.trySubscribe(world, pos.add(dir.offsetX * 1 + rot.offsetX * 1, 0, dir.offsetZ * 1 + rot.offsetZ * 1), rot);
+		this.trySubscribe(world, pos.add(rot.offsetX, 0, rot.offsetZ), rot);
+		this.trySubscribe(world, pos.add(dir.offsetX + rot.offsetX, 0, dir.offsetZ + rot.offsetZ), rot);
 
 		this.trySubscribe(world, pos.add(dir.offsetX * 2, 0, dir.offsetZ * 2), dir);
 		this.trySubscribe(world, pos.add(dir.offsetX * 2 + rot.offsetX * -1, 0, dir.offsetZ * 2 + rot.offsetZ * -1), dir);
@@ -599,7 +599,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 			if(wl == null || wl.isEmpty())
 				return true;
 			
-			return !wl.contains(((EntityPlayer)e).getDisplayName().getUnformattedText());
+			return !wl.contains(e.getDisplayName().getUnformattedText());
 		}
 		
 		return false;

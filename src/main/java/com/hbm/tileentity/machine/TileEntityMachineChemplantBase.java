@@ -169,12 +169,8 @@ public abstract class TileEntityMachineChemplantBase extends TileEntityMachineBa
 			return false;
 		}
 
-		if(!hasSpaceForItems(itemOutputs, index)) {
-			return false;
-		}
-
-		return true;
-	}
+        return hasSpaceForItems(itemOutputs, index);
+    }
 
 	private void setupTanks(@Nullable FluidStack[] inputs, @Nullable FluidStack[] outputs, int index) {
 		if(inputs != null) {

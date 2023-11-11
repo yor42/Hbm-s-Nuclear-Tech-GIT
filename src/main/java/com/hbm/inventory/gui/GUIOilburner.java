@@ -20,7 +20,7 @@ import java.io.IOException;
 public class GUIOilburner extends GuiInfoContainer {
     private final ResourceLocation texture;
 
-    private TileEntityHeaterOilburner heater;
+    private final TileEntityHeaterOilburner heater;
 
     public GUIOilburner(InventoryPlayer player, TileEntityHeaterOilburner heater, ResourceLocation texture) {
         super(new ContainerOilburner(player, heater));

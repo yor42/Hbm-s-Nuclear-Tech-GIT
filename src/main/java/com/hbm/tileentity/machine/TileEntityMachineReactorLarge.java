@@ -71,7 +71,7 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 
 	public static int fuelMult = 1000;
 	public static int cycleDuration = 24000;
-	private static int fuelBase = 240 * fuelMult;
+	private static final int fuelBase = 240 * fuelMult;
 	//private static int waterBase = 128 * 1000;
 	//private static int coolantBase = 64 * 1000;
 	//private static int steamBase = 32 * 1000;
@@ -232,7 +232,7 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 			if(compression == 1){
 				if(level == 0){
 					tankTypes[2] = ModForgeFluids.steam;
-					int newAmount = (int) (tanks[2].getFluidAmount()*10);
+					int newAmount = tanks[2].getFluidAmount()*10;
 					tanks[2].drain(tanks[2].getCapacity(), true);
 					tanks[2].fill(new FluidStack(tankTypes[2], newAmount), true);
 				}
@@ -246,7 +246,7 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 			if(compression == 2){
 				if(level == 0){
 					tankTypes[2] = ModForgeFluids.steam;
-					int newAmount = (int) (tanks[2].getFluidAmount()*100);
+					int newAmount = tanks[2].getFluidAmount()*100;
 					tanks[2].drain(tanks[2].getCapacity(), true);
 					tanks[2].fill(new FluidStack(tankTypes[2], newAmount), true);
 				}
@@ -347,11 +347,8 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 		if(b instanceof IRadResistantBlock)
 			return true;
 
-		if(b == ModBlocks.reactor_hatch || b == ModBlocks.reactor_ejector || b == ModBlocks.reactor_inserter)
-			return true;
-		
-		return false;
-	}
+        return b == ModBlocks.reactor_hatch || b == ModBlocks.reactor_ejector || b == ModBlocks.reactor_inserter;
+    }
 	
 	private void caluclateSize() {
 		
@@ -418,7 +415,7 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 					fillFluidInit(tanks[2]);
 				
 				PacketDispatcher.wrapper.sendToAllAround(new AuxGaugePacket(pos, size, 0), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 15));
-				PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, new FluidTank[]{tanks[0], tanks[1], tanks[2]}), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 15));
+				PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, tanks[0], tanks[1], tanks[2]), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 15));
 				PacketDispatcher.wrapper.sendToAllAround(new FluidTypePacketTest(pos.getX(), pos.getY(), pos.getZ(), new Fluid[]{tankTypes[2]}), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 15));
 			}
 		
@@ -569,9 +566,7 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 	
 	protected boolean inputValidForTank(int tank, int slot){
 		if(!inventory.getStackInSlot(slot).isEmpty() && tanks[tank] != null){
-			if(inventory.getStackInSlot(slot).getItem() == ModItems.fluid_barrel_infinite || isValidFluidForTank(tank, FluidUtil.getFluidContained(inventory.getStackInSlot(slot)))){
-				return true;
-			}
+            return inventory.getStackInSlot(slot).getItem() == ModItems.fluid_barrel_infinite || isValidFluidForTank(tank, FluidUtil.getFluidContained(inventory.getStackInSlot(slot)));
 		}
 		return false;
 	}
@@ -857,8 +852,7 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 	@Override
 	public void recievePacket(NBTTagCompound[] tags) {
 		if(tags.length != 3){
-			return;
-		} else {
+        } else {
 			tanks[0].readFromNBT(tags[0]);
 			tanks[1].readFromNBT(tags[1]);
 			tanks[2].readFromNBT(tags[2]);
@@ -884,12 +878,12 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 		SCHRABIDIUM(2085000),
 		UNKNOWN(1);
 		
-		private ReactorFuelType(int i) {
+		ReactorFuelType(int i) {
 			heat = i;
 		}
 		
 		//Heat per nugget burned
-		private int heat;
+		private final int heat;
 		
 		public int getHeat() {
 			return heat;

@@ -55,7 +55,7 @@ public class ItemContaminating extends ItemHazard {
 			entityItem.setDead();
 			return true;
 		}
-		return false || m;
+		return m;
 	}
 
 	public static boolean isCleanGround(BlockPos pos, World world){

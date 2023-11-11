@@ -19,7 +19,7 @@ public interface IEnergyUser extends IEnergyConnector {
 	/**
 	 * Not to be used for actual energy transfer, rather special external things like EMPs and sync packets
 	 */
-	public void setPower(long power);
+    void setPower(long power);
 	
 	/**
 	 * Standard implementation for power transfer.
@@ -27,7 +27,7 @@ public interface IEnergyUser extends IEnergyConnector {
 	 * @param long power
 	 */
 	@Override
-	public default long transferPower(long power) {
+    default long transferPower(long power) {
 		long ownMaxPower = this.getMaxPower();
 		long ownPower = this.getPower();
 		if(power > ownMaxPower - ownPower) {
@@ -50,7 +50,7 @@ public interface IEnergyUser extends IEnergyConnector {
 	 * @param z
 	 * @param dir
 	 */
-	public default void sendPower(World world, BlockPos pos, ForgeDirection dir) {
+	default void sendPower(World world, BlockPos pos, ForgeDirection dir) {
 		
 		TileEntity te = world.getTileEntity(pos);
 		boolean wasSubscribed = false;

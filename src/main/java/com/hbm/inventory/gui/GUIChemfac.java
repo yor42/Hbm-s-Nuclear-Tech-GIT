@@ -37,7 +37,7 @@ public class GUIChemfac extends GuiInfoContainer {
 			int offX = guiLeft + 110 * (i % 2);
 			int offY = guiTop + 38 * (i / 2);
 
-			FFUtils.renderTankInfo(this, mouseX, mouseY, offX + 40, offY + 45 - 32, 5, 34, chemfac.tanks[i * 4 + 0].getTank(), chemfac.tanks[i * 4 + 0].getType());
+			FFUtils.renderTankInfo(this, mouseX, mouseY, offX + 40, offY + 45 - 32, 5, 34, chemfac.tanks[i * 4].getTank(), chemfac.tanks[i * 4].getType());
 			FFUtils.renderTankInfo(this, mouseX, mouseY, offX + 45, offY + 45 - 32, 5, 34, chemfac.tanks[i * 4 + 1].getTank(), chemfac.tanks[i * 4 + 1].getType());
 			FFUtils.renderTankInfo(this, mouseX, mouseY, offX + 102, offY + 45 - 32, 5, 34, chemfac.tanks[i * 4 + 2].getTank(), chemfac.tanks[i * 4 + 2].getType());
 			FFUtils.renderTankInfo(this, mouseX, mouseY, offX + 107, offY + 45 - 32, 5, 34, chemfac.tanks[i * 4 + 3].getTank(), chemfac.tanks[i * 4 + 3].getType());
@@ -77,7 +77,7 @@ public class GUIChemfac extends GuiInfoContainer {
 			Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 			drawTexturedModalRect(guiLeft + offX + 51, guiTop + offY + 16, 202, 247, j, 11);
 
-			FFUtils.drawLiquid(chemfac.tanks[i * 4 + 0].getTank(), guiLeft, guiTop, this.zLevel, 3, 32, offX + 41, offY + 74);
+			FFUtils.drawLiquid(chemfac.tanks[i * 4].getTank(), guiLeft, guiTop, this.zLevel, 3, 32, offX + 41, offY + 74);
 			FFUtils.drawLiquid(chemfac.tanks[i * 4 + 1].getTank(), guiLeft, guiTop, this.zLevel, 3, 32, offX + 46, offY + 74);
 			FFUtils.drawLiquid(chemfac.tanks[i * 4 + 2].getTank(), guiLeft, guiTop, this.zLevel, 3, 32, offX + 103, offY + 74);
 			FFUtils.drawLiquid(chemfac.tanks[i * 4 + 3].getTank(), guiLeft, guiTop, this.zLevel, 3, 32, offX + 108, offY + 74);

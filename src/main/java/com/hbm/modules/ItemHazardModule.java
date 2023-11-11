@@ -121,7 +121,7 @@ public class ItemHazardModule {
 
 		if(this.cryogenic > 0 && !reacher){
 			if(entity instanceof EntityLivingBase){
-				EntityLivingBase livingCEntity = (EntityLivingBase) entity;
+				EntityLivingBase livingCEntity = entity;
 				boolean isProtected = entity instanceof EntityPlayer && ArmorUtil.checkForHazmat((EntityPlayer)entity);
 				if(!isProtected){
 					livingCEntity.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 100, this.cryogenic-1));
@@ -141,7 +141,7 @@ public class ItemHazardModule {
 
 		if(this.toxic > 0){
 			if(entity instanceof EntityLivingBase){
-				EntityLivingBase livingTEntity = (EntityLivingBase) entity;
+				EntityLivingBase livingTEntity = entity;
 				boolean hasToxFilter = false;
 				boolean hasHazmat = false;
 				if(entity instanceof EntityPlayer){
@@ -160,7 +160,7 @@ public class ItemHazardModule {
 					if(this.toxic > 4)
 						livingTEntity.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 100, this.toxic));
 					if(this.toxic > 6){
-						if(entity.world.rand.nextInt((int)(2000/this.toxic)) == 0){
+						if(entity.world.rand.nextInt(2000/this.toxic) == 0){
 							livingTEntity.addPotionEffect(new PotionEffect(MobEffects.POISON, 100, this.toxic-4));
 						}
 					}
@@ -209,7 +209,7 @@ public class ItemHazardModule {
 		}
 
 		if(this.blinding && !ArmorRegistry.hasProtection(entity, EntityEquipmentSlot.HEAD, HazardClass.LIGHT)) {
-			((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 100, 0));
+			entity.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 100, 0));
 		}
 	}
 

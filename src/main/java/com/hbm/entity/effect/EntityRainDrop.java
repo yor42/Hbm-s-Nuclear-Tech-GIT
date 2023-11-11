@@ -56,7 +56,7 @@ public class EntityRainDrop extends Entity implements IConstantRenderer, IChunkL
 	private final List<Long> chunksToProcess = new ArrayList<>();
 	private final List<Long> outerChunksToProcess = new ArrayList<>();
 
-	private static int tickDelayStatic = BombConfig.fChunkSpeed;
+	private static final int tickDelayStatic = BombConfig.fChunkSpeed;
 	private int tickDelay = 0;
 
 	public EntityRainDrop(World p_i1582_1_) {

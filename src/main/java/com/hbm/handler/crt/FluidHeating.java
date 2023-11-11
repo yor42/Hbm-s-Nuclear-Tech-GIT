@@ -21,11 +21,11 @@ import net.minecraftforge.fluids.FluidRegistry;
 public class FluidHeating {
 	
 	private static class ActionAddBoilRecipe implements IAction{
-		private String inputFluid;
-		private int inputAmount;
-		private String outputFluid;
-		private int outputAmount;
-		private int heatCapacity;
+		private final String inputFluid;
+		private final int inputAmount;
+		private final String outputFluid;
+		private final int outputAmount;
+		private final int heatCapacity;
 		public ActionAddBoilRecipe(String inputFluid, int inputAmount, String outputFluid, int outputAmount, int heatCapacity){
 			this.inputFluid = inputFluid;
 			this.inputAmount = inputAmount;
@@ -78,11 +78,11 @@ public class FluidHeating {
 
 	//
 	private static class ActionAddCoolRecipe implements IAction{
-		private String inputFluid;
-		private int inputAmount;
-		private String outputFluid;
-		private int outputAmount;
-		private int heatCapacity;
+		private final String inputFluid;
+		private final int inputAmount;
+		private final String outputFluid;
+		private final int outputAmount;
+		private final int heatCapacity;
 		public ActionAddCoolRecipe(String inputFluid, int inputAmount, String outputFluid, int outputAmount, int heatCapacity){
 			this.inputFluid = inputFluid;
 			this.inputAmount = inputAmount;
@@ -134,11 +134,11 @@ public class FluidHeating {
 	}
 
 	private static class ActionAddBoilAndCoolRecipe implements IAction{
-		private String inputFluid;
-		private int inputAmount;
-		private String outputFluid;
-		private int outputAmount;
-		private int heatCapacity;
+		private final String inputFluid;
+		private final int inputAmount;
+		private final String outputFluid;
+		private final int outputAmount;
+		private final int heatCapacity;
 		public ActionAddBoilAndCoolRecipe(String inputFluid, int inputAmount, String outputFluid, int outputAmount, int heatCapacity){
 			this.inputFluid = inputFluid;
 			this.inputAmount = inputAmount;
@@ -190,7 +190,7 @@ public class FluidHeating {
 	}
 
 	private static class ActionRemoveBoilRecipe implements IAction{
-		private String inputFluid;
+		private final String inputFluid;
 		public ActionRemoveBoilRecipe(String inputFluid){
 			this.inputFluid = inputFluid;
 		}
@@ -218,7 +218,7 @@ public class FluidHeating {
 	}
 
 	private static class ActionRemoveCoolRecipe implements IAction{
-		private String inputFluid;
+		private final String inputFluid;
 		public ActionRemoveCoolRecipe(String inputFluid){
 			this.inputFluid = inputFluid;
 		}

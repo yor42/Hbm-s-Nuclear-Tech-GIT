@@ -14,8 +14,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineRadGen extends GuiInfoContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_radgen.png");
-	private TileEntityMachineRadGen radgen;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_radgen.png");
+	private final TileEntityMachineRadGen radgen;
 
 	public GUIMachineRadGen(InventoryPlayer invPlayer, TileEntityMachineRadGen tedf) {
 		super(new ContainerMachineRadGen(invPlayer, tedf));
@@ -29,7 +29,7 @@ public class GUIMachineRadGen extends GuiInfoContainer {
 	public void drawScreen(int mouseX, int mouseY, float f) {
 		super.drawScreen(mouseX, mouseY, f);
 
-		this.drawCustomInfo(this, mouseX, mouseY, guiLeft + 35, guiTop + 69 - 52, 16, 52, new String[] { "Fuel: " + Library.roundFloat(radgen.fuel * 100D/radgen.maxFuel, 3) + "%" });
+		this.drawCustomInfo(this, mouseX, mouseY, guiLeft + 35, guiTop + 69 - 52, 16, 52, new String[] { "Fuel: " + Library.roundFloat(radgen.fuel * 100D/ TileEntityMachineRadGen.maxFuel, 3) + "%" });
 		this.drawElectricityInfo(this, mouseX, mouseY, guiLeft + 143, guiTop + 69 - 52, 16, 52, radgen.power, TileEntityMachineRadGen.maxPower);
 		
 		String[] text = new String[] { "Accepted Fuels:",

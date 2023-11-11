@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerDiFurnaceRTG extends Container {
-	private TileEntityDiFurnaceRTG bFurnace;
+	private final TileEntityDiFurnaceRTG bFurnace;
 	// private int progress;
 
 	public ContainerDiFurnaceRTG(InventoryPlayer playerInv, TileEntityDiFurnaceRTG teIn) {
@@ -49,7 +49,7 @@ public class ContainerDiFurnaceRTG extends Container {
     public ItemStack transferStackInSlot(EntityPlayer p_82846_1_, int par2)
     {
 		ItemStack var3 = ItemStack.EMPTY;
-		Slot var4 = (Slot) this.inventorySlots.get(par2);
+		Slot var4 = this.inventorySlots.get(par2);
 		
 		if (var4 != null && var4.getHasStack())
 		{

@@ -80,7 +80,7 @@ public class RBMKDebrisRadiating extends RBMKDebrisBurning {
 	
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[]{META});
+		return new BlockStateContainer(this, META);
 	}
 	
 	@Override

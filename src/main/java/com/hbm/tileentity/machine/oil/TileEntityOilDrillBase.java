@@ -212,7 +212,6 @@ public abstract class TileEntityOilDrillBase extends TileEntityLoadedBase implem
     @Override
     public void recievePacket(NBTTagCompound[] tags) {
         if(tags.length != 2) {
-            return;
         } else {
             tanks[0].readFromNBT(tags[0]);
             tanks[1].readFromNBT(tags[1]);

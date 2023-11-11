@@ -31,7 +31,7 @@ public class RenderFluidDuctMk2<T extends TileEntityFFDuctBaseMk2> extends TileE
 		boolean pZ = te.connections[4] != null;
 		boolean nZ = te.connections[2] != null;
 		
-		int mask = 0 + (pX ? 32 : 0) + (nX ? 16 : 0) + (pY ? 8 : 0) + (nY ? 4 : 0) + (pZ ? 2 : 0) + (nZ ? 1 : 0);
+		int mask = (pX ? 32 : 0) + (nX ? 16 : 0) + (pY ? 8 : 0) + (nY ? 4 : 0) + (pZ ? 2 : 0) + (nZ ? 1 : 0);
 		
 		GL11.glTranslated(x + 0.5F, y + 0.5F, z + 0.5F);
 		

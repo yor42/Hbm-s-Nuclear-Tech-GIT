@@ -416,7 +416,7 @@ public class TileEntityMachineExcavator extends TileEntityMachineBase implements
 		return false;
 	}
 	
-	private HashSet<BlockPos> recursionBrake = new HashSet();
+	private final HashSet<BlockPos> recursionBrake = new HashSet();
 	private int minX = 0, minY = 0, minZ = 0, maxX = 0, maxY = 0, maxZ = 0;
 	
 	protected void breakRecursively(BlockPos drillPos, int depth) {
@@ -695,9 +695,8 @@ public class TileEntityMachineExcavator extends TileEntityMachineBase implements
 		if(b instanceof BlockGasBase) return true;
 		float hardness = block.getBlockHardness(world, pos);
 		if(hardness < 0 || hardness > 3_500_000) return true;
-		if(block.getMaterial().isLiquid()) return true;
-		return false;
-	}
+        return block.getMaterial().isLiquid();
+    }
 
 	@Override
 	public void receiveControl(NBTTagCompound data) {

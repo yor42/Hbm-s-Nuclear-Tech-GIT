@@ -111,7 +111,7 @@ public class ItemCell extends Item {
 		if(hasFluid(stack, ModForgeFluids.tritium)){
 			ContaminationUtil.contaminate((EntityLivingBase)entityIn, HazardType.RADIATION, ContaminationType.CREATIVE, 0.5F / 20F);
 		} else if(hasFluid(stack, ModForgeFluids.sas3)){
-			ContaminationUtil.contaminate((EntityLivingBase)entityIn, HazardType.RADIATION, ContaminationType.CREATIVE, 20F / 20F);
+			ContaminationUtil.contaminate((EntityLivingBase)entityIn, HazardType.RADIATION, ContaminationType.CREATIVE, 1.0f);
 			((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 100, 0));
 		} else if(hasFluid(stack, ModForgeFluids.uf6)){
 			ContaminationUtil.contaminate((EntityLivingBase)entityIn, HazardType.RADIATION, ContaminationType.CREATIVE, 2F / 20F);
@@ -202,8 +202,7 @@ public class ItemCell extends Item {
 
 	public static boolean isFullCell(ItemStack stack, Fluid fluid) {
 		if(stack != null) {
-			if(stack.getItem() instanceof ItemCell && FluidUtil.getFluidContained(stack) != null && FluidUtil.getFluidContained(stack).getFluid() == fluid && FluidUtil.getFluidContained(stack).amount == 1000)
-				return true;
+            return stack.getItem() instanceof ItemCell && FluidUtil.getFluidContained(stack) != null && FluidUtil.getFluidContained(stack).getFluid() == fluid && FluidUtil.getFluidContained(stack).amount == 1000;
 		}
 		return false;
 	}
@@ -212,19 +211,15 @@ public class ItemCell extends Item {
 		if(stack != null) {
 			if(stack.getItem() == ModItems.cell && stack.getTagCompound() != null) {
 				FluidStack s = FluidStack.loadFluidStackFromNBT(stack.getTagCompound().getCompoundTag(HbmFluidHandlerCell.FLUID_NBT_KEY));
-				if(s == null || s.amount <= 0)
-					return true;
-			} else if (stack.getItem() == ModItems.cell && stack.getTagCompound() == null){
-				return true;
-			}
+                return s == null || s.amount <= 0;
+			} else return stack.getItem() == ModItems.cell && stack.getTagCompound() == null;
 		}
 		return false;
 	}
 
 	public static boolean hasFluid(ItemStack stack, Fluid f) {
 		if(stack != null) {
-			if(stack.getItem() == ModItems.cell && FluidUtil.getFluidContained(stack) != null && FluidUtil.getFluidContained(stack).getFluid() == f)
-				return true;
+            return stack.getItem() == ModItems.cell && FluidUtil.getFluidContained(stack) != null && FluidUtil.getFluidContained(stack).getFluid() == f;
 		}
 		return false;
 	}
@@ -250,11 +245,8 @@ public class ItemCell extends Item {
 				return true;
 			return f.amount == 1000 || f.amount == 0;
 			
-		} else if(stack.getItem() == ModItems.cell){
-			return true;
-		}
-		return false;
-	}
+		} else return stack.getItem() == ModItems.cell;
+    }
 
 	public static boolean hasEmptyCell(EntityPlayer player){
 		InventoryPlayer inv = player.inventory;

@@ -17,8 +17,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMixer extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_mixer.png");
-	private TileEntityMachineMixer mixer;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_mixer.png");
+	private final TileEntityMachineMixer mixer;
 
 	public GUIMixer(InventoryPlayer player, TileEntityMachineMixer mixer) {
 		super(new ContainerMixer(player, mixer));

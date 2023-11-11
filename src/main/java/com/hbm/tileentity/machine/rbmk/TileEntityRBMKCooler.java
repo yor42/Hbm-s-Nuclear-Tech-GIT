@@ -137,7 +137,6 @@ public class TileEntityRBMKCooler extends TileEntityRBMKBase implements IFluidHa
 	@Override
     public void recievePacket(NBTTagCompound[] tags) {
         if (tags.length != 1) {
-            return;
         } else {
             tank.readFromNBT(tags[0]);
         }

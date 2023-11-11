@@ -125,8 +125,7 @@ public class TileEntityDeuteriumExtractor extends TileEntityLoadedBase implement
 	@Override
 	public void recievePacket(NBTTagCompound[] tags) {
 		if(tags.length != 2) {
-			return;
-		} else {
+        } else {
 			tanks[0].readFromNBT(tags[0]);
 			tanks[1].readFromNBT(tags[1]);
 		}

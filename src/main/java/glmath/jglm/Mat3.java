@@ -53,8 +53,8 @@ public class Mat3 extends Mat {
 
         this();
 
-        c0 = new Vec3(fs, order * 0);
-        c1 = new Vec3(fs, order * 1);
+        c0 = new Vec3(fs, 0);
+        c1 = new Vec3(fs, order);
         c2 = new Vec3(fs, order * 2);
     }
 
@@ -269,7 +269,7 @@ public class Mat3 extends Mat {
     }
 
     public void print(String title) {
-        System.out.println("" + title);
+        System.out.println(title);
         System.out.println(c0.x + " " + c1.x + " " + c2.x + "\n");
         System.out.println(c0.y + " " + c1.y + " " + c2.y + "\n");
         System.out.println(c0.z + " " + c1.z + " " + c2.z + "\n");

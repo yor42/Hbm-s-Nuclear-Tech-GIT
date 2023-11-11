@@ -137,8 +137,7 @@ public class EntityMissileAntiBallistic extends EntityMissileBaseAdvanced {
 		if(hasHits){
 			ExplosionLarge.explode(world, posX, posY, posZ, 15F, true, false, true);
 			this.setDead();
-			return;
-		}
+        }
     }
 
 	@Override

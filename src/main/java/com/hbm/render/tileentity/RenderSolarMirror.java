@@ -27,7 +27,7 @@ public class RenderSolarMirror extends TileEntitySpecialRenderer<TileEntitySolar
         GlStateManager.enableLighting();
         GlStateManager.disableCull();
         
-        TileEntitySolarMirror mirror = (TileEntitySolarMirror)te;
+        TileEntitySolarMirror mirror = te;
 
         bindTexture(ResourceManager.solar_mirror_tex);
         ResourceManager.solar_mirror.renderPart("Base");

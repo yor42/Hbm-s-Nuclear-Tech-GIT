@@ -80,7 +80,7 @@ public class TileEntityCoreEmitter extends TileEntityMachineBase implements ITic
 				
 				if(power >= demand) {
 					power -= demand;
-					long add = watts * 100;
+					long add = watts * 100L;
 					if(add > Long.MAX_VALUE-joules)
 						joules = Long.MAX_VALUE;
 					else

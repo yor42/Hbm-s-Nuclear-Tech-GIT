@@ -11,8 +11,8 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerRadioThermal extends Container {
 
-	private TileEntityHeaterRadioThermal heater;
-	private int heat;
+	private final TileEntityHeaterRadioThermal heater;
+	private final int heat;
 	
 	public ContainerRadioThermal(InventoryPlayer invPlayer, TileEntityHeaterRadioThermal tedf) {
 		heat = 0;
@@ -53,7 +53,7 @@ public class ContainerRadioThermal extends Container {
     public ItemStack transferStackInSlot(EntityPlayer p_82846_1_, int par2)
     {
 		ItemStack var3 = ItemStack.EMPTY;
-		Slot var4 = (Slot) this.inventorySlots.get(par2);
+		Slot var4 = this.inventorySlots.get(par2);
 		
 		if (var4 != null && var4.getHasStack())
 		{

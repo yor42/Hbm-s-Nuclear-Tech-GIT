@@ -113,7 +113,7 @@ public class MachineFENSU extends BlockDummyableMBB implements ILookOverlay {
 							name = "dyeSilver";
 						if(name.length() > 3 && name.startsWith("dye")){
 							try {
-								EnumDyeColor color = EnumDyeColor.valueOf(name.substring(3, name.length()).toUpperCase());
+								EnumDyeColor color = EnumDyeColor.valueOf(name.substring(3).toUpperCase());
 								entity.color = color;
 								entity.markDirty();
 								world.notifyBlockUpdate(corePos, state, state, 2 | 4);
@@ -165,7 +165,7 @@ public class MachineFENSU extends BlockDummyableMBB implements ILookOverlay {
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		if (tileentity instanceof TileEntityMachineFENSU) {
-			InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityMachineFENSU) tileentity);
+			InventoryHelper.dropInventoryItems(worldIn, pos, tileentity);
 			worldIn.updateComparatorOutputLevel(pos, this);
 		}
 

@@ -14,8 +14,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIRBMKHeater extends GuiInfoContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/reactors/gui_rbmk_heater.png");
-	private TileEntityRBMKHeater rod;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/reactors/gui_rbmk_heater.png");
+	private final TileEntityRBMKHeater rod;
 
 	public GUIRBMKHeater(InventoryPlayer invPlayer, TileEntityRBMKHeater tedf) {
 		super(new ContainerRBMKHeater(invPlayer, tedf));

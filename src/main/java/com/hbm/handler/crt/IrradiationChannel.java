@@ -20,8 +20,8 @@ import net.minecraft.item.ItemStack;
 public class IrradiationChannel {
 	
 	private static class ActionAddRecipe implements IAction{
-		private ItemStack input;
-		private ItemStack output;
+		private final ItemStack input;
+		private final ItemStack output;
 		private int flux = 0;
 		public ActionAddRecipe(IItemStack input, IItemStack output, int flux){
 			this.input = CraftTweakerMC.getItemStack(input);
@@ -58,7 +58,7 @@ public class IrradiationChannel {
 
 
 	public static class ActionRemoveRecipe implements IAction{
-		private ItemStack input;
+		private final ItemStack input;
 
 		public ActionRemoveRecipe(IItemStack input){
 			this.input = CraftTweakerMC.getItemStack(input);

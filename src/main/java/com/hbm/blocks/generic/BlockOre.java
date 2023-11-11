@@ -41,7 +41,7 @@ public class BlockOre extends Block implements IItemHazard {
 
 	public BlockOre(Material materialIn, String name, int harvestLvl, int xp) {
 		super(materialIn);
-		this.xp = xp;
+		BlockOre.xp = xp;
 		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
 		this.setCreativeTab(MainRegistry.controlTab);

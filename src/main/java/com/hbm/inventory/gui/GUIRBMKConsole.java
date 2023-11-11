@@ -37,8 +37,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 public class GUIRBMKConsole extends GuiScreen {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/reactors/gui_rbmk_console.png");
-	private TileEntityRBMKConsole console;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/reactors/gui_rbmk_console.png");
+	private final TileEntityRBMKConsole console;
 	protected int guiLeft;
 	protected int guiTop;
 	protected int xSize;
@@ -290,8 +290,7 @@ public class GUIRBMKConsole extends GuiScreen {
 
 			PacketDispatcher.wrapper.sendToServer(new NBTControlPacket(control, console.getPos()));
 			mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1F));
-			return;
-		}
+        }
 	}
 
 	protected void drawGuiContainerBackgroundLayer(float interp, int mX, int mY) {
@@ -432,7 +431,7 @@ public class GUIRBMKConsole extends GuiScreen {
 				max = n;
 			}
 		}
-		int median = 2*arrayData[(int)(arrayData.length/2)];
+		int median = 2*arrayData[arrayData.length/2];
 		if(max < median){
 			max = median;
 		}

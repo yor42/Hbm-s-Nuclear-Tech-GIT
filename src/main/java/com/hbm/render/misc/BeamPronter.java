@@ -25,13 +25,13 @@ import net.minecraft.util.math.Vec3d;
 
 public class BeamPronter {
 	
-	public static enum EnumWaveType {
+	public enum EnumWaveType {
 		RANDOM,
 		SPIRAL,
 		STRAIGHT
 	}
 	
-	public static enum EnumBeamType {
+	public enum EnumBeamType {
 		SOLID,
 		LINE
 	}
@@ -42,7 +42,7 @@ public class BeamPronter {
 		
 		float sYaw = (float)(Math.atan2(skeleton.xCoord, skeleton.zCoord) * 180F / Math.PI);
         float sqrt = MathHelper.sqrt(skeleton.xCoord * skeleton.xCoord + skeleton.zCoord * skeleton.zCoord);
-		float sPitch = (float)(Math.atan2(skeleton.yCoord, (double)sqrt) * 180F / Math.PI);
+		float sPitch = (float)(Math.atan2(skeleton.yCoord, sqrt) * 180F / Math.PI);
 
 		GL11.glRotatef(180, 0, 1F, 0);
 		GL11.glRotatef(sYaw, 0, 1F, 0);

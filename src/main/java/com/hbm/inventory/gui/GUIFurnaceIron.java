@@ -15,8 +15,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIFurnaceIron extends GuiInfoContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_furnace_iron.png");
-	private TileEntityFurnaceIron furnace;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_furnace_iron.png");
+	private final TileEntityFurnaceIron furnace;
 
 	public GUIFurnaceIron(InventoryPlayer invPlayer, TileEntityFurnaceIron tedf) {
 		super(new ContainerFurnaceIron(invPlayer, tedf));

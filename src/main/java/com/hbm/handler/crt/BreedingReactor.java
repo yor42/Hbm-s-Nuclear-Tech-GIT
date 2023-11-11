@@ -21,8 +21,8 @@ import net.minecraft.item.ItemStack;
 public class BreedingReactor {
 	
 	private static class ActionAddRecipe implements IAction{
-		private ItemStack input;
-		private ItemStack output;
+		private final ItemStack input;
+		private final ItemStack output;
 		private int heatLvl = 0;
 		public ActionAddRecipe(IItemStack input, IItemStack output, int heatLvl){
 			this.input = CraftTweakerMC.getItemStack(input);
@@ -59,7 +59,7 @@ public class BreedingReactor {
 
 
 	public static class ActionRemoveRecipe implements IAction{
-		private ItemStack input;
+		private final ItemStack input;
 
 		public ActionRemoveRecipe(IItemStack input){
 			this.input = CraftTweakerMC.getItemStack(input);
@@ -86,7 +86,7 @@ public class BreedingReactor {
 	
 
 	public static class ActionAddFuel implements IAction{
-		private ItemStack input;
+		private final ItemStack input;
 		private int heatLvl = 0;
 		private int usesInNuclearFurnace = 0;
 
@@ -125,7 +125,7 @@ public class BreedingReactor {
 	
 
 	public static class ActionRemoveFuel implements IAction{
-		private ItemStack input;
+		private final ItemStack input;
 
 		public ActionRemoveFuel(IItemStack input){
 			this.input = CraftTweakerMC.getItemStack(input);

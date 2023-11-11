@@ -234,7 +234,7 @@ public class TileEntityMachineBattery extends TileEntityMachineBase implements I
 
 	protected void transmitPowerFairly() {
 		
-		short mode = (short) this.getRelevantMode();
+		short mode = this.getRelevantMode();
 		
 		//HasSets to we don't have any duplicates
 		Set<IPowerNet> nets = new HashSet();
@@ -278,7 +278,7 @@ public class TileEntityMachineBattery extends TileEntityMachineBase implements I
 	
 	protected void transmitPower() {
 		
-		short mode = (short) this.getRelevantMode();
+		short mode = this.getRelevantMode();
 		
 		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 			

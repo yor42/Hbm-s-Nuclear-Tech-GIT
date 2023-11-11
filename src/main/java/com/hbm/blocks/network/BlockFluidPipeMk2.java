@@ -113,7 +113,7 @@ public class BlockFluidPipeMk2 extends BlockContainer implements IToolable, ILoo
 				boolean pZ = te.connections[4] != null;
 				boolean nZ = te.connections[2] != null;
 				
-				int mask = 0 + (pX ? 32 : 0) + (nX ? 16 : 0) + (pY ? 8 : 0) + (nY ? 4 : 0) + (pZ ? 2 : 0) + (nZ ? 1 : 0);
+				int mask = (pX ? 32 : 0) + (nX ? 16 : 0) + (pY ? 8 : 0) + (nY ? 4 : 0) + (pZ ? 2 : 0) + (nZ ? 1 : 0);
 			
 				if(mask == 0) {
 					return new AxisAlignedBB(0F, 0F, 0F, 1F, 1F, 1F);
@@ -175,7 +175,7 @@ public class BlockFluidPipeMk2 extends BlockContainer implements IToolable, ILoo
 	
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[]{ EXTRACTS });
+		return new BlockStateContainer(this, EXTRACTS);
 	}
 	
 	@Override

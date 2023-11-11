@@ -165,8 +165,8 @@ public class Watz {
 				}
 			}
 		}
-		world.setBlockState(mPos.setPos(x + 3, y + 6, z + 0), ModBlocks.watz_hatch.getDefaultState().withProperty(BlockHorizontal.FACING, EnumFacing.values()[2]), 3);
-		world.setBlockState(mPos.setPos(x + 0, y + 6, z + 3), ModBlocks.watz_hatch.getDefaultState().withProperty(BlockHorizontal.FACING, EnumFacing.values()[4]), 3);
+		world.setBlockState(mPos.setPos(x + 3, y + 6, z), ModBlocks.watz_hatch.getDefaultState().withProperty(BlockHorizontal.FACING, EnumFacing.values()[2]), 3);
+		world.setBlockState(mPos.setPos(x, y + 6, z + 3), ModBlocks.watz_hatch.getDefaultState().withProperty(BlockHorizontal.FACING, EnumFacing.values()[4]), 3);
 		world.setBlockState(mPos.setPos(x + 3, y + 6, z + 6), ModBlocks.watz_hatch.getDefaultState().withProperty(BlockHorizontal.FACING, EnumFacing.values()[3]), 3);
 		world.setBlockState(mPos.setPos(x + 6, y + 6, z + 3), ModBlocks.watz_hatch.getDefaultState().withProperty(BlockHorizontal.FACING, EnumFacing.values()[5]), 3);
 		return true;

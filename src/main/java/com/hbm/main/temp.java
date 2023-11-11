@@ -715,9 +715,9 @@ public class temp {
 				new ItemStack(ModItems.missile_soyuz_lander)),
 ;
 
-		private EnumAssemblyTemplate() { }
+		EnumAssemblyTemplate() { }
 		
-		private EnumAssemblyTemplate(int time, List<ItemStack> ingredients, ItemStack output) {
+		EnumAssemblyTemplate(int time, List<ItemStack> ingredients, ItemStack output) {
 			this.time = time;
 			this.ingredients = ingredients;
 			this.output = output;

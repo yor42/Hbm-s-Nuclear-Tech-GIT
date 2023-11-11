@@ -186,9 +186,9 @@ public class TileEntityMachineCatalyticCracker extends TileEntity implements INB
 		ForgeDirection dir = ForgeDirection.getOrientation(this.getBlockMetadata() - BlockDummyable.offset);
 		ForgeDirection rot = dir.getRotation(ForgeDirection.UP);
 
-		fillFluid(pos.getX() + dir.offsetX * 4 + rot.offsetX * 1, pos.getY(), pos.getZ() + dir.offsetZ * 4 + rot.offsetZ * 1, tank);
+		fillFluid(pos.getX() + dir.offsetX * 4 + rot.offsetX, pos.getY(), pos.getZ() + dir.offsetZ * 4 + rot.offsetZ, tank);
 		fillFluid(pos.getX() + dir.offsetX * 4 - rot.offsetX * 2, pos.getY(), pos.getZ() + dir.offsetZ * 4 - rot.offsetZ * 2, tank);
-		fillFluid(pos.getX() - dir.offsetX * 4 + rot.offsetX * 1, pos.getY(), pos.getZ() - dir.offsetZ * 4 + rot.offsetZ * 1, tank);
+		fillFluid(pos.getX() - dir.offsetX * 4 + rot.offsetX, pos.getY(), pos.getZ() - dir.offsetZ * 4 + rot.offsetZ, tank);
 		fillFluid(pos.getX() - dir.offsetX * 4 - rot.offsetX * 2, pos.getY(), pos.getZ() - dir.offsetZ * 4 - rot.offsetZ * 2, tank);
 
 		fillFluid(pos.getX() + dir.offsetX * 2 + rot.offsetX * 3, pos.getY(), pos.getZ() + dir.offsetZ * 2 + rot.offsetZ * 3, tank);

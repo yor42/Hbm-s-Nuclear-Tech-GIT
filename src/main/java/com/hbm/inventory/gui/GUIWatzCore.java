@@ -15,8 +15,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIWatzCore extends GuiInfoContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_watz_multiblock.png");
-	private TileEntityWatzCore diFurnace;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_watz_multiblock.png");
+	private final TileEntityWatzCore diFurnace;
 
 	public GUIWatzCore(EntityPlayer invPlayer, TileEntityWatzCore tedf) {
 		super(new ContainerWatzCore(invPlayer, tedf));
@@ -42,12 +42,12 @@ public class GUIWatzCore extends GuiInfoContainer {
 		
 		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6, 4210752);
 		this.fontRenderer.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2 - 34, 4210752);
-		this.fontRenderer.drawString(Library.getShortNumber(diFurnace.powerList * 20) + " HE/s", 8, this.ySize - 50 + 2 + 13, 4210752);
-		this.fontRenderer.drawString(String.valueOf(diFurnace.heatList + " heat"), 8, this.ySize - 50 + 2 + 22, 4210752);
+		this.fontRenderer.drawString(Library.getShortNumber(diFurnace.powerList * 20L) + " HE/s", 8, this.ySize - 50 + 2 + 13, 4210752);
+		this.fontRenderer.drawString(diFurnace.heatList + " heat", 8, this.ySize - 50 + 2 + 22, 4210752);
 		this.fontRenderer.drawString(Library.getShortNumber((long)(diFurnace.decayMultiplier * diFurnace.heat * 0.002D)) + " mB/s", 8, this.ySize - 50 + 2 + 31, 4210752);
-		this.fontRenderer.drawString(String.valueOf(diFurnace.powerMultiplier + "% power"), 100, this.ySize - 50 + 2 + 13, 4210752);
-		this.fontRenderer.drawString(String.valueOf(diFurnace.heatMultiplier + "% heat"), 100, this.ySize - 50 + 2 + 22, 4210752);
-		this.fontRenderer.drawString(String.valueOf(diFurnace.decayMultiplier + "% decay"), 100, this.ySize - 50 + 2 + 31, 4210752);
+		this.fontRenderer.drawString(diFurnace.powerMultiplier + "% power", 100, this.ySize - 50 + 2 + 13, 4210752);
+		this.fontRenderer.drawString(diFurnace.heatMultiplier + "% heat", 100, this.ySize - 50 + 2 + 22, 4210752);
+		this.fontRenderer.drawString(diFurnace.decayMultiplier + "% decay", 100, this.ySize - 50 + 2 + 31, 4210752);
 	}
 
 	@Override

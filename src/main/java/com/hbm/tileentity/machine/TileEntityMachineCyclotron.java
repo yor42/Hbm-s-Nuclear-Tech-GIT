@@ -152,7 +152,7 @@ public class TileEntityMachineCyclotron extends TileEntityMachineBase implements
 	private void fillFromContainers(TileEntity tile, int inputSlot, int tagetSlot){
 		int meta = this.getBlockMetadata();
 		if(tile != null && tile instanceof ICapabilityProvider) {
-			ICapabilityProvider capte = (ICapabilityProvider) tile;
+			ICapabilityProvider capte = tile;
 			if(capte.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, MultiblockHandler.intToEnumFacing(meta).rotateY())) {
 				IItemHandler cap = capte.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, MultiblockHandler.intToEnumFacing(meta).rotateY());
 				int[] slots;
@@ -249,7 +249,7 @@ public class TileEntityMachineCyclotron extends TileEntityMachineBase implements
 	private void exportIntoContainers(TileEntity tile, int slot){
 		int meta = this.getBlockMetadata();
 		if(tile != null && tile instanceof ICapabilityProvider) {
-			ICapabilityProvider capte = (ICapabilityProvider) tile;
+			ICapabilityProvider capte = tile;
 			if(capte.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, MultiblockHandler.intToEnumFacing(meta).rotateY())) {
 				IItemHandler cap = capte.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, MultiblockHandler.intToEnumFacing(meta).rotateY());
 				tryFillContainerCap(cap, slot);
