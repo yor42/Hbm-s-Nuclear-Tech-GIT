@@ -2,7 +2,6 @@ package com.hbm.inventory;
 
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.items.ModItems;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 

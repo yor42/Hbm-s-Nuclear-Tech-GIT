@@ -1,9 +1,5 @@
 package com.hbm.items.tool;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.hbm.handler.WeaponAbility;
@@ -32,6 +28,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class ItemSwordAbility extends ItemSword implements IItemAbility {
 

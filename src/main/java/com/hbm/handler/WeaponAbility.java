@@ -1,7 +1,5 @@
 package com.hbm.handler;
 
-import java.util.Arrays;
-
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.items.ModItems;
 import com.hbm.items.special.ItemCell;
@@ -14,7 +12,6 @@ import com.hbm.util.ContaminationUtil;
 import com.hbm.util.ContaminationUtil.ContaminationType;
 import com.hbm.util.ContaminationUtil.HazardType;
 import com.hbm.util.WeightedRandomObject;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -37,6 +34,8 @@ import net.minecraft.util.WeightedRandom;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Arrays;
 
 public abstract class WeaponAbility {
 	

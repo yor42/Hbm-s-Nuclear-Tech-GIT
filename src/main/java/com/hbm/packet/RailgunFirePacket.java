@@ -1,7 +1,6 @@
 package com.hbm.packet;
 
 import com.hbm.tileentity.bomb.TileEntityRailgun;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;

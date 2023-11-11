@@ -1,11 +1,5 @@
 package com.hbm.inventory.control_panel.controls;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
 import com.hbm.inventory.control_panel.Control;
 import com.hbm.inventory.control_panel.ControlPanel;
 import com.hbm.inventory.control_panel.DataValueEnum;
@@ -13,7 +7,6 @@ import com.hbm.inventory.control_panel.DataValueFloat;
 import com.hbm.main.ResourceManager;
 import com.hbm.render.amlfrom1710.IModelCustom;
 import com.hbm.render.amlfrom1710.Tessellator;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -23,6 +16,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
+
+import java.util.Collections;
+import java.util.List;
 
 public class Button extends Control {
 

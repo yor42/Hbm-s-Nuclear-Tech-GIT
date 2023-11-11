@@ -1,10 +1,10 @@
 package com.hbm.inventory.control_panel;
 
-import java.util.Collections;
-import java.util.List;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Collections;
+import java.util.List;
 
 public interface IControllable {
 

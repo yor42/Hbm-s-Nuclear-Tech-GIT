@@ -3,7 +3,6 @@ package com.hbm.packet;
 import com.hbm.interfaces.IDoor;
 import com.hbm.tileentity.machine.TileEntityBlastDoor;
 import com.hbm.tileentity.machine.TileEntityVaultDoor;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;

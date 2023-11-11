@@ -2,7 +2,6 @@ package com.hbm.packet;
 
 import com.hbm.particle.EnumHbmParticles;
 import com.hbm.particle.ParticleManager;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

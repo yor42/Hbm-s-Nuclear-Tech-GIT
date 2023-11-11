@@ -1,7 +1,5 @@
 package com.hbm.handler.jei;
 
-import com.hbm.handler.jei.SILEXRecipeHandler;
-
 import mezz.jei.api.IGuiHelper;
 
 public class SILEXUVRecipeHandler extends SILEXRecipeHandler {

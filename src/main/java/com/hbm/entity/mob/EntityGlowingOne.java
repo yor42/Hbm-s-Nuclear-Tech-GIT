@@ -1,21 +1,18 @@
 package com.hbm.entity.mob;
 
-import java.util.List;
-
-import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 import com.hbm.interfaces.IRadiationImmune;
-import com.hbm.util.ContaminationUtil;
+import com.hbm.items.ModItems;
 import com.hbm.render.amlfrom1710.Vec3;
-
+import com.hbm.util.ContaminationUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.item.Item;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class EntityGlowingOne extends EntityZombie implements IRadiationImmune {
 

@@ -1,7 +1,6 @@
 package com.hbm.particle;
 
 import com.hbm.lib.RefStrings;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 

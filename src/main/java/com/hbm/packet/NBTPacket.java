@@ -1,11 +1,6 @@
 package com.hbm.packet;
 
-import java.io.IOException;
-
 import com.hbm.tileentity.INBTPacketReceiver;
-import com.hbm.tileentity.TileEntityMachineBase;
-import com.hbm.tileentity.TileEntityTickingBase;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
@@ -18,6 +13,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.io.IOException;
 
 public class NBTPacket implements IMessage {
 

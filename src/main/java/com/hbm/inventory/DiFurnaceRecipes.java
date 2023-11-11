@@ -1,28 +1,27 @@
 package com.hbm.inventory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.HashSet;
-import java.util.HashMap;
-
-import static com.hbm.inventory.OreDictManager.*;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.config.GeneralConfig;
-import com.hbm.util.Tuple.Pair;
-import com.hbm.inventory.RecipesCommon.AStack;
-import com.hbm.inventory.RecipesCommon.NbtComparableStack;
-import com.hbm.inventory.RecipesCommon.ComparableStack;
-import com.hbm.inventory.RecipesCommon.OreDictStack;
-import com.hbm.interfaces.Spaghetti;
 import com.hbm.forgefluid.ModForgeFluids;
-import com.hbm.items.tool.ItemFluidCanister;
+import com.hbm.interfaces.Spaghetti;
+import com.hbm.inventory.RecipesCommon.AStack;
+import com.hbm.inventory.RecipesCommon.ComparableStack;
+import com.hbm.inventory.RecipesCommon.NbtComparableStack;
+import com.hbm.inventory.RecipesCommon.OreDictStack;
 import com.hbm.items.ModItems;
-
-import net.minecraft.init.Blocks;
+import com.hbm.items.tool.ItemFluidCanister;
+import com.hbm.util.Tuple.Pair;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+
+import static com.hbm.inventory.OreDictManager.*;
 
 //TODO: clean this shit up
 //Alcater: on it

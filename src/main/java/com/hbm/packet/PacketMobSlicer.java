@@ -1,13 +1,9 @@
 package com.hbm.packet;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.hbm.items.weapon.ItemCrucible;
 import com.hbm.items.weapon.ItemSwordCutter;
 import com.hbm.lib.Library;
 import com.hbm.lib.ModDamageSource;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -19,6 +15,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PacketMobSlicer implements IMessage {
 

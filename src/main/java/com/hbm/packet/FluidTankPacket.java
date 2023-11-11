@@ -1,7 +1,6 @@
 package com.hbm.packet;
 
 import com.hbm.interfaces.ITankPacketAcceptor;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;

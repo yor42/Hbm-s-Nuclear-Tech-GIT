@@ -1,7 +1,6 @@
 package com.hbm.packet;
 
 import com.hbm.items.ModItems;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

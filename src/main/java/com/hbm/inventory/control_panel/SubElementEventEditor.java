@@ -1,11 +1,11 @@
 package com.hbm.inventory.control_panel;
 
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.math.MathHelper;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.math.MathHelper;
 
 public class SubElementEventEditor extends SubElement {
 

@@ -1,7 +1,6 @@
 package com.hbm.packet;
 
 import com.hbm.items.weapon.ItemGunBase;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumHand;

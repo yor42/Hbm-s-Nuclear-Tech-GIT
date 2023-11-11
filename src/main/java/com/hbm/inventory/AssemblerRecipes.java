@@ -1,22 +1,5 @@
 package com.hbm.inventory;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-
-import static com.hbm.inventory.OreDictManager.*;
-
-import org.apache.logging.log4j.Level;
-
 import com.google.gson.Gson;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.config.GeneralConfig;
@@ -31,7 +14,6 @@ import com.hbm.items.machine.ItemFluidTank;
 import com.hbm.items.special.ItemCell;
 import com.hbm.items.tool.ItemFluidCanister;
 import com.hbm.main.MainRegistry;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -45,6 +27,12 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
+import org.apache.logging.log4j.Level;
+
+import java.io.*;
+import java.util.*;
+
+import static com.hbm.inventory.OreDictManager.*;
 
 public class AssemblerRecipes {
 

@@ -1,7 +1,5 @@
 package com.hbm.inventory.gui;
 
-import org.lwjgl.opengl.GL11;
-
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.inventory.container.ContainerCompactLauncher;
 import com.hbm.items.weapon.ItemCustomMissile;
@@ -9,12 +7,12 @@ import com.hbm.lib.RefStrings;
 import com.hbm.render.misc.MissileMultipart;
 import com.hbm.render.misc.MissilePronter;
 import com.hbm.tileentity.bomb.TileEntityCompactLauncher;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class GUIMachineCompactLauncher extends GuiInfoContainer {
 

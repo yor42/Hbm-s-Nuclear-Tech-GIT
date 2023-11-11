@@ -1,7 +1,6 @@
 package com.hbm.tileentity.conductor;
 
 import com.hbm.forgefluid.ModForgeFluids;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.Fluid;
 

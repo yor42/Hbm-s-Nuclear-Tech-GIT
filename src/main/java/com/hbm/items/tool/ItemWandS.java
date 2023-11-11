@@ -1,16 +1,7 @@
 package com.hbm.items.tool;
 
-import java.util.List;
-import java.util.Random;
-
 import com.hbm.items.ModItems;
-import com.hbm.world.FWatz;
-import com.hbm.world.FactoryAdvanced;
-import com.hbm.world.FactoryTitanium;
-import com.hbm.world.ParticleAccelerator;
-import com.hbm.world.NuclearReactor;
-import com.hbm.world.Watz;
-
+import com.hbm.world.*;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -23,6 +14,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Random;
 
 public class ItemWandS extends Item {
 

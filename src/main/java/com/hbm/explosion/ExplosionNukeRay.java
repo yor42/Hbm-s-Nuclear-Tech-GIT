@@ -1,17 +1,16 @@
 package com.hbm.explosion;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import com.hbm.lib.Library;
 import com.hbm.render.amlfrom1710.Vec3;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class ExplosionNukeRay {
 	private final int maxSamples;

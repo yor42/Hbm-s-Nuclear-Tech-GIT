@@ -1,7 +1,6 @@
 package com.hbm.packet;
 
 import com.hbm.main.MainRegistry;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

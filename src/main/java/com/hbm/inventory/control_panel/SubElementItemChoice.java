@@ -1,9 +1,9 @@
 package com.hbm.inventory.control_panel;
 
+import net.minecraft.client.gui.GuiButton;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import net.minecraft.client.gui.GuiButton;
 
 public class SubElementItemChoice extends SubElement {
 

@@ -1,18 +1,16 @@
 package com.hbm.entity.grenade;
 
-import java.util.Random;
-
 import com.hbm.config.BombConfig;
 import com.hbm.entity.logic.EntityNukeExplosionMK4;
 import com.hbm.explosion.ExplosionParticle;
 import com.hbm.explosion.ExplosionParticleB;
-
 import com.hbm.items.ModItems;
 import com.hbm.items.weapon.ItemGrenade;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class EntityGrenadeNuclear extends EntityGrenadeBouncyBase {
     private static final Random rand = new Random();

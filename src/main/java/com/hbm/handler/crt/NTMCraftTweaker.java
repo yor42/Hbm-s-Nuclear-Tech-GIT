@@ -1,13 +1,11 @@
 package com.hbm.handler.crt;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import com.hbm.main.MainRegistry;
-import com.hbm.inventory.RBMKOutgasserRecipes;
-
-import crafttweaker.IAction;
 import crafttweaker.CraftTweakerAPI;
+import crafttweaker.IAction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NTMCraftTweaker {
 	public static final List<IAction> postInitActions = new ArrayList<>();

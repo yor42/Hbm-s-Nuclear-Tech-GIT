@@ -1,7 +1,6 @@
 package com.hbm.packet;
 
 import com.hbm.tileentity.machine.TileEntityStructureMarker;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;

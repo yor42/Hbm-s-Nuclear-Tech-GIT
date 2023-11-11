@@ -1,5 +1,28 @@
 package com.hbm.handler;
 
+import com.hbm.config.GeneralConfig;
+import com.hbm.handler.HbmShaderManager2.Shader.Uniform;
+import com.hbm.main.ClientProxy;
+import com.hbm.main.MainRegistry;
+import com.hbm.main.ResourceManager;
+import com.hbm.particle_instanced.InstancedParticleRenderer;
+import com.hbm.render.GLCompat;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.GlStateManager.DestFactor;
+import net.minecraft.client.renderer.GlStateManager.SourceFactor;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.shader.Framebuffer;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
+import org.apache.commons.io.IOUtils;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL14;
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -9,35 +32,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
-
-import org.apache.commons.io.IOUtils;
-import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-import org.lwjgl.opengl.GL14;
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
-
-import com.hbm.config.GeneralConfig;
-import com.hbm.handler.HbmShaderManager2.Shader.Uniform;
-import com.hbm.main.ClientProxy;
-import com.hbm.main.MainRegistry;
-import com.hbm.main.ResourceManager;
-import com.hbm.particle_instanced.InstancedParticleRenderer;
-import com.hbm.render.GLCompat;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.GlStateManager.DestFactor;
-import net.minecraft.client.renderer.GlStateManager.SourceFactor;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.shader.Framebuffer;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
 
 //Same as the other class except with less junk (hopefully)
 public class HbmShaderManager2 {

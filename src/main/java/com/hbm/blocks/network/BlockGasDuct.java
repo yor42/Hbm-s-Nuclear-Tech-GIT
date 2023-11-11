@@ -3,7 +3,6 @@ package com.hbm.blocks.network;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.tileentity.conductor.TileEntityFFDuctBase;
 import com.hbm.tileentity.conductor.TileEntityFFGasDuct;
-
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

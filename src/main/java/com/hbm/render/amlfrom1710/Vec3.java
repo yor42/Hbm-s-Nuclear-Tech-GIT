@@ -1,9 +1,10 @@
 package com.hbm.render.amlfrom1710;
 
-import javax.vecmath.Matrix3f;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+
+import javax.vecmath.Matrix3f;
 
 public class Vec3
 {

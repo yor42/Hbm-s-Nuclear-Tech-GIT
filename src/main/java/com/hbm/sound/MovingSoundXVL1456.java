@@ -1,7 +1,6 @@
 package com.hbm.sound;
 
 import com.hbm.items.ModItems;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

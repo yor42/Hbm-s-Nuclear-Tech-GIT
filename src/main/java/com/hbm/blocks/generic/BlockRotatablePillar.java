@@ -1,16 +1,16 @@
 package com.hbm.blocks.generic;
 
-import java.util.List;
 import com.hbm.blocks.ModBlocks;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRotatedPillar;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.block.SoundType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Item;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class BlockRotatablePillar extends BlockRotatedPillar {
 

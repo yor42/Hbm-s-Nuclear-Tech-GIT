@@ -2,7 +2,6 @@ package com.hbm.handler.jei;
 
 import com.hbm.handler.jei.JeiRecipes.MixerRecipe;
 import com.hbm.lib.RefStrings;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;

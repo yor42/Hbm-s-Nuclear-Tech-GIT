@@ -1,11 +1,7 @@
 package com.hbm.items.gear;
 
-import java.util.List;
-import java.util.Random;
-
 import com.hbm.items.ModItems;
 import com.hbm.lib.RefStrings;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,6 +11,9 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Random;
 
 public class ArmorAustralium extends ItemArmor {
 

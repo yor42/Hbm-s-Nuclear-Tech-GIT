@@ -1,7 +1,6 @@
 package com.hbm.packet;
 
 import api.hbm.energy.IEnergyUser;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;

@@ -2,7 +2,6 @@ package com.hbm.packet;
 
 import com.hbm.interfaces.IKeypadHandler;
 import com.hbm.util.KeypadClient;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;

@@ -1,21 +1,19 @@
 package com.hbm.inventory;
 
-import java.util.HashMap;
-
-import com.hbm.items.ModItems;
 import com.hbm.forgefluid.ModForgeFluids;
+import com.hbm.inventory.ChemplantRecipes.EnumChemistryTemplate;
 import com.hbm.inventory.RecipesCommon.AStack;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
-import com.hbm.inventory.ChemplantRecipes;
-import com.hbm.inventory.ChemplantRecipes.EnumChemistryTemplate;
-
-import net.minecraft.init.Items;
+import com.hbm.items.ModItems;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.HashMap;
 
 public class MixerRecipes {
 

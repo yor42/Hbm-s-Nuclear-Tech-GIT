@@ -1,7 +1,6 @@
 package com.hbm.entity.item;
 
 import com.hbm.blocks.ModBlocks;
-
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;

@@ -1,9 +1,6 @@
 package com.hbm.packet;
 
-import java.io.IOException;
-
 import com.hbm.main.MainRegistry;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
@@ -12,6 +9,8 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+
+import java.io.IOException;
 
 public class AuxParticlePacketNT implements IMessage {
 	

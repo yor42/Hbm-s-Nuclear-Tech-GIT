@@ -4,10 +4,10 @@ import com.cleanroommc.groovyscript.api.GroovyLog;
 import com.cleanroommc.groovyscript.api.IIngredient;
 import com.cleanroommc.groovyscript.helper.recipe.AbstractRecipeBuilder;
 import com.cleanroommc.groovyscript.registry.VirtualizedRegistry;
+import com.hbm.handler.gs.NTM;
 import com.hbm.handler.gs.util.IngredientUtils;
 import com.hbm.inventory.RecipesCommon;
 import com.hbm.util.Tuple;
-import com.hbm.handler.gs.NTM;
 
 import java.util.ArrayList;
 import java.util.Collections;

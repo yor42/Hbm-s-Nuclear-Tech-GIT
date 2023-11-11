@@ -1,7 +1,8 @@
 package com.hbm.tileentity.machine;
 
-import java.util.Random;
-
+import api.hbm.block.IDrillInteraction;
+import api.hbm.block.IMiningDrill;
+import api.hbm.energy.IEnergyUser;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.gas.BlockGasBase;
 import com.hbm.handler.MultiblockHandler;
@@ -14,10 +15,6 @@ import com.hbm.packet.PacketDispatcher;
 import com.hbm.packet.TEDrillPacket;
 import com.hbm.sound.SoundLoopMachine;
 import com.hbm.tileentity.TileEntityMachineBase;
-
-import api.hbm.energy.IEnergyUser;
-import api.hbm.block.IDrillInteraction;
-import api.hbm.block.IMiningDrill;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,6 +35,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+
+import java.util.Random;
 
 public class TileEntityMachineMiningDrill extends TileEntityMachineBase implements ITickable, IEnergyUser, IMiningDrill {
 

@@ -1,35 +1,22 @@
 package com.hbm.tileentity.machine;
 
+import api.hbm.energy.*;
+import com.hbm.blocks.machine.MachineBattery;
+import com.hbm.lib.ForgeDirection;
+import com.hbm.lib.Library;
+import com.hbm.tileentity.TileEntityMachineBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.MathHelper;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.hbm.items.ModItems;
-import com.hbm.packet.AuxLongPacket;
-import com.hbm.packet.PacketDispatcher;
-import com.hbm.blocks.machine.MachineBattery;
-import com.hbm.lib.Library;
-import com.hbm.lib.ForgeDirection;
-import com.hbm.tileentity.TileEntityMachineBase;
-
-import api.hbm.energy.IBatteryItem;
-import api.hbm.energy.IEnergyConductor;
-import api.hbm.energy.IEnergyConnector;
-import api.hbm.energy.IEnergyUser;
-import api.hbm.energy.IPowerNet;
-import api.hbm.energy.PowerNet;
-import api.hbm.energy.IBatteryItem;
-import net.minecraft.item.Item;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 
 public class TileEntityMachineBattery extends TileEntityMachineBase implements ITickable, IEnergyUser {
 

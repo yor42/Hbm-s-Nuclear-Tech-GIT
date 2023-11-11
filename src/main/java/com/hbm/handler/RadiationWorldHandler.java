@@ -1,8 +1,5 @@
 package com.hbm.handler;
 
-import java.util.Collection;
-import java.util.Map.Entry;
-
 import com.hbm.blocks.ModBlocks;
 import com.hbm.config.GeneralConfig;
 import com.hbm.config.RadiationConfig;
@@ -10,18 +7,20 @@ import com.hbm.handler.RadiationSystemNT.RadPocket;
 import com.hbm.main.MainRegistry;
 import com.hbm.saveddata.RadiationSaveStructure;
 import com.hbm.saveddata.RadiationSavedData;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.block.BlockSand;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockSand;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.gen.ChunkProviderServer;
+
+import java.util.Collection;
+import java.util.Map.Entry;
 
 public class RadiationWorldHandler {
 

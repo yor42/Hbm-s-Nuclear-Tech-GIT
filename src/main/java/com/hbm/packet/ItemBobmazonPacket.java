@@ -1,14 +1,11 @@
 package com.hbm.packet;
 
-import java.util.Random;
-
 import com.hbm.entity.missile.EntityBobmazon;
 import com.hbm.handler.BobmazonOfferFactory;
 import com.hbm.inventory.gui.GUIScreenBobmazon.Offer;
 import com.hbm.items.ModItems;
 import com.hbm.items.tool.ItemCatalog;
 import com.hbm.lib.ModDamageSource;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +17,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+
+import java.util.Random;
 
 public class ItemBobmazonPacket implements IMessage {
 

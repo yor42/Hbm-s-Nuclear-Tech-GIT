@@ -2,7 +2,6 @@ package com.hbm.packet;
 
 import com.hbm.items.ModItems;
 import com.hbm.tileentity.bomb.TileEntityLaunchPad;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;

@@ -1,13 +1,12 @@
 package api.hbm.energy;
 
+import com.hbm.lib.ForgeDirection;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import com.hbm.lib.ForgeDirection;
-
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.tileentity.TileEntity;
 
 /**
  * For compatible cables with no buffer, using the IPowertNet. You can make your own cables with IEnergyConnector as well, but they won't join their power network.

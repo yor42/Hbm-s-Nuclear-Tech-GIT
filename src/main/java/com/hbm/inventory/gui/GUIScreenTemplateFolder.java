@@ -1,22 +1,16 @@
 package com.hbm.inventory.gui;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import com.hbm.inventory.AssemblerRecipes;
-import com.hbm.inventory.PressRecipes;
 import com.hbm.forgefluid.FluidTypeHandler;
+import com.hbm.inventory.AssemblerRecipes;
+import com.hbm.inventory.ChemplantRecipes.EnumChemistryTemplate;
+import com.hbm.inventory.PressRecipes;
 import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemCassette;
-import com.hbm.items.machine.ItemChemistryTemplate;
-import com.hbm.inventory.ChemplantRecipes.EnumChemistryTemplate;
-import com.hbm.items.machine.ItemForgeFluidIdentifier;
 import com.hbm.items.machine.ItemCassette.TrackType;
+import com.hbm.items.machine.ItemForgeFluidIdentifier;
 import com.hbm.lib.RefStrings;
 import com.hbm.packet.ItemFolderPacket;
 import com.hbm.packet.PacketDispatcher;
-
 import com.hbm.util.I18nUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -34,6 +28,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.input.Keyboard;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class GUIScreenTemplateFolder extends GuiScreen {
 	

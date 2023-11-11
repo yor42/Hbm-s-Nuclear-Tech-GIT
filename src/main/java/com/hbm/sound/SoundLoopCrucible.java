@@ -3,7 +3,6 @@ package com.hbm.sound;
 import com.hbm.items.ModItems;
 import com.hbm.items.weapon.ItemCrucible;
 import com.hbm.lib.HBMSoundHandler;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.MovingSound;

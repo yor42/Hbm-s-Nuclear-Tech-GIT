@@ -1,18 +1,17 @@
 package com.hbm.tileentity.network.energy;
 
-import com.hbm.tileentity.TileEntityLoadedBase;
-import com.hbm.config.GeneralConfig;
-import com.hbm.lib.ForgeDirection;
-
 import api.hbm.energy.IEnergyConnector;
 import cofh.redstoneflux.api.IEnergyProvider;
 import cofh.redstoneflux.api.IEnergyReceiver;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.energy.CapabilityEnergy;
+import com.hbm.config.GeneralConfig;
+import com.hbm.lib.ForgeDirection;
+import com.hbm.tileentity.TileEntityLoadedBase;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 
 public class TileEntityConverterHeRf extends TileEntityLoadedBase implements ITickable, IEnergyConnector, IEnergyProvider, IEnergyStorage {
 

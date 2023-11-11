@@ -2,7 +2,6 @@ package com.hbm.packet;
 
 import com.hbm.items.ModItems;
 import com.hbm.items.weapon.ItemGunShotty;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

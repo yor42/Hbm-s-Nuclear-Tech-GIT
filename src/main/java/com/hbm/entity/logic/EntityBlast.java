@@ -1,21 +1,15 @@
 package com.hbm.entity.logic;
 
-import java.util.List;
-
 import com.hbm.config.RadiationConfig;
-import com.hbm.lib.ModDamageSource;
 import com.hbm.lib.Library;
-
-import net.minecraft.block.state.IBlockState;
+import com.hbm.lib.ModDamageSource;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityTNTPrimed;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.MutableBlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class EntityBlast extends Entity {
 	

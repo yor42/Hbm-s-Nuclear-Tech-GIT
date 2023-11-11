@@ -1,7 +1,6 @@
 package com.hbm.explosion;
 
 import com.hbm.entity.particle.EntityBSmokeFX;
-
 import net.minecraft.world.World;
 
 public class ExplosionParticleB {

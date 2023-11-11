@@ -1,12 +1,5 @@
 package com.hbm.items.weapon;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nullable;
-
-import org.lwjgl.opengl.GL11;
-
 import com.hbm.handler.GunConfiguration;
 import com.hbm.items.ModItems;
 import com.hbm.lib.HBMSoundHandler;
@@ -17,20 +10,14 @@ import com.hbm.main.ModEventHandlerClient;
 import com.hbm.main.ResourceManager;
 import com.hbm.packet.GunAnimationPacket;
 import com.hbm.packet.GunFXPacket;
-import com.hbm.packet.PacketDispatcher;
 import com.hbm.packet.GunFXPacket.FXType;
-import com.hbm.particle.tau.ParticleTauBeam;
-import com.hbm.particle.tau.ParticleTauHit;
-import com.hbm.particle.tau.ParticleTauLightning;
-import com.hbm.particle.tau.ParticleTauMuzzleLightning;
-import com.hbm.particle.tau.ParticleTauParticleFirstPerson;
-import com.hbm.particle.tau.ParticleTauRay;
+import com.hbm.packet.PacketDispatcher;
+import com.hbm.particle.tau.*;
 import com.hbm.render.RenderHelper;
 import com.hbm.render.amlfrom1710.Vec3;
 import com.hbm.render.anim.HbmAnimations.AnimType;
 import com.hbm.sound.AudioWrapper;
 import com.hbm.util.BobMathUtil;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;
@@ -52,6 +39,11 @@ import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemGunGauss extends ItemGunBase {
 	

@@ -1,11 +1,10 @@
 package com.hbm.render.util;
 
-import java.util.ArrayList;
-
 import com.hbm.render.amlfrom1710.Tessellator;
-
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
 
 
 public class HbmGroupObject {

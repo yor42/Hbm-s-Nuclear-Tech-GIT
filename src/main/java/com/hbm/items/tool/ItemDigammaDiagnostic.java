@@ -1,20 +1,19 @@
 package com.hbm.items.tool;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.hbm.items.ModItems;
 import com.hbm.capability.HbmLivingProps;
-import com.hbm.util.ContaminationUtil;
+import com.hbm.items.ModItems;
 import com.hbm.lib.HBMSoundHandler;
-
+import com.hbm.util.ContaminationUtil;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.EnumHand;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemDigammaDiagnostic extends Item {
 

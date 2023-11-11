@@ -2,7 +2,6 @@ package com.hbm.packet;
 
 import com.hbm.handler.JetpackHandler;
 import com.hbm.handler.JetpackHandler.JetpackInfo;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;

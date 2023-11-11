@@ -1,14 +1,5 @@
 package com.hbm.inventory;
 
-import java.util.*;
-
-//i love you
-import static com.hbm.items.ModItems.*;
-import static com.hbm.blocks.ModBlocks.*;
-import static com.hbm.inventory.OreDictManager.DictFrame.*;
-import static com.hbm.inventory.OreNames.*;
-
-
 import com.hbm.config.GeneralConfig;
 import com.hbm.hazard.HazardData;
 import com.hbm.hazard.HazardEntry;
@@ -17,17 +8,22 @@ import com.hbm.hazard.HazardSystem;
 import com.hbm.items.ItemEnums.EnumCokeType;
 import com.hbm.items.ItemEnums.EnumTarType;
 import com.hbm.main.MainRegistry;
-
-
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.util.*;
+
+import static com.hbm.blocks.ModBlocks.*;
+import static com.hbm.inventory.OreDictManager.DictFrame.fromAll;
+import static com.hbm.inventory.OreDictManager.DictFrame.fromOne;
+import static com.hbm.inventory.OreNames.*;
+import static com.hbm.items.ModItems.*;
 
 //the more i optimize this, the more it starts looking like gregtech
 public class OreDictManager {

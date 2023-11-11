@@ -1,18 +1,15 @@
 package com.hbm.blocks.machine;
 
-import java.util.Random;
-
+import com.hbm.blocks.ModBlocks;
 import com.hbm.handler.RadiationSystemNT;
-import com.hbm.interfaces.IDoor;
 import com.hbm.interfaces.IBomb;
+import com.hbm.interfaces.IDoor;
 import com.hbm.interfaces.IDummy;
 import com.hbm.interfaces.IRadResistantBlock;
-import com.hbm.blocks.ModBlocks;
 import com.hbm.items.ModItems;
 import com.hbm.items.tool.ItemLock;
 import com.hbm.tileentity.machine.TileEntityDummy;
 import com.hbm.tileentity.machine.TileEntityVaultDoor;
-
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -28,6 +25,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class DummyBlockVault extends BlockContainer implements IDummy, IBomb, IRadResistantBlock {
 

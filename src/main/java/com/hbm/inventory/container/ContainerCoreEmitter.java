@@ -1,13 +1,8 @@
 package com.hbm.inventory.container;
 
 import com.hbm.forgefluid.FFUtils;
-import com.hbm.packet.AuxElectricityPacket;
-import com.hbm.packet.AuxGaugePacket;
-import com.hbm.packet.AuxLongPacket;
-import com.hbm.packet.FluidTankPacket;
-import com.hbm.packet.PacketDispatcher;
+import com.hbm.packet.*;
 import com.hbm.tileentity.machine.TileEntityCoreEmitter;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;

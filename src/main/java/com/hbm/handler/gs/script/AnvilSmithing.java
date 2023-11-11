@@ -4,11 +4,10 @@ import com.cleanroommc.groovyscript.api.GroovyLog;
 import com.cleanroommc.groovyscript.helper.SimpleObjectStream;
 import com.cleanroommc.groovyscript.helper.recipe.AbstractRecipeBuilder;
 import com.cleanroommc.groovyscript.registry.VirtualizedRegistry;
+import com.hbm.handler.gs.NTM;
 import com.hbm.handler.gs.script.recipes.GroovyAnvilSmithingRecipes;
 import com.hbm.inventory.AnvilRecipes;
 import com.hbm.inventory.AnvilSmithingRecipe;
-import com.hbm.handler.gs.NTM;
-import com.hbm.handler.gs.script.recipes.GroovyAnvilSmithingRecipes;
 import net.minecraft.item.ItemStack;
 
 import java.util.Collection;

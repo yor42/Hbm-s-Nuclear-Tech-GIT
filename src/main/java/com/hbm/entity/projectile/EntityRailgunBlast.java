@@ -1,13 +1,9 @@
 package com.hbm.entity.projectile;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.hbm.config.RadiationConfig;
 import com.hbm.entity.logic.EntityBlast;
 import com.hbm.entity.logic.IChunkLoader;
 import com.hbm.main.MainRegistry;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,6 +15,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ForgeChunkManager.Type;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EntityRailgunBlast extends Entity implements IChunkLoader {
 

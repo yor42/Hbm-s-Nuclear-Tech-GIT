@@ -1,12 +1,11 @@
 package com.hbm.forgefluid;
 
-import java.util.*;
-
 import com.hbm.render.misc.EnumSymbol;
-
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+
+import java.util.*;
 
 public class FluidTypeHandler {
 

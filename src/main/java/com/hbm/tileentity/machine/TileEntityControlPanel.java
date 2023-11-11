@@ -1,22 +1,9 @@
 package com.hbm.tileentity.machine;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
-
 import com.hbm.interfaces.IControlReceiver;
-import com.hbm.inventory.control_panel.Control;
-import com.hbm.inventory.control_panel.ControlEvent;
-import com.hbm.inventory.control_panel.ControlEventSystem;
-import com.hbm.inventory.control_panel.ControlPanel;
-import com.hbm.inventory.control_panel.IControllable;
+import com.hbm.inventory.control_panel.*;
 import com.hbm.packet.ControlPanelUpdatePacket;
 import com.hbm.packet.PacketDispatcher;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -29,6 +16,11 @@ import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemStackHandler;
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
+
+import java.util.Collections;
+import java.util.List;
 
 public class TileEntityControlPanel extends TileEntity implements ITickable, IControllable, IControlReceiver {
 

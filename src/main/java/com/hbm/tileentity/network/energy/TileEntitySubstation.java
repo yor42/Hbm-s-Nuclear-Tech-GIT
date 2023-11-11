@@ -1,13 +1,12 @@
 package com.hbm.tileentity.network.energy;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import api.hbm.energy.IEnergyConductor;
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.render.amlfrom1710.Vec3;
-
-import api.hbm.energy.IEnergyConductor;
 import net.minecraft.util.math.BlockPos;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileEntitySubstation extends TileEntityPylonBase {
 

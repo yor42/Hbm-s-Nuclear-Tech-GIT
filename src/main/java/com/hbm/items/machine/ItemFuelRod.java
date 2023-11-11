@@ -1,16 +1,15 @@
 package com.hbm.items.machine;
 
-import java.util.List;
-
 import com.hbm.items.special.ItemHazard;
 import com.hbm.lib.Library;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+
+import java.util.List;
 
 public class ItemFuelRod extends ItemHazard {
 	

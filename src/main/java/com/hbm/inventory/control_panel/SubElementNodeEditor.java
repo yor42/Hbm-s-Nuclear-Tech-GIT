@@ -1,30 +1,22 @@
 package com.hbm.inventory.control_panel;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.hbm.inventory.control_panel.nodes.*;
+import com.hbm.lib.RefStrings;
+import com.hbm.main.ClientProxy;
+import com.hbm.render.RenderHelper;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
 
-import com.hbm.inventory.control_panel.nodes.Node;
-import com.hbm.inventory.control_panel.nodes.NodeCancelEvent;
-import com.hbm.inventory.control_panel.nodes.NodeEventBroadcast;
-import com.hbm.inventory.control_panel.nodes.NodeGetVar;
-import com.hbm.inventory.control_panel.nodes.NodeInput;
-import com.hbm.inventory.control_panel.nodes.NodeMath;
-import com.hbm.inventory.control_panel.nodes.NodeSetVar;
-import com.hbm.lib.RefStrings;
-import com.hbm.main.ClientProxy;
-import com.hbm.render.RenderHelper;
-
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SubElementNodeEditor extends SubElement {
 

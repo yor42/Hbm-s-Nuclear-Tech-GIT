@@ -1,8 +1,6 @@
 package com.hbm.packet;
 
-import com.hbm.capability.HbmLivingCapability;
 import com.hbm.tileentity.machine.rbmk.TileEntityRBMKBase;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

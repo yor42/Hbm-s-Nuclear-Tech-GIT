@@ -1,12 +1,10 @@
 package com.hbm.tileentity.machine;
 
-import com.hbm.items.ModItems;
+import api.hbm.energy.IEnergyUser;
 import com.hbm.items.machine.ItemLens;
 import com.hbm.packet.AuxGaugePacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.TileEntityMachineBase;
-
-import api.hbm.energy.IEnergyUser;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
