@@ -15,6 +15,7 @@ public class NTM extends ModPropertyContainer {
     public final DifurnaceFuel DIFURNACEFUEL = new DifurnaceFuel();
     public final DiFurnace DIFURNACE = new DiFurnace();
     public final Shredder SHREDDER = new Shredder();
+    public final Bobmazon BOBMAZON = new Bobmazon();
     public NTM(){
         addRegistry(ANVILSMITHING);
         addRegistry(ANVILCONSTRUCTION);
@@ -23,6 +24,7 @@ public class NTM extends ModPropertyContainer {
         addRegistry(DIFURNACEFUEL);
         addRegistry(DIFURNACE);
         addRegistry(SHREDDER);
+        addRegistry(BOBMAZON);
     }
 
     public static void register(){}
