@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 
 import static com.hbm.inventory.DiFurnaceRecipes.diRecipes;
 
-public class DiFurnace extends VirtualizedRegistry<Tuple.Pair<Tuple.Pair<RecipesCommon.AStack, RecipesCommon.AStack>, ItemStack>> {
+public class BlastFurnace extends VirtualizedRegistry<Tuple.Pair<Tuple.Pair<RecipesCommon.AStack, RecipesCommon.AStack>, ItemStack>> {
     @Override
     public void onReload() {
         removeScripted().forEach(recipe->removeRecipe(recipe.getKey()));
@@ -35,7 +35,7 @@ public class DiFurnace extends VirtualizedRegistry<Tuple.Pair<Tuple.Pair<Recipes
 
         @Override
         public String getErrorMsg() {
-            return "Error adding NTM DiFurnace Recipe";
+            return "Error adding NTM BlastFurnace Recipe";
         }
 
         @Override
@@ -49,7 +49,7 @@ public class DiFurnace extends VirtualizedRegistry<Tuple.Pair<Tuple.Pair<Recipes
                 return null;
             }
             Tuple.Pair<Tuple.Pair<RecipesCommon.AStack, RecipesCommon.AStack>, ItemStack> recipe = new Tuple.Pair<>(new Tuple.Pair<>(IngredientUtils.convertIngredient2Astack(this.input.get(0)), IngredientUtils.convertIngredient2Astack(this.input.get(1))), this.output.get(0));
-            NTM.NTM.get().DIFURNACE.addRecipe(recipe);
+            NTM.NTM.get().BLASTFURNACE.addRecipe(recipe);
             return recipe;
         }
     }

@@ -163,21 +163,29 @@ public class HeatRecipes {
 	public static void removeBoilRecipe(String cold){
 		if(FluidRegistry.isFluidRegistered(cold)){
 			Fluid f = FluidRegistry.getFluid(cold);
-			hotFluids.remove(f);
-			requiredTU.remove(f);
-			inputAmountHot.remove(f);
-			outputAmountHot.remove(f);
+			removeBoilRecipe(f);
 		}
 	}
 
 	public static void removeCoolRecipe(String hot){
 		if(FluidRegistry.isFluidRegistered(hot)){
 			Fluid f = FluidRegistry.getFluid(hot);
-			coolFluids.remove(f);
-			resultingTU.remove(f);
-			inputAmountCold.remove(f);
-			outputAmountCold.remove(f);
+			removeCoolRecipe(f);
 		}
+	}
+
+	public static void removeBoilRecipe(Fluid cold){
+		hotFluids.remove(cold);
+		requiredTU.remove(cold);
+		inputAmountHot.remove(cold);
+		outputAmountHot.remove(cold);
+	}
+
+	public static void removeCoolRecipe(Fluid hot){
+		coolFluids.remove(hot);
+		resultingTU.remove(hot);
+		inputAmountCold.remove(hot);
+		outputAmountCold.remove(hot);
 	}
 
 	// return: FluidType, amount produced, amount required, heat required (°C * 100)

@@ -975,11 +975,19 @@ public class SILEXRecipes {
 		for(int i = 0; i < outputItems.length; i++){
 			newRecipe = newRecipe.addOut(new WeightedRandomObject(outputItems[i], outputWeights[i]));
 		}
-		recipes.put(new ComparableStack(input), newRecipe);
+		addRecipe(new ComparableStack(input), newRecipe);
+	}
+
+	public static void addRecipe(ComparableStack input, SILEXRecipe recipe){
+		recipes.put(input, recipe);
 	}
 
 	public static void removeRecipe(ItemStack input){
-		recipes.remove(new ComparableStack(input));
+		removeRecipe(new ComparableStack(input));
+	}
+
+	public static void removeRecipe(ComparableStack input){
+		recipes.remove(input);
 	}
 	
 	public static SILEXRecipe getOutput(ItemStack stack) {
@@ -1040,6 +1048,10 @@ public class SILEXRecipes {
 		return ing;
 	}
 
+	public static void clearRecipes(){
+		recipes.clear();
+	}
+
 	public static Map<List<ItemStack>, SILEXRecipe> getRecipes() {
 		
 		Map<List<ItemStack>, SILEXRecipe> recipes = new HashMap<>();
@@ -1083,6 +1095,11 @@ public class SILEXRecipes {
 		
 		public SILEXRecipe addOut(WeightedRandomObject entry) {
 			outputs.add(entry);
+			return this;
+		}
+
+		public SILEXRecipe addOut(List<WeightedRandomObject> entry) {
+			outputs.addAll(entry);
 			return this;
 		}
 	}

@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import static com.hbm.inventory.DiFurnaceRecipes.diFuels;
 
 
-public class DifurnaceFuel extends VirtualizedRegistry<Tuple.Pair<RecipesCommon.AStack, Integer>> {
+public class BlastFurnaceFuel extends VirtualizedRegistry<Tuple.Pair<RecipesCommon.AStack, Integer>> {
     @Override
     public void onReload() {
         removeScripted().forEach(recipe->DiFurnaceRecipes.removeFuel(recipe.getKey()));

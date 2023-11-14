@@ -19,7 +19,7 @@ import static com.hbm.inventory.OreDictManager.*;
 
 public class CentrifugeRecipes {
 
-	private static final HashMap<Object, ItemStack[]> recipes = new HashMap<Object, ItemStack[]>();
+	private static final HashMap<Object, ItemStack[]> recipes = new HashMap<>();
 	private static List<CentrifugeRecipe> centrifugeRecipes = null;
 	
 	public static void register() {
@@ -309,19 +309,34 @@ public class CentrifugeRecipes {
 	}
 
 	public static void addRecipe(ItemStack in, ItemStack[] outputs){
-		recipes.put(new ComparableStack(in), outputs);
+		addRecipe(new ComparableStack(in), outputs);
+	}
+
+	public static void addRecipe(ComparableStack in, ItemStack[] outputs){
+		recipes.put(in, outputs);
 	}
 
 	public static void removeRecipe(ItemStack in){
-		recipes.remove(new ComparableStack(in));
+		removeRecipe(new ComparableStack(in));
 	}
-	
+
+	public static void removeRecipe(ComparableStack in){
+		recipes.remove(in);
+	}
+
+	public static HashMap<Object, ItemStack[]> getRecipes() {
+		return recipes;
+	}
+
 	public static ItemStack[] getOutput(ItemStack stack) {
 		
-		if(stack == null || stack.getItem() == null)
-			return null;
-	
-		ComparableStack comp = new ComparableStack(stack.getItem(), 1, stack.getItemDamage());
+		if(stack == null) {
+            return null;
+        } else {
+            stack.getItem();
+        }
+
+        ComparableStack comp = new ComparableStack(stack.getItem(), 1, stack.getItemDamage());
 		if(recipes.containsKey(comp))
 			return RecipesCommon.copyStackArray(recipes.get(comp));
 		

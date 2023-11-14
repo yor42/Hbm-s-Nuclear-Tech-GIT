@@ -95,6 +95,10 @@ public class DFCRecipes {
 	public static void setRecipe(long requiredFlux, Item in, ItemStack out) {
 		dfcRecipes.put(new ComparableStack(in), new Object[] {requiredFlux, out});
 	}
+
+	public static void setRecipe(long requiredFlux, ComparableStack in, ItemStack out) {
+		dfcRecipes.put(in, new Object[] {requiredFlux, out});
+	}
 	
 	public static void setRecipe(long requiredFlux, Block in, ItemStack out) {
 		dfcRecipes.put(new ComparableStack(in), new Object[] {requiredFlux, out});
@@ -104,8 +108,13 @@ public class DFCRecipes {
 		dfcRecipes.put(new ComparableStack(OreDictionary.getOres(in).get(0)), new Object[] {requiredFlux, out});
 	}
 
+
 	public static void removeRecipe(ItemStack in) {
-		dfcRecipes.remove(new ComparableStack(in));
+		removeRecipe(new ComparableStack(in));
+	}
+
+	public static void removeRecipe(ComparableStack in) {
+		dfcRecipes.remove(in);
 	}
 
 	public static long getRequiredFlux(ItemStack stack) {

@@ -12,19 +12,33 @@ public class NTM extends ModPropertyContainer {
     public final AnvilConstruction ANVILCONSTRUCTION = new AnvilConstruction();
     public final Assembler ASSEMBLER = new Assembler();
     public final Press PRESS = new Press();
-    public final DifurnaceFuel DIFURNACEFUEL = new DifurnaceFuel();
-    public final DiFurnace DIFURNACE = new DiFurnace();
+    public final BlastFurnaceFuel BLASTFURNACEFUEL = new BlastFurnaceFuel();
+    public final BlastFurnace BLASTFURNACE = new BlastFurnace();
     public final Shredder SHREDDER = new Shredder();
     public final Bobmazon BOBMAZON = new Bobmazon();
+    public final BreedingReactor BREEDINGREACTOR = new BreedingReactor();
+    public final Centrifuge CENTRIFUGE = new Centrifuge();
+    public final DFC DFC = new DFC();
+    public final FluidCombustion FLUIDCOMBUSTION = new FluidCombustion();
+    public final SILEX SILEX = new SILEX();
+    public final IrradiationChannel IRRADIATIONCHANNEL = new IrradiationChannel();
+    public final FluidHeating FLUIDHEATING = new FluidHeating();
+    public final WasteDrum WASTEDRUM = new WasteDrum();
+
     public NTM(){
         addRegistry(ANVILSMITHING);
         addRegistry(ANVILCONSTRUCTION);
         addRegistry(ASSEMBLER);
         addRegistry(PRESS);
-        addRegistry(DIFURNACEFUEL);
-        addRegistry(DIFURNACE);
+        addRegistry(BLASTFURNACEFUEL);
+        addRegistry(BLASTFURNACE);
         addRegistry(SHREDDER);
         addRegistry(BOBMAZON);
+        addRegistry(BREEDINGREACTOR);
+        addRegistry(CENTRIFUGE);
+        addRegistry(DFC);
+        addRegistry(FLUIDCOMBUSTION);
+        addRegistry(WASTEDRUM);
     }
 
     public static void register(){}
