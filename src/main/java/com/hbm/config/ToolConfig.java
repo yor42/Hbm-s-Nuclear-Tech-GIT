@@ -18,6 +18,7 @@ public class ToolConfig {
 	public static boolean abilityCrystallizer = true;
 	public static boolean abilityMercury = true;
 	public static boolean abilityExplosion = true;
+	public static int inflation = 5;
 	
 	public static void loadFromConfig(Configuration config) {
 		final String CATEGORY_TOOLS = "11_tools";
@@ -35,6 +36,7 @@ public class ToolConfig {
 		abilityCrystallizer = config.get(CATEGORY_TOOLS, "11.10_abilityCrystallizer", true).getBoolean(true);
 		abilityMercury = config.get(CATEGORY_TOOLS, "11.11_abilityMercury", true).getBoolean(true);
 		abilityExplosion = config.get(CATEGORY_TOOLS, "11.12_abilityExplosion", true).getBoolean(true);
+		inflation = config.get(CATEGORY_TOOLS, "Bobmazon inflation value", 5).getInt();
 	}
 
 	

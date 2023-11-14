@@ -8,15 +8,13 @@ import com.hbm.handler.gs.script.util.GSOffer;
 import com.hbm.inventory.gui.GUIScreenBobmazon;
 import net.minecraft.item.ItemStack;
 
+import static com.hbm.config.ToolConfig.inflation;
+
 public class Bobmazon extends VirtualizedRegistry<GSOffer> {
     @Override
     public void onReload() {
-        removeScripted().forEach(recipe->{
-            recipe.getCategory().getList().remove(recipe);
-        });
-        restoreFromBackup().forEach((recipe)->{
-            recipe.getCategory().getList().add(recipe);
-        });
+        removeScripted().forEach(recipe-> recipe.getCategory().getList().remove(recipe));
+        restoreFromBackup().forEach((recipe)-> recipe.getCategory().getList().add(recipe));
     }
 
     public void remove(GSOffer offer){
@@ -81,7 +79,7 @@ public class Bobmazon extends VirtualizedRegistry<GSOffer> {
             return this;
         }
         public RecipeBuilder setCost(int cost){
-            this.cost = cost;
+            this.cost = cost*inflation;
             return this;
         }
         public RecipeBuilder setAuthor(String author){

@@ -135,7 +135,7 @@ dependencies {
     }
     compileOnly  rfg.deobf("li.cil.oc:OpenComputers:MC1.12.2-1.7.+:api")
     implementation rfg.deobf('curse.maven:had-enough-items-557549:4543375')
-    compileOnly rfg.deobf("curse.maven:groovyscript-687577:4691853")
+    implementation rfg.deobf("curse.maven:groovyscript-687577:4691853")
     runtimeOnly rfg.deobf("curse.maven:mekanism-ce-399904:4804509")
     compileOnly rfg.deobf("CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-${version_crafttweaker}")
 }

@@ -13,6 +13,8 @@ import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.hbm.config.ToolConfig.inflation;
+
 public class BobmazonOfferFactory {
 
 	public static List<Offer> materials = new ArrayList<Offer>();
@@ -30,8 +32,6 @@ public class BobmazonOfferFactory {
 	}
 	
 	public static void init() {
-
-		int inflation = 5;
 		materials.add(new Offer(new ItemStack(ModItems.ingot_uranium), Requirement.NUCLEAR, 6 * inflation));
 		materials.add(new Offer(new ItemStack(ModItems.ingot_u233), Requirement.NUCLEAR, 20 * inflation));
 		materials.add(new Offer(new ItemStack(ModItems.ingot_u238), Requirement.NUCLEAR, 15 * inflation));
