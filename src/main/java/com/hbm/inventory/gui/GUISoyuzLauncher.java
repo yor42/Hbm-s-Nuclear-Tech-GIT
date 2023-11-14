@@ -40,11 +40,11 @@ public class GUISoyuzLauncher extends GuiInfoContainer {
 		this.drawElectricityInfo(this, mouseX, mouseY, guiLeft + 49, guiTop + 72, 6, 34, launcher.power, TileEntitySoyuzLauncher.maxPower);
 
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 43, guiTop + 17, 18, 18, mouseX, mouseY, new String[]{"The Soyuz goes here"} );
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 43, guiTop + 35, 18, 18, mouseX, mouseY, new String[]{"Designator only for CARGO RECIPEMODE"} );
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 133, guiTop + 17, 18, 18, mouseX, mouseY, new String[]{"The payload for SATELLITE RECIPEMODE"} );
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 43, guiTop + 35, 18, 18, mouseX, mouseY, new String[]{"Designator only for CARGO MODE"} );
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 133, guiTop + 17, 18, 18, mouseX, mouseY, new String[]{"The payload for SATELLITE MODE"} );
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 133, guiTop + 35, 18, 18, mouseX, mouseY, new String[]{"The orbital module for special payloads"} );
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 88, guiTop + 17, 18, 18, mouseX, mouseY, new String[]{"SATELLITE RECIPEMODE"} );
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 88, guiTop + 35, 18, 18, mouseX, mouseY, new String[]{"CARGO RECIPEMODE"} );
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 88, guiTop + 17, 18, 18, mouseX, mouseY, new String[]{"SATELLITE MODE"} );
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 88, guiTop + 35, 18, 18, mouseX, mouseY, new String[]{"CARGO MODE"} );
 		super.renderHoveredToolTip(mouseX, mouseY);
 	}
 
