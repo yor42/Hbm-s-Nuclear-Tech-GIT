@@ -45,7 +45,7 @@ public class DFC extends VirtualizedRegistry<Tuple.Pair<RecipesCommon.Comparable
 
     public void addRecipe(Tuple.Pair<RecipesCommon.ComparableStack, Object[]> pair) {
         dfcRecipes.put(pair.getKey(), pair.getValue());
-        this.addBackup(pair);
+        this.addScripted(pair);
     }
 
 
