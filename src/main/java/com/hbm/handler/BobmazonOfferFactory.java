@@ -24,6 +24,8 @@ public class BobmazonOfferFactory {
 	public static List<Offer> weapons = new ArrayList<Offer>();
 	public static List<Offer> tools = new ArrayList<Offer>();
 	public static List<Offer> special = new ArrayList<Offer>();
+
+	public static List<Offer> custom = new ArrayList<Offer>();
 	
 	public static void reset(){
 		materials.clear();
@@ -222,6 +224,10 @@ public class BobmazonOfferFactory {
 		addOffer(new Offer(new ItemStack(ModItems.mysteryshovel, 1), Requirement.HIDDEN, 160 * inflation, OfferCategorie.SPECIAL));
 		addOffer(new Offer(new ItemStack(ModBlocks.ntm_dirt, 1), Requirement.HIDDEN, 160 * inflation, OfferCategorie.SPECIAL));
 		addOffer(new Offer(new ItemStack(ModItems.euphemium_kit, 1), Requirement.HIDDEN, 640 * inflation, OfferCategorie.SPECIAL));
+		for(Offer offer: custom){
+			addOffer(offer);
+		}
+		custom.clear();
 	}
 	
 	public static void addOffer(Offer offer){

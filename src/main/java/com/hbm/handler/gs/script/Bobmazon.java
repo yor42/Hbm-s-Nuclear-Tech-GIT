@@ -11,12 +11,15 @@ import net.minecraft.item.ItemStack;
 import java.util.Iterator;
 
 import static com.hbm.config.ToolConfig.inflation;
+import static com.hbm.handler.BobmazonOfferFactory.*;
 
 public class Bobmazon extends VirtualizedRegistry<GUIScreenBobmazon.Offer> {
     @Override
     public void onReload() {
+        reset();
         removeScripted().forEach(this::remove);
         restoreFromBackup().forEach(this::addRecipe);
+        init();
     }
 
     private void remove(GUIScreenBobmazon.Offer offer) {
@@ -24,22 +27,8 @@ public class Bobmazon extends VirtualizedRegistry<GUIScreenBobmazon.Offer> {
         this.addBackup(offer);
     }
 
-    public void removeAll(){
-        for(BobmazonOfferFactory.OfferCategorie categorie: BobmazonOfferFactory.OfferCategorie.values()){
-            removeInCategory(categorie);
-        }
-    }
-
-    public void removeInCategory(BobmazonOfferFactory.OfferCategorie categorie){
-        for (Iterator<GUIScreenBobmazon.Offer> it = categorie.getList().iterator(); it.hasNext(); ) {
-            GUIScreenBobmazon.Offer offer = it.next();
-            this.addBackup(offer);
-            it.remove();
-        }
-    }
-
     public void addRecipe(GUIScreenBobmazon.Offer offer){
-        offer.getCategorie().getList().add(offer);
+        custom.add(offer);
         this.addScripted(offer);
     }
 
