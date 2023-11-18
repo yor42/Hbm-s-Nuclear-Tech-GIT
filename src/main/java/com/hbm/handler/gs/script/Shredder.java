@@ -17,19 +17,30 @@ public class Shredder extends VirtualizedRegistry<Tuple.Pair<RecipesCommon.Compa
     public void onReload() {
         jeiShredderRecipes = null;
         removeScripted().forEach(this::addRecipe);
-        restoreFromBackup().forEach(recipe->removeRecipe(recipe.getKey()));
+        restoreFromBackup().forEach(this::removeRecipe);
     }
 
-    private void removeRecipe(RecipesCommon.ComparableStack key) {
-        shredderRecipes.remove(key);
+    private void removeRecipe(Tuple.Pair<RecipesCommon.ComparableStack, ItemStack> pair) {
+        shredderRecipes.remove(pair.getKey());
+        this.addBackup(pair);
+    }
+
+    private void removeRecipe(ItemStack input) {
+        RecipesCommon.ComparableStack in = new RecipesCommon.ComparableStack(input);
+        ItemStack out = shredderRecipes.get(in);
+        this.removeRecipe(new Tuple.Pair<>(in, out));
     }
 
     private void removeAll() {
-        shredderRecipes.clear();
+        for(RecipesCommon.ComparableStack stack:shredderRecipes.keySet()){
+            ItemStack out = shredderRecipes.get(stack);
+            this.removeRecipe(new Tuple.Pair<>(stack, out));
+        }
     }
 
     private void addRecipe(Tuple.Pair<RecipesCommon.ComparableStack, ItemStack> pair) {
         shredderRecipes.put(pair.getKey(), pair.getValue());
+        this.addScripted(pair);
     }
 
     public RecipeBuilder recipeBuilder(){

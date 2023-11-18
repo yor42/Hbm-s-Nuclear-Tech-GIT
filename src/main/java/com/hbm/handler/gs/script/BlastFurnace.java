@@ -21,14 +21,21 @@ public class BlastFurnace extends VirtualizedRegistry<Tuple.Pair<Tuple.Pair<Reci
 
     public void addRecipe(Tuple.Pair<Tuple.Pair<RecipesCommon.AStack, RecipesCommon.AStack>, ItemStack> recipe){
         DiFurnaceRecipes.addRecipe(recipe.getKey().getKey(), recipe.getKey().getValue(), recipe.getValue());
+        addScripted(recipe);
     }
 
     public void removeRecipe(Tuple.Pair<RecipesCommon.AStack, RecipesCommon.AStack> inputs){
+        ItemStack stack = diRecipes.get(inputs);
+        addBackup(new Tuple.Pair<>(inputs, stack));
         DiFurnaceRecipes.removeRecipe(inputs.getKey(), inputs.getValue());
     }
 
     public void removeAll(){
-        diRecipes.clear();
+        for(Tuple.Pair<RecipesCommon.AStack, RecipesCommon.AStack> inputs:diRecipes.keySet()){
+            ItemStack out = diRecipes.get(inputs);
+            addBackup(new Tuple.Pair<>(inputs, out));
+            diRecipes.remove(inputs);
+        }
     }
 
     public static class RecipeBuilder extends AbstractRecipeBuilder<Tuple.Pair<Tuple.Pair<RecipesCommon.AStack, RecipesCommon.AStack>, ItemStack>>{

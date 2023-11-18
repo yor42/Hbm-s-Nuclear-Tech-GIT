@@ -13,12 +13,13 @@ import static com.hbm.config.ToolConfig.inflation;
 public class Bobmazon extends VirtualizedRegistry<GSOffer> {
     @Override
     public void onReload() {
-        removeScripted().forEach(recipe-> recipe.getCategory().getList().remove(recipe));
-        restoreFromBackup().forEach((recipe)-> recipe.getCategory().getList().add(recipe));
+        removeScripted().forEach(this::remove);
+        restoreFromBackup().forEach(this::addRecipe);
     }
 
     public void remove(GSOffer offer){
         offer.getCategory().getList().remove(offer);
+        this.addBackup(offer);
     }
 
     public void removeAll(){
@@ -28,17 +29,30 @@ public class Bobmazon extends VirtualizedRegistry<GSOffer> {
     }
 
     public void removeCategory(GSOffer.Category category){
-        category.getList().clear();
+        for(GUIScreenBobmazon.Offer offer:category.getList()){
+            if(offer instanceof GSOffer){
+                this.addBackup((GSOffer) offer);
+            }
+            category.getList().remove(offer);
+        }
     }
 
     public void removeByOutput(ItemStack stack){
         for(GSOffer.Category category: GSOffer.Category.values()){
-            category.getList().removeIf(offer -> stack.getItem() == offer.offer.getItem() && offer.offer.getCount() == stack.getCount());
+            for(GUIScreenBobmazon.Offer offer: category.getList()){
+                if(stack.getItem() == offer.offer.getItem() && offer.offer.getCount() == stack.getCount()){
+                    category.getList().remove(offer);
+                    if(offer instanceof GSOffer){
+                        this.addBackup((GSOffer) offer);
+                    }
+                }
+            }
         }
     }
 
     public void addRecipe(GSOffer offer){
         offer.getCategory().getList().add(offer);
+        this.addScripted(offer);
     }
 
     public RecipeBuilder recipeBuilder(){

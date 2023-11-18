@@ -14,34 +14,32 @@ import net.minecraft.item.ItemStack;
 public class BreedingReactor extends VirtualizedRegistry<Tuple.Pair<RecipesCommon.ComparableStack, BreederRecipes.BreederRecipe>> {
     @Override
     public void onReload() {
-        this.removeScripted().forEach((recipe)->{
-            removeRecipe(recipe.getKey());
-        });
-        this.restoreFromBackup().forEach((recipe)->{
-            BreederRecipes.addRecipe(recipe.getKey(), recipe.getValue().output, recipe.getValue().heat);
-        });
+        this.removeScripted().forEach(this::removeRecipe);
+        this.restoreFromBackup().forEach(this::addRecipe);
     }
 
-    public void removeRecipe(RecipesCommon.ComparableStack stack){
-        BreederRecipes.removeRecipe(stack);
+    public void removeRecipe(Tuple.Pair<RecipesCommon.ComparableStack, BreederRecipes.BreederRecipe> recipe){
+        BreederRecipes.removeRecipe(recipe.getKey());
+        this.addBackup(recipe);
     }
 
-    public void removeRecipe(IIngredient ingredient){
-        for(ItemStack stack:ingredient.getMatchingStacks()){
-            removeRecipe(new RecipesCommon.ComparableStack(stack));
+    public void removeRecipe(ItemStack input){
+        BreederRecipes.BreederRecipe recipe = BreederRecipes.getOutput(input);
+        if(recipe == null){
+            return;
         }
+        Tuple.Pair<RecipesCommon.ComparableStack, BreederRecipes.BreederRecipe> pair = new Tuple.Pair<>(new RecipesCommon.ComparableStack(input), recipe);
+        this.addRecipe(pair);
+        this.addBackup(pair);
     }
 
-    public void addRecipe(RecipesCommon.ComparableStack input , BreederRecipes.BreederRecipe recipe){
-        BreederRecipes.addRecipe(input, recipe.output, recipe.heat);
-    }
-
-    public void addRecipe(ItemStack output, RecipesCommon.ComparableStack ingredient, int heatlevel){
-        BreederRecipes.addRecipe(ingredient, output, heatlevel);
+    public void addRecipe(Tuple.Pair<RecipesCommon.ComparableStack, BreederRecipes.BreederRecipe> recipe){
+        BreederRecipes.addRecipe(recipe.getKey(), recipe.getValue().output, recipe.getValue().heat);
+        this.addScripted(recipe);
     }
 
     public void addRecipe(ItemStack output, ItemStack ingredient, int heatlevel){
-        addRecipe(output, new RecipesCommon.ComparableStack(ingredient), heatlevel);
+        addRecipe(new Tuple.Pair<>(new RecipesCommon.ComparableStack(output), new BreederRecipes.BreederRecipe(ingredient, heatlevel)));
     }
 
     public void addRecipe(ItemStack output, IIngredient ingredient, int heatlevel){
@@ -76,7 +74,7 @@ public class BreedingReactor extends VirtualizedRegistry<Tuple.Pair<RecipesCommo
         @Override
         public Tuple.Pair<RecipesCommon.ComparableStack, BreederRecipes.BreederRecipe> register() {
             Tuple.Pair<RecipesCommon.ComparableStack, BreederRecipes.BreederRecipe> recipe = new Tuple.Pair<>(new RecipesCommon.ComparableStack(this.input.get(0).getMatchingStacks()[0]), new BreederRecipes.BreederRecipe(this.output.get(0),this.heatLvl));
-            NTM.NTM.get().BREEDINGREACTOR.addRecipe(recipe.getKey(), recipe.getValue());
+            NTM.NTM.get().BREEDINGREACTOR.addRecipe(recipe);
             return recipe;
         }
     }

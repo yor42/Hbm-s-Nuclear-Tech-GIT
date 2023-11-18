@@ -15,8 +15,8 @@ public class WasteDrum extends VirtualizedRegistry<Tuple.Pair<Item, ItemStack>> 
 
     @Override
     public void onReload() {
-        this.removeScripted().forEach(WasteDrumRecipes::removeRecipe);
-        this.restoreFromBackup().forEach(recipe-> WasteDrumRecipes.addRecipe(recipe.getKey(), recipe.getValue()));
+        this.removeScripted().forEach(this::removeRecipe);
+        this.restoreFromBackup().forEach(this::addRecipe);
     }
 
     public void removeAll(){
@@ -28,9 +28,20 @@ public class WasteDrum extends VirtualizedRegistry<Tuple.Pair<Item, ItemStack>> 
         WasteDrumRecipes.removeRecipe(input, output);
     }
 
+    public void removeRecipe(Tuple.Pair<Item, ItemStack> pair){
+        WasteDrumRecipes.removeRecipe(pair);
+        this.addBackup(pair);
+    }
+
+    public void addRecipe(Tuple.Pair<Item, ItemStack> pair){
+        WasteDrumRecipes.addRecipe(pair.getKey(), pair.getValue());
+        this.addScripted(pair);
+    }
+
     public void addRecipe(IIngredient ingredient, ItemStack output){
         for(ItemStack stack:ingredient.getMatchingStacks()) {
             WasteDrumRecipes.addRecipe(stack, output);
+            this.addScripted(new Tuple.Pair<>(stack,output));
         }
     }
 

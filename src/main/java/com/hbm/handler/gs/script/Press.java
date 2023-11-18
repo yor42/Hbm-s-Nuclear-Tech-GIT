@@ -18,19 +18,29 @@ import static com.hbm.inventory.PressRecipes.pressRecipes;
 public class Press extends VirtualizedRegistry<Tuple.Pair<Tuple.Pair<PressRecipes.PressType, RecipesCommon.AStack>, ItemStack>> {
     @Override
     public void onReload() {
-        removeScripted().forEach(recipe->{
-            this.removeRecipebyOutput(recipe.getKey());
-        });
+        removeScripted().forEach(this::removeRecipe);
         restoreFromBackup().forEach(this::addRecipe);
         Collections.sort(recipeList);
     }
 
     private void addRecipe(Tuple.Pair<Tuple.Pair<PressRecipes.PressType, RecipesCommon.AStack>, ItemStack> pairItemStackPair) {
         pressRecipes.put(pairItemStackPair.getKey(), pairItemStackPair.getValue());
+        this.addScripted(pairItemStackPair);
     }
 
-    private void removeRecipebyOutput(Tuple.Pair<PressRecipes.PressType, RecipesCommon.AStack> key){
-        pressRecipes.remove(key);
+    private void removeRecipe(Tuple.Pair<Tuple.Pair<PressRecipes.PressType, RecipesCommon.AStack>, ItemStack> pair){
+        pressRecipes.remove(pair.getKey());
+        this.addBackup(pair);
+    }
+
+    private void removeRecipebyOutput(ItemStack out){
+        for(Tuple.Pair<PressRecipes.PressType, RecipesCommon.AStack> key: pressRecipes.keySet()){
+            ItemStack recipeout = pressRecipes.get(key);
+            if(recipeout == out){
+                pressRecipes.remove(key);
+                this.addBackup(new Tuple.Pair<>(key, recipeout));
+            }
+        }
     }
 
     public RecipeBuilder recipeBuilder() {

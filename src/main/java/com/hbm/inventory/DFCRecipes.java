@@ -139,7 +139,7 @@ public class DFCRecipes {
 
 	public static ItemStack getOutput(ItemStack stack) {
 		
-		if(stack == null || stack.getItem() == null)
+		if(stack == null)
 			return null;
 
 		ComparableStack comp = new ComparableStack(stack).makeSingular();

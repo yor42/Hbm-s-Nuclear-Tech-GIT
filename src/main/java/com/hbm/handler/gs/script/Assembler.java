@@ -28,18 +28,24 @@ public class Assembler extends VirtualizedRegistry<Tuple.Triplet<RecipesCommon.C
     public void addRecipe(Tuple.Triplet<RecipesCommon.ComparableStack, RecipesCommon.AStack[], Integer> recipe){
         recipes.put(recipe.getX(), recipe.getY());
         time.put(recipe.getX(), recipe.getZ());
+        recipeList.add(recipe.getX());
+        this.addScripted(recipe);
     }
 
     public void removeRecipebyOutput(RecipesCommon.ComparableStack output){
+        this.addBackup(new Tuple.Triplet<>(output,recipes.get(output),time.get(output)));
         recipes.remove(output);
         time.remove(output);
         recipeList.remove(output);
     }
 
     public void removeAll(){
-        recipes.clear();
-        time.clear();
-        recipeList.clear();
+        for(RecipesCommon.ComparableStack stack:recipeList){
+            this.addBackup(new Tuple.Triplet<>(stack,recipes.get(stack),time.get(stack)));
+            recipes.remove(stack);
+            time.remove(stack);
+            recipeList.remove(stack);
+        }
     }
 
     public RecipeBuilder recipeBuilder() {

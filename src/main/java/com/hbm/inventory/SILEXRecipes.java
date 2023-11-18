@@ -26,7 +26,7 @@ import static com.hbm.inventory.OreDictManager.*;
 
 public class SILEXRecipes {
 
-	private static final HashMap<Object, SILEXRecipe> recipes = new HashMap<>();
+	public static final HashMap<Object, SILEXRecipe> recipes = new HashMap<>();
 	private static final HashMap<ComparableStack, ComparableStack> itemTranslation = new HashMap<>();
 	private static final HashMap<String, String> dictTranslation = new HashMap<>();
 	

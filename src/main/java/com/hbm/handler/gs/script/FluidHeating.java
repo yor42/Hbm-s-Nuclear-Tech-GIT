@@ -35,6 +35,7 @@ public class FluidHeating extends VirtualizedRegistry<FluidHeating.HeatRecipe> {
                 removeCoolRecipe(recipe.getHot().getFluid());
                 break;
         }
+        this.addBackup(recipe);
     }
 
     public void removeCoolRecipe(FluidStack fluid){
@@ -54,17 +55,23 @@ public class FluidHeating extends VirtualizedRegistry<FluidHeating.HeatRecipe> {
     }
 
     public void removeAllBoil(){
-        hotFluids.clear();
-        requiredTU.clear();
-        inputAmountHot.clear();
-        outputAmountHot.clear();
+        for(Fluid cold : hotFluids.keySet()){
+            Fluid hot = hotFluids.get(cold);
+            int TU = requiredTU.get(cold);
+            int inputamount = inputAmountHot.get(cold);
+            int outputamount = outputAmountHot.get(cold);
+            removeRecipe(new HeatRecipe(new FluidStack(cold, inputamount), new FluidStack(hot, outputamount), TU, RECIPEMODE.BOIL));
+        }
     }
 
     public void removeAllCool(){
-        coolFluids.clear();
-        resultingTU.clear();
-        inputAmountCold.clear();
-        outputAmountCold.clear();
+        for(Fluid hot : coolFluids.keySet()){
+            Fluid cool = coolFluids.get(hot);
+            int TU = resultingTU.get(hot);
+            int inputamount = inputAmountCold.get(hot);
+            int outputamount = outputAmountCold.get(hot);
+            removeRecipe(new HeatRecipe(new FluidStack(cool, outputamount), new FluidStack(hot, inputamount), TU, RECIPEMODE.COOL));
+        }
     }
 
     public void removeAll(){
@@ -84,6 +91,7 @@ public class FluidHeating extends VirtualizedRegistry<FluidHeating.HeatRecipe> {
                 addBoilAndCoolRecipe(recipe.getCool(), recipe.getHot(), recipe.getHeat());
                 break;
         }
+        this.addScripted(recipe);
     }
 
     public static class RecipeBuilder extends AbstractRecipeBuilder<FluidHeating.HeatRecipe> {

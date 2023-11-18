@@ -46,7 +46,7 @@ public class RenderSelenium extends TileEntitySpecialRenderer<TileEntityMachineS
         }
 		
         if(count > 2 && te.hasAcceptableFuel() && te.tank.getFluidAmount() > 0)
-        	GL11.glRotatef((System.currentTimeMillis() / 2) % 360, 0F, 0F, -1F);
+        	GL11.glRotatef(((float) System.currentTimeMillis() / 2) % 360, 0F, 0F, -1F);
 
         bindTexture(ResourceManager.selenium_rotor_tex);
         ResourceManager.selenium_rotor.renderAll();

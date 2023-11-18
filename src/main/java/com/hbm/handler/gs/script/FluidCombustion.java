@@ -14,24 +14,39 @@ import static com.hbm.inventory.FluidCombustionRecipes.resultingTU;
 public class FluidCombustion extends VirtualizedRegistry<Tuple.Pair<Fluid, Integer>> {
     @Override
     public void onReload() {
-        this.removeScripted().forEach(recipe-> FluidCombustionRecipes.removeBurnableFluid(recipe.getKey()));
-        this.restoreFromBackup().forEach(recipe-> FluidCombustionRecipes.addBurnableFluid(recipe.getKey(), recipe.getValue()));
+        this.removeScripted().forEach(this::remove);
+        this.restoreFromBackup().forEach(this::add);
     }
 
     public void removeAll(){
-        resultingTU.clear();
+        for(Fluid stack: resultingTU.keySet()){
+            int value = resultingTU.get(stack);
+            remove(new Tuple.Pair<>(stack, value));
+        }
     }
 
-    public void remove(@NotNull FluidStack fluidStack){
-        FluidCombustionRecipes.removeBurnableFluid(fluidStack.getFluid());
+    public void remove(Tuple.Pair<Fluid, Integer> pair){
+        this.addBackup(pair);
+        resultingTU.remove(pair.getKey());
     }
 
     public void remove(Fluid fluid){
-        FluidCombustionRecipes.removeBurnableFluid(fluid);
+        int value = FluidCombustionRecipes.getFlameEnergy(fluid);
+        remove(new Tuple.Pair<>(fluid, value));
+    }
+
+    public void remove(@NotNull FluidStack fluidStack){
+        int value = FluidCombustionRecipes.getFlameEnergy(fluidStack.getFluid());
+        remove(new Tuple.Pair<>(fluidStack.getFluid(), value));
+    }
+
+    public void add(Tuple.Pair<Fluid, Integer> pair){
+        FluidCombustionRecipes.addBurnableFluid(pair.getKey(), pair.getValue());
+        this.addScripted(pair);
     }
 
     public void add(FluidStack fluid, int mbperHeat){
-        FluidCombustionRecipes.addBurnableFluid(fluid.getFluid(), mbperHeat);
+        this.add(new Tuple.Pair<>(fluid.getFluid(), mbperHeat));
     }
 
 }
