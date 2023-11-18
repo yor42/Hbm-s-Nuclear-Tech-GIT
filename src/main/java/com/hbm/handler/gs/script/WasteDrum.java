@@ -41,7 +41,7 @@ public class WasteDrum extends VirtualizedRegistry<Tuple.Pair<Item, ItemStack>> 
     public void addRecipe(IIngredient ingredient, ItemStack output){
         for(ItemStack stack:ingredient.getMatchingStacks()) {
             WasteDrumRecipes.addRecipe(stack, output);
-            this.addScripted(new Tuple.Pair<>(stack,output));
+            this.addScripted(new Tuple.Pair<>(stack.getItem(),output));
         }
     }
 

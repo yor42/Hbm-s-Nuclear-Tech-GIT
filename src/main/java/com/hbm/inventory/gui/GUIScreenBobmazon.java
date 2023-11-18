@@ -1,5 +1,6 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.handler.BobmazonOfferFactory;
 import com.hbm.lib.RefStrings;
 import com.hbm.main.AdvancementManager;
 import com.hbm.packet.ItemBobmazonPacket;
@@ -33,8 +34,8 @@ public class GUIScreenBobmazon extends GuiScreen {
     protected int guiLeft;
     protected int guiTop;
     int currentPage = 0;
-    List<Offer> offers = new ArrayList<Offer>();
-    List<FolderButton> buttons = new ArrayList<FolderButton>();
+    List<Offer> offers;
+    List<FolderButton> buttons = new ArrayList<>();
     private final EntityPlayer player;
     
     public GUIScreenBobmazon(EntityPlayer player, List<Offer> offers) {
@@ -213,25 +214,32 @@ public class GUIScreenBobmazon extends GuiScreen {
 		public int rating;
 		public String comment;
 		public String author;
+		public final BobmazonOfferFactory.OfferCategorie categorie;
 		
-		public Offer(ItemStack offer, Requirement requirement, int cost, int rating, String comment, String author) {
+		public Offer(ItemStack offer, Requirement requirement, int cost, int rating, String comment, String author, BobmazonOfferFactory.OfferCategorie category) {
 			this.offer = offer;
 			this.requirement = requirement;
 			this.cost = cost;
 			this.rating = rating * 4 - 1;
 			this.comment = comment;
 			this.author = author;
+			this.categorie = category;
 		}
 		
-		public Offer(ItemStack offer, Requirement requirement, int cost) {
+		public Offer(ItemStack offer, Requirement requirement, int cost, BobmazonOfferFactory.OfferCategorie category) {
 			this.offer = offer;
 			this.requirement = requirement;
 			this.cost = cost;
 			this.rating = 0;
 			this.comment = "No Ratings";
 			this.author = "";
+			this.categorie = category;
 		}
-		
+
+		public BobmazonOfferFactory.OfferCategorie getCategorie() {
+			return this.categorie;
+		}
+
 		public void drawRequirement(GUIScreenBobmazon gui, int x, int y) {
 			try {
 

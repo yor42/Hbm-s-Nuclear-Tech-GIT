@@ -16,34 +16,53 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SILEX extends VirtualizedRegistry<Tuple.Pair<IIngredient, SILEXRecipes.SILEXRecipe>> {
+import static com.hbm.inventory.SILEXRecipes.recipes;
+
+public class SILEX extends VirtualizedRegistry<Tuple.Pair<Object, SILEXRecipes.SILEXRecipe>> {
     @Override
     public void onReload() {
-        removeScripted().forEach(recipe->removeRecipe(recipe.getKey()));
-        restoreFromBackup().forEach(recipe->addRecipe(recipe.getKey(), recipe.getValue()));
+        removeScripted().forEach(this::removeRecipe);
+        restoreFromBackup().forEach(this::addRecipe);
     }
 
     public void removeAll(){
-        SILEXRecipes.clearRecipes();
+        for(Object key:recipes.keySet()){
+            this.removeRecipe(new Tuple.Pair<>(key, recipes.get(key)));
+        }
     }
 
     public void removeRecipe(IIngredient ingredient){
         for(ItemStack stack:ingredient.getMatchingStacks()){
-            SILEXRecipes.removeRecipe(stack);
+            removeRecipe(stack);
         }
     }
 
-    public void addRecipe(Tuple.Pair<IIngredient, SILEXRecipes.SILEXRecipe> recipe){
-        addRecipe(recipe.getKey(), recipe.getValue());
+    public void removeRecipe(ItemStack stack){
+        RecipesCommon.ComparableStack stack1 = new RecipesCommon.ComparableStack(stack);
+        SILEXRecipes.SILEXRecipe recipe = recipes.get(stack1);
+        Tuple.Pair<Object, SILEXRecipes.SILEXRecipe> recipesPair = new Tuple.Pair<>(stack1, recipe);
+        removeRecipe(recipesPair);
+    }
+
+    public void removeRecipe(Tuple.Pair<Object, SILEXRecipes.SILEXRecipe> pair){
+        recipes.remove(pair.getKey());
+        this.addBackup(pair);
+    }
+
+    public void addRecipe(Tuple.Pair<Object, SILEXRecipes.SILEXRecipe> recipe){
+        recipes.put(recipe.getKey(), recipe.getValue());
+        this.addScripted(recipe);
     }
 
     public void addRecipe(IIngredient ingredient, SILEXRecipes.SILEXRecipe recipe){
         for(ItemStack stack:ingredient.getMatchingStacks()){
-            SILEXRecipes.addRecipe(new RecipesCommon.ComparableStack(stack), recipe);
+            RecipesCommon.ComparableStack input = new RecipesCommon.ComparableStack(stack);
+            SILEXRecipes.addRecipe(input, recipe);
+            this.addScripted(new Tuple.Pair<>(input, recipe));
         }
     }
 
-    public static class RecipeBuilder extends AbstractRecipeBuilder<Tuple.Pair<IIngredient, SILEXRecipes.SILEXRecipe>>{
+    public static class RecipeBuilder extends AbstractRecipeBuilder<Tuple.Pair<Object, SILEXRecipes.SILEXRecipe>>{
 
         public int fluidProduced = 0;
         public int fluidConsumed = 0;
@@ -119,12 +138,12 @@ public class SILEX extends VirtualizedRegistry<Tuple.Pair<IIngredient, SILEXReci
         }
 
         @Override
-        public @Nullable Tuple.Pair<IIngredient, SILEXRecipes.SILEXRecipe> register() {
+        public @Nullable Tuple.Pair<Object, SILEXRecipes.SILEXRecipe> register() {
             if (!this.validate()) {
                 return null;
             }
 
-            Tuple.Pair<IIngredient, SILEXRecipes.SILEXRecipe> recipe = new Tuple.Pair<>(this.input.get(0), new SILEXRecipes.SILEXRecipe(this.fluidProduced, this.fluidConsumed, this.laserStrength).addOut(this.outputs));
+            Tuple.Pair<Object, SILEXRecipes.SILEXRecipe> recipe = new Tuple.Pair<>(this.input.get(0), new SILEXRecipes.SILEXRecipe(this.fluidProduced, this.fluidConsumed, this.laserStrength).addOut(this.outputs));
             NTM.NTM.get().SILEX.addRecipe(recipe);
             return recipe;
         }

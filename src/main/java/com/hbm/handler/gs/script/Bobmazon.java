@@ -3,55 +3,43 @@ package com.hbm.handler.gs.script;
 import com.cleanroommc.groovyscript.api.GroovyLog;
 import com.cleanroommc.groovyscript.helper.recipe.AbstractRecipeBuilder;
 import com.cleanroommc.groovyscript.registry.VirtualizedRegistry;
+import com.hbm.handler.BobmazonOfferFactory;
 import com.hbm.handler.gs.NTM;
-import com.hbm.handler.gs.script.util.GSOffer;
 import com.hbm.inventory.gui.GUIScreenBobmazon;
 import net.minecraft.item.ItemStack;
 
+import java.util.Iterator;
+
 import static com.hbm.config.ToolConfig.inflation;
 
-public class Bobmazon extends VirtualizedRegistry<GSOffer> {
+public class Bobmazon extends VirtualizedRegistry<GUIScreenBobmazon.Offer> {
     @Override
     public void onReload() {
         removeScripted().forEach(this::remove);
         restoreFromBackup().forEach(this::addRecipe);
     }
 
-    public void remove(GSOffer offer){
-        offer.getCategory().getList().remove(offer);
+    private void remove(GUIScreenBobmazon.Offer offer) {
+        offer.getCategorie().getList().remove(offer);
         this.addBackup(offer);
     }
 
     public void removeAll(){
-        for(GSOffer.Category category: GSOffer.Category.values()){
-            removeCategory(category);
+        for(BobmazonOfferFactory.OfferCategorie categorie: BobmazonOfferFactory.OfferCategorie.values()){
+            removeInCategory(categorie);
         }
     }
 
-    public void removeCategory(GSOffer.Category category){
-        for(GUIScreenBobmazon.Offer offer:category.getList()){
-            if(offer instanceof GSOffer){
-                this.addBackup((GSOffer) offer);
-            }
-            category.getList().remove(offer);
+    public void removeInCategory(BobmazonOfferFactory.OfferCategorie categorie){
+        for (Iterator<GUIScreenBobmazon.Offer> it = categorie.getList().iterator(); it.hasNext(); ) {
+            GUIScreenBobmazon.Offer offer = it.next();
+            this.addBackup(offer);
+            it.remove();
         }
     }
 
-    public void removeByOutput(ItemStack stack){
-        for(GSOffer.Category category: GSOffer.Category.values()){
-            for(GUIScreenBobmazon.Offer offer: category.getList()){
-                if(stack.getItem() == offer.offer.getItem() && offer.offer.getCount() == stack.getCount()){
-                    category.getList().remove(offer);
-                    if(offer instanceof GSOffer){
-                        this.addBackup((GSOffer) offer);
-                    }
-                }
-            }
-        }
-    }
-
-    public void addRecipe(GSOffer offer){
-        offer.getCategory().getList().add(offer);
+    public void addRecipe(GUIScreenBobmazon.Offer offer){
+        offer.getCategorie().getList().add(offer);
         this.addScripted(offer);
     }
 
@@ -59,13 +47,13 @@ public class Bobmazon extends VirtualizedRegistry<GSOffer> {
         return new RecipeBuilder();
     }
 
-    public static class RecipeBuilder extends AbstractRecipeBuilder<GSOffer> {
+    public static class RecipeBuilder extends AbstractRecipeBuilder<GUIScreenBobmazon.Offer> {
        public GUIScreenBobmazon.Requirement requirement = GUIScreenBobmazon.Requirement.STEEL;
         public int cost = 1;
         public int rating = 0;
         public String comment = "No Ratings";
         public String author = "";
-        public GSOffer.Category category = GSOffer.Category.MATERIALS;
+        public BobmazonOfferFactory.OfferCategorie category = BobmazonOfferFactory.OfferCategorie.MATERIALS;
 
         public RecipeBuilder setRequirementSteel(){
             this.requirement = GUIScreenBobmazon.Requirement.STEEL;
@@ -107,27 +95,27 @@ public class Bobmazon extends VirtualizedRegistry<GSOffer> {
         }
 
         public RecipeBuilder setCategoryMaterials(){
-            this.category = GSOffer.Category.MATERIALS;
+            this.category = BobmazonOfferFactory.OfferCategorie.MATERIALS;
             return this;
         }
 
         public RecipeBuilder setCategoryMachiness(){
-            this.category = GSOffer.Category.MACHINES;
+            this.category = BobmazonOfferFactory.OfferCategorie.MACHINES;
             return this;
         }
 
         public RecipeBuilder setCategoryWeapons(){
-            this.category = GSOffer.Category.WEAPONS;
+            this.category = BobmazonOfferFactory.OfferCategorie.WEAPONS;
             return this;
         }
 
         public RecipeBuilder setCategoryTools(){
-            this.category = GSOffer.Category.TOOLS;
+            this.category = BobmazonOfferFactory.OfferCategorie.TOOLS;
             return this;
         }
 
         public RecipeBuilder setCategorySpecial(){
-            this.category = GSOffer.Category.SPECIAL;
+            this.category = BobmazonOfferFactory.OfferCategorie.SPECIAL;
             return this;
         }
 
@@ -148,11 +136,11 @@ public class Bobmazon extends VirtualizedRegistry<GSOffer> {
         }
 
         @Override
-        public GSOffer register() {
+        public GUIScreenBobmazon.Offer register() {
             if (!this.validate()) {
                 return null;
             }
-            GSOffer recipe = new GSOffer(this.category, this.output.get(0), this.requirement, this.cost, this.rating, this.comment, this.author);
+            GUIScreenBobmazon.Offer recipe = new GUIScreenBobmazon.Offer(this.output.get(0), this.requirement, this.cost, this.rating, this.comment, this.author, this.category);
             NTM.NTM.get().BOBMAZON.addRecipe(recipe);
             return recipe;
         }

@@ -1048,10 +1048,6 @@ public class SILEXRecipes {
 		return ing;
 	}
 
-	public static void clearRecipes(){
-		recipes.clear();
-	}
-
 	public static Map<List<ItemStack>, SILEXRecipe> getRecipes() {
 		
 		Map<List<ItemStack>, SILEXRecipe> recipes = new HashMap<>();
