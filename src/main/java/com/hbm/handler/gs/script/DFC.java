@@ -13,37 +13,42 @@ import org.jetbrains.annotations.Nullable;
 
 import static com.hbm.inventory.DFCRecipes.dfcRecipes;
 
-public class DFC extends VirtualizedRegistry<Tuple.Triplet<RecipesCommon.ComparableStack, ItemStack, Long>> {
+public class DFC extends VirtualizedRegistry<Tuple.Pair<RecipesCommon.ComparableStack, Object[]>> {
     @Override
     public void onReload() {
-        this.removeScripted().forEach(recipe -> {
-            DFCRecipes.removeRecipe(recipe.getX());
-        });
-        this.restoreFromBackup().forEach(recipe -> DFCRecipes.setRecipe(recipe.getZ(), recipe.getX(), recipe.getY()));
+        this.removeScripted().forEach(this::removeRecipe);
+        this.restoreFromBackup().forEach(this::addRecipe);
     }
 
-    public void removeRecipe(ItemStack stack) {
-        DFCRecipes.removeRecipe(stack);
+    public void removeRecipe(Tuple.Pair<RecipesCommon.ComparableStack, Object[]> pair){
+        dfcRecipes.remove(pair.getKey());
+        this.addBackup(pair);
     }
 
-    public void removeRecipe(IIngredient ingredient) {
-        for (ItemStack stack : ingredient.getMatchingStacks()) {
-            DFCRecipes.removeRecipe(stack);
-        }
-    }
-
-    public void removeAll() {
-        dfcRecipes.clear();
+    public void removeRecipe(ItemStack stack){
+        RecipesCommon.ComparableStack comparableStack = new RecipesCommon.ComparableStack(stack);
+        Object[] values = dfcRecipes.get(comparableStack);
+        removeRecipe(new Tuple.Pair<>(comparableStack, values));
     }
 
     public void addRecipe(IIngredient ingredient, ItemStack output, long flux) {
         for (ItemStack stack : ingredient.getMatchingStacks()) {
-            DFCRecipes.setRecipe(flux, stack, output);
+            addRecipe(stack, output, flux);
         }
     }
 
     public void addRecipe(ItemStack stack, ItemStack output, long flux) {
-        DFCRecipes.setRecipe(flux, stack, output);
+        RecipesCommon.ComparableStack comparableStack = new RecipesCommon.ComparableStack(stack);
+        Object[] params = new Object[] {flux, output};
+        addRecipe(new Tuple.Pair<>(comparableStack, params));
     }
+
+    public void addRecipe(Tuple.Pair<RecipesCommon.ComparableStack, Object[]> pair) {
+        dfcRecipes.put(pair.getKey(), pair.getValue());
+        this.addBackup(pair);
+    }
+
+
+
 
 }
