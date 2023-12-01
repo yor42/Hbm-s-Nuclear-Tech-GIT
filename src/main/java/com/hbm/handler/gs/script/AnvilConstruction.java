@@ -130,7 +130,7 @@ public class AnvilConstruction extends VirtualizedRegistry<AnvilRecipes.AnvilCon
                 return null;
             }
             GroovyAnvilConstructionRecipe recipe = new GroovyAnvilConstructionRecipe(this.input, this.output.toArray(new AnvilRecipes.AnvilOutput[0]), this.overlayType, this.minTier, this.maxTier);
-            NTM.NTM.get().ANVILCONSTRUCTION.add(recipe);
+            NTM.ANVILCONSTRUCTION.add(recipe);
             return recipe;
         }
     }

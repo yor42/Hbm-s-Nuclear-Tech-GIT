@@ -1,45 +1,45 @@
 package com.hbm.handler.gs;
 
+import com.cleanroommc.groovyscript.api.GroovyPlugin;
+import com.cleanroommc.groovyscript.compat.mods.GroovyContainer;
 import com.cleanroommc.groovyscript.compat.mods.ModPropertyContainer;
 import com.cleanroommc.groovyscript.compat.mods.ModSupport;
 import com.hbm.handler.gs.script.*;
 import com.hbm.lib.RefStrings;
+import org.jetbrains.annotations.NotNull;
 
-public class NTM extends ModPropertyContainer {
-
-    public static final ModSupport.Container<NTM> NTM = new ModSupport.Container<>(RefStrings.MODID, RefStrings.NAME , NTM::new, "ntm");
-    public final AnvilSmithing ANVILSMITHING = new AnvilSmithing();
-    public final AnvilConstruction ANVILCONSTRUCTION = new AnvilConstruction();
-    public final Assembler ASSEMBLER = new Assembler();
-    public final Press PRESS = new Press();
-    public final BlastFurnaceFuel BLASTFURNACEFUEL = new BlastFurnaceFuel();
-    public final BlastFurnace BLASTFURNACE = new BlastFurnace();
-    public final Shredder SHREDDER = new Shredder();
-    public final Bobmazon BOBMAZON = new Bobmazon();
-    public final BreedingReactor BREEDINGREACTOR = new BreedingReactor();
-    public final Centrifuge CENTRIFUGE = new Centrifuge();
-    public final DFC DFC = new DFC();
-    public final FluidCombustion FLUIDCOMBUSTION = new FluidCombustion();
-    public final SILEX SILEX = new SILEX();
-    public final IrradiationChannel IRRADIATIONCHANNEL = new IrradiationChannel();
-    public final FluidHeating FLUIDHEATING = new FluidHeating();
-    public final WasteDrum WASTEDRUM = new WasteDrum();
-
-    public NTM(){
-        addRegistry(ANVILSMITHING);
-        addRegistry(ANVILCONSTRUCTION);
-        addRegistry(ASSEMBLER);
-        addRegistry(PRESS);
-        addRegistry(BLASTFURNACEFUEL);
-        addRegistry(BLASTFURNACE);
-        addRegistry(SHREDDER);
-        addRegistry(BOBMAZON);
-        addRegistry(BREEDINGREACTOR);
-        addRegistry(CENTRIFUGE);
-        addRegistry(DFC);
-        addRegistry(FLUIDCOMBUSTION);
-        addRegistry(WASTEDRUM);
-    }
+public class NTM implements GroovyPlugin {
+    public static final AnvilSmithing ANVILSMITHING = new AnvilSmithing();
+    public static final AnvilConstruction ANVILCONSTRUCTION = new AnvilConstruction();
+    public static final Assembler ASSEMBLER = new Assembler();
+    public static final Press PRESS = new Press();
+    public static final BlastFurnaceFuel BLASTFURNACEFUEL = new BlastFurnaceFuel();
+    public static final BlastFurnace BLASTFURNACE = new BlastFurnace();
+    public static final Shredder SHREDDER = new Shredder();
+    public static final Bobmazon BOBMAZON = new Bobmazon();
+    public static final BreedingReactor BREEDINGREACTOR = new BreedingReactor();
+    public static final Centrifuge CENTRIFUGE = new Centrifuge();
+    public static final DFC DFC = new DFC();
+    public static final FluidCombustion FLUIDCOMBUSTION = new FluidCombustion();
+    public static final SILEX SILEX = new SILEX();
+    public static final IrradiationChannel IRRADIATIONCHANNEL = new IrradiationChannel();
+    public static final FluidHeating FLUIDHEATING = new FluidHeating();
+    public static final WasteDrum WASTEDRUM = new WasteDrum();
 
     public static void register(){}
+
+    @Override
+    public @NotNull String getModId() {
+        return RefStrings.MODID;
+    }
+
+    @Override
+    public @NotNull String getModName() {
+        return RefStrings.NAME;
+    }
+
+    @Override
+    public void onCompatLoaded(GroovyContainer<?> groovyContainer) {
+        groovyContainer.getVirtualizedRegistrar().addFieldsOf(this);
+    }
 }

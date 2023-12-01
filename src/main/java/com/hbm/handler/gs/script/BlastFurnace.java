@@ -56,7 +56,7 @@ public class BlastFurnace extends VirtualizedRegistry<Tuple.Pair<Tuple.Pair<Reci
                 return null;
             }
             Tuple.Pair<Tuple.Pair<RecipesCommon.AStack, RecipesCommon.AStack>, ItemStack> recipe = new Tuple.Pair<>(new Tuple.Pair<>(IngredientUtils.convertIngredient2Astack(this.input.get(0)), IngredientUtils.convertIngredient2Astack(this.input.get(1))), this.output.get(0));
-            NTM.NTM.get().BLASTFURNACE.addRecipe(recipe);
+            NTM.BLASTFURNACE.addRecipe(recipe);
             return recipe;
         }
     }

@@ -138,7 +138,7 @@ public class AnvilSmithing extends VirtualizedRegistry<AnvilSmithingRecipe> {
                 return null;
             }
             GroovyAnvilSmithingRecipes recipe = new GroovyAnvilSmithingRecipes(this.tier, this.output.get(0), this.input);
-            NTM.NTM.get().ANVILSMITHING.add(recipe);
+            NTM.ANVILSMITHING.add(recipe);
             return recipe;
         }
     }

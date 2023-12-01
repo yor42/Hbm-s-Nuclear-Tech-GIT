@@ -136,7 +136,7 @@ public class FluidHeating extends VirtualizedRegistry<FluidHeating.HeatRecipe> {
                 return null;
             }
             HeatRecipe recipe = new HeatRecipe(this.fluidInput.get(0), this.fluidOutput.get(0), this.heat, this.mode);
-            NTM.NTM.get().FLUIDHEATING.addRecipe(recipe);
+            NTM.FLUIDHEATING.addRecipe(recipe);
             return recipe;
         }
     }

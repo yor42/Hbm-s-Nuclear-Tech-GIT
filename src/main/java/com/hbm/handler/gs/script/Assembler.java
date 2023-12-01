@@ -81,7 +81,7 @@ public class Assembler extends VirtualizedRegistry<Tuple.Triplet<RecipesCommon.C
                 list.add(IngredientUtils.convertIngredient2Astack(ingredient));
             }
             Tuple.Triplet<RecipesCommon.ComparableStack, RecipesCommon.AStack[], Integer> recipe = new Tuple.Triplet<>(new RecipesCommon.ComparableStack(this.output.get(0)),  list.toArray(new RecipesCommon.AStack[0]), this.time);
-            NTM.NTM.get().ASSEMBLER.addRecipe(recipe);
+            NTM.ASSEMBLER.addRecipe(recipe);
             return recipe;
         }
     }

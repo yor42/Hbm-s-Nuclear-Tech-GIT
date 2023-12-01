@@ -113,7 +113,7 @@ public class Press extends VirtualizedRegistry<Tuple.Pair<Tuple.Pair<PressRecipe
                 return null;
             }
             Tuple.Pair<Tuple.Pair<PressRecipes.PressType, RecipesCommon.AStack>, ItemStack> recipe = new Tuple.Pair<>(new Tuple.Pair<>(this.type, IngredientUtils.convertIngredient2Astack(this.input.get(0))), this.output.get(0));
-            NTM.NTM.get().PRESS.addRecipe(recipe);
+            NTM.PRESS.addRecipe(recipe);
             return recipe;
         }
     }

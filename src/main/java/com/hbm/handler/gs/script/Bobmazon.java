@@ -37,7 +37,7 @@ public class Bobmazon extends VirtualizedRegistry<GUIScreenBobmazon.Offer> {
     }
 
     public static class RecipeBuilder extends AbstractRecipeBuilder<GUIScreenBobmazon.Offer> {
-       public GUIScreenBobmazon.Requirement requirement = GUIScreenBobmazon.Requirement.STEEL;
+        public GUIScreenBobmazon.Requirement requirement = GUIScreenBobmazon.Requirement.STEEL;
         public int cost = 1;
         public int rating = 0;
         public String comment = "No Ratings";
@@ -130,7 +130,7 @@ public class Bobmazon extends VirtualizedRegistry<GUIScreenBobmazon.Offer> {
                 return null;
             }
             GUIScreenBobmazon.Offer recipe = new GUIScreenBobmazon.Offer(this.output.get(0), this.requirement, this.cost, this.rating, this.comment, this.author, this.category);
-            NTM.NTM.get().BOBMAZON.addRecipe(recipe);
+            NTM.BOBMAZON.addRecipe(recipe);
             return recipe;
         }
     }

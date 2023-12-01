@@ -65,7 +65,7 @@ public class Shredder extends VirtualizedRegistry<Tuple.Pair<RecipesCommon.Compa
                 return null;
             }
             Tuple.Pair<RecipesCommon.ComparableStack, ItemStack> recipe = new Tuple.Pair<>(IngredientUtils.convertIngredient2ComparableStack(this.input.get(0)), this.output.get(0));
-            NTM.NTM.get().SHREDDER.addRecipe(recipe);
+            NTM.SHREDDER.addRecipe(recipe);
             return recipe;
         }
     }

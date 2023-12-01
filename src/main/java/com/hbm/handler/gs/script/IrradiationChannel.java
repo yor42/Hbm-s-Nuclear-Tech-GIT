@@ -96,7 +96,7 @@ public class IrradiationChannel extends VirtualizedRegistry<Tuple.Pair<RecipesCo
                 return null;
             }
             Tuple.Triplet<Integer, IIngredient, ItemStack> recipe = new Tuple.Triplet<>(this.flux, this.input.get(0), this.output.get(0));
-            NTM.NTM.get().IRRADIATIONCHANNEL.addRecipe(recipe);
+            NTM.IRRADIATIONCHANNEL.addRecipe(recipe);
             return recipe;
         }
     }

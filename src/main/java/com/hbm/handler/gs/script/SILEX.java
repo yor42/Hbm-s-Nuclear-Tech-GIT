@@ -144,7 +144,7 @@ public class SILEX extends VirtualizedRegistry<Tuple.Pair<Object, SILEXRecipes.S
             }
 
             Tuple.Pair<Object, SILEXRecipes.SILEXRecipe> recipe = new Tuple.Pair<>(this.input.get(0), new SILEXRecipes.SILEXRecipe(this.fluidProduced, this.fluidConsumed, this.laserStrength).addOut(this.outputs));
-            NTM.NTM.get().SILEX.addRecipe(recipe);
+            NTM.SILEX.addRecipe(recipe);
             return recipe;
         }
     }

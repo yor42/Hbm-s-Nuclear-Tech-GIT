@@ -74,7 +74,7 @@ public class BreedingReactor extends VirtualizedRegistry<Tuple.Pair<RecipesCommo
         @Override
         public Tuple.Pair<RecipesCommon.ComparableStack, BreederRecipes.BreederRecipe> register() {
             Tuple.Pair<RecipesCommon.ComparableStack, BreederRecipes.BreederRecipe> recipe = new Tuple.Pair<>(new RecipesCommon.ComparableStack(this.input.get(0).getMatchingStacks()[0]), new BreederRecipes.BreederRecipe(this.output.get(0),this.heatLvl));
-            NTM.NTM.get().BREEDINGREACTOR.addRecipe(recipe);
+            NTM.BREEDINGREACTOR.addRecipe(recipe);
             return recipe;
         }
     }

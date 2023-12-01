@@ -1,7 +1,5 @@
 package com.hbm.handler.gs.script;
 
-import com.cleanroommc.groovyscript.api.IIngredient;
-import com.cleanroommc.groovyscript.brackets.BracketHandlerManager;
 import com.cleanroommc.groovyscript.registry.VirtualizedRegistry;
 import com.hbm.inventory.FluidCombustionRecipes;
 import com.hbm.util.Tuple;
