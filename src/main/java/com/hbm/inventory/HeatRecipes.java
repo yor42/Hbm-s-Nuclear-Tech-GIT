@@ -42,13 +42,13 @@ public class HeatRecipes {
 		addBoilRecipe("petroil", 1, "fuel", 1, 100); //galacticraft
 		addBoilRecipe("refined_fuel", 1, "petroil", 1, 100); //thermalfoundation
 		addBoilRecipe("sulphuricacid", 1, "sulfuric_acid", 1, 100); //galacticraft
-		addBoilRecipe("sulfuricacid", 1, "sulfuric_acid", 1, 100); //mekanism 
-		addBoilAndCoolRecipe("liquidoxygen", 1, "oxygen", 1, 1); //mekanism
-		addBoilAndCoolRecipe("liquidtritium", 1, "tritium", 1, 1); //mekanism
-		addBoilAndCoolRecipe("liquiddeuterium", 1, "deuterium", 1, 1); //mekanism
-		addBoilAndCoolRecipe("liquidhydrogen", 1, "hydrogen", 1, 1); //mekanism
+		addBoilRecipe("sulfuricacid", 1, "sulfuric_acid", 1, 100); //Mekanism
+		addBoilAndCoolRecipe("liquidoxygen", 1, "oxygen", 1, 1); //Mekanism
+		addBoilAndCoolRecipe("liquidtritium", 1, "tritium", 1, 1); //Mekanism
+		addBoilAndCoolRecipe("liquiddeuterium", 1, "deuterium", 1, 1); //Mekanism
+		addBoilAndCoolRecipe("liquidhydrogen", 1, "hydrogen", 1, 1); //Mekanism
 		addBoilRecipe("refined_biofuel", 1, "biofuel", 1, 10); //thermalfoundation
-		addBoilAndCoolRecipe("ic2coolant", 1, "ic2hot_coolant", 1, 450); //mekanism", 1, 1); //IC2
+		addBoilAndCoolRecipe("ic2coolant", 1, "ic2hot_coolant", 1, 450); //Mekanism", 1, 1); //IC2
 	}
 
 	public static void setFluidsForRBMKLoader(){

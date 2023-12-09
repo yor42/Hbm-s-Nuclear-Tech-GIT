@@ -1,5 +1,6 @@
 package com.hbm.inventory;
 
+import com.hbm.blocks.generic.BlockCluster;
 import com.hbm.config.GeneralConfig;
 import com.hbm.hazard.HazardData;
 import com.hbm.hazard.HazardEntry;
@@ -30,6 +31,8 @@ public class OreDictManager {
 	
 	/** Alternate, additional names for ore dict registration. Used mostly for DictGroups */
 	private static final HashMap<String, HashSet<String>> reRegistration = new HashMap();
+
+	public static final ArrayList<DictFrame> DICTLIST = new ArrayList<>();
 
 	/*
 	 * Standard keys
@@ -531,6 +534,7 @@ public class OreDictManager {
 		
 		public DictFrame(String... mats) {
 			this.mats = mats;
+			DICTLIST.add(this);
 		}
 
 		/*
@@ -548,6 +552,7 @@ public class OreDictManager {
 		public String billet() {		return BILLET	+ mats[0]; }
 		public String block() {			return BLOCK	+ mats[0]; }
 		public String ore() {			return ORE		+ mats[0]; }
+		public String cluster(){return CLUSTER+mats[0];}
 		public String[] anys() {		return appendToAll(ANY); }
 		public String[] nuggets() {		return appendToAll(NUGGET); }
 		public String[] tinys() {		return appendToAll(TINY); }
@@ -651,6 +656,13 @@ public class OreDictManager {
 		}
 		public DictFrame ore(Object... ore) {
 			hazMult = HazardRegistry.ore;
+			ArrayList<Object> clusters = new ArrayList<>();
+			for(Object o:ore){
+				if(o instanceof BlockCluster){
+					clusters.add(o);
+				}
+			}
+			makeObject(CLUSTER, clusters.toArray());
 			return makeObject(ORE, ore);
 		}
 		public DictFrame oreNether(Object... oreNether) {
