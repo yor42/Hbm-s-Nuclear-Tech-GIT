@@ -23,7 +23,7 @@
  */
 dependencies {
     implementation 'org.jetbrains:annotations:24.0.0'
-    implementation 'zone.rong:mixinbooter:8.0'
+    // implementation 'zone.rong:mixinbooter:8.9'
 
     // Example of deobfuscating a dependency
     // implementation rfg.deobf('curse.maven:had-enough-items-557549:4543375')
