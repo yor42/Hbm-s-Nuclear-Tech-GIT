@@ -18,6 +18,12 @@ import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import api.hbm.energy.IBatteryItem;
+import api.hbm.energy.IEnergyConnector;
+import com.hbm.config.MachineConfig;
+import com.hbm.handler.rf.ItemCapabilityProvider;
+import com.hbm.handler.rf.TEHeRfCompatLayer;
+import net.minecraft.tileentity.TileEntity;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.logging.log4j.Level;
 
@@ -191,6 +197,30 @@ public class ModEventHandler {
 
 		for(SoundEvent e : HBMSoundHandler.ALL_SOUNDS) {
 			evt.getRegistry().register(e);
+		}
+	}
+
+	@SubscribeEvent
+	public void attachItemCapability(AttachCapabilitiesEvent<ItemStack> event){
+		if(MachineConfig.directRFSupport) {
+			ItemStack stack = event.getObject();
+			Item item = stack.getItem();
+			if (item instanceof IBatteryItem) {
+				event.addCapability(ITEM_CAPABILITY_RF_HFBridge, new ItemCapabilityProvider(stack));
+			}
+		}
+	}
+
+	private static final ResourceLocation ITEM_CAPABILITY_RF_HFBridge = new ResourceLocation(RefStrings.MODID, "item_fe_cap");
+	private static final ResourceLocation TE_CAPABILITY_RF_HFBridge = new ResourceLocation(RefStrings.MODID, "te_fe_cap");
+
+	@SubscribeEvent
+	public void attachTECapability(AttachCapabilitiesEvent<TileEntity> event){
+		if(MachineConfig.directRFSupport) {
+			TileEntity te = event.getObject();
+			if (te instanceof IEnergyConnector) {
+				event.addCapability(TE_CAPABILITY_RF_HFBridge, new TEHeRfCompatLayer((IEnergyConnector) te));
+			}
 		}
 	}
 	

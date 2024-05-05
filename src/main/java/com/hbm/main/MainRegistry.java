@@ -508,30 +508,6 @@ public class MainRegistry {
 
 	Random rand = new Random();
 
-	@SubscribeEvent
-	public static void attachItemCapability(AttachCapabilitiesEvent<ItemStack> event){
-		if(MachineConfig.directRFSupport) {
-			ItemStack stack = event.getObject();
-			Item item = stack.getItem();
-			if (item instanceof IBatteryItem) {
-				event.addCapability(ITEM_CAPABILITY_RF_HFBridge, new ItemCapabilityProvider(stack));
-			}
-		}
-	}
-
-	private static final ResourceLocation ITEM_CAPABILITY_RF_HFBridge = new ResourceLocation(RefStrings.MODID, "item_fe_cap");
-	private static final ResourceLocation TE_CAPABILITY_RF_HFBridge = new ResourceLocation(RefStrings.MODID, "te_fe_cap");
-
-	@SubscribeEvent
-	public static void attachTECapability(AttachCapabilitiesEvent<TileEntity> event){
-		if(MachineConfig.directRFSupport) {
-			TileEntity te = event.getObject();
-			if (te instanceof IEnergyConnector) {
-				event.addCapability(TE_CAPABILITY_RF_HFBridge, new TEHeRfCompatLayer((IEnergyConnector) te));
-			}
-		}
-	}
-
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		if(logger == null)
