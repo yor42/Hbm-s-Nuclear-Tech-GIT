@@ -15,7 +15,8 @@ public class Centrifuge extends VirtualizedRegistry<Tuple.Pair<RecipesCommon.Com
     }
 
     public void removeAll(){
-        for(Object key:CentrifugeRecipes.getRecipes().keySet()){
+        /*
+        for(Object key:CentrifugeRecipes.getCentrifugeRecipes().keySet()){
             ItemStack[] stackarray = CentrifugeRecipes.getRecipes().get(key);
             if(key instanceof RecipesCommon.ComparableStack){
                 Tuple.Pair<RecipesCommon.ComparableStack, ItemStack[]> pair = new Tuple.Pair<>((RecipesCommon.ComparableStack) key, stackarray);
@@ -23,10 +24,12 @@ public class Centrifuge extends VirtualizedRegistry<Tuple.Pair<RecipesCommon.Com
                 remove(pair);
             }
         }
+
+         */
     }
 
     public void remove(Tuple.Pair<RecipesCommon.ComparableStack, ItemStack[]> pair){
-        CentrifugeRecipes.removeRecipe(pair.getKey());
+        CentrifugeRecipes.recipes.remove(pair.getKey());
         this.addBackup(pair);
     }
 
@@ -36,8 +39,11 @@ public class Centrifuge extends VirtualizedRegistry<Tuple.Pair<RecipesCommon.Com
     }
 
     public void addRecipe(Tuple.Pair<RecipesCommon.ComparableStack, ItemStack[]> pair){
+        /*
         CentrifugeRecipes.addRecipe(pair.getKey(), pair.getValue());
         this.addScripted(pair);
+
+         */
     }
 
     public void addRecipe(IIngredient input, ItemStack... stacks){

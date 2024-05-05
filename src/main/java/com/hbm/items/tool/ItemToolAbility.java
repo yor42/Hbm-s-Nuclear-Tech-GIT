@@ -11,14 +11,11 @@ import com.hbm.handler.ToolAbility.SilkAbility;
 import com.hbm.handler.WeaponAbility;
 import com.hbm.util.I18nUtil;
 import com.hbm.items.ModItems;
-<<<<<<< HEAD
-=======
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.generic.BlockBedrockOre;
 import com.hbm.blocks.generic.BlockBedrockOreTE;
 
 import api.hbm.item.IDepthRockTool;
->>>>>>> upstream/Custom-1.12.2
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -355,12 +352,6 @@ public class ItemToolAbility extends ItemTool implements IItemAbility, IDepthRoc
     	while(getCurrentAbility(stack) != null && !getCurrentAbility(stack).isAllowed()) {
 
     		player.sendMessage(
-<<<<<<< HEAD
-    				new TextComponentString("[Ability ")
-    				.appendSibling(new TextComponentTranslation(getCurrentAbility(stack).getName()))
-    				.appendSibling(new TextComponentString(getCurrentAbility(stack).getExtension() + " is blacklisted!]"))
-    				.setStyle(new Style().setColor(TextFormatting.RED)));
-=======
 				new TextComponentString("[")
 				.appendSibling(new TextComponentTranslation("chat.ability"))
 				.appendSibling(new TextComponentString(" "))
@@ -369,8 +360,6 @@ public class ItemToolAbility extends ItemTool implements IItemAbility, IDepthRoc
 				.appendSibling(new TextComponentTranslation("chat.blacklist"))
 				.appendSibling(new TextComponentString("]")))
 				.setStyle(new Style().setColor(TextFormatting.RED)));
->>>>>>> upstream/Custom-1.12.2
-
         	i++;
         	setAbility(stack, i % this.breakAbility.size());
     	}

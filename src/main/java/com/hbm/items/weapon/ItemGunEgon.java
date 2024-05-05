@@ -1,7 +1,5 @@
 package com.hbm.items.weapon;
 
-<<<<<<< HEAD
-=======
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -9,7 +7,6 @@ import java.util.Random;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.config.CompatibilityConfig;
->>>>>>> upstream/Custom-1.12.2
 import com.hbm.handler.GunConfiguration;
 import com.hbm.items.ModItems;
 import com.hbm.lib.Library;

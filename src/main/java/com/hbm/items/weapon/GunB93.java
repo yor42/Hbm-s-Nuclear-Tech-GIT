@@ -6,11 +6,7 @@ import com.hbm.entity.projectile.EntityModBeam;
 import com.hbm.items.ModItems;
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.main.MainRegistry;
-<<<<<<< HEAD
-=======
-
 import com.hbm.util.I18nUtil;
->>>>>>> upstream/Custom-1.12.2
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

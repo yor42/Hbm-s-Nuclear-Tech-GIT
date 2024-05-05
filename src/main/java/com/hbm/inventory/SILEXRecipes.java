@@ -27,7 +27,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class SILEXRecipes {
 
-	private static LinkedHashMap<Object, SILEXRecipe> recipes = new LinkedHashMap<>();
+	public static LinkedHashMap<Object, SILEXRecipe> recipes = new LinkedHashMap<>();
 	private static HashMap<ComparableStack, ComparableStack> itemTranslation = new HashMap<>();
 	private static HashMap<String, String> dictTranslation = new HashMap<>();
 	

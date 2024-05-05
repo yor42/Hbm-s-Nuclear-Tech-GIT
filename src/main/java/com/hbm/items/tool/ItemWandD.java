@@ -12,11 +12,7 @@ import com.hbm.render.util.BakedModelUtil;
 import com.hbm.render.util.BakedModelUtil.DecalType;
 import com.hbm.tileentity.conductor.TileEntityFFDuctBaseMk2;
 import com.hbm.tileentity.network.energy.TileEntityPylonBase;
-<<<<<<< HEAD
-=======
-
 import com.hbm.util.I18nUtil;
->>>>>>> upstream/Custom-1.12.2
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;

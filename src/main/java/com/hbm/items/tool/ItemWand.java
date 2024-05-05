@@ -1,11 +1,8 @@
 package com.hbm.items.tool;
 
 import com.hbm.items.ModItems;
-<<<<<<< HEAD
-=======
 import com.hbm.util.I18nUtil;
 
->>>>>>> upstream/Custom-1.12.2
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;

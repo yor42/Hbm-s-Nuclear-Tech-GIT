@@ -1,7 +1,5 @@
 package com.hbm.items.weapon;
 
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +8,6 @@ import javax.annotation.Nullable;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.config.CompatibilityConfig;
->>>>>>> upstream/Custom-1.12.2
 import com.hbm.handler.GunConfiguration;
 import com.hbm.items.ModItems;
 import com.hbm.lib.HBMSoundHandler;

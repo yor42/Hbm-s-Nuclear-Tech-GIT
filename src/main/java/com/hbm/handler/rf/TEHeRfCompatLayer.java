@@ -40,7 +40,7 @@ public class TEHeRfCompatLayer implements ICapabilityProvider, IEnergyStorage {
         if (!canReceive())
             return 0;
 
-        int energyReceived = (int) Math.min(this.connector.getMaxPower() - this.getEnergyStored(), Math.min(2048, maxReceive) / GeneralConfig.rfConversionRate);
+        int energyReceived = (int) Math.min(this.connector.getMaxPower() - this.getEnergyStored(), Math.min(2048, maxReceive) / GeneralConfig.conversionRateHeToRF);
         if(!simulate){
             this.connector.transferPower(energyReceived);
         }
@@ -54,7 +54,7 @@ public class TEHeRfCompatLayer implements ICapabilityProvider, IEnergyStorage {
         if (!canExtract())
             return 0;
 
-        int energyExtracted = Math.min(this.getEnergyStored(), Math.min(2048, maxExtract) * GeneralConfig.rfConversionRate);
+        int energyExtracted = (int) Math.min(this.getEnergyStored(), Math.min(2048, maxExtract) * GeneralConfig.conversionRateHeToRF);
         if(!simulate){
             this.connector.transferPower(energyExtracted*-1);
         }
@@ -64,12 +64,12 @@ public class TEHeRfCompatLayer implements ICapabilityProvider, IEnergyStorage {
 
     @Override
     public int getEnergyStored() {
-        return (int) (this.connector.getPower() * GeneralConfig.rfConversionRate);
+        return (int) (this.connector.getPower() * GeneralConfig.conversionRateHeToRF);
     }
 
     @Override
     public int getMaxEnergyStored() {
-        return (int) (this.connector.getMaxPower() * GeneralConfig.rfConversionRate);
+        return (int) (this.connector.getMaxPower() * GeneralConfig.conversionRateHeToRF);
     }
 
     @Override

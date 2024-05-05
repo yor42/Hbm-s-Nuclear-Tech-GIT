@@ -1,14 +1,11 @@
 package com.hbm.items.special;
 
-<<<<<<< HEAD
-=======
 import java.util.List;
 
 import com.hbm.config.CompatibilityConfig;
 import com.hbm.items.ModItems;
 import com.hbm.util.I18nUtil;
 import com.hbm.blocks.ModBlocks;
->>>>>>> upstream/Custom-1.12.2
 import com.hbm.blocks.generic.BlockClean;
 import com.hbm.entity.effect.EntityFalloutUnderGround;
 import com.hbm.util.I18nUtil;

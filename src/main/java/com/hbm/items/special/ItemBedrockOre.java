@@ -1,7 +1,5 @@
 package com.hbm.items.special;
 
-<<<<<<< HEAD
-=======
 import java.util.Map;
 import java.util.List;
 
@@ -10,7 +8,6 @@ import com.hbm.main.MainRegistry;
 import com.hbm.items.ModItems;
 import com.hbm.lib.RefStrings;
 import com.hbm.util.I18nUtil;
->>>>>>> upstream/Custom-1.12.2
 import com.hbm.blocks.generic.BlockBedrockOreTE.TileEntityBedrockOre;
 import com.hbm.inventory.BedrockOreRegistry;
 import com.hbm.items.ModItems;

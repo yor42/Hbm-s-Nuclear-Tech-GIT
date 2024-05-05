@@ -196,10 +196,8 @@ public class AuxGaugePacket implements IMessage {
 
 						if(m.id == 0)
 							launcher.solid = m.value;
-						if(m.id == 1)
+						else if(m.id == 1)
 							launcher.padSize = PartSize.values()[m.value];
-						if(m.id == 2)
-							launcher.clearingTimer = m.value;
 					} else if(te instanceof TileEntityRailgun) {
 
 						TileEntityRailgun gen = (TileEntityRailgun) te;

@@ -13,14 +13,6 @@ import com.hbm.handler.ToolAbility.LuckAbility;
 import com.hbm.handler.WeaponAbility;
 import com.hbm.handler.guncfg.*;
 import com.hbm.interfaces.IItemHazard;
-<<<<<<< HEAD
-import com.hbm.items.armor.*;
-import com.hbm.items.bomb.*;
-import com.hbm.items.food.*;
-import com.hbm.items.gear.*;
-import com.hbm.items.machine.*;
-import com.hbm.items.machine.ItemDrillbit.EnumDrillType;
-=======
 import com.hbm.items.armor.ArmorAJR;
 import com.hbm.items.armor.ArmorAJRO;
 import com.hbm.items.armor.ArmorRPA;
@@ -38,6 +30,7 @@ import com.hbm.items.armor.ItemModBathwater;
 import com.hbm.items.armor.ItemModCladding;
 import com.hbm.items.armor.ItemModGasmask;
 import com.hbm.items.armor.ItemModHealth;
+import com.hbm.items.machine.ItemDrillbit.EnumDrillType;
 import com.hbm.items.armor.ItemModInk;
 import com.hbm.items.armor.ItemModInsert;
 import com.hbm.items.armor.ItemModIron;
@@ -100,23 +93,7 @@ import com.hbm.items.gear.ModHoe;
 import com.hbm.items.gear.ModSword;
 import com.hbm.items.gear.RedstoneSword;
 import com.hbm.items.gear.WeaponSpecial;
-import com.hbm.items.machine.ItemAssemblyTemplate;
-import com.hbm.items.machine.ItemBattery;
-import com.hbm.items.machine.ItemBlades;
-import com.hbm.items.machine.ItemCapacitor;
-import com.hbm.items.machine.ItemCassette;
-import com.hbm.items.machine.ItemCatalyst;
-import com.hbm.items.machine.ItemChemistryIcon;
-import com.hbm.items.machine.ItemChemistryTemplate;
-import com.hbm.items.machine.ItemFFFluidDuct;
-import com.hbm.items.machine.ItemFluidIcon;
-import com.hbm.items.machine.ItemFluidTank;
-import com.hbm.items.machine.ItemForgeFluidIdentifier;
-import com.hbm.items.machine.ItemFuelRod;
-import com.hbm.items.machine.ItemLens;
-import com.hbm.items.machine.ItemFWatzCore;
-import com.hbm.items.machine.ItemFELCrystal;
->>>>>>> upstream/Custom-1.12.2
+import com.hbm.items.machine.*;
 import com.hbm.items.machine.ItemFELCrystal.EnumWavelengths;
 import com.hbm.items.machine.ItemMachineUpgrade.UpgradeType;
 import com.hbm.items.machine.ItemRBMKRod.EnumBurnFunc;
@@ -130,13 +107,10 @@ import com.hbm.items.weapon.ItemMissile.FuelType;
 import com.hbm.items.weapon.ItemMissile.PartSize;
 import com.hbm.items.weapon.ItemMissile.Rarity;
 import com.hbm.items.weapon.ItemMissile.WarheadType;
-<<<<<<< HEAD
-=======
 import com.hbm.items.weapon.ItemMissileStandard;
 import com.hbm.items.weapon.ItemSwordCutter;
 import com.hbm.items.weapon.ItemTurretAmmo;
 import com.hbm.items.weapon.WeaponizedCell;
->>>>>>> upstream/Custom-1.12.2
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.lib.RefStrings;
 import com.hbm.main.MainRegistry;
@@ -1551,11 +1525,11 @@ public class ModItems {
 	public static final Item drillbit_desh = new ItemDrillbit(EnumDrillType.DESH, "drillbit_desh").setMaxStackSize(1).setCreativeTab(MainRegistry.controlTab);
 	public static final Item drillbit_desh_diamond = new ItemDrillbit(EnumDrillType.DESH_DIAMOND, "drillbit_desh_diamond").setMaxStackSize(1).setCreativeTab(MainRegistry.controlTab);
 	public static final Item drillbit_tcalloy = new ItemDrillbit(EnumDrillType.TCALLOY, "drillbit_tcalloy").setMaxStackSize(1).setCreativeTab(MainRegistry.controlTab);
-	public static final Item drillbit_tcalloy_diamond = new ItemDrillbit(EnumDrillType.TCALLOY_DIAMOND, "drillbit_tcalloy_diamond").setMaxStackSize(1).setCreativeTab(MainRegistry.controlTab);
-	public static final Item drillbit_ferro = new ItemDrillbit(EnumDrillType.FERRO, "drillbit_ferro").setMaxStackSize(1).setCreativeTab(MainRegistry.controlTab);
-	public static final Item drillbit_ferro_diamond = new ItemDrillbit(EnumDrillType.FERRO_DIAMOND, "drillbit_ferro_diamond").setMaxStackSize(1).setCreativeTab(MainRegistry.controlTab);
-	public static final Item drillbit_dnt = new ItemDrillbit(EnumDrillType.DNT, "drillbit_dnt").setMaxStackSize(1).setCreativeTab(MainRegistry.controlTab);
-	public static final Item drillbit_dnt_diamond = new ItemDrillbit(EnumDrillType.DNT_DIAMOND, "drillbit_dnt_diamond").setMaxStackSize(1).setCreativeTab(MainRegistry.controlTab);
+	public static final Item drillbit_tcalloy_diamond = new ItemDrillbit(ItemDrillbit.EnumDrillType.TCALLOY_DIAMOND, "drillbit_tcalloy_diamond").setMaxStackSize(1).setCreativeTab(MainRegistry.controlTab);
+	public static final Item drillbit_ferro = new ItemDrillbit(ItemDrillbit.EnumDrillType.FERRO, "drillbit_ferro").setMaxStackSize(1).setCreativeTab(MainRegistry.controlTab);
+	public static final Item drillbit_ferro_diamond = new ItemDrillbit(ItemDrillbit.EnumDrillType.FERRO_DIAMOND, "drillbit_ferro_diamond").setMaxStackSize(1).setCreativeTab(MainRegistry.controlTab);
+	public static final Item drillbit_dnt = new ItemDrillbit(ItemDrillbit.EnumDrillType.DNT, "drillbit_dnt").setMaxStackSize(1).setCreativeTab(MainRegistry.controlTab);
+	public static final Item drillbit_dnt_diamond = new ItemDrillbit(ItemDrillbit.EnumDrillType.DNT_DIAMOND, "drillbit_dnt_diamond").setMaxStackSize(1).setCreativeTab(MainRegistry.controlTab);
 
 	//Generic Items
 	public static final Item pellet_coal = new ItemFuelHazard("pellet_coal", 320, false).addCoal(1).toItem().setCreativeTab(MainRegistry.partsTab);
@@ -1787,27 +1761,12 @@ public class ModItems {
     public static final Item can_breen = new ItemEnergy("can_breen").setContainerItem(ModItems.can_empty).setCreativeTab(MainRegistry.consumableTab);
 	
 	//Tools
-<<<<<<< HEAD
-	public static final Item steel_sword = new ItemSwordAbility(6F, 0, MainRegistry.enumToolMaterialSteel, "steel_sword").setMaxStackSize(1);
-	public static final Item steel_pickaxe = new ItemToolAbility(4F, -2.8F, 0, MainRegistry.enumToolMaterialSteel, EnumToolType.PICKAXE, "steel_pickaxe").setMaxStackSize(1);
-	public static final Item steel_axe = new ItemToolAbility(5F, -2.8F, 0, MainRegistry.enumToolMaterialSteel, EnumToolType.AXE, "steel_axe")
-			.addHitAbility(new WeaponAbility.BeheaderAbility()).setMaxStackSize(1);
-	public static final Item steel_shovel = new ItemToolAbility(3F, -2.8F, 0, MainRegistry.enumToolMaterialSteel, EnumToolType.SHOVEL, "steel_shovel").setMaxStackSize(1);
-	public static final Item steel_hoe = new ModHoe(MainRegistry.enumToolMaterialSteel, "steel_hoe").setMaxStackSize(1).setCreativeTab(CreativeTabs.TOOLS);
-
-    public static final Item titanium_sword = new ItemSwordAbility(6.5F, 0, MainRegistry.enumToolMaterialTitanium, "titanium_sword").setMaxStackSize(1);
-=======
 	public static final Item titanium_sword = new ItemSwordAbility(6.5F, 0, MainRegistry.enumToolMaterialTitanium, "titanium_sword").setMaxStackSize(1);
->>>>>>> upstream/Custom-1.12.2
 	public static final Item titanium_pickaxe = new ItemToolAbility(4.5F, -2.8F, 0, MainRegistry.enumToolMaterialTitanium, EnumToolType.PICKAXE, "titanium_pickaxe").setMaxStackSize(1);
 	public static final Item titanium_axe = new ItemToolAbility(5.5F, -2.8F, 0, MainRegistry.enumToolMaterialTitanium, EnumToolType.AXE, "titanium_axe")
 			.addHitAbility(new WeaponAbility.BeheaderAbility()).setMaxStackSize(1);
 	public static final Item titanium_shovel = new ItemToolAbility(3.5F, -2.8F, 0, MainRegistry.enumToolMaterialTitanium, EnumToolType.SHOVEL, "titanium_shovel").setMaxStackSize(1);
 	public static final Item titanium_hoe = new ModHoe(MainRegistry.enumToolMaterialTitanium, "titanium_hoe").setMaxStackSize(1).setCreativeTab(CreativeTabs.TOOLS);
-<<<<<<< HEAD
-
-    public static final Item alloy_sword = new ItemSwordAbility(9F, 0, MainRegistry.enumToolMaterialAlloy, "alloy_sword")
-=======
 	
 	public static final Item steel_sword = new ItemSwordAbility(6F, 0, MainRegistry.enumToolMaterialSteel, "steel_sword").setMaxStackSize(1);
 	public static final Item steel_pickaxe = new ItemToolAbility(4F, -2.8F, 0, MainRegistry.enumToolMaterialSteel, EnumToolType.PICKAXE, "steel_pickaxe").addBreakAbility(new ToolAbility.RecursionAbility(2)).setMaxStackSize(1);
@@ -1817,7 +1776,6 @@ public class ModItems {
 	public static final Item steel_hoe = new ModHoe(MainRegistry.enumToolMaterialSteel, "steel_hoe").setMaxStackSize(1).setCreativeTab(CreativeTabs.TOOLS);
 	
 	public static final Item alloy_sword = new ItemSwordAbility(9F, 0, MainRegistry.enumToolMaterialAlloy, "alloy_sword")
->>>>>>> upstream/Custom-1.12.2
 			.addHitAbility(new WeaponAbility.StunAbility(2));
 
 	public static final Item alloy_pickaxe = new ItemToolAbility(6F, -2.8F, 0, MainRegistry.enumToolMaterialAlloy, EnumToolType.PICKAXE, "alloy_pickaxe")

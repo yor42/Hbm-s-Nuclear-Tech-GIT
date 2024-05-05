@@ -21,7 +21,7 @@ public class ItemsFEWrapper implements IEnergyStorage {
         if (!canReceive())
             return 0;
 
-        int energyReceived = Math.min(this.getMaxEnergyStored() - this.getEnergyStored(), maxReceive / GeneralConfig.rfConversionRate);
+        int energyReceived = (int) Math.min(this.getMaxEnergyStored() - this.getEnergyStored(), maxReceive / GeneralConfig.conversionRateHeToRF);
         if(!simulate){
             this.getItem().chargeBattery(this.stack, energyReceived);
         }
@@ -35,7 +35,7 @@ public class ItemsFEWrapper implements IEnergyStorage {
         if (!canExtract())
             return 0;
 
-        int energyExtracted = Math.min(this.getEnergyStored(), maxExtract * GeneralConfig.rfConversionRate);
+        int energyExtracted = (int) Math.min(this.getEnergyStored(), maxExtract * GeneralConfig.conversionRateHeToRF);
         if(!simulate){
             this.getItem().dischargeBattery(this.stack, energyExtracted);
         }
@@ -45,12 +45,12 @@ public class ItemsFEWrapper implements IEnergyStorage {
 
     @Override
     public int getEnergyStored() {
-        return (int) (this.getItem().getCharge(this.stack) * GeneralConfig.rfConversionRate);
+        return (int) (this.getItem().getCharge(this.stack) * GeneralConfig.conversionRateHeToRF);
     }
 
     @Override
     public int getMaxEnergyStored() {
-        return (int) (this.getItem().getMaxCharge() * GeneralConfig.rfConversionRate);
+        return (int) (this.getItem().getMaxCharge() * GeneralConfig.conversionRateHeToRF);
     }
 
     @Override

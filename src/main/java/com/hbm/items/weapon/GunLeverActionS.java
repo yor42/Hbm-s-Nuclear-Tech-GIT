@@ -6,11 +6,7 @@ import com.hbm.lib.HBMSoundHandler;
 import com.hbm.lib.Library;
 import com.hbm.lib.ModDamageSource;
 import com.hbm.main.MainRegistry;
-<<<<<<< HEAD
-=======
-
 import com.hbm.util.I18nUtil;
->>>>>>> upstream/Custom-1.12.2
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;

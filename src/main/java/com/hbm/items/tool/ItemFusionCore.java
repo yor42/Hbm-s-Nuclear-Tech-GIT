@@ -6,12 +6,8 @@ import com.hbm.items.armor.ArmorFSBPowered;
 import com.hbm.items.gear.ArmorFSB;
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.lib.Library;
-<<<<<<< HEAD
-=======
-
 import api.hbm.energy.IBatteryItem;
 import com.hbm.util.I18nUtil;
->>>>>>> upstream/Custom-1.12.2
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

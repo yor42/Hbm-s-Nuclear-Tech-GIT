@@ -1,13 +1,10 @@
 package com.hbm.items.weapon;
 
-<<<<<<< HEAD
-=======
 import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.config.CompatibilityConfig;
->>>>>>> upstream/Custom-1.12.2
 import com.hbm.handler.GunConfiguration;
 import com.hbm.lib.Library;
 import com.hbm.lib.ModDamageSource;

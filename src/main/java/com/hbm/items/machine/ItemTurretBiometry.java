@@ -3,11 +3,7 @@ package com.hbm.items.machine;
 import com.hbm.items.ModItems;
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.main.MainRegistry;
-<<<<<<< HEAD
-=======
-
 import com.hbm.util.I18nUtil;
->>>>>>> upstream/Custom-1.12.2
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

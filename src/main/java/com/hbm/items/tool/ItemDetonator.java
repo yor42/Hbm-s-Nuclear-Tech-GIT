@@ -1,12 +1,9 @@
 package com.hbm.items.tool;
 
-<<<<<<< HEAD
-=======
 import java.util.List;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.util.I18nUtil;
->>>>>>> upstream/Custom-1.12.2
 import com.hbm.config.GeneralConfig;
 import com.hbm.interfaces.IBomb;
 import com.hbm.items.ModItems;

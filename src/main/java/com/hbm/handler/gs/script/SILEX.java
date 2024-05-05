@@ -57,7 +57,7 @@ public class SILEX extends VirtualizedRegistry<Tuple.Pair<Object, SILEXRecipes.S
     public void addRecipe(IIngredient ingredient, SILEXRecipes.SILEXRecipe recipe){
         for(ItemStack stack:ingredient.getMatchingStacks()){
             RecipesCommon.ComparableStack input = new RecipesCommon.ComparableStack(stack);
-            SILEXRecipes.addRecipe(input, recipe);
+            //SILEXRecipes.addRecipe(input, recipe);
             this.addScripted(new Tuple.Pair<>(input, recipe));
         }
     }
@@ -143,9 +143,9 @@ public class SILEX extends VirtualizedRegistry<Tuple.Pair<Object, SILEXRecipes.S
                 return null;
             }
 
-            Tuple.Pair<Object, SILEXRecipes.SILEXRecipe> recipe = new Tuple.Pair<>(this.input.get(0), new SILEXRecipes.SILEXRecipe(this.fluidProduced, this.fluidConsumed, this.laserStrength).addOut(this.outputs));
-            NTM.SILEX.addRecipe(recipe);
-            return recipe;
+            //Tuple.Pair<Object, SILEXRecipes.SILEXRecipe> recipe = new Tuple.Pair<>(this.input.get(0), new SILEXRecipes.SILEXRecipe(this.fluidProduced, this.fluidConsumed, this.laserStrength).addOut(this.outputs));
+            //NTM.SILEX.addRecipe(recipe);
+            return null;
         }
     }
 

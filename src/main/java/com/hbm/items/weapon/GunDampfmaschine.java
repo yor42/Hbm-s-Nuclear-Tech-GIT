@@ -5,11 +5,7 @@ import com.hbm.entity.missile.EntityBombletSelena;
 import com.hbm.entity.projectile.EntityRocket;
 import com.hbm.items.ModItems;
 import com.hbm.lib.HBMSoundHandler;
-<<<<<<< HEAD
-=======
-
 import com.hbm.util.I18nUtil;
->>>>>>> upstream/Custom-1.12.2
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;

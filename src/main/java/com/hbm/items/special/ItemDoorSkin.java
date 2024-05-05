@@ -2,11 +2,8 @@ package com.hbm.items.special;
 
 import com.hbm.interfaces.IDoor;
 import com.hbm.items.ModItems;
-<<<<<<< HEAD
-=======
 import com.hbm.blocks.BlockDummyable;
 
->>>>>>> upstream/Custom-1.12.2
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;

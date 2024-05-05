@@ -18,9 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-<<<<<<< HEAD
-public class ItemDosimeter extends Item {
-=======
 import com.hbm.items.ModItems;
 import com.hbm.capability.HbmLivingProps;
 import com.hbm.items.gear.ArmorFSB;
@@ -42,7 +39,6 @@ import net.minecraftforge.fml.common.Optional;
 
 @Optional.InterfaceList({@Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles")})
 public class ItemDosimeter extends Item implements IBauble {
->>>>>>> upstream/Custom-1.12.2
 	
 	Random rand = new Random();
 

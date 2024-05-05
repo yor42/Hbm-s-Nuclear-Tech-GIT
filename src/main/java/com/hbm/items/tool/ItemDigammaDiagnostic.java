@@ -14,10 +14,6 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
-
-<<<<<<< HEAD
-public class ItemDigammaDiagnostic extends Item {
-=======
 import com.hbm.items.ModItems;
 import com.hbm.lib.Library;
 import com.hbm.render.misc.RenderScreenOverlay;
@@ -38,7 +34,6 @@ import net.minecraftforge.fml.common.Optional;
 
 @Optional.InterfaceList({@Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles")})
 public class ItemDigammaDiagnostic extends Item implements IBauble {
->>>>>>> upstream/Custom-1.12.2
 
 	public ItemDigammaDiagnostic(String s) {
 		this.setUnlocalizedName(s);

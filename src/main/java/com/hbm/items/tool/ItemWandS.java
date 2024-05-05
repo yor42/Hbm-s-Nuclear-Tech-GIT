@@ -1,9 +1,6 @@
 package com.hbm.items.tool;
 
 import com.hbm.items.ModItems;
-<<<<<<< HEAD
-import com.hbm.world.*;
-=======
 import com.hbm.util.I18nUtil;
 import com.hbm.world.FWatz;
 import com.hbm.world.FactoryAdvanced;
@@ -11,8 +8,6 @@ import com.hbm.world.FactoryTitanium;
 import com.hbm.world.ParticleAccelerator;
 import com.hbm.world.NuclearReactor;
 import com.hbm.world.Watz;
-
->>>>>>> upstream/Custom-1.12.2
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

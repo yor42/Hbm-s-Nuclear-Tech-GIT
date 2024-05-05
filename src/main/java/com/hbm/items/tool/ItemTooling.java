@@ -2,12 +2,9 @@ package com.hbm.items.tool;
 
 import api.hbm.block.IToolable;
 import api.hbm.block.IToolable.ToolType;
-<<<<<<< HEAD
 import com.hbm.items.ModItems;
 import com.hbm.main.MainRegistry;
-=======
 import com.hbm.util.I18nUtil;
->>>>>>> upstream/Custom-1.12.2
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;

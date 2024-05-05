@@ -1,11 +1,8 @@
 package com.hbm.items.tool;
 
-<<<<<<< HEAD
-=======
 import java.util.List;
 
 import com.hbm.util.I18nUtil;
->>>>>>> upstream/Custom-1.12.2
 import com.hbm.blocks.ModBlocks;
 import com.hbm.interfaces.IBomb;
 import com.hbm.items.ModItems;

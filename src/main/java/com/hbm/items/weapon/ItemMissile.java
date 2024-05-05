@@ -3,11 +3,7 @@ package com.hbm.items.weapon;
 import com.hbm.items.ModItems;
 import com.hbm.items.special.ItemLootCrate;
 import com.hbm.main.MainRegistry;
-<<<<<<< HEAD
-=======
 import com.hbm.util.I18nUtil;
-
->>>>>>> upstream/Custom-1.12.2
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -199,18 +195,6 @@ public class ItemMissile extends Item {
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.inaccuracy") + " " + TextFormatting.GRAY + (Float)attributes[0] * 100 + "%");
 				break;
 			case WARHEAD:
-<<<<<<< HEAD
-				list.add(TextFormatting.BOLD + "Size: " + TextFormatting.GRAY + getSize(bottom));
-				list.add(TextFormatting.BOLD + "Type: " + TextFormatting.GRAY + getWarhead((WarheadType)attributes[0]));
-				list.add(TextFormatting.BOLD + "Strength: " + TextFormatting.RED + attributes[1]);
-				list.add(TextFormatting.BOLD + "Weight: " + TextFormatting.GRAY + attributes[2] + "t");
-				break;
-			case FUSELAGE:
-				list.add(TextFormatting.BOLD + "Top size: " + TextFormatting.GRAY + getSize(top));
-				list.add(TextFormatting.BOLD + "Bottom size: " + TextFormatting.GRAY + getSize(bottom));
-				list.add(TextFormatting.BOLD + "Fuel type: " + TextFormatting.GRAY + getFuel((FuelType)attributes[0]));
-				list.add(TextFormatting.BOLD + "Fuel amount: " + TextFormatting.GRAY + attributes[1] + "l");
-=======
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.size") + " " + TextFormatting.GRAY + getSize(bottom));
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.type") + " " + TextFormatting.GRAY + getWarhead((WarheadType)attributes[0]));
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.strength") + " " + TextFormatting.RED + (Float)attributes[1]);
@@ -221,24 +205,16 @@ public class ItemMissile extends Item {
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.botsize") + " " + TextFormatting.GRAY + getSize(bottom));
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.fueltype") + " " + TextFormatting.GRAY + getFuel((FuelType)attributes[0]));
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.fuelamnt") + " " + TextFormatting.GRAY + (Float)attributes[1] + "l");
->>>>>>> upstream/Custom-1.12.2
 				break;
 			case FINS:
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.size") + " " + TextFormatting.GRAY + getSize(top));
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.inaccuracy") + " " + TextFormatting.GRAY + (Float)attributes[0] * 100 + "%");
 				break;
 			case THRUSTER:
-<<<<<<< HEAD
-				list.add(TextFormatting.BOLD + "Size: " + TextFormatting.GRAY + getSize(top));
-				list.add(TextFormatting.BOLD + "Fuel type: " + TextFormatting.GRAY + getFuel((FuelType)attributes[0]));
-				list.add(TextFormatting.BOLD + "Fuel consumption: " + TextFormatting.GRAY + attributes[1] + "l/tick");
-				list.add(TextFormatting.BOLD + "Max. payload: " + TextFormatting.GRAY + attributes[2] + "t");
-=======
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.size") + " " + TextFormatting.GRAY + getSize(top));
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.fuelamnt") + " " + TextFormatting.GRAY + getFuel((FuelType)attributes[0]));
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.fuelcon") + " " + TextFormatting.GRAY + (Float)attributes[1] + "l/tick");
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.payload") + " " + TextFormatting.GRAY + (Float)attributes[2] + "t");
->>>>>>> upstream/Custom-1.12.2
 				break;
 			}
 		} catch(Exception ex) {

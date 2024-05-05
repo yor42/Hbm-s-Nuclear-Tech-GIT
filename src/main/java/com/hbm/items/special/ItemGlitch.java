@@ -1,11 +1,8 @@
 package com.hbm.items.special;
 
-<<<<<<< HEAD
-=======
 import java.util.List;
 
 import com.hbm.util.I18nUtil;
->>>>>>> upstream/Custom-1.12.2
 import com.hbm.blocks.ModBlocks;
 import com.hbm.entity.effect.EntityVortex;
 import com.hbm.entity.missile.EntityMIRV;

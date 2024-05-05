@@ -2,11 +2,8 @@ package com.hbm.items.tool;
 
 import com.hbm.forgefluid.HbmFluidHandlerItemStackInf;
 import com.hbm.items.ModItems;
-<<<<<<< HEAD
-=======
 
 import com.hbm.util.I18nUtil;
->>>>>>> upstream/Custom-1.12.2
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

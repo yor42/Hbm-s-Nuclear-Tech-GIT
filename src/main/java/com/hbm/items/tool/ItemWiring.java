@@ -1,11 +1,8 @@
 package com.hbm.items.tool;
 
-<<<<<<< HEAD
-=======
 import java.util.List;
 
 import com.hbm.util.I18nUtil;
->>>>>>> upstream/Custom-1.12.2
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.items.ModItems;
 import com.hbm.tileentity.network.energy.TileEntityPylonBase;

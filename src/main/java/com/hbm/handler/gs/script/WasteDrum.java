@@ -25,11 +25,11 @@ public class WasteDrum extends VirtualizedRegistry<Tuple.Pair<Item, ItemStack>> 
     }
 
     public void removeRecipe(Item input, ItemStack output){
-        WasteDrumRecipes.removeRecipe(input, output);
+        //WasteDrumRecipes.removeRecipe(input, output);
     }
 
     public void removeRecipe(Tuple.Pair<Item, ItemStack> pair){
-        WasteDrumRecipes.removeRecipe(pair);
+        //WasteDrumRecipes.removeRecipe(pair);
         this.addBackup(pair);
     }
 

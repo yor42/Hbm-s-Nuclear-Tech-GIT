@@ -1,11 +1,8 @@
 package com.hbm.items.tool;
 
-<<<<<<< HEAD
-=======
 import java.util.List;
 
 import com.hbm.util.I18nUtil;
->>>>>>> upstream/Custom-1.12.2
 import com.hbm.blocks.turret.TurretBase;
 import com.hbm.blocks.turret.TurretBaseNT;
 import com.hbm.items.ModItems;
@@ -25,16 +22,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-<<<<<<< HEAD
-import net.minecraft.util.*;
-=======
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
->>>>>>> upstream/Custom-1.12.2
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -96,17 +89,10 @@ public class ItemTurretControl extends Item {
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> list, ITooltipFlag flagIn) {
 		if (stack.getTagCompound() != null) {
-<<<<<<< HEAD
-			list.add("Linked to:");
-			list.add("X: " + stack.getTagCompound().getInteger("xCoord"));
-			list.add("Y: " + stack.getTagCompound().getInteger("yCoord"));
-			list.add("Z: " + stack.getTagCompound().getInteger("zCoord"));
-=======
 			list.add(I18nUtil.resolveKey("desc.turrectcontrol"));
 			list.add("X: " + String.valueOf(stack.getTagCompound().getInteger("xCoord")));
 			list.add("Y: " + String.valueOf(stack.getTagCompound().getInteger("yCoord")));
 			list.add("Z: " + String.valueOf(stack.getTagCompound().getInteger("zCoord")));
->>>>>>> upstream/Custom-1.12.2
 		} else {
 			list.add(I18nUtil.resolveKey("desc.turrectcontrol.noconnect"));
 		}

@@ -27,24 +27,6 @@ public class ItemLock extends ItemKeyPin {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack stack = player.getHeldItem(hand);
-<<<<<<< HEAD
-		if(getPins(stack) != 0) {
-			TileEntity te = world.getTileEntity(pos);
-
-			if(te != null && te instanceof TileEntityLockableBase) {
-				TileEntityLockableBase tile = (TileEntityLockableBase) te;
-
-				if (!tile.isLocked() && tile.canLock(player, hand, facing)) {
-					tile.setPins(getPins(stack));
-					tile.lock();
-					tile.setMod(this.lockMod);
-					world.playSound(null, player.posX, player.posY, player.posZ, HBMSoundHandler.lockHang, SoundCategory.PLAYERS, 1.0F, 1.0F);
-					stack.shrink(1);
-					return EnumActionResult.SUCCESS;
-				}
-
-				return EnumActionResult.FAIL;
-=======
 		if(!world.isRemote && getPins(stack) != 0) {
 			TileEntity thing;
 			Block b = world.getBlockState(pos).getBlock();
@@ -58,28 +40,25 @@ public class ItemLock extends ItemKeyPin {
 				thing = world.getTileEntity(pos);
 			}
 			
-			if(thing != null && thing instanceof TileEntityDummy && ((TileEntityDummy)thing).target != null){
+			if(thing instanceof TileEntityDummy && ((TileEntityDummy) thing).target != null){
 				thing = world.getTileEntity(((TileEntityDummy)thing).target);
->>>>>>> upstream/Custom-1.12.2
 			}
 
 
-			if(thing != null && thing instanceof TileEntityLockableBase) {
+			if(thing instanceof TileEntityLockableBase) {
 				TileEntityLockableBase lockTe = (TileEntityLockableBase) thing;
 
-				if(lockTe != null && lockTe instanceof TileEntityLockableBase) {
-					if(!lockTe.isLocked() && lockTe.canLock(player, hand, facing)) {
-						lockTe.setPins(getPins(stack));
-						lockTe.lock();
-						lockTe.setMod(this.lockMod);
-						world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, HBMSoundHandler.lockHang, SoundCategory.PLAYERS, 1.0F, 1.0F);
-						stack.shrink(1);
-						return EnumActionResult.SUCCESS;
-					}
+                if (!lockTe.isLocked() && lockTe.canLock(player, hand, facing)) {
+                    lockTe.setPins(getPins(stack));
+                    lockTe.lock();
+                    lockTe.setMod(this.lockMod);
+                    world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, HBMSoundHandler.lockHang, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                    stack.shrink(1);
+                    return EnumActionResult.SUCCESS;
+                }
 
-					return EnumActionResult.FAIL;
-				}
-			}
+                return EnumActionResult.FAIL;
+            }
 		}
 		
 		return EnumActionResult.PASS;
