@@ -1,22 +1,24 @@
 package com.hbm.render.entity;
 
+import java.util.Random;
+
+import org.lwjgl.opengl.GL11;
+
 import com.hbm.entity.projectile.EntityBullet;
 import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelBullet;
+
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import org.lwjgl.opengl.GL11;
-
-import java.util.Random;
 
 public class RenderBullet extends Render<EntityBullet> {
 
 	public static final IRenderFactory<EntityBullet> FACTORY = (RenderManager manager) -> {return new RenderBullet(manager);};
 	
-	private final ModelBullet miniNuke;
+	private ModelBullet miniNuke;
 	
 	protected RenderBullet(RenderManager renderManager) {
 		super(renderManager);
@@ -37,12 +39,12 @@ public class RenderBullet extends Render<EntityBullet> {
 		GL11.glRotatef(new Random(rocket.getEntityId()).nextInt(360),
 				1.0F, 0.0F, 0.0F);
 
-		if (rocket instanceof EntityBullet && rocket.getIsChopper()) {
-			bindTexture(new ResourceLocation(RefStrings.MODID + ":textures/models/emplacer.png"));
-		} else if (rocket instanceof EntityBullet && rocket.getIsCritical()) {
-			bindTexture(new ResourceLocation(RefStrings.MODID + ":textures/models/tau.png"));
+		if (rocket instanceof EntityBullet && ((EntityBullet) rocket).getIsChopper()) {
+			bindTexture(new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/emplacer.png"));
+		} else if (rocket instanceof EntityBullet && ((EntityBullet) rocket).getIsCritical()) {
+			bindTexture(new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/tau.png"));
 		} else if (rocket instanceof EntityBullet) {
-			bindTexture(new ResourceLocation(RefStrings.MODID + ":textures/models/bullet.png"));
+			bindTexture(new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/bullet.png"));
 		}
 		miniNuke.renderAll(0.0625F);
 		
@@ -58,11 +60,11 @@ public class RenderBullet extends Render<EntityBullet> {
 	@Override
 	protected ResourceLocation getEntityTexture(EntityBullet entity) {
 		if (entity.getIsChopper()) {
-			return new ResourceLocation(RefStrings.MODID + ":textures/models/emplacer.png");
+			return new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/emplacer.png");
 		} else if (entity.getIsCritical()) {
-			return new ResourceLocation(RefStrings.MODID + ":textures/models/tau.png");
+			return new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/tau.png");
 		} else {
-			return new ResourceLocation(RefStrings.MODID + ":textures/models/bullet.png");
+			return new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/bullet.png");
 		}
 	}
 

@@ -1,33 +1,34 @@
 package com.hbm.inventory;
 
-import com.hbm.forgefluid.ModForgeFluids;
-import com.hbm.inventory.RecipesCommon.ComparableStack;
-import com.hbm.inventory.RecipesCommon.NbtComparableStack;
-import com.hbm.items.ModItems;
-import com.hbm.items.special.ItemCell;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
-
+import java.util.LinkedHashMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import static com.hbm.inventory.OreDictManager.*;
+import com.hbm.forgefluid.ModForgeFluids;
+import com.hbm.inventory.RecipesCommon.ComparableStack;
+import com.hbm.inventory.RecipesCommon.NbtComparableStack;
+import com.hbm.items.ModItems;
+import com.hbm.items.special.ItemCell;
+
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class CyclotronRecipes {
 
-	private static final HashMap<Object, ItemStack> lithium = new HashMap<>();
-	private static final HashMap<Object, ItemStack> beryllium = new HashMap<>();
-	private static final HashMap<Object, ItemStack> carbon = new HashMap<>();
-	private static final HashMap<Object, ItemStack> copper = new HashMap<>();
-	private static final HashMap<Object, ItemStack> plutonium = new HashMap<>();
-	private static final HashMap<Object, Integer> liAmat = new HashMap<>();
-	private static final HashMap<Object, Integer> beAmat = new HashMap<>();
-	private static final HashMap<Object, Integer> caAmat = new HashMap<>();
-	private static final HashMap<Object, Integer> coAmat = new HashMap<>();
-	private static final HashMap<Object, Integer> plAmat = new HashMap<>();
+	private static LinkedHashMap<Object, ItemStack> lithium = new LinkedHashMap<>();
+	private static LinkedHashMap<Object, ItemStack> beryllium = new LinkedHashMap<>();
+	private static LinkedHashMap<Object, ItemStack> carbon = new LinkedHashMap<>();
+	private static LinkedHashMap<Object, ItemStack> copper = new LinkedHashMap<>();
+	private static LinkedHashMap<Object, ItemStack> plutonium = new LinkedHashMap<>();
+	private static HashMap<Object, Integer> liAmat = new HashMap<>();
+	private static HashMap<Object, Integer> beAmat = new HashMap<>();
+	private static HashMap<Object, Integer> caAmat = new HashMap<>();
+	private static HashMap<Object, Integer> coAmat = new HashMap<>();
+	private static HashMap<Object, Integer> plAmat = new HashMap<>();
 
 	public static void register() {
 
@@ -96,7 +97,7 @@ public class CyclotronRecipes {
 
 		makeRecipe(plutonium, plAmat, PU.dust(), new ItemStack(ModItems.powder_tennessine), plA);
 		makeRecipe(plutonium, plAmat, new ComparableStack(ModItems.powder_tennessine), new ItemStack(ModItems.powder_reiium), plA);
-		makeRecipe(plutonium, plAmat, new ComparableStack(ModItems.pellet_charged), new ItemStack(ModItems.nugget_schrabidium), 200);
+		makeRecipe(plutonium, plAmat, new ComparableStack(ModItems.pellet_charged), new ItemStack(ModItems.nugget_schrabidium, 6), 200);
 		makeRecipe(plutonium, plAmat, new NbtComparableStack(ItemCell.getFullCell(ModForgeFluids.amat)), ItemCell.getFullCell(ModForgeFluids.aschrab), 0);
 		/// PLUTONIUM END ///
 
@@ -154,7 +155,7 @@ public class CyclotronRecipes {
 	
 	public static Map<ItemStack[], ItemStack> getRecipes() {
 
-		Map<ItemStack[], ItemStack> recipes = new HashMap<>();
+		Map<ItemStack[], ItemStack> recipes = new LinkedHashMap<>();
 
 		addRecipes(recipes, lithium, ModItems.part_lithium);
 		addRecipes(recipes, beryllium, ModItems.part_beryllium);

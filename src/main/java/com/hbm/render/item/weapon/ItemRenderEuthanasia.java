@@ -12,7 +12,7 @@ import org.lwjgl.opengl.GL11;
 public class ItemRenderEuthanasia extends TEISRBase {
 
 	protected ModelEuthanasia euthanasia;
-	protected static ResourceLocation euthanasia_rl = new ResourceLocation(RefStrings.MODID +":textures/models/ModelEuthanasia.png");
+	protected static ResourceLocation euthanasia_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelEuthanasia.png");
 	
 	public ItemRenderEuthanasia() {
 		euthanasia = new ModelEuthanasia();

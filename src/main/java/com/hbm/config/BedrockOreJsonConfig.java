@@ -38,8 +38,72 @@ public class BedrockOreJsonConfig {
 	}
 
 	public static void setDefaults() {
-		addEntry(0, 30, Arrays.asList("orePlutonium", "oreQuartz", "oreInfernalCoal", "oreRedPhosphorus", "oreSchrabidium", "oreNeodymium", "oreNitanium"), false);
-		addEntry(-1, 60, Arrays.asList("orePlutonium", "oreQuartz", "oreInfernalCoal", "oreRedPhosphorus", "oreSchrabidium", "oreNeodymium", "oreNitanium"), true);
+		addEntry(0, 15, Arrays.asList(
+			"orePlutonium", 
+			"oreQuartz", 
+			"oreInfernalCoal", 
+			"oreRedPhosphorus", 
+			"oreSchrabidium", 
+			"oreNeodymium", 
+			"oreNitanium",
+			"oreDesh",
+			"oreCheese",
+			"oreMercury",
+			"oreCarbon", 
+			"oreCrystal", 
+			"oreWhiteGem",
+			"oreRedGem",
+			"oreBlueGem", 
+			"oreDarkIron", 
+			"oreDenseCoal",
+			"oreBlueDiamond",
+			"oreRedDiamond",
+			"oreGreenDiamond",
+			"oreYellowDiamond",
+			"orePurpleDiamond",
+			"oreAdrite",
+			"oreSteel"
+		), false);
+		addEntry(-1, 60, Arrays.asList(
+			"orePlutonium", 
+			"oreQuartz", 
+			"oreInfernalCoal", 
+			"oreRedPhosphorus", 
+			"oreSchrabidium", 
+			"oreNeodymium", 
+			"oreTungsten",
+			"oreUranium",
+			"oreSulfur",   
+			"oreNitanium",
+			"oreCobalt",
+			"oreAdrite"
+		), true);
+		addEntry(-6, 30, Arrays.asList(//Mining Dim
+			"orePlutonium", 
+			"oreQuartz", 
+			"oreInfernalCoal", 
+			"oreRedPhosphorus", 
+			"oreSchrabidium", 
+			"oreNeodymium", 
+			"oreNitanium",
+			"oreDesh",
+			"oreCheese",
+			"oreMercury",
+			"oreCarbon", 
+			"oreCrystal", 
+			"oreRedGem",
+			"oreWhiteGem",
+			"oreBlueGem", 
+			"oreDarkIron", 
+			"oreDenseCoal",
+			"oreBlueDiamond",
+			"oreRedDiamond",
+			"oreGreenDiamond",
+			"oreYellowDiamond",
+			"orePurpleDiamond",
+			"oreAdrite",
+			"oreSteel"
+		), false);
 	}
 
 	public static void addEntry(int dimID, int rarity, List<String> ores, Boolean isWhiteList){

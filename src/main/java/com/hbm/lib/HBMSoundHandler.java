@@ -79,6 +79,7 @@ public final class HBMSoundHandler {
 	public static SoundEvent zomgShoot;
 	public static SoundEvent jetpackTank;
 	public static SoundEvent nullTau;
+	public static SoundEvent nullRadar;
 	public static SoundEvent immolatorIgnite;
 	public static SoundEvent immolatorShoot;
 	public static SoundEvent defabSpinup;
@@ -127,7 +128,6 @@ public final class HBMSoundHandler {
 	public static SoundEvent lockHang;
 	public static SoundEvent vaultScrapeNew;
 	public static SoundEvent vaultThudNew;
-	public static SoundEvent minerOperate;
 	public static SoundEvent missileAssembly2;
 	public static SoundEvent sonarPing;
 	public static SoundEvent radawayUse;
@@ -340,6 +340,7 @@ public final class HBMSoundHandler {
 		zomgShoot = register("weapon.zomgShoot");
 		jetpackTank = register("item.jetpackTank");
 		nullTau = register("misc.nullTau");
+		nullRadar = register("misc.nullRadar");
 		immolatorIgnite = register("weapon.immolatorIgnite");
 		immolatorShoot = register("weapon.immolatorShoot");
 		defabSpinup = register("weapon.defabSpinup");
@@ -388,7 +389,6 @@ public final class HBMSoundHandler {
 		lockHang = register("block.lockHang");
 		vaultScrapeNew = register("block.vaultScrapeNew");
 		vaultThudNew = register("block.vaultThudNew");
-		minerOperate = register("block.minerOperate");
 		missileAssembly2 = register("block.missileAssembly2");
 		sonarPing = register("block.sonarPing");
 		radawayUse = register("item.radaway");

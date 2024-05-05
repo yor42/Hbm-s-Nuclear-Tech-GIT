@@ -1,6 +1,12 @@
 package com.hbm.blocks.generic;
 
+import java.util.List;
+import java.util.Random;
+
+import com.hbm.util.I18nUtil;
 import com.hbm.blocks.ModBlocks;
+
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.SoundType;
@@ -9,18 +15,16 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class BlockGenericSlab extends BlockSlab {
 
-	public static final PropertyEnum<Variant> VARIANT = PropertyEnum.create("variant", Variant.class);
+	public static final PropertyEnum<Variant> VARIANT = PropertyEnum.<Variant>create("variant", Variant.class);
 	
-	private final boolean isDouble;
+	private boolean isDouble;
 	
 	public BlockGenericSlab(Material materialIn, boolean isDouble, String s) {
 		super(materialIn);
@@ -35,7 +39,7 @@ public class BlockGenericSlab extends BlockSlab {
 	public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
 		float hardness = this.getExplosionResistance(null);
 		if(hardness > 50){
-			tooltip.add("§6Blast Resistance: "+hardness+"§r");
+			tooltip.add("§6" + I18nUtil.resolveKey("trait.blastres", hardness));
 		}
 	}
 
@@ -92,10 +96,10 @@ public class BlockGenericSlab extends BlockSlab {
 	@Override
 	protected BlockStateContainer createBlockState()
     {
-        return this.isDouble() ? new BlockStateContainer(this, VARIANT) : new BlockStateContainer(this, HALF, VARIANT);
+        return this.isDouble() ? new BlockStateContainer(this, new IProperty[] {VARIANT}) : new BlockStateContainer(this, new IProperty[] {HALF, VARIANT});
     }
 	
-	public enum Variant implements IStringSerializable
+	public static enum Variant implements IStringSerializable
     {
         DEFAULT;
 

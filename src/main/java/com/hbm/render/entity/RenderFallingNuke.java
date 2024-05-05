@@ -1,28 +1,30 @@
 package com.hbm.render.entity;
 
+import org.lwjgl.opengl.GL11;
+
 import com.hbm.entity.projectile.EntityFallingNuke;
 import com.hbm.lib.RefStrings;
 import com.hbm.render.amlfrom1710.AdvancedModelLoader;
 import com.hbm.render.amlfrom1710.IModelCustom;
+
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import org.lwjgl.opengl.GL11;
 
 public class RenderFallingNuke extends Render<EntityFallingNuke> {
 
 	public static final IRenderFactory<EntityFallingNuke> FACTORY = (RenderManager man) -> {return new RenderFallingNuke(man);};
 	
-	private static final ResourceLocation objTesterModelRL = new ResourceLocation(/*"/assets/" + */RefStrings.MODID, "models/LilBoy1.obj");
-	private final IModelCustom boyModel;
-    private final ResourceLocation boyTexture;
-    private static final ResourceLocation gadget_rl = new ResourceLocation(RefStrings.MODID +":textures/models/TheGadget3_.png");
+	private static final ResourceLocation objTesterModelRL = new ResourceLocation(/*"/assets/" + */RefStrings.MODID, "models/bombs/LilBoy.obj");
+	private IModelCustom boyModel;
+    private ResourceLocation boyTexture;
+    private static final ResourceLocation gadget_rl = new ResourceLocation(RefStrings.MODID +":textures/models/bombs/gadget.png");
 	
 	protected RenderFallingNuke(RenderManager renderManager) {
 		super(renderManager);
 		boyModel = AdvancedModelLoader.loadModel(objTesterModelRL);
-		boyTexture = new ResourceLocation(RefStrings.MODID, "textures/models/CustomNuke.png");
+		boyTexture = new ResourceLocation(RefStrings.MODID, "textures/models/bombs/CustomNuke.png");
 	}
 
 	@Override

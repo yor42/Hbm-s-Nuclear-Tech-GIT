@@ -24,7 +24,7 @@ import org.lwjgl.opengl.GL11;
 public class ItemRenderXVL1456 extends TEISRBase {
 
 	protected ModelXVL1456 swordModel;
-	protected static ResourceLocation tau_rl = new ResourceLocation(RefStrings.MODID +":textures/models/ModelXVL1456.png");
+	protected static ResourceLocation tau_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelXVL1456.png");
 	
 	public ItemRenderXVL1456() {
 		swordModel = new ModelXVL1456();

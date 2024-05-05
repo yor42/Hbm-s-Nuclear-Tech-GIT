@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderPoleSatelliteReceiver extends TileEntitySpecialRenderer<TileEntityDecoPoleSatelliteReceiver> {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":" + "textures/models/PoleSatelliteReceiver.png");
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":" + "textures/models/deco/PoleSatelliteReceiver.png");
 	
 	private final ModelSatelliteReceiver model;
 	

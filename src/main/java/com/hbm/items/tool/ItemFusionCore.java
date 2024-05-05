@@ -6,6 +6,12 @@ import com.hbm.items.armor.ArmorFSBPowered;
 import com.hbm.items.gear.ArmorFSB;
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.lib.Library;
+<<<<<<< HEAD
+=======
+
+import api.hbm.energy.IBatteryItem;
+import com.hbm.util.I18nUtil;
+>>>>>>> upstream/Custom-1.12.2
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -59,7 +65,7 @@ public class ItemFusionCore extends Item {
 	
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(TextFormatting.YELLOW + "Charges all worn armor pieces by " + Library.getShortNumber(charge) + "HE");
-		tooltip.add("[Requires full electric set to be worn]");
+		tooltip.add(TextFormatting.YELLOW + I18nUtil.resolveKey("desc.fusioncore1", Library.getShortNumber(charge)));
+		tooltip.add("[" + I18nUtil.resolveKey("desc.fusioncore2")+"]");
 	}
 }

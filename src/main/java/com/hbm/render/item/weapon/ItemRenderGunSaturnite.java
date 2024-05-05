@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 public class ItemRenderGunSaturnite extends TEISRBase {
 	
 	protected ModelBoltAction sat;
-	protected static ResourceLocation sat_rl = new ResourceLocation(RefStrings.MODID +":textures/models/ModelBoltActionSaturnite.png");
+	protected static ResourceLocation sat_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelBoltActionSaturnite.png");
 	
 	public ItemRenderGunSaturnite() {
 		sat = new ModelBoltAction();

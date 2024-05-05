@@ -1,12 +1,16 @@
 package com.hbm.explosion;
 
+import java.util.List;
+
+import com.hbm.config.CompatibilityConfig;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.generic.WasteLog;
 import com.hbm.handler.ArmorUtil;
+
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockColored;
-import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockColored;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,11 +26,12 @@ import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class ExplosionThermo {
 
 	public static void freeze(World world, int x, int y, int z, int bombStartStrength) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		MutableBlockPos pos = new BlockPos.MutableBlockPos();
 		int r = bombStartStrength * 2;
 		int r2 = r * r;
@@ -49,6 +54,9 @@ public class ExplosionThermo {
 	}
 
 	public static void scorch(World world, int x, int y, int z, int bombStartStrength) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		MutableBlockPos pos = new BlockPos.MutableBlockPos();
 		int r = bombStartStrength * 2;
 		int r2 = r * r;
@@ -183,6 +191,9 @@ public class ExplosionThermo {
 	}
 
 	public static void freezer(World world, int x, int y, int z, int bombStartStrength) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		float f = bombStartStrength;
 		int i;
 		int j;
@@ -204,7 +215,7 @@ public class ExplosionThermo {
 		MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
 		for (int i1 = 0; i1 < list.size(); ++i1) {
-			Entity entity = list.get(i1);
+			Entity entity = (Entity) list.get(i1);
 			double d4 = entity.getDistance(x, y, z) / bombStartStrength;
 
 			if (d4 <= 1.0D) {
@@ -233,7 +244,9 @@ public class ExplosionThermo {
 	}
 
 	public static void setEntitiesOnFire(World world, double x, double y, double z, int radius) {
-
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius));
 
 		for(Entity e : list) {
@@ -252,6 +265,9 @@ public class ExplosionThermo {
 	}
 	
 	public static void scorchLight(World world, int x, int y, int z, int bombStartStrength) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		MutableBlockPos pos = new BlockPos.MutableBlockPos();
 		int r = bombStartStrength * 2;
 		int r2 = r*r;
@@ -332,6 +348,9 @@ public class ExplosionThermo {
 		}
 	}
 	public static void snow(World world, int x, int y, int z, int bound) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
     	MutableBlockPos pos = new BlockPos.MutableBlockPos();
 		
     	int r = bound;
@@ -359,6 +378,5 @@ public class ExplosionThermo {
     			}
     		}
     	}
-    	
     }
 }

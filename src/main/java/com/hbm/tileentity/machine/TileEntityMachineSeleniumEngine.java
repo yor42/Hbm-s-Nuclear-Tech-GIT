@@ -1,25 +1,35 @@
 package com.hbm.tileentity.machine;
 
-import api.hbm.energy.IEnergyGenerator;
+import java.util.HashMap;
+
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.interfaces.ITankPacketAcceptor;
 import com.hbm.items.ModItems;
-import com.hbm.lib.ForgeDirection;
+import com.hbm.inventory.EngineRecipes;
+import com.hbm.inventory.EngineRecipes.FuelGrade;
 import com.hbm.lib.Library;
+import com.hbm.lib.ForgeDirection;
 import com.hbm.packet.AuxElectricityPacket;
 import com.hbm.packet.AuxGaugePacket;
 import com.hbm.packet.FluidTankPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.TileEntityLoadedBase;
+
+import api.hbm.energy.IEnergyGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
@@ -40,9 +50,13 @@ public class TileEntityMachineSeleniumEngine extends TileEntityLoadedBase implem
 	public boolean needsUpdate = true;
 	public int pistonCount = 0;
 
-	//private static final int[] slots_top = new int[] { 0 };
-	//private static final int[] slots_bottom = new int[] { 1, 2 };
-	//private static final int[] slots_side = new int[] { 2 };
+	public static HashMap<FuelGrade, Double> fuelEfficiency = new HashMap();
+	static {
+		fuelEfficiency.put(FuelGrade.LOW,		0.75D);
+		fuelEfficiency.put(FuelGrade.MEDIUM,	0.5D);
+		fuelEfficiency.put(FuelGrade.HIGH,		0.25D);
+		fuelEfficiency.put(FuelGrade.AERO,		0.00D);
+	}
 
 	private String customName;
 	
@@ -155,23 +169,18 @@ public class TileEntityMachineSeleniumEngine extends TileEntityLoadedBase implem
 		return getHEFromFuel() > 0;
 	}
 	
-	public int getHEFromFuel() {
-		if(tankType == ModForgeFluids.smear)
-			return 50;
-		if(tankType == ModForgeFluids.heatingoil)
-			return 75;
-		if(tankType == ModForgeFluids.diesel)
-			return 225;
-		if(tankType == ModForgeFluids.kerosene)
-			return 300;
-		if(tankType == ModForgeFluids.reclaimed)
-			return 100;
-		if(tankType == ModForgeFluids.petroil)
-			return 125;
-		if(tankType == ModForgeFluids.biofuel)
-			return 200;
-		if(tankType == ModForgeFluids.nitan)
-			return 2500;
+	public long getHEFromFuel() {
+		if(tank == null || tank.getFluid() == null) return 0;
+		return getHEFromFuel(tank.getFluid().getFluid());
+	}
+	
+	public static long getHEFromFuel(Fluid type) {
+		if(EngineRecipes.hasFuelRecipe(type)) {
+			FuelGrade grade = EngineRecipes.getFuelGrade(type);
+			double efficiency = fuelEfficiency.containsKey(grade) ? fuelEfficiency.get(grade) : 0;
+			return (long) (EngineRecipes.getEnergy(type) / 1000L * efficiency);
+		}
+		
 		return 0;
 	}
 
@@ -189,7 +198,7 @@ public class TileEntityMachineSeleniumEngine extends TileEntityLoadedBase implem
 				if (soundCycle >= 3)
 					soundCycle = 0;
 
-				tank.drain(this.pistonCount * 5, true);
+				tank.drain(this.pistonCount, true);
 				needsUpdate = true;
 
 				power += getHEFromFuel() * Math.pow(this.pistonCount, 1.15D);
@@ -202,7 +211,9 @@ public class TileEntityMachineSeleniumEngine extends TileEntityLoadedBase implem
 
 	protected boolean inputValidForTank(int tank, int slot){
 		if(this.tank != null){
-            return isValidFluidForTank(tank, FluidUtil.getFluidContained(inventory.getStackInSlot(slot)));
+			if(isValidFluidForTank(tank, FluidUtil.getFluidContained(inventory.getStackInSlot(slot)))){
+				return true;
+			}
 		}
 		return false;
 	}
@@ -211,7 +222,11 @@ public class TileEntityMachineSeleniumEngine extends TileEntityLoadedBase implem
 		if(stack == null || this.tank == null)
 			return false;
 		Fluid f = stack.getFluid();
-		return this.tank.getFluid() != null ? f == this.tank.getFluid().getFluid() :(f == ModForgeFluids.smear || f == ModForgeFluids.heatingoil || f == ModForgeFluids.diesel || f == ModForgeFluids.kerosene || f == ModForgeFluids.reclaimed || f == ModForgeFluids.petroil || f == ModForgeFluids.biofuel || f == ModForgeFluids.nitan);
+
+		if(this.tank.getFluid() != null)
+			return f == this.tank.getFluid().getFluid();
+
+		return getHEFromFuel(f) > 0;
 	}
 
 	@Override
@@ -242,7 +257,8 @@ public class TileEntityMachineSeleniumEngine extends TileEntityLoadedBase implem
 	@Override
 	public void recievePacket(NBTTagCompound[] tags) {
 		if(tags.length != 1){
-        } else {
+			return;
+		} else {
 			tank.readFromNBT(tags[0]);
 		}
 	}

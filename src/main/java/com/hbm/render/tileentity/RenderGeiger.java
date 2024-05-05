@@ -1,17 +1,19 @@
 package com.hbm.render.tileentity;
 
+import org.lwjgl.opengl.GL11;
+
 import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelGeiger;
 import com.hbm.tileentity.machine.TileEntityGeiger;
+
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 public class RenderGeiger extends TileEntitySpecialRenderer<TileEntityGeiger> {
 
-	private static final ResourceLocation texture9 = new ResourceLocation(RefStrings.MODID + ":" + "textures/models/ModelGeiger.png");
-	private final ModelGeiger model8;
+	private static final ResourceLocation texture9 = new ResourceLocation(RefStrings.MODID + ":" + "textures/models/tools/ModelGeiger.png");
+	private ModelGeiger model8;
 	
 	public RenderGeiger() {
 		this.model8 = new ModelGeiger();

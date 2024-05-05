@@ -2,6 +2,11 @@ package com.hbm.items.special;
 
 import com.hbm.interfaces.IDoor;
 import com.hbm.items.ModItems;
+<<<<<<< HEAD
+=======
+import com.hbm.blocks.BlockDummyable;
+
+>>>>>>> upstream/Custom-1.12.2
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
@@ -26,10 +31,16 @@ public class ItemDoorSkin extends Item {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if(!worldIn.isRemote){
-			TileEntity te = worldIn.getTileEntity(pos);
-			if(te instanceof IDoor){
-				if(((IDoor) te).setTexture(tex)){
-					return EnumActionResult.SUCCESS;
+
+			if(worldIn.getBlockState(pos).getBlock() instanceof BlockDummyable){
+				int[] pos1 = ((BlockDummyable) worldIn.getBlockState(pos).getBlock()).findCore(worldIn, pos.getX(), pos.getY(), pos.getZ());
+				if(pos1 != null){
+					TileEntity te = worldIn.getTileEntity(new BlockPos(pos1[0], pos1[1], pos1[2]));
+					if(te instanceof IDoor){
+						if(((IDoor) te).setTexture(tex)){
+							return EnumActionResult.SUCCESS;
+						}
+					}
 				}
 			}
 		}

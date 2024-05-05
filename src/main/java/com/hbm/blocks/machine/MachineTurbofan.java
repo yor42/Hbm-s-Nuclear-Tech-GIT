@@ -1,17 +1,21 @@
 package com.hbm.blocks.machine;
 
-import com.hbm.blocks.BlockDummyable;
-import com.hbm.blocks.ITooltipProvider;
-import com.hbm.blocks.ModBlocks;
+import java.util.List;
+
 import com.hbm.items.ModItems;
-import com.hbm.lib.ForgeDirection;
+import com.hbm.blocks.ModBlocks;
+import com.hbm.blocks.BlockDummyable;
 import com.hbm.main.MainRegistry;
+import com.hbm.lib.ForgeDirection;
+import com.hbm.inventory.EngineRecipes.FuelGrade;
 import com.hbm.tileentity.TileEntityProxyCombo;
 import com.hbm.tileentity.machine.TileEntityMachineTurbofan;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -19,9 +23,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
-
-public class MachineTurbofan extends BlockDummyable implements ITooltipProvider {
+public class MachineTurbofan extends BlockDummyable {
 
 	public MachineTurbofan(Material materialIn, String s) {
 		super(materialIn, s);
@@ -82,7 +84,8 @@ public class MachineTurbofan extends BlockDummyable implements ITooltipProvider 
 
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> list, ITooltipFlag flagIn) {
-		this.addStandardInfo(list);
+		list.add(I18n.format("trait.fuelefficiency"));
+		list.add(" "+I18n.format("trait.fuelefficiency.desc", I18n.format(FuelGrade.AERO.getGrade()), 100));
 		super.addInformation(stack, worldIn, list, flagIn);
 	}
 }

@@ -1,17 +1,20 @@
 package com.hbm.modules;
 
-import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonWriter;
-import com.hbm.items.ModItems;
-import com.hbm.tileentity.IConfigurableMachine;
-import com.hbm.util.ItemStackUtil;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.text.TextFormatting;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonWriter;
+import com.hbm.items.ModItems;
+import com.hbm.blocks.ModBlocks;
+import com.hbm.tileentity.IConfigurableMachine;
+import com.hbm.util.ItemStackUtil;
+
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.text.TextFormatting;
 
 /**
  * A simple module for determining the burn time of a stack with added options to define bonuses
@@ -29,8 +32,8 @@ public class ModuleBurnTime {
 	private static final int modRocket = 6;
 	private static final int modBalefire = 7;
 
-	private final double[] modTime = new double[8];
-	private final double[] modHeat = new double[8];
+	private double[] modTime = new double[8];
+	private double[] modHeat = new double[8];
 	
 	public ModuleBurnTime() {
 		for(int i = 0; i < modTime.length; i++) {
@@ -97,20 +100,23 @@ public class ModuleBurnTime {
 			return 0;
 
 		if(stack.getItem() == ModItems.solid_fuel)						return mod[modSolid];
-		//if(stack.getItem() == ModItems.solid_fuel_presto) 				return mod[modSolid];
-		//if(stack.getItem() == ModItems.solid_fuel_presto_triplet)		return mod[modSolid];
+		if(stack.getItem() == ModItems.solid_fuel_presto) 				return mod[modSolid];
+		if(stack.getItem() == ModItems.solid_fuel_presto_triplet)		return mod[modSolid];
+		
+		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.block_solid_fuel))						return mod[modSolid];
+		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.block_solid_fuel_presto)) 				return mod[modSolid];
+		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.block_solid_fuel_presto_triplet))		return mod[modSolid];
 
-		//if(stack.getItem() == ModItems.solid_fuel_bf)					return mod[modBalefire];
-		//if(stack.getItem() == ModItems.solid_fuel_presto_bf) 			return mod[modBalefire];
-		//if(stack.getItem() == ModItems.solid_fuel_presto_triplet_bf)	return mod[modBalefire];
 		
 		if(stack.getItem() == ModItems.rocket_fuel)						return mod[modRocket];
+		if(stack.getItem() == ModItems.pellet_coal)						return mod[modCoal];
 		
 		List<String> names = ItemStackUtil.getOreDictNames(stack);
 		
 		for(String name : names) {
 			if(name.contains("Coke"))		return mod[modCoke];
 			if(name.contains("Coal"))		return mod[modCoal];
+			if(name.contains("Charcoal"))		return mod[modLignite];
 			if(name.contains("Lignite"))	return mod[modLignite];
 			if(name.startsWith("log"))		return mod[modLog];
 			if(name.contains("Wood"))		return mod[modWood];

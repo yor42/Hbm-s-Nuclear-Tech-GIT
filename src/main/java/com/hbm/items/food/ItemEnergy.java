@@ -1,5 +1,7 @@
 package com.hbm.items.food;
 
+import java.util.List;
+
 import com.hbm.config.VersatileConfig;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.items.ModItems;
@@ -8,6 +10,7 @@ import com.hbm.main.MainRegistry;
 import com.hbm.util.ContaminationUtil;
 import com.hbm.util.ContaminationUtil.ContaminationType;
 import com.hbm.util.ContaminationUtil.HazardType;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,8 +24,6 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
-
-import java.util.List;
 
 public class ItemEnergy extends Item {
 
@@ -288,14 +289,26 @@ public class ItemEnergy extends Item {
 		return EnumAction.DRINK;
 	}
 
+	public static boolean hasOpener(EntityPlayer player){
+		ItemStack stackR = player.getHeldItemMainhand();
+		ItemStack stackL = player.getHeldItemOffhand();
+		if(stackR == null || stackL == null) return false;
+		if(stackR.getItem() == ModItems.bottle_opener || stackL.getItem() == ModItems.bottle_opener){
+			return true;
+		}
+		return false;
+	}	
+
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand) {
 		if(!(this == ModItems.can_creature || this == ModItems.can_mrsugar || this == ModItems.can_overcharge || this == ModItems.can_redbomb || this == ModItems.can_smart || this == ModItems.chocolate_milk || 
 				this == ModItems.can_luna || this == ModItems.can_bepis || this == ModItems.can_breen))
-			if(!Library.hasInventoryItem(player.inventory, ModItems.bottle_opener))
-				return ActionResult.newResult(EnumActionResult.PASS, player.getHeldItem(hand));
+			
+			if(!hasOpener(player))
+				return ActionResult.<ItemStack> newResult(EnumActionResult.PASS, player.getHeldItem(hand));
+
 		player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.<ItemStack> newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 
 	@Override

@@ -1,19 +1,22 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.util.I18nUtil;
+import org.lwjgl.opengl.GL11;
+
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.inventory.container.ContainerMachineBoilerRTG;
 import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityMachineBoilerRTG;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 public class GUIMachineBoilerRTG extends GuiInfoContainer {
 
 	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_boiler_rtg.png");
-	private final TileEntityMachineBoilerRTG rtgBoiler;
+	private TileEntityMachineBoilerRTG rtgBoiler;
 	
 	public GUIMachineBoilerRTG(InventoryPlayer invPlayer, TileEntityMachineBoilerRTG tedf) {
 		super(new ContainerMachineBoilerRTG(invPlayer, tedf));
@@ -34,21 +37,14 @@ public class GUIMachineBoilerRTG extends GuiInfoContainer {
 		FFUtils.renderTankInfo(this, mouseX, mouseY, guiLeft + 44, guiTop + 69 - 52, 16, 52, dud.tanks[0]);
 		FFUtils.renderTankInfo(this, mouseX, mouseY, guiLeft + 116, guiTop + 69 - 52, 16, 52, dud.tanks[1]);
 
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 84, guiTop + 16, 8, 18, mouseX, mouseY, new String[] {(int) ((double) dud.heat / 100D) + "°C"});
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 84, guiTop + 16, 8, 18, mouseX, mouseY, new String[] { String.valueOf((int)((double)dud.heat / 100D)) + "°C"});
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 79, guiTop + 34, 18, 18, mouseX, mouseY, new String[] { "RTG Heat: "+dud.rtgPower });
 
 		
-		String[] text = new String[] { "RTG to Heat",
-				"  1 RTG Heat -> 1°C/s",
-				"Heat consumed:",
-				"  0.40°C/t or  8.0°C/s (base)",
-				"  0.45°C/t or  9.0°C/s (once boiling point is reached)",
-				"  0.60°C/t or 12.0°C/s (for every subsequent multiple of boiling point)"};
+		String[] text = I18nUtil.resolveKeyArray("desc.guimachboilerrtg");
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft - 16, guiTop + 36, 16, 16, guiLeft - 8, guiTop + 36 + 16, text);
 		
-		String[] text1 = new String[] { "Boiling rate:",
-				"  Base rate * amount of full multiples",
-				"  of boiling points reached" };
+		String[] text1 = I18nUtil.resolveKeyArray("desc.guimachboiler1");
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft - 16, guiTop + 36 + 16, 16, 16, guiLeft - 8, guiTop + 36 + 16, text1);
 		super.renderHoveredToolTip(mouseX, mouseY);
 	}
@@ -77,7 +73,7 @@ public class GUIMachineBoilerRTG extends GuiInfoContainer {
 		if(dud.rtgPower > 0)
 			drawTexturedModalRect(guiLeft + 79, guiTop + 35, 176, 0, 18, 18);
 
-		int j = dud.getHeatScaled(17);
+		int j = (int)dud.getHeatScaled(17);
 		drawTexturedModalRect(guiLeft + 85, guiTop + 33 - j, 194, 16 - j, 6, j);
 
 		this.drawInfoPanel(guiLeft - 16, guiTop + 36, 16, 16, 2);

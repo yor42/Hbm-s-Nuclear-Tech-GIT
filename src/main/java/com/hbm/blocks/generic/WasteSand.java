@@ -10,6 +10,9 @@ import com.hbm.util.ContaminationUtil;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,6 +25,7 @@ import java.util.Random;
 
 public class WasteSand extends BlockFalling implements IItemHazard {
 
+	public static final PropertyInteger META = PropertyInteger.create("meta", 0, 15);
 	ItemHazardModule module;
 	
 	public WasteSand(Material materialIn, String s) {
@@ -49,6 +53,21 @@ public class WasteSand extends BlockFalling implements IItemHazard {
 	@Override
 	public int quantityDropped(IBlockState state, int fortune, Random random) {
 		return 1;
+	}
+
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[]{META});
+	}
+	
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(META);
+	}
+	
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return this.getDefaultState().withProperty(META, meta);
 	}
 	
 	@Override

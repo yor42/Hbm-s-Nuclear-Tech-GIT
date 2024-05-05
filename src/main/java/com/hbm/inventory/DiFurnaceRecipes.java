@@ -1,35 +1,38 @@
 package com.hbm.inventory;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+
+import static com.hbm.inventory.OreDictManager.*;
+import static net.minecraft.item.ItemStack.areItemStacksEqual;
+
 import com.hbm.blocks.ModBlocks;
 import com.hbm.config.GeneralConfig;
-import com.hbm.forgefluid.ModForgeFluids;
-import com.hbm.interfaces.Spaghetti;
-import com.hbm.inventory.RecipesCommon.AStack;
-import com.hbm.inventory.RecipesCommon.ComparableStack;
-import com.hbm.inventory.RecipesCommon.NbtComparableStack;
-import com.hbm.inventory.RecipesCommon.OreDictStack;
-import com.hbm.items.ModItems;
-import com.hbm.items.tool.ItemFluidCanister;
 import com.hbm.util.Tuple.Pair;
+import com.hbm.inventory.RecipesCommon.AStack;
+import com.hbm.inventory.RecipesCommon.NbtComparableStack;
+import com.hbm.inventory.RecipesCommon.ComparableStack;
+import com.hbm.inventory.RecipesCommon.OreDictStack;
+import com.hbm.interfaces.Spaghetti;
+import com.hbm.forgefluid.ModForgeFluids;
+import com.hbm.items.tool.ItemFluidCanister;
+import com.hbm.items.ModItems;
+
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-
-import static com.hbm.inventory.OreDictManager.*;
 
 //TODO: clean this shit up
 //Alcater: on it
 @Spaghetti("everything")
 public class DiFurnaceRecipes {
 
-	public static HashMap<Pair<AStack, AStack>, ItemStack> diRecipes = new HashMap<Pair<AStack, AStack>, ItemStack>();
-	public static HashMap<AStack, Integer> diFuels = new HashMap<AStack, Integer>();
+	public static LinkedHashMap<Pair<AStack, AStack>, ItemStack> diRecipes = new LinkedHashMap<Pair<AStack, AStack>, ItemStack>();
+	public static LinkedHashMap<AStack, Integer> diFuels = new LinkedHashMap<AStack, Integer>();
 
 	public static void registerRecipes(){
 		addRecipe(new OreDictStack(W.ingot()), new OreDictStack(COAL.gem()), new ItemStack(ModItems.neutron_reflector, 2));
@@ -103,14 +106,25 @@ public class DiFurnaceRecipes {
 		addFuel(new OreDictStack(COAL.block()), 2000);
 		addFuel(new OreDictStack(LIGNITE.gem()), 150);
 		addFuel(new OreDictStack(LIGNITE.dust()), 150);
+		addFuel(new OreDictStack(LIGNITE.block()), 1500);
+		addFuel(new ComparableStack(ModItems.briquette_lignite), 200);
+		addFuel(new OreDictStack("gemCharcoal"), 150);
+		addFuel(new OreDictStack("blockCharcoal"), 1500);
 		addFuel(new OreDictStack("fuelCoke"), 400);
 		addFuel(new OreDictStack(ANY_COKE.gem()), 400);
+		addFuel(new OreDictStack(ANY_COKE.block()), 4000);
 		addFuel(new ComparableStack(Items.LAVA_BUCKET), 12800);
 		addFuel(new ComparableStack(Items.BLAZE_ROD), 1000);
 		addFuel(new ComparableStack(Items.BLAZE_POWDER), 300);
 		addFuel(new ComparableStack(Items.COAL, 1, 1), 200);
+		addFuel(new OreDictStack(INFERNAL.gem()), 300);
+		addFuel(new OreDictStack(INFERNAL.block()), 3000);
 		addFuel(new ComparableStack(ModItems.solid_fuel), 400);
-		addFuel(new ComparableStack(ModItems.briquette_lignite), 200);
+		addFuel(new ComparableStack(ModItems.solid_fuel_presto), 800);
+		addFuel(new ComparableStack(ModItems.solid_fuel_presto_triplet), 2400);
+		addFuel(new ComparableStack(ModBlocks.block_solid_fuel), 4000);
+		addFuel(new ComparableStack(ModBlocks.block_solid_fuel_presto), 8000);
+		addFuel(new ComparableStack(ModBlocks.block_solid_fuel_presto_triplet), 12800);
 	}
 
 	public static void addRecipe(AStack inputTop, AStack inputBottom, ItemStack output){
@@ -123,6 +137,9 @@ public class DiFurnaceRecipes {
 		diRecipes.remove(new Pair(inputBottom, inputTop));
 	}
 
+	public static void removeRecipe(ItemStack output){
+		diRecipes.values().removeIf(value -> areItemStacksEqual(value,output));;
+	}
 	public static void addFuel(AStack fuel, int power){
 		diFuels.put(fuel, power);
 	}

@@ -1,6 +1,13 @@
 package com.hbm.items.tool;
 
+<<<<<<< HEAD
+=======
+import java.util.List;
+
+import com.hbm.util.I18nUtil;
+>>>>>>> upstream/Custom-1.12.2
 import com.hbm.blocks.turret.TurretBase;
+import com.hbm.blocks.turret.TurretBaseNT;
 import com.hbm.items.ModItems;
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.lib.Library;
@@ -18,7 +25,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+<<<<<<< HEAD
 import net.minecraft.util.*;
+=======
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.MathHelper;
+>>>>>>> upstream/Custom-1.12.2
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -72,46 +88,6 @@ public class ItemTurretControl extends Item {
 							}
 						}
 					}
-					if(te != null && te instanceof TileEntityTurretBaseNT) {
-						TileEntityTurretBaseNT turret = (TileEntityTurretBaseNT) te;
-						
-						RayTraceResult rpos = Library.rayTrace(player, 200, 1, true, true, false);
-						
-						if(pos == null)
-							rpos = Library.rayTrace(player, 200, 1);
-						
-						if(pos != null) { 
-							
-							Vec3 vecOrigin = Vec3.createVectorHelper(player.posX, player.posY + player.eyeHeight - player.getYOffset(), player.posZ);
-							Vec3 vecDestination = Vec3.createVectorHelper(rpos.getBlockPos().getX(), rpos.getBlockPos().getY(), rpos.getBlockPos().getZ());
-							
-							//List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, player.boundingBox.addCoord(pos.blockX, pos.blockY, pos.blockZ).expand(1.0, 1.0, 1.0));
-							List<Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().grow(200, 200, 200));
-							
-							for(Entity e : list) {
-
-								if (e.canBeCollidedWith() && e != player) {
-									
-									RayTraceResult mop = e.getEntityBoundingBox().expand(0.2, 0.2, 0.2).calculateIntercept(vecOrigin.toVec3d(), vecDestination.toVec3d());
-									
-									if(mop != null) {
-										
-										rpos = mop;
-										rpos.typeOfHit = RayTraceResult.Type.ENTITY;
-										rpos.entityHit = e;
-									}
-								}
-							}
-							
-							if(rpos.typeOfHit == RayTraceResult.Type.ENTITY) {
-								turret.target = rpos.entityHit;
-								turret.turnTowards(turret.getEntityPos(rpos.entityHit));
-								
-							} else {
-								turret.turnTowards(Vec3.createVectorHelper(rpos.getBlockPos().getX() + 0.5, rpos.getBlockPos().getY() + 0.5, rpos.getBlockPos().getZ() + 0.5).toVec3d());
-							}
-						}
-					}
 				}
 			}
 		}
@@ -120,31 +96,58 @@ public class ItemTurretControl extends Item {
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> list, ITooltipFlag flagIn) {
 		if (stack.getTagCompound() != null) {
+<<<<<<< HEAD
 			list.add("Linked to:");
 			list.add("X: " + stack.getTagCompound().getInteger("xCoord"));
 			list.add("Y: " + stack.getTagCompound().getInteger("yCoord"));
 			list.add("Z: " + stack.getTagCompound().getInteger("zCoord"));
+=======
+			list.add(I18nUtil.resolveKey("desc.turrectcontrol"));
+			list.add("X: " + String.valueOf(stack.getTagCompound().getInteger("xCoord")));
+			list.add("Y: " + String.valueOf(stack.getTagCompound().getInteger("yCoord")));
+			list.add("Z: " + String.valueOf(stack.getTagCompound().getInteger("zCoord")));
+>>>>>>> upstream/Custom-1.12.2
 		} else {
-			list.add("Please select a turret.");
+			list.add(I18nUtil.resolveKey("desc.turrectcontrol.noconnect"));
 		}
 	}
 
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if ((worldIn.getBlockState(pos).getBlock() instanceof TurretBase)) {
+		boolean valid = false;
+		int x, y, z;
+		x = y = z = 0;
+		if (worldIn.getBlockState(pos).getBlock() instanceof TurretBase) {
+			valid = true;
+			x = pos.getX();
+			y = pos.getY();
+			z = pos.getZ();
+		}
+		if(worldIn.getBlockState(pos).getBlock() instanceof TurretBaseNT){
+			int[] cPos = ((TurretBaseNT) worldIn.getBlockState(pos).getBlock()).findCore(worldIn, pos.getX(), pos.getY(), pos.getZ());
+			if(pos != null){
+				x = cPos[0];
+				y = cPos[1];
+				z = cPos[2];
+
+				valid = true;
+			}
+		}
+
+		if(valid){
 			ItemStack stack = player.getHeldItem(hand);
 			if (stack.getTagCompound() != null) {
-				stack.getTagCompound().setInteger("xCoord", pos.getX());
-				stack.getTagCompound().setInteger("yCoord", pos.getY());
-				stack.getTagCompound().setInteger("zCoord", pos.getZ());
+				stack.getTagCompound().setInteger("xCoord", x);
+				stack.getTagCompound().setInteger("yCoord", y);
+				stack.getTagCompound().setInteger("zCoord", z);
 			} else {
 				stack.setTagCompound(new NBTTagCompound());
-				stack.getTagCompound().setInteger("xCoord", pos.getX());
-				stack.getTagCompound().setInteger("yCoord", pos.getY());
-				stack.getTagCompound().setInteger("zCoord", pos.getZ());
+				stack.getTagCompound().setInteger("xCoord", x);
+				stack.getTagCompound().setInteger("yCoord", y);
+				stack.getTagCompound().setInteger("zCoord", z);
 			}
 			if (worldIn.isRemote) {
-				player.sendMessage(new TextComponentTranslation("Turret Linked!"));
+				player.sendMessage(new TextComponentTranslation("chat.turretcontrol.linked"));
 			}
 
 			worldIn.playSound(player.posX, player.posY, player.posZ, HBMSoundHandler.techBleep, SoundCategory.PLAYERS, 1.0F, 1.0F, false);
@@ -207,10 +210,10 @@ public class ItemTurretControl extends Item {
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
-		World world = player.world;
+	public void onUsingTick(ItemStack stack, EntityLivingBase mob, int count) {
+		World world = mob.world;
 		
-		if (stack.hasTagCompound()) {
+		if (!world.isRemote && stack.hasTagCompound()) {
 			int x = stack.getTagCompound().getInteger("xCoord");
 			int y = stack.getTagCompound().getInteger("yCoord");
 			int z = stack.getTagCompound().getInteger("zCoord");
@@ -221,8 +224,55 @@ public class ItemTurretControl extends Item {
 				if (te != null && te instanceof TileEntityTurretBase) {
 					TileEntityTurretBase turret = (TileEntityTurretBase) te;
 					if (!turret.isAI && turret.ammo > 0) {
-						if (((TurretBase) world.getBlockState(pos).getBlock()).executeHoldAction(world, stack.getMaxItemUseDuration() - count, player.rotationYaw, player.rotationPitch, pos))
+						if (((TurretBase) world.getBlockState(pos).getBlock()).executeHoldAction(world, stack.getMaxItemUseDuration() - count, mob.rotationYaw, mob.rotationPitch, pos))
 							turret.ammo--;
+					}
+				}
+			}
+
+			if ((world.getBlockState(pos).getBlock() instanceof TurretBaseNT) && (mob instanceof EntityPlayer)) {
+				EntityPlayer player = (EntityPlayer) mob;
+				TileEntity te = world.getTileEntity(pos);
+
+				if(te != null && te instanceof TileEntityTurretBaseNT) {
+					TileEntityTurretBaseNT turret = (TileEntityTurretBaseNT) te;
+
+					RayTraceResult rpos = Library.rayTrace(player, 200, 1, true, true, false);
+					
+					if(pos == null)
+						rpos = Library.rayTrace(player, 200, 1);
+					
+					if(pos != null && rpos != null) { 
+						
+						Vec3 vecOrigin = Vec3.createVectorHelper(player.posX, player.posY + player.eyeHeight - player.getYOffset(), player.posZ);
+						Vec3 vecDestination = Vec3.createVectorHelper(rpos.getBlockPos().getX(), rpos.getBlockPos().getY(), rpos.getBlockPos().getZ());
+						
+						List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().grow(200, 200, 200));
+						
+						for(Entity e : list) {
+
+							if (e.canBeCollidedWith() && e != player) {
+								
+								RayTraceResult mop = e.getEntityBoundingBox().expand(0.2, 0.2, 0.2).calculateIntercept(vecOrigin.toVec3d(), vecDestination.toVec3d());
+								
+								if(mop != null) {
+									
+									rpos = mop;
+									rpos.typeOfHit = RayTraceResult.Type.ENTITY;
+									rpos.entityHit = e;
+								}
+							}
+						}
+						
+						if(rpos.typeOfHit == RayTraceResult.Type.ENTITY) {
+							turret.target = rpos.entityHit;
+							turret.turnTowards(turret.getEntityPos(rpos.entityHit));
+							world.playSound(player.posX, player.posY, player.posZ, HBMSoundHandler.techBleep, SoundCategory.PLAYERS, 1.0F, 1.0F, false);
+						} else if(rpos.typeOfHit == RayTraceResult.Type.BLOCK){
+							turret.tPos = vecDestination.toVec3d();
+							turret.manualOverride = true;
+							turret.turnTowards(Vec3.createVectorHelper(rpos.getBlockPos().getX() + 0.5, rpos.getBlockPos().getY() + 0.5, rpos.getBlockPos().getZ() + 0.5).toVec3d());
+						}
 					}
 				}
 			}

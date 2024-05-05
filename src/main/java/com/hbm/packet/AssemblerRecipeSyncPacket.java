@@ -1,10 +1,19 @@
 package com.hbm.packet;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+
 import com.hbm.inventory.AssemblerRecipes;
 import com.hbm.inventory.RecipesCommon.AStack;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
 import com.hbm.inventory.RecipesCommon.NbtComparableStack;
 import com.hbm.inventory.RecipesCommon.OreDictStack;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.buffer.ByteBufOutputStream;
@@ -18,13 +27,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 
 public class AssemblerRecipeSyncPacket implements IMessage {
 
@@ -70,7 +72,7 @@ public class AssemblerRecipeSyncPacket implements IMessage {
 					int len = buf.readInt();
 					byte[] bytes = new byte[len];
 					buf.readBytes(bytes);
-					String name = new String(bytes, StandardCharsets.US_ASCII);
+					String name = new String(bytes, Charset.forName("ascii"));
 					inputs[j] = new OreDictStack(name, count);
 				} else if(type == 2){
 					int count = buf.readInt();
@@ -151,7 +153,7 @@ public class AssemblerRecipeSyncPacket implements IMessage {
 					OreDictStack oStack = (OreDictStack) stack;
 					buf.writeByte(1);
 					buf.writeInt(oStack.count());
-					byte[] bytes = oStack.name.getBytes(StandardCharsets.US_ASCII);
+					byte[] bytes = oStack.name.getBytes(Charset.forName("ascii"));
 					buf.writeInt(bytes.length);
 					buf.writeBytes(bytes);
 				} else if(stack instanceof ComparableStack){
@@ -208,7 +210,7 @@ public class AssemblerRecipeSyncPacket implements IMessage {
 				AssemblerRecipes.backupRecipeList = AssemblerRecipes.recipeList;
 				AssemblerRecipes.backupHidden = AssemblerRecipes.hidden;
 				
-				AssemblerRecipes.recipes = new HashMap<>(m.recipes.size());
+				AssemblerRecipes.recipes = new LinkedHashMap<>(m.recipes.size());
 				AssemblerRecipes.time = new HashMap<>(m.recipes.size());
 				AssemblerRecipes.recipeList = new ArrayList<>(m.recipes.size());
 				AssemblerRecipes.hidden = m.hidden;

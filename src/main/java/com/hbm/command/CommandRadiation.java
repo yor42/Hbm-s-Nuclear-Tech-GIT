@@ -1,7 +1,6 @@
 package com.hbm.command;
 
 import com.hbm.capability.HbmLivingCapability;
-import com.hbm.entity.particle.EntityFogFX;
 import com.hbm.saveddata.RadiationSavedData;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -89,10 +88,6 @@ public class CommandRadiation extends CommandBase {
 			return;
 		} else if (args.length == 1 && (args[0].equals("clearall") || args[0].equals("reset"))) {
 			RadiationSavedData.getData(sender.getEntityWorld()).jettisonData();
-			for (Entity e : sender.getEntityWorld().loadedEntityList) {
-				if (e instanceof EntityFogFX)
-					e.setDead();
-			}
 			sender.sendMessage(new TextComponentTranslation("commands.hbmrad.removeall",
 					sender.getEntityWorld().provider.getDimension()));
 			return;

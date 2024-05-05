@@ -1,25 +1,31 @@
 package com.hbm.inventory;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map.Entry;
+
+import static com.hbm.inventory.OreDictManager.*;
 import com.hbm.blocks.ModBlocks;
-import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
+import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemFluidIcon;
+import com.hbm.items.special.ItemBedrockOre;
+
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.*;
-import java.util.Map.Entry;
-
-import static com.hbm.inventory.OreDictManager.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidRegistry;
 
 //This time we're doing this right
 //...right?
@@ -28,9 +34,9 @@ import static com.hbm.inventory.OreDictManager.*;
 public class CrystallizerRecipes {
 
 	//'Object' is either a ComparableStack or the String for the ore dict
-	private static final HashMap<Object, ItemStack> itemOutputRecipes = new HashMap<Object, ItemStack>();
-	private static final HashMap<Object, FluidStack> fluidInputRecipes = new HashMap<Object, FluidStack>();
-	private static final HashSet<Fluid> allowedFluids = new HashSet<Fluid>();
+	private static LinkedHashMap<Object, ItemStack> itemOutputRecipes = new LinkedHashMap<Object, ItemStack>();
+	private static HashMap<Object, FluidStack> fluidInputRecipes = new HashMap<Object, FluidStack>();
+	private static HashSet<Fluid> allowedFluids = new HashSet<Fluid>();
 	private static List<CrystallizerRecipe> jeiCrystalRecipes = null;
 
 	public static void register() {
@@ -92,7 +98,7 @@ public class CrystallizerRecipes {
 		addRecipe(new ComparableStack(Items.DYE, 1, 15), new FluidStack(ModForgeFluids.sulfuric_acid, 250), new ItemStack(Items.SLIME_BALL, 4));
 		addRecipe(new ComparableStack(ModItems.powder_lithium, 1), new FluidStack(ModForgeFluids.heatingoil, 4000), new ItemStack(ModItems.crystal_redstone, 1));
 		addRecipe(new ComparableStack(ModItems.coal_infernal), new FluidStack(ModForgeFluids.sulfuric_acid, 500), new ItemStack(ModItems.solid_fuel));
-		addRecipe(new ComparableStack(ModItems.fallout), new FluidStack(ModForgeFluids.corium_fluid, 8000), new ItemStack(ModItems.powder_balefire));
+		addRecipe(new ComparableStack(ModBlocks.block_fallout), new FluidStack(ModForgeFluids.corium_fluid, 8000), new ItemStack(ModItems.powder_balefire));
 		
 		addRecipe(new ComparableStack(Blocks.DIRT), new FluidStack(ModForgeFluids.colloid, 1000), new ItemStack(Blocks.CLAY));
 		addRecipe(new ComparableStack(ModBlocks.sand_quartz), new FluidStack(ModForgeFluids.nitroglycerin, 1000), new ItemStack(ModItems.ball_dynamite, 16));
@@ -191,7 +197,7 @@ public class CrystallizerRecipes {
 
 			List<List<ItemStack>> totalInput = new ArrayList<List<ItemStack>>();
 			totalInput.add(ingredients);
-			totalInput.add(Collections.singletonList(inputFluid));
+			totalInput.add(Arrays.asList(inputFluid));
 
 
 			jeiCrystalRecipes.add(new CrystallizerRecipe(totalInput, outputItem));

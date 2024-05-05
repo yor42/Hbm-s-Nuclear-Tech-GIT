@@ -1,8 +1,12 @@
 package com.hbm.entity.projectile;
 
+import java.util.List;
+
+import com.hbm.config.CompatibilityConfig;
 import com.hbm.lib.Library;
 import com.hbm.lib.ModDamageSource;
 import com.hbm.render.amlfrom1710.Vec3;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -19,8 +23,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
 
 public class EntityLaser extends Entity {
 
@@ -77,10 +79,12 @@ public class EntityLaser extends Entity {
 			world.spawnParticle(EnumParticleTypes.CLOUD, pos.hitVec.x, pos.hitVec.y, pos.hitVec.z, 0, 0, 0);
 			world.playSound(pos.hitVec.x, pos.hitVec.y, pos.hitVec.z, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 1, 1, true);
 			
-			List<Entity> list = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.hitVec.x - 1, pos.hitVec.y - 1, pos.hitVec.z - 1, pos.hitVec.x + 1, pos.hitVec.y + 1, pos.hitVec.z + 1));
-			
-			for(Entity e : list)
-				e.attackEntityFrom(ModDamageSource.radiation, 5);
+			if(CompatibilityConfig.isWarDim(world)){
+				List<Entity> list = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.hitVec.x - 1, pos.hitVec.y - 1, pos.hitVec.z - 1, pos.hitVec.x + 1, pos.hitVec.y + 1, pos.hitVec.z + 1));
+				
+				for(Entity e : list)
+					e.attackEntityFrom(ModDamageSource.radiation, 5);
+			}
 		}
 	}
 	
@@ -102,5 +106,4 @@ public class EntityLaser extends Entity {
 	public float getBrightness() {
 		return 1.0F;
 	}
-	
 }

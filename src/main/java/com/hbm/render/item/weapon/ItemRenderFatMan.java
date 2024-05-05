@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 public class ItemRenderFatMan extends TEISRBase {
 
 	protected ModelFatman swordModel;
-	protected static ResourceLocation man_rl = new ResourceLocation(RefStrings.MODID +":textures/models/FatmanLauncher.png");
+	protected static ResourceLocation man_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/FatmanLauncher.png");
 	
 	public ItemRenderFatMan() {
 		swordModel = new ModelFatman();

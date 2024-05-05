@@ -1,8 +1,9 @@
 package com.hbm.items.machine;
 
+import java.util.List;
+
 import com.hbm.interfaces.IHasCustomModel;
 import com.hbm.inventory.ChemplantRecipes;
-import com.hbm.inventory.ChemplantRecipes.EnumChemistryTemplate;
 import com.hbm.inventory.RecipesCommon.AStack;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
 import com.hbm.inventory.RecipesCommon.OreDictStack;
@@ -10,6 +11,7 @@ import com.hbm.items.ModItems;
 import com.hbm.lib.RefStrings;
 import com.hbm.main.MainRegistry;
 import com.hbm.util.I18nUtil;
+
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -22,8 +24,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.List;
 
 public class ItemChemistryTemplate extends Item implements IHasCustomModel {
 
@@ -42,8 +42,8 @@ public class ItemChemistryTemplate extends Item implements IHasCustomModel {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public String getItemStackDisplayName(ItemStack stack) {
-		String s = (I18n.format(this.getUnlocalizedName() + ".name")).trim();
-        String s1 = (I18n.format("chem." + EnumChemistryTemplate.getEnum(stack.getItemDamage()).name())).trim();
+		String s = ("" + I18n.format(this.getUnlocalizedName() + ".name")).trim();
+        String s1 = ("" + I18n.format("chem." + ChemplantRecipes.getName(stack))).trim();
 
         if (s1 != null) {
             s = s + " " + s1;
@@ -55,9 +55,9 @@ public class ItemChemistryTemplate extends Item implements IHasCustomModel {
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> list) {
 		if(tab == this.getCreativeTab() || tab == CreativeTabs.SEARCH){
-			for (int i = 0; i < EnumChemistryTemplate.values().length; ++i) {
-		            list.add(new ItemStack(this, 1, i));
-		        }
+			for (int i: ChemplantRecipes.recipeNames.keySet()){
+	            list.add(new ItemStack(this, 1, i));
+	        }
 		}
 	}
 	
@@ -104,7 +104,7 @@ public class ItemChemistryTemplate extends Item implements IHasCustomModel {
 								ItemStack inStack = ores.get((int) (Math.abs(System.currentTimeMillis() / 1000) % ores.size()));
 					    		list.add(" §c"+ input.count() + "x " + inStack.getDisplayName());
 							} else {
-					    		list.add("I AM ERROR - No OrdDict match found for "+ o);
+					    		list.add("I AM ERROR - No OrdDict match found for "+o.toString());
 							}
 						}
 					}
@@ -128,5 +128,4 @@ public class ItemChemistryTemplate extends Item implements IHasCustomModel {
 	public ModelResourceLocation getResourceLocation() {
 		return chemModel;
 	}
-	
 }

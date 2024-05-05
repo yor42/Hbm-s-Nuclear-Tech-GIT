@@ -1,5 +1,12 @@
 package com.hbm.forgefluid;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
 import com.hbm.interfaces.IFluidPipeMk2;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -9,8 +16,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
-
-import java.util.*;
 
 public class FFPipeNetworkMk2 implements IFluidHandler {
 
@@ -58,7 +63,7 @@ public class FFPipeNetworkMk2 implements IFluidHandler {
 		int remaining = resource.amount;
 		//Drillgon200: Extra hacky compensation
 		int intRoundingCompensation = resource.amount-part*handlers.size();
-		rand.setSeed(this.fillables.values().iterator().next().getWorld().getWorldTime());
+		rand.setSeed(((TileEntity)this.fillables.values().iterator().next()).getWorld().getTotalWorldTime());
 		int randomFillIndex = rand.nextInt(handlers.size());
 		for(int i = 0; i < handlers.size(); i++){
 			IFluidHandler consumer = handlers.get(i);
@@ -102,8 +107,13 @@ public class FFPipeNetworkMk2 implements IFluidHandler {
 			return;
 		if(te instanceof IFluidPipeMk2) {
 			pipes.remove(te.getPos());
-		} else if(te.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
-			fillables.remove(te.getPos());
+		} else{
+			try{
+				if(te.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
+					fillables.remove(te.getPos());
+				}
+			} catch(Throwable t){
+			}
 		}
 	}
 

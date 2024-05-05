@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 public class ItemRenderBFLauncher extends TEISRBase {
 
 	protected ModelBFLauncher swordModel;
-	protected static ResourceLocation bf_rl = new ResourceLocation(RefStrings.MODID +":textures/models/BFLauncher.png");
+	protected static ResourceLocation bf_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/BFLauncher.png");
 	
 	public ItemRenderBFLauncher() {
 		swordModel = new ModelBFLauncher();

@@ -1,6 +1,7 @@
 package com.hbm.explosion;
 
 import com.hbm.blocks.ModBlocks;
+import com.hbm.config.CompatibilityConfig;
 import com.hbm.blocks.generic.EntityGrenadeTau;
 import com.hbm.entity.grenade.EntityGrenadeZOMG;
 import com.hbm.entity.particle.*;
@@ -44,6 +45,9 @@ public class ExplosionChaos {
 	private static final Random rand = new Random();
 
 	public static void explode(World world, int x, int y, int z, int bombStartStrength) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		MutableBlockPos pos = new BlockPos.MutableBlockPos();
 		int r = bombStartStrength;
 		int r2 = r * r;
@@ -71,12 +75,14 @@ public class ExplosionChaos {
 		if(b == Blocks.BEDROCK || b == ModBlocks.reinforced_brick || b == ModBlocks.reinforced_sand || b == ModBlocks.reinforced_glass || b == ModBlocks.reinforced_lamp_on || b == ModBlocks.reinforced_lamp_off) {
 
 		} else {
-			world.setBlockState(pos, Blocks.AIR.getDefaultState());
+			world.setBlockToAir(pos);
 		}
 	}
 
 	public static void spawnExplosion(World world, int x, int y, int z, int bound) {
-
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		int randX;
 		int randY;
 		int randZ;
@@ -151,6 +157,9 @@ public class ExplosionChaos {
 	// Drillgon200: Descriptive method names anyone?
 	// Alcater: Ill write this down - maybe ill need it later. c stands for cloudPoisoning
 	public static void c(World world, int x, int y, int z, int bombStartStrength) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		float f = bombStartStrength;
 		int i;
 		int j;
@@ -222,7 +231,9 @@ public class ExplosionChaos {
 	 * @param bound
 	 */
 	public static void flameDeath(World world, BlockPos pos, int bound) {
-
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		MutableBlockPos mPos = new BlockPos.MutableBlockPos(pos);
 		MutableBlockPos mPosUp = new BlockPos.MutableBlockPos(pos.up());
 
@@ -261,7 +272,9 @@ public class ExplosionChaos {
 	 * @param bound
 	 */
 	public static void burn(World world, BlockPos pos, int bound) {
-
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		MutableBlockPos mPos = new BlockPos.MutableBlockPos(pos);
 		MutableBlockPos mPosUp = new BlockPos.MutableBlockPos(pos.up());
 
@@ -291,7 +304,9 @@ public class ExplosionChaos {
 	}
 
 	public static void spawnChlorine(World world, double x, double y, double z, int count, double speed, int type) {
-
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		for(int i = 0; i < count; i++) {
 
 			EntityModFX fx = null;
@@ -314,6 +329,9 @@ public class ExplosionChaos {
 	}
 	// Alcater: pc for pinkCouldPoisoning
 	public static void pc(World world, int x, int y, int z, int bombStartStrength) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		float f = bombStartStrength;
 		int i;
 		int j;
@@ -367,6 +385,9 @@ public class ExplosionChaos {
 
 	//Alcater: used by grenades and Chlorine seal gas blocks
 	public static void poison(World world, int x, int y, int z, int bombStartStrength) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		float f = bombStartStrength;
 		int i;
 		int j;
@@ -415,27 +436,24 @@ public class ExplosionChaos {
 		bombStartStrength = (int) f;
 	}
 
-	public static void cluster(World world, int x, int y, int z, int count, int gravity) {
+	public static void cluster(World world, int x, int y, int z, int count, double gravity) {
+		 cluster(world, x, y, z, count, gravity, 5);
+	}
 
-		double d1 = 0;
-		double d2 = 0;
-		double d3 = 0;
+	public static void cluster(World world, int x, int y, int z, int count, double gravity, int size) {
+
+		double mx = 0;
+		double my = 0;
+		double mz = 0;
 		EntityRocket fragment;
 
 		for(int i = 0; i < count; i++) {
-			d1 = rand.nextDouble();
-			d2 = rand.nextDouble();
-			d3 = rand.nextDouble();
+			mx = rand.nextGaussian() * 0.1 * size;
+			my = rand.nextGaussian();
+			mz = rand.nextGaussian() * 0.1 * size;
 
-			if(rand.nextInt(2) == 0) {
-				d1 *= -1;
-			}
-
-			if(rand.nextInt(2) == 0) {
-				d3 *= -1;
-			}
-
-			fragment = new EntityRocket(world, x, y, z, d1, d2, d3, 0.0125D);
+			fragment = new EntityRocket(world, x, y, z, mx, my, mz, gravity);
+			fragment.explosionSize = size;
 			world.spawnEntity(fragment);
 		}
 	}
@@ -530,6 +548,9 @@ public class ExplosionChaos {
 	}
 
 	public static void explodeZOMG(World world, int x, int y, int z, int bombStartStrength) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		MutableBlockPos pos = new BlockPos.MutableBlockPos();
 		int r = bombStartStrength;
 		int r2 = r * r;
@@ -619,7 +640,9 @@ public class ExplosionChaos {
 
 	@SuppressWarnings("deprecation")
 	public static void pulse(World world, int x, int y, int z, int bombStartStrength) {
-
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		int r = bombStartStrength;
 		int r2 = r * r;
 		int r22 = r2 / 2;
@@ -646,56 +669,12 @@ public class ExplosionChaos {
 		IBlockState state = world.getBlockState(pos);
 		EntityFallingBlock entityfallingblock = new EntityFallingBlock(world, (float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, state);
 		world.spawnEntity(entityfallingblock);
-
-		/*
-		if (Blocks.air.getBlockHardness(world, x, y, z) != Float.POSITIVE_INFINITY) {
-			Block b = world.getBlockState(pos).getBlock();
-			TileEntity t = world.getTileEntity(x, y, z);
-		
-			if (b == Blocks.sandstone || b == Blocks.sandstone_stairs)
-				world.setBlockState(pos, Blocks.sand);
-			else if (t != null && t instanceof ISource)
-				world.setBlockState(pos, ModBlocks.block_electrical_scrap);
-			else if (t != null && t instanceof IConductor)
-				world.setBlockState(pos, ModBlocks.block_electrical_scrap);
-			else if (t != null && t instanceof IConsumer)
-				world.setBlockState(pos, ModBlocks.block_electrical_scrap);
-			else if (b == Blocks.sand)
-				world.setBlockState(pos, Blocks.sand);
-			else if (b == Blocks.gravel)
-				world.setBlockState(pos, Blocks.gravel);
-			else if (b == ModBlocks.gravel_obsidian)
-				world.setBlockState(pos, ModBlocks.gravel_obsidian);
-			else if (b == ModBlocks.block_electrical_scrap)
-				world.setBlockState(pos, ModBlocks.block_electrical_scrap);
-			else if (b == ModBlocks.block_scrap)
-				world.setBlockState(pos, ModBlocks.block_scrap);
-			else if (b == ModBlocks.brick_obsidian)
-				world.setBlockState(pos, ModBlocks.gravel_obsidian);
-			else if (b.getMaterial() == Material.anvil)
-				world.setBlockState(pos, Blocks.gravel);
-			else if (b.getMaterial() == Material.clay)
-				world.setBlockState(pos, Blocks.sand);
-			else if (b.getMaterial() == Material.grass)
-				world.setBlockState(pos, Blocks.sand);
-			else if (b.getMaterial() == Material.ground)
-				world.setBlockState(pos, Blocks.sand);
-			else if (b.getMaterial() == Material.iron)
-				world.setBlockState(pos, Blocks.gravel);
-			else if (b.getMaterial() == Material.piston)
-				world.setBlockState(pos, Blocks.gravel);
-			else if (b.getMaterial() == Material.rock)
-				world.setBlockState(pos, Blocks.gravel);
-			else if (b.getMaterial() == Material.sand)
-				world.setBlockState(pos, Blocks.sand);
-			else if (b.getMaterial() == Material.tnt)
-				world.setBlockState(pos, ModBlocks.block_scrap);
-			else
-				world.setBlockState(pos, Blocks.air);
-		}*/
 	}
 
 	public static void plasma(World world, int x, int y, int z, int radius) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		MutableBlockPos pos = new BlockPos.MutableBlockPos();
 		int r = radius;
 		int r2 = r * r;
@@ -807,7 +786,9 @@ public class ExplosionChaos {
 	}
 
 	public static void spawnVolley(World world, double x, double y, double z, int count, double speed) {
-
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		for(int i = 0; i < count; i++) {
 
 			EntityModFX fx = new EntityOrangeFX(world, x, y, z, 0.0, 0.0, 0.0);
@@ -826,6 +807,9 @@ public class ExplosionChaos {
 	}
 
 	public static void floater(World world, int x, int y, int z, int radi, int height) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		MutableBlockPos pos = new BlockPos.MutableBlockPos();
 		IBlockState save;
 
@@ -911,6 +895,9 @@ public class ExplosionChaos {
 	}
 
 	public static void levelDown(World world, int x, int y, int z, int radius) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		MutableBlockPos pos = new BlockPos.MutableBlockPos();
 		if(!world.isRemote)
 			for(int i = x - radius; i <= x + radius; i++)
@@ -940,94 +927,111 @@ public class ExplosionChaos {
 		// if (!world.isRemote) {
 
 		Random random = new Random();
+		IBlockState b = world.getBlockState(pos);
+		Block bblock = b.getBlock();
 
-		if(world.getBlockState(pos).getBlock() == ModBlocks.waste_earth && random.nextInt(3) != 0) {
+		if(bblock == ModBlocks.waste_earth && random.nextInt(3) != 0) {
 			world.setBlockState(pos, Blocks.GRASS.getDefaultState());
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.waste_dirt && random.nextInt(3) != 0) {
+		else if(bblock == ModBlocks.waste_dirt && random.nextInt(3) != 0) {
 			world.setBlockState(pos, Blocks.DIRT.getDefaultState());
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.waste_sand && random.nextInt(3) != 0) {
+		else if(bblock == ModBlocks.waste_sand && random.nextInt(3) != 0) {
 			world.setBlockState(pos, Blocks.SAND.getDefaultState());
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.waste_sand_red && random.nextInt(3) != 0) {
+		else if(bblock == ModBlocks.waste_sand_red && random.nextInt(3) != 0) {
 			world.setBlockState(pos, Blocks.SAND.getStateFromMeta(1));
 		}
+		
+		else if(bblock == Blocks.SANDSTONE && random.nextInt(3) != 0) {
+				world.setBlockState(pos, ModBlocks.waste_sandstone.getDefaultState());
+		} 
+		
+		else if((bblock == Blocks.HARDENED_CLAY || bblock == Blocks.STAINED_HARDENED_CLAY) && random.nextInt(3) != 0) {
+			world.setBlockState(pos, ModBlocks.waste_sandstone_red.getDefaultState());
+		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.waste_grass_tall && random.nextInt(3) != 0) {
+		else if(bblock == Blocks.RED_SANDSTONE && random.nextInt(3) != 0) {
+			world.setBlockState(pos, ModBlocks.waste_sandstone_red.getDefaultState());
+		}
+		
+		else if(bblock == ModBlocks.waste_grass_tall && random.nextInt(3) != 0) {
 			world.setBlockState(pos, Blocks.TALLGRASS.getDefaultState());
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.waste_gravel && random.nextInt(3) != 0) {
+		else if(bblock == ModBlocks.waste_gravel && random.nextInt(3) != 0) {
 			world.setBlockState(pos, Blocks.GRAVEL.getDefaultState());
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.waste_mycelium && random.nextInt(5) == 0) {
+		else if(bblock == ModBlocks.waste_mycelium && random.nextInt(5) == 0) {
 			world.setBlockState(pos, Blocks.MYCELIUM.getDefaultState());
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.waste_leaves && random.nextInt(5) != 0) {
+		else if(bblock == ModBlocks.waste_leaves && random.nextInt(5) != 0) {
 			world.setBlockState(pos, Blocks.LEAVES.getDefaultState());
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.waste_trinitite && random.nextInt(3) == 0) {
+		else if(bblock == ModBlocks.waste_trinitite && random.nextInt(3) == 0) {
 			world.setBlockState(pos, Blocks.SAND.getDefaultState());
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.waste_trinitite_red && random.nextInt(3) == 0) {
-			world.setBlockState(pos, Blocks.SAND.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND), 2);
+		else if(bblock == ModBlocks.waste_trinitite_red && random.nextInt(3) == 0) {
+			world.setBlockState(pos, Blocks.SAND.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND));
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.waste_log && random.nextInt(3) != 0) {
+		else if(bblock == ModBlocks.waste_log && random.nextInt(3) != 0) {
 			world.setBlockState(pos, Blocks.LOG.getDefaultState().withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.fromFacingAxis(world.getBlockState(pos).getValue(BlockLog.AXIS))));
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.waste_planks && random.nextInt(3) != 0) {
+		else if(bblock == ModBlocks.waste_planks && random.nextInt(3) != 0) {
 			world.setBlockState(pos, Blocks.PLANKS.getDefaultState());
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.block_trinitite && random.nextInt(10) == 0) {
+		else if(bblock == ModBlocks.block_trinitite && random.nextInt(10) == 0) {
 			world.setBlockState(pos, ModBlocks.block_lead.getDefaultState());
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.block_waste && random.nextInt(10) == 0) {
+		else if(bblock == ModBlocks.block_waste && random.nextInt(10) == 0) {
 			world.setBlockState(pos, ModBlocks.block_lead.getDefaultState());
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.sellafield_core && random.nextInt(10) == 0) {
-			world.setBlockState(pos, ModBlocks.sellafield_4.getDefaultState());
+		else if(bblock == ModBlocks.sellafield_core && random.nextInt(10) == 0) {
+			world.setBlockState(pos, ModBlocks.sellafield_4.getStateFromMeta(world.rand.nextInt(4)));
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.sellafield_4 && random.nextInt(5) == 0) {
-			world.setBlockState(pos, ModBlocks.sellafield_3.getDefaultState());
+		else if(bblock == ModBlocks.sellafield_4 && random.nextInt(5) == 0) {
+			world.setBlockState(pos, ModBlocks.sellafield_3.getStateFromMeta(world.rand.nextInt(4)));
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.sellafield_3 && random.nextInt(5) == 0) {
-			world.setBlockState(pos, ModBlocks.sellafield_2.getDefaultState());
+		else if(bblock == ModBlocks.sellafield_3 && random.nextInt(5) == 0) {
+			world.setBlockState(pos, ModBlocks.sellafield_2.getStateFromMeta(world.rand.nextInt(4)));
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.sellafield_2 && random.nextInt(5) == 0) {
-			world.setBlockState(pos, ModBlocks.sellafield_1.getDefaultState());
+		else if(bblock == ModBlocks.sellafield_2 && random.nextInt(5) == 0) {
+			world.setBlockState(pos, ModBlocks.sellafield_1.getStateFromMeta(world.rand.nextInt(4)));
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.sellafield_1 && random.nextInt(5) == 0) {
-			world.setBlockState(pos, ModBlocks.sellafield_0.getDefaultState());
+		else if(bblock == ModBlocks.sellafield_1 && random.nextInt(5) == 0) {
+			world.setBlockState(pos, ModBlocks.sellafield_0.getStateFromMeta(world.rand.nextInt(4)));
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.sellafield_0 && random.nextInt(5) == 0) {
-			world.setBlockState(pos, ModBlocks.sellafield_slaked.getDefaultState());
+		else if(bblock == ModBlocks.sellafield_0 && random.nextInt(5) == 0) {
+			world.setBlockState(pos, ModBlocks.sellafield_slaked.getStateFromMeta(world.rand.nextInt(4)));
 		}
 
-		else if(world.getBlockState(pos).getBlock() == ModBlocks.sellafield_slaked && random.nextInt(5) == 0) {
+		else if(bblock == ModBlocks.sellafield_slaked && random.nextInt(5) == 0) {
 			world.setBlockState(pos, Blocks.STONE.getDefaultState());
 		}
 
 	}
 	
 	public static void hardenVirus(World world, int x, int y, int z, int bombStartStrength) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		MutableBlockPos pos = new BlockPos.MutableBlockPos();
 		int r = bombStartStrength;
 		int r2 = r * r;
@@ -1051,6 +1055,9 @@ public class ExplosionChaos {
 	}
 
 	public static void spreadVirus(World world, int x, int y, int z, int bombStartStrength) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		MutableBlockPos pos = new BlockPos.MutableBlockPos();
 		int r = bombStartStrength;
 		int r2 = r * r;

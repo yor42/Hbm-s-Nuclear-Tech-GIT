@@ -55,7 +55,7 @@ public class BlockFluidPipeSolid extends BlockContainer implements IToolable, IL
 	
 	@Override
 	public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
-		tooltip.add("Right click with screwdriver to toggle extraction");
+		tooltip.add(I18nUtil.resolveKey("desc.extraction"));
 	}
 	
 	@Override
@@ -150,7 +150,7 @@ public class BlockFluidPipeSolid extends BlockContainer implements IToolable, IL
 		
 		List<String> text = new ArrayList();
 		if(ductFluid == null){
-			text.add("§7None");
+			text.add("§7" + I18nUtil.resolveKey("desc.none"));
 		} else{
 			int color = ModForgeFluids.getFluidColor(ductFluid);
 			text.add("&[" + color + "&]" +I18nUtil.resolveKey(ductFluid.getUnlocalizedName()));

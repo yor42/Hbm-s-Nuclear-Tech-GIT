@@ -1,7 +1,11 @@
 package com.hbm.entity.projectile;
 
+import java.util.List;
+
+import com.hbm.config.CompatibilityConfig;
 import com.hbm.explosion.ExplosionChaos;
 import com.hbm.lib.ModDamageSource;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -15,12 +19,14 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketChangeGameState;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
 
 public class EntityLaserBeam extends Entity implements IProjectile {
 
@@ -114,7 +120,7 @@ public class EntityLaserBeam extends Entity implements IProjectile {
 	
 	@Override
 	public void onUpdate() {
-super.onUpdate();
+        super.onUpdate();
         
         if(this.ticksExisted > 100)
         	this.setDead();
@@ -122,7 +128,6 @@ super.onUpdate();
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F)
         {
             this.prevRotationYaw = this.rotationYaw = (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
-            //this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(this.motionY, (double)f) * 180.0D / Math.PI);
         }
 
         IBlockState blockstate = world.getBlockState(new BlockPos(this.field_145791_d, this.field_145792_e, this.field_145789_f));
@@ -162,7 +167,7 @@ super.onUpdate();
 
             for (i = 0; i < list.size(); ++i)
             {
-                Entity entity1 = list.get(i);
+                Entity entity1 = (Entity)list.get(i);
 
                 if (entity1.canBeCollidedWith() && (entity1 != this.shootingEntity || this.ticksInAir >= 5))
                 {
@@ -201,7 +206,7 @@ super.onUpdate();
             float f2;
             float f4;
 
-            if (movingobjectposition != null)
+            if (movingobjectposition != null && CompatibilityConfig.isWarDim(world))
             {
                 if (movingobjectposition.entityHit != null)
                 {
@@ -363,5 +368,4 @@ super.onUpdate();
 		compound.setByte("pickup", (byte)this.canBePickedUp);
 		compound.setDouble("damage", this.damage);
 	}
-
 }

@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 import java.util.List;
 import java.util.Random;
@@ -39,9 +40,10 @@ public class RedBarrel extends Block {
 	
 	@Override
 	public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
-		if (!worldIn.isRemote)
-        {
-        	explode(worldIn, pos.getX(), pos.getY(), pos.getZ());
+		if(!worldIn.isRemote && worldIn instanceof WorldServer) {
+			((WorldServer)worldIn).addScheduledTask(() -> {
+        		explode(worldIn, pos.getX(), pos.getY(), pos.getZ());
+        	});
         }
 	}
 	
@@ -49,10 +51,12 @@ public class RedBarrel extends Block {
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 		if ((this == ModBlocks.red_barrel || this == ModBlocks.pink_barrel) && worldIn.getBlockState(pos.east()).getBlock() == Blocks.FIRE || worldIn.getBlockState(pos.west()).getBlock() == Blocks.FIRE || worldIn.getBlockState(pos.up()).getBlock() == Blocks.FIRE || worldIn.getBlockState(pos.down()).getBlock() == Blocks.FIRE || worldIn.getBlockState(pos.south()).getBlock() == Blocks.FIRE || worldIn.getBlockState(pos.north()).getBlock() == Blocks.FIRE)
         {
-        	if(!worldIn.isRemote){
-        		explode(worldIn, pos.getX(), pos.getY(), pos.getZ());
-        		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-        	}
+        	if(!worldIn.isRemote && worldIn instanceof WorldServer) {
+				((WorldServer)worldIn).addScheduledTask(() -> {
+	        		explode(worldIn, pos.getX(), pos.getY(), pos.getZ());
+	        		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+	        	});
+	        }
         }
 	}
 	

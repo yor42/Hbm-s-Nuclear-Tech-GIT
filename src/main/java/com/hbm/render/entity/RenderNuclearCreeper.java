@@ -72,6 +72,4 @@ public class RenderNuclearCreeper extends RenderLiving<EntityNuclearCreeper> {
 	protected ResourceLocation getEntityTexture(EntityNuclearCreeper entity) {
 		return creeperTextures;
 	}
-	
-
 }

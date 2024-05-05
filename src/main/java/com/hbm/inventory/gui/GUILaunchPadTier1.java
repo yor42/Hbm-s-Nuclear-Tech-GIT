@@ -1,18 +1,21 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.util.I18nUtil;
+import org.lwjgl.opengl.GL11;
+
 import com.hbm.inventory.container.ContainerLaunchPadTier1;
 import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.bomb.TileEntityLaunchPad;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 public class GUILaunchPadTier1 extends GuiInfoContainer {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_launch_pad.png");
-	private final TileEntityLaunchPad diFurnace;
+	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_launch_pad.png");
+	private TileEntityLaunchPad diFurnace;
 
 	public GUILaunchPadTier1(InventoryPlayer invPlayer, TileEntityLaunchPad tedf) {
 		super(new ContainerLaunchPadTier1(invPlayer, tedf));
@@ -28,14 +31,10 @@ public class GUILaunchPadTier1 extends GuiInfoContainer {
 
 		this.drawElectricityInfo(this, mouseX, mouseY, guiLeft + 8, guiTop + 53, 160, 16, diFurnace.power, diFurnace.maxPower);
 
-		String[] text = new String[] { "First Slot:",
-				"  -Missile (no custom ones!)",
-				"  -Carrier Rocket" };
+		String[] text = I18nUtil.resolveKeyArray("desc.guimachlaunchpadt11");
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft - 16, guiTop + 36, 16, 16, guiLeft - 8, guiTop + 36 + 16, text);
 		
-		String[] text1 = new String[] { "Second Slot:",
-				"  -Target designator for missiles",
-				"  -Satellite payload for the carrier rocket" };
+		String[] text1 = I18nUtil.resolveKeyArray("desc.guimachlaunchpadt12");
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft - 16, guiTop + 36 + 16, 16, 16, guiLeft - 8, guiTop + 36 + 16, text1);
 		super.renderHoveredToolTip(mouseX, mouseY);
 	}

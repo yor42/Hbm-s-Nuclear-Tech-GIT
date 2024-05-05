@@ -54,5 +54,4 @@ public class ChemTemplateBakedModel implements IBakedModel {
 		this.type = cameraTransformType;
 		return type == TransformType.GUI ? IBakedModel.super.handlePerspective(cameraTransformType) : ChemTemplateRender.INSTANCE.itemModel.handlePerspective(cameraTransformType);
 	}
-
 }

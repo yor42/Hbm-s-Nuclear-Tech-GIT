@@ -63,7 +63,7 @@ public class BlockCrate extends BlockFalling {
     	} else {
 			if(world.isRemote)
 			{
-				player.sendMessage(new TextComponentTranslation("I'll need a crate opening device to get the loot, smashing the whole thing won't work..."));
+				player.sendMessage(new TextComponentTranslation("chat.crate.needcrowbar"));
 			}
     	}
     	
@@ -159,7 +159,7 @@ public class BlockCrate extends BlockFalling {
     	BlockCrate.addToListWithWeight(metalList, Item.getItemFromBlock(ModBlocks.machine_electric_furnace_off), 8);
     	BlockCrate.addToListWithWeight(metalList, Item.getItemFromBlock(ModBlocks.machine_assembler), 10);
     	BlockCrate.addToListWithWeight(metalList, Item.getItemFromBlock(ModBlocks.machine_fluidtank), 7);
-    	BlockCrate.addToListWithWeight(metalList, Item.getItemFromBlock(ModBlocks.machine_drill), 4);
+    	BlockCrate.addToListWithWeight(metalList, Item.getItemFromBlock(ModBlocks.machine_excavator), 4);
     	
     	BlockCrate.addToListWithWeight(metalList, ModItems.centrifuge_element, 6);
     	

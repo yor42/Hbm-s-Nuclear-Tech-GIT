@@ -1,7 +1,11 @@
 package com.hbm.entity.projectile;
 
+import java.util.List;
+
+import com.hbm.config.CompatibilityConfig;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.items.ModItems;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -21,10 +25,12 @@ import net.minecraft.network.play.server.SPacketChangeGameState;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public class EntityRocket extends Entity implements IProjectile {
 
@@ -48,7 +54,8 @@ public class EntityRocket extends Entity implements IProjectile {
     private double damage = 2.0D;
     /** The amount of knockback an arrow applies when it hits a mob. */
     private int knockbackStrength;
-	
+	public int explosionSize = 5;
+    
 	public EntityRocket(World worldIn) {
 		super(worldIn);
 		if(worldIn.isRemote)
@@ -204,40 +211,10 @@ public class EntityRocket extends Entity implements IProjectile {
 
         if (this.inGround)
         {
-            /*int j = this.worldObj.getBlockMetadata(this.field_145791_d, this.field_145792_e, this.field_145789_f);
-
-            if (block == this.field_145790_g && j == this.inData)
-            {
-                ++this.ticksInGround;
-
-                if (this.ticksInGround == 1200)
-                {
-                    this.setDead();
-                }
-            }
-            else
-            {
-                this.inGround = false;
-                this.motionX *= (double)(this.rand.nextFloat() * 0.2F);
-                this.motionY *= (double)(this.rand.nextFloat() * 0.2F);
-                this.motionZ *= (double)(this.rand.nextFloat() * 0.2F);
-                this.ticksInGround = 0;
-                this.ticksInAir = 0;
-            }*/
-
 
             if (!this.world.isRemote)
             {
-            	//this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 2.5F, true);
-            	ExplosionLarge.explode(world, posX, posY, posZ, 5, true, false, true);
-                /*EntityNukeExplosionAdvanced explosion = new EntityNukeExplosionAdvanced(this.worldObj);
-                explosion.speed = 25;
-                explosion.coefficient = 5.0F;
-                explosion.destructionRange = 20;
-                explosion.posX = this.posX;
-                explosion.posY = this.posY;
-                explosion.posZ = this.posZ;
-                this.worldObj.spawnEntityInWorld(explosion);*/
+            	ExplosionLarge.explode(world, posX, posY, posZ, explosionSize, true, false, true);
             }
         	this.setDead();
         }
@@ -263,7 +240,7 @@ public class EntityRocket extends Entity implements IProjectile {
 
             for (i = 0; i < list.size(); ++i)
             {
-                Entity entity1 = list.get(i);
+                Entity entity1 = (Entity)list.get(i);
 
                 if (entity1.canBeCollidedWith() && (entity1 != this.shootingEntity || this.ticksInAir >= 5))
                 {
@@ -302,7 +279,7 @@ public class EntityRocket extends Entity implements IProjectile {
             float f2;
             float f4;
 
-            if (movingobjectposition != null)
+            if (movingobjectposition != null && CompatibilityConfig.isWarDim(world))
             {
                 if (movingobjectposition.entityHit != null)
                 {
@@ -362,8 +339,7 @@ public class EntityRocket extends Entity implements IProjectile {
                         {
                             if (!this.world.isRemote)
                             {
-                            	//this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 2.5F, true);
-                            	ExplosionLarge.explode(world, posX, posY, posZ, 5, true, false, true);
+                            	ExplosionLarge.explode(world, posX, posY, posZ, explosionSize, true, false, true);
                             }
                         	this.setDead();
                         }
@@ -372,8 +348,7 @@ public class EntityRocket extends Entity implements IProjectile {
                     {
                         if (!this.world.isRemote)
                         {
-                        	//this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 2.5F, true);
-                        	ExplosionLarge.explode(world, posX, posY, posZ, 5, true, false, true);
+                        	ExplosionLarge.explode(world, posX, posY, posZ, explosionSize, true, false, true);
                         }
                     	this.setDead();
                     }
@@ -422,6 +397,7 @@ public class EntityRocket extends Entity implements IProjectile {
 
             //for (this.rotationPitch = (float)(Math.atan2(this.motionY, (double)f2) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
             {
+                ;
             }
 
             /*while (this.rotationPitch - this.prevRotationPitch >= 180.0F)

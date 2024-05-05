@@ -1,11 +1,13 @@
 package com.hbm.blocks.generic;
 
-import api.hbm.block.IDrillInteraction;
-import api.hbm.block.IMiningDrill;
+import java.util.Random;
+
 import com.hbm.blocks.ModBlocks;
 import com.hbm.items.ModItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
+
+import api.hbm.block.IDrillInteraction;
+import api.hbm.block.IMiningDrill;
+import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,12 +19,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 
-import java.util.Random;
+public class BlockCluster extends BlockOre implements IDrillInteraction {
 
-public class BlockCluster extends Block implements IDrillInteraction {
-
-	public BlockCluster(Material mat, String s) {
-		super(mat);
+	public BlockCluster(String s) {
+		super();
 		this.setUnlocalizedName(s);
 		this.setRegistryName(s);
 		this.setHarvestLevel("pickaxe", 1);

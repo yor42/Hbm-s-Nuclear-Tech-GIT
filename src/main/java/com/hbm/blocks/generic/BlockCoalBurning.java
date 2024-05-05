@@ -1,7 +1,11 @@
 package com.hbm.blocks.generic;
 
+import java.util.Random;
+
 import com.hbm.blocks.ModBlocks;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockOre;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -13,12 +17,10 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.Random;
+public class BlockCoalBurning extends BlockOre {
 
-public class BlockCoalBurning extends Block {
-
-	public BlockCoalBurning(Material materialIn, String s) {
-		super(materialIn);
+	public BlockCoalBurning(String s) {
+		super();
 		this.setUnlocalizedName(s);
 		this.setRegistryName(s);
 		
@@ -68,5 +70,4 @@ public class BlockCoalBurning extends Block {
 	public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
 		entityIn.setFire(3);
 	}
-
 }

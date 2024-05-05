@@ -1,5 +1,16 @@
 package com.hbm.items.special;
 
+<<<<<<< HEAD
+=======
+import java.util.Map;
+import java.util.List;
+
+import com.hbm.inventory.BedrockOreRegistry;
+import com.hbm.main.MainRegistry;
+import com.hbm.items.ModItems;
+import com.hbm.lib.RefStrings;
+import com.hbm.util.I18nUtil;
+>>>>>>> upstream/Custom-1.12.2
 import com.hbm.blocks.generic.BlockBedrockOreTE.TileEntityBedrockOre;
 import com.hbm.inventory.BedrockOreRegistry;
 import com.hbm.items.ModItems;
@@ -77,9 +88,9 @@ public class ItemBedrockOre extends Item {
 		if(stack.getItem() == ModItems.ore_bedrock){
 			String oreName = BedrockOreRegistry.oreIndexes.get(stack.getMetadata());
 			int tier = BedrockOreRegistry.getOreTier(oreName);
-			list.add("§6Tier: "+tier);
+			list.add("§6"+I18nUtil.resolveKey("desc.tier", tier));
 			FluidStack req = BedrockOreRegistry.getFluidRequirement(tier);
-			list.add("§eRequired: " + req.amount + "mB " + req.getFluid().getLocalizedName(req));
+			list.add("§e"+I18nUtil.resolveKey("desc.requires", req.amount, req.getFluid().getLocalizedName(req)));
 		}
 		super.addInformation(stack, world, list, flagIn);
 	}

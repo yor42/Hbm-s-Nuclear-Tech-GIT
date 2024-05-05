@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 public class ItemRenderImmolator extends TEISRBase {
 
 	protected ModelImmolator immolator;
-	protected static ResourceLocation immolator_rl = new ResourceLocation(RefStrings.MODID +":textures/models/ModelImmolator.png");
+	protected static ResourceLocation immolator_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelImmolator.png");
 	
 	public ItemRenderImmolator() {
 		immolator = new ModelImmolator();

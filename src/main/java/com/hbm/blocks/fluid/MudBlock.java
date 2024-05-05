@@ -62,24 +62,24 @@ public class MudBlock extends BlockFluidClassic {
 	
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
-		super.updateTick(world, pos, state, rand);
 		reactToBlocks2(world, pos.east());
 		reactToBlocks2(world, pos.west());
 		reactToBlocks2(world, pos.up());
 		reactToBlocks2(world, pos.down());
 		reactToBlocks2(world, pos.south());
 		reactToBlocks2(world, pos.north());
+		super.updateTick(world, pos, state, rand);
 	}
 	
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos neighbourPos) {
-		super.neighborChanged(state, world, pos, neighborBlock, neighbourPos);
 		reactToBlocks(world, pos.east());
 		reactToBlocks(world, pos.west());
 		reactToBlocks(world, pos.up());
 		reactToBlocks(world, pos.down());
 		reactToBlocks(world, pos.south());
 		reactToBlocks(world, pos.north());
+		super.neighborChanged(state, world, pos, neighborBlock, neighbourPos);
 	}
 	
 	public void reactToBlocks(World world, BlockPos pos) {
@@ -87,7 +87,7 @@ public class MudBlock extends BlockFluidClassic {
 			IBlockState block = world.getBlockState(pos);
 			
 			if(block.getMaterial().isLiquid()) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			}
 		}
 	}
@@ -116,47 +116,47 @@ public class MudBlock extends BlockFluidClassic {
 				if(rand.nextInt(10) == 0)
 					world.setBlockState(pos, Blocks.CLAY.getDefaultState());
 			} else if (state.getMaterial() == Material.WOOD) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.CACTUS) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.CAKE) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.CIRCUITS) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.CLOTH) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.CORAL) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.CRAFTED_SNOW) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.GLASS) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.GOURD) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.ICE) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.LEAVES) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.PACKED_ICE) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.PISTON) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.PLANTS) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.PORTAL) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.REDSTONE_LIGHT) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.SNOW) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.SPONGE) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.VINE) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (state.getMaterial() == Material.WEB) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			} else if (block.getExplosionResistance(null) < 1.2F) {
-				world.setBlockState(pos, Blocks.AIR.getDefaultState());
+				world.setBlockToAir(pos);
 			}
 		}
 	}

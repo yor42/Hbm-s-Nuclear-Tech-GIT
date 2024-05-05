@@ -1,12 +1,16 @@
 package com.hbm.items.machine;
 
-import com.hbm.config.GeneralConfig;
-import com.hbm.forgefluid.FluidTypeHandler;
+import java.util.List;
+import java.util.Map.Entry;
+
 import com.hbm.forgefluid.HbmFluidHandlerItemStack;
 import com.hbm.interfaces.IHasCustomModel;
+import com.hbm.config.GeneralConfig;
 import com.hbm.items.ModItems;
 import com.hbm.lib.RefStrings;
 import com.hbm.main.MainRegistry;
+import com.hbm.forgefluid.FluidTypeHandler;
+
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -24,9 +28,6 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
-import java.util.Map.Entry;
-
 public class ItemFluidTank extends Item implements IHasCustomModel {
 
 	public static final ModelResourceLocation fluidTankModel = new ModelResourceLocation(
@@ -35,7 +36,7 @@ public class ItemFluidTank extends Item implements IHasCustomModel {
 	public static final ModelResourceLocation fluidBarrelModel = new ModelResourceLocation(
 			RefStrings.MODID + ":fluid_barrel_full", "inventory");
 
-	private final int cap;
+	private int cap;
 
 	public ItemFluidTank(String s, int cap) {
 		this.setUnlocalizedName(s);
@@ -76,12 +77,12 @@ public class ItemFluidTank extends Item implements IHasCustomModel {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public String getItemStackDisplayName(ItemStack stack) {
-		String s = (I18n.format(this.getUnlocalizedName() + ".name")).trim();
+		String s = ("" + I18n.format(this.getUnlocalizedName() + ".name")).trim();
 		String s1 = null;// ("" +
 							// StatCollector.translateToLocal(FluidType.getEnum(stack.getItemDamage()).getUnlocalizedName()))
 		// .trim();
 		if (FluidUtil.getFluidContained(stack) != null) {
-			s1 = (I18n.format(FluidUtil.getFluidContained(stack).getLocalizedName()).trim());
+			s1 = ("" + I18n.format(FluidUtil.getFluidContained(stack).getLocalizedName()).trim());
 		} else {
 			if(this == ModItems.fluid_tank_full)
 				return "Empty Universal Fluid Tank";
@@ -116,7 +117,7 @@ public class ItemFluidTank extends Item implements IHasCustomModel {
 	public void addInformation(ItemStack stack, World worldIn, List<String> list, ITooltipFlag flagIn) {
 		
 		FluidStack f = FluidUtil.getFluidContained(stack);
-		String s = (f == null ? "0" : f.amount) + "/" + cap + " mb";
+		String s = (f == null ? "0" : f.amount) + "/" + cap + " mB";
 		if(stack.getCount() > 1)
 			s = stack.getCount() + "x " + s;
 		list.add(s);
@@ -126,7 +127,7 @@ public class ItemFluidTank extends Item implements IHasCustomModel {
 	public static ItemStack getFullBarrel(Fluid f, int amount){
 		ItemStack stack = new ItemStack(ModItems.fluid_barrel_full, amount, 0);
 		stack.setTagCompound(new NBTTagCompound());
-		stack.getTagCompound().setTag(HbmFluidHandlerItemStack.FLUID_NBT_KEY,new FluidStack(f, 16000).writeToNBT(new NBTTagCompound()));
+		stack.getTagCompound().setTag(HbmFluidHandlerItemStack.FLUID_NBT_KEY, new FluidStack(f, 16000).writeToNBT(new NBTTagCompound()));
 		return stack;
 	}
 	
@@ -137,7 +138,7 @@ public class ItemFluidTank extends Item implements IHasCustomModel {
 	public static ItemStack getFullTank(Fluid f, int amount){
 		ItemStack stack = new ItemStack(ModItems.fluid_tank_full, amount, 0);
 		stack.setTagCompound(new NBTTagCompound());
-		stack.getTagCompound().setTag(HbmFluidHandlerItemStack.FLUID_NBT_KEY,new FluidStack(f, 1000).writeToNBT(new NBTTagCompound()));
+		stack.getTagCompound().setTag(HbmFluidHandlerItemStack.FLUID_NBT_KEY, new FluidStack(f, 1000).writeToNBT(new NBTTagCompound()));
 		return stack;
 	}
 	
@@ -157,26 +158,35 @@ public class ItemFluidTank extends Item implements IHasCustomModel {
 			if(f == null)
 				return true;
 			return f.amount == 1000 || f.amount == 0;
-		} else return stack.getItem() == ModItems.fluid_barrel_full || stack.getItem() == ModItems.fluid_tank_full;
-    }
+		} else if(stack.getItem() == ModItems.fluid_barrel_full || stack.getItem() == ModItems.fluid_tank_full){
+			return true;
+		}
+		return false;
+	}
 
 	public static boolean isEmptyTank(ItemStack out) {
-        return out.getItem() == ModItems.fluid_tank_full && FluidUtil.getFluidContained(out) == null;
-    }
+		if(out.getItem() == ModItems.fluid_tank_full && FluidUtil.getFluidContained(out) == null)
+			return true;
+		return false;
+	}
 
 	public static boolean isFullTank(ItemStack stack, Fluid fluid) {
 		FluidStack f = FluidUtil.getFluidContained(stack);
-        return stack.getItem() == ModItems.fluid_tank_full && f != null && f.getFluid() == fluid && f.amount == 1000;
-    }
+		if(stack.getItem() == ModItems.fluid_tank_full && f != null && f.getFluid() == fluid && f.amount == 1000)
+			return true;
+		return false;
+	}
 	
 	public static boolean isEmptyBarrel(ItemStack out) {
-        return out.getItem() == ModItems.fluid_barrel_full && FluidUtil.getFluidContained(out) == null;
-    }
+		if(out.getItem() == ModItems.fluid_barrel_full && FluidUtil.getFluidContained(out) == null)
+			return true;
+		return false;
+	}
 
 	public static boolean isFullBarrel(ItemStack stack, Fluid fluid) {
 		FluidStack f = FluidUtil.getFluidContained(stack);
-        return stack.getItem() == ModItems.fluid_barrel_full && f != null && f.getFluid() == fluid && f.amount == 16000;
-    }
-
-
+		if(stack.getItem() == ModItems.fluid_barrel_full && f != null && f.getFluid() == fluid && f.amount == 16000)
+			return true;
+		return false;
+	}
 }

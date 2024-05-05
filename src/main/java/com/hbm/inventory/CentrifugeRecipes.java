@@ -1,25 +1,29 @@
 package com.hbm.inventory;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map.Entry;
+
+import static com.hbm.inventory.OreDictManager.*;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
 import com.hbm.items.ModItems;
 import com.hbm.items.special.ItemBedrockOre;
+
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.model.b3d.B3DModel.Bone;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.*;
-import java.util.Map.Entry;
-
-import static com.hbm.inventory.OreDictManager.*;
 
 public class CentrifugeRecipes {
 
-	private static final HashMap<Object, ItemStack[]> recipes = new HashMap<>();
+	private static LinkedHashMap<Object, ItemStack[]> recipes = new LinkedHashMap<Object, ItemStack[]>();
 	private static List<CentrifugeRecipe> centrifugeRecipes = null;
 	
 	public static void register() {
@@ -205,7 +209,7 @@ public class CentrifugeRecipes {
 				new ItemStack(Blocks.GRAVEL, 1) });
 
 		recipes.put(new ComparableStack(ModItems.powder_tektite), new ItemStack[] {
-				new ItemStack(ModItems.powder_paleogenite_tiny, 1),
+				new ItemStack(ModItems.powder_paleogenite_tiny, 2),
 				new ItemStack(ModItems.powder_meteorite_tiny, 1),
 				new ItemStack(ModItems.powder_meteorite_tiny, 1),
 				new ItemStack(ModItems.dust, 6) });
@@ -309,34 +313,19 @@ public class CentrifugeRecipes {
 	}
 
 	public static void addRecipe(ItemStack in, ItemStack[] outputs){
-		addRecipe(new ComparableStack(in), outputs);
-	}
-
-	public static void addRecipe(ComparableStack in, ItemStack[] outputs){
-		recipes.put(in, outputs);
+		recipes.put(new ComparableStack(in), outputs);
 	}
 
 	public static void removeRecipe(ItemStack in){
-		removeRecipe(new ComparableStack(in));
+		recipes.remove(new ComparableStack(in));
 	}
-
-	public static void removeRecipe(ComparableStack in){
-		recipes.remove(in);
-	}
-
-	public static HashMap<Object, ItemStack[]> getRecipes() {
-		return recipes;
-	}
-
+	
 	public static ItemStack[] getOutput(ItemStack stack) {
 		
-		if(stack == null) {
-            return null;
-        } else {
-            stack.getItem();
-        }
-
-        ComparableStack comp = new ComparableStack(stack.getItem(), 1, stack.getItemDamage());
+		if(stack == null || stack.getItem() == null)
+			return null;
+	
+		ComparableStack comp = new ComparableStack(stack.getItem(), 1, stack.getItemDamage());
 		if(recipes.containsKey(comp))
 			return RecipesCommon.copyStackArray(recipes.get(comp));
 		
@@ -390,7 +379,7 @@ public class CentrifugeRecipes {
 		@Override
 		public void getIngredients(IIngredients ingredients) {
 			if(inputs != null){
-				ingredients.setInputLists(VanillaTypes.ITEM, Collections.singletonList(inputs));
+				ingredients.setInputLists(VanillaTypes.ITEM, Arrays.asList(inputs));
 			} else {
 				ingredients.setInput(VanillaTypes.ITEM, input);
 			}

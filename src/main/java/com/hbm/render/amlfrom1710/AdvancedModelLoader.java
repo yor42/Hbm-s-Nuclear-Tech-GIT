@@ -67,9 +67,7 @@ public class AdvancedModelLoader {
     }
 
 
-    static
-    {
+    static {
         registerModelHandler(new ObjModelLoader());
-       // registerModelHandler(new TechneModelLoader());
     }
 }

@@ -1,26 +1,28 @@
 package com.hbm.inventory.gui;
 
-import com.hbm.forgefluid.FFUtils;
+import com.hbm.util.I18nUtil;
+import org.lwjgl.opengl.GL11;
+import java.io.IOException;
+
 import com.hbm.inventory.container.ContainerMachineExcavator;
+import com.hbm.forgefluid.FFUtils;
 import com.hbm.lib.RefStrings;
 import com.hbm.packet.NBTControlPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.machine.TileEntityMachineExcavator;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
-
-import java.io.IOException;
 
 public class GUIMachineExcavator extends GuiInfoContainer {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_mining_drill.png");
-	private final TileEntityMachineExcavator drill;
+	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_mining_drill.png");
+	private TileEntityMachineExcavator drill;
 
 	public GUIMachineExcavator(InventoryPlayer inventory, TileEntityMachineExcavator tile) {
 		super(new ContainerMachineExcavator(inventory, tile));
@@ -34,14 +36,19 @@ public class GUIMachineExcavator extends GuiInfoContainer {
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float f) {
 		super.drawScreen(mouseX, mouseY, f);
+		String[] text1 = I18nUtil.resolveKeyArray("desc.excavator1");
+		String[] text2 = I18nUtil.resolveKeyArray("desc.excavator2");
+		String[] text3 = I18nUtil.resolveKeyArray("desc.excavator3");
+		String[] text4 = I18nUtil.resolveKeyArray("desc.excavator4");
+		String[] text5 = I18nUtil.resolveKeyArray("desc.excavator5");
 		
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 7, guiTop + 16, 18, 18, mouseX, mouseY, new String[] { "Main On/Off Lever" });
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 31, guiTop + 16, 18, 18, mouseX, mouseY, new String[] { "Silktouch" });
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 55, guiTop + 16, 18, 18, mouseX, mouseY, new String[] { "Shred ores" });
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 79, guiTop + 16, 18, 18, mouseX, mouseY, new String[] { "Vein mining" });
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 103, guiTop + 16, 18, 18, mouseX, mouseY, new String[] { "Construct walls" });
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 7, guiTop + 16, 18, 18, mouseX, mouseY, text1);
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 31, guiTop + 16, 18, 18, mouseX, mouseY, text2);
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 55, guiTop + 16, 18, 18, mouseX, mouseY, text3);
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 79, guiTop + 16, 18, 18, mouseX, mouseY, text4);
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 103, guiTop + 16, 18, 18, mouseX, mouseY, text5);
 		
-		this.drawElectricityInfo(this, mouseX, mouseY, guiLeft + 220, guiTop + 17, 16, 52, drill.getPower(), TileEntityMachineExcavator.maxPower);
+		this.drawElectricityInfo(this, mouseX, mouseY, guiLeft + 220, guiTop + 17, 16, 52, drill.getPower(), drill.maxPower);
 		FFUtils.renderTankInfo(this, mouseX, mouseY, guiLeft + 202, guiTop + 17, 16, 52, drill.tank, drill.fluidType);
 		super.renderHoveredToolTip(mouseX, mouseY);
 	}

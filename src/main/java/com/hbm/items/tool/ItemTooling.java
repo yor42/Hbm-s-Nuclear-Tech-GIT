@@ -2,8 +2,12 @@ package com.hbm.items.tool;
 
 import api.hbm.block.IToolable;
 import api.hbm.block.IToolable.ToolType;
+<<<<<<< HEAD
 import com.hbm.items.ModItems;
 import com.hbm.main.MainRegistry;
+=======
+import com.hbm.util.I18nUtil;
+>>>>>>> upstream/Custom-1.12.2
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -52,8 +56,8 @@ public class ItemTooling extends Item {
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		if(type == ToolType.SCREWDRIVER){
-			tooltip.add("Right clicking fluid pipes will toggle extraction mode");
-			tooltip.add("Could be used instead of a fuse...");
+			tooltip.add(I18nUtil.resolveKey("desc.screwdriver1"));
+			tooltip.add(I18nUtil.resolveKey("desc.screwdriver2"));
 		}
 	}
 

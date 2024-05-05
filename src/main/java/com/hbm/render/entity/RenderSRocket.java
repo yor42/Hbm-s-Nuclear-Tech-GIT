@@ -1,20 +1,22 @@
 package com.hbm.render.entity;
 
+import org.lwjgl.opengl.GL11;
+
 import com.hbm.entity.projectile.EntityRocketHoming;
 import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelSRocket;
+
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import org.lwjgl.opengl.GL11;
 
 public class RenderSRocket extends Render<EntityRocketHoming> {
 
 	public static final IRenderFactory<EntityRocketHoming> FACTORY = (RenderManager man) -> {return new RenderSRocket(man);};
 	
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/models/ModelSRocket.png");
-	private final ModelSRocket missile;
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/ModelSRocket.png");
+	private ModelSRocket missile;
 	
 	protected RenderSRocket(RenderManager renderManager) {
 		super(renderManager);
@@ -32,9 +34,9 @@ public class RenderSRocket extends Render<EntityRocketHoming> {
 		GL11.glScalef(1.5F, 1.5F, 1.5F);
 
 		if(rocket.getIsCritical())
-			bindTexture(new ResourceLocation(RefStrings.MODID + ":textures/models/ModelSVTRocket.png"));
+			bindTexture(new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/ModelSVTRocket.png"));
 		else
-			bindTexture(new ResourceLocation(RefStrings.MODID + ":textures/models/ModelSRocket.png"));
+			bindTexture(new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/ModelSRocket.png"));
 		missile.renderAll(0.0625F);
 		GL11.glPopMatrix();
 	}

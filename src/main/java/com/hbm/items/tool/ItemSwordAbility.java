@@ -5,6 +5,8 @@ import com.google.common.collect.Multimap;
 import com.hbm.handler.WeaponAbility;
 import com.hbm.items.ModItems;
 import com.hbm.lib.HBMSoundHandler;
+import com.hbm.util.I18nUtil;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -38,17 +40,23 @@ public class ItemSwordAbility extends ItemSword implements IItemAbility {
 	private EnumRarity rarity = EnumRarity.COMMON;
 	//was there a reason for this to be private?
 	protected float damage;
+	protected double attackSpeed;
 	protected double movement;
 	private final List<WeaponAbility> hitAbility = new ArrayList<>();
 
-	public ItemSwordAbility(float damage, double movement, ToolMaterial material, String s) {
+	public ItemSwordAbility(float damage, double attackSpeed, double movement, ToolMaterial material, String s) {
 		super(material);
 		this.damage = damage;
 		this.movement = movement;
+		this.attackSpeed = attackSpeed;
 		this.setUnlocalizedName(s);
 		this.setRegistryName(s);
 
 		ModItems.ALL_ITEMS.add(this);
+	}
+
+	public ItemSwordAbility(float damage, double movement, ToolMaterial material, String s) {
+		this(damage, -2.4, movement, material, s);
 	}
 
 	public ItemSwordAbility addHitAbility(WeaponAbility weaponAbility) {
@@ -89,7 +97,12 @@ public class ItemSwordAbility extends ItemSword implements IItemAbility {
 		Multimap<String, AttributeModifier> map = HashMultimap.create();
 		if(slot == EntityEquipmentSlot.MAINHAND) {
 			map.put(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), new AttributeModifier(UUID.fromString("91AEAA56-376B-4498-935B-2F7F68070635"), "Tool modifier", movement, 1));
+<<<<<<< HEAD
 			map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", this.damage, 0));
+=======
+			map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double) this.damage, 0));
+			map.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.attackSpeed, 0));
+>>>>>>> upstream/Custom-1.12.2
 		}
 		return map;
 	}
@@ -170,7 +183,7 @@ public class ItemSwordAbility extends ItemSword implements IItemAbility {
 	public void addInformation(ItemStack stack, World worldIn, List<String> list, ITooltipFlag flagIn) {
 		if(!this.hitAbility.isEmpty()) {
 
-			list.add("Weapon modifiers: ");
+			list.add(I18nUtil.resolveKey("tool.ability.weaponlist"));
 
 			for(WeaponAbility ability : this.hitAbility) {
 				list.add("  " + TextFormatting.RED + ability.getFullName());

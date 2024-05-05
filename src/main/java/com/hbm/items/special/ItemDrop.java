@@ -83,7 +83,7 @@ public class ItemDrop extends Item {
 				entityItem.setDead();
 			}
 
-			if(entityItem.onGround) {
+			if(entityItem.onGround || entityItem.isBurning()) {
 
 				if(stack.getItem() != null && stack.getItem() == ModItems.pellet_antimatter && WeaponConfig.dropCell) {
 					if(!entityItem.world.isRemote) {
@@ -275,7 +275,7 @@ public class ItemDrop extends Item {
 			stack.getTagCompound().setInteger("z", pos.getZ());
 
 			if(world.isRemote) {
-				player.sendMessage(new TextComponentTranslation("Position set!"));
+				player.sendMessage(new TextComponentTranslation("chat.posset"));
 			}
 
 			world.playSound(null, player.posX, player.posY, player.posZ, HBMSoundHandler.techBoop, SoundCategory.PLAYERS, 2.0F, 1.0F);

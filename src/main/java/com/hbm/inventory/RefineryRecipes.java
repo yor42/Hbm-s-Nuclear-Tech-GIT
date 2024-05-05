@@ -1,15 +1,18 @@
 package com.hbm.inventory;
 
+import java.util.LinkedHashMap;
+import java.util.HashMap;
+import java.util.Map;
+import com.hbm.util.Tuple.Pair;
+
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.items.ModItems;
-import com.hbm.util.Tuple.Pair;
+import com.hbm.items.machine.ItemFluidIcon;
 import com.hbm.util.Tuple.Quartet;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RefineryRecipes {
 
@@ -24,7 +27,7 @@ public class RefineryRecipes {
 	
 	public static Map<Fluid, Quartet<Fluid, Fluid, Integer, Integer>> fractions = new HashMap<>();
 
-	public static HashMap<Fluid, Pair<FluidStack[], ItemStack>> refineryRecipesMap = new HashMap<>();
+	public static LinkedHashMap<Fluid, Pair<FluidStack[], ItemStack>> refineryRecipesMap = new LinkedHashMap<>();
 	
 	public static void registerRefineryRecipes() {
 		refineryRecipesMap.put(ModForgeFluids.hotoil, new Pair(new FluidStack[]{ 
@@ -43,9 +46,9 @@ public class RefineryRecipes {
 
 		refineryRecipesMap.put(ModForgeFluids.toxic_fluid, new Pair(new FluidStack[]{ 
 			new FluidStack(ModForgeFluids.wastefluid, 50),
-			new FluidStack(ModForgeFluids.corium_fluid, 5), 
-			new FluidStack(ModForgeFluids.watz, 1),
-			new FluidStack(ModForgeFluids.wastegas, 30)	}, 
+			new FluidStack(ModForgeFluids.wastegas, 40),
+			new FluidStack(ModForgeFluids.corium_fluid, 4), 
+			new FluidStack(ModForgeFluids.watz, 1)}, 
 			new ItemStack(ModItems.nuclear_waste_tiny, 1)));
 	}
 

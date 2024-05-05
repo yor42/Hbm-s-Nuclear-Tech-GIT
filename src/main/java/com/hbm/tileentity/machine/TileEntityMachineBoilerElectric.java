@@ -147,8 +147,8 @@ public class TileEntityMachineBoilerElectric extends TileEntityMachineBase imple
 			}
 
 			if(power > 0) {
-				power -= 150;
 				heat += Math.min(((double) power / (double) maxPower * 300), 150);
+				power = Math.max(power-150, 0);
 			} else {
 				heat -= 100;
 			}
@@ -203,7 +203,7 @@ public class TileEntityMachineBoilerElectric extends TileEntityMachineBase imple
 	private boolean isValidFluid(FluidStack stack) {
 		if(stack == null)
 			return false;
-		return stack.getFluid() == FluidRegistry.WATER || stack.getFluid() == ModForgeFluids.oil || stack.getFluid() == ModForgeFluids.crackoil || stack.getFluid() == ModForgeFluids.steam || stack.getFluid() == ModForgeFluids.hotsteam;
+		return HeatRecipes.hasBoilRecipe(stack.getFluid());
 	}
 
 	protected boolean inputValidForTank(int tank, int slot) {

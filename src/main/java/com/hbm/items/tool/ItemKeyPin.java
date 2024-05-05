@@ -1,6 +1,11 @@
 package com.hbm.items.tool;
 
 import com.hbm.items.ModItems;
+<<<<<<< HEAD
+=======
+
+import com.hbm.util.I18nUtil;
+>>>>>>> upstream/Custom-1.12.2
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,14 +26,14 @@ public class ItemKeyPin extends Item {
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		if(getPins(stack) != 0)
-			tooltip.add("§aPin configuration: (" + getPins(stack)+")§r");
+			tooltip.add(I18nUtil.resolveKey("desc.keypin1", getPins(stack)));
 		else
-			tooltip.add("§cPins not set§r");
+			tooltip.add(I18nUtil.resolveKey("desc.keypin2"));
 		
 		if(this == ModItems.key_fake) {
 
 			tooltip.add("");
-			tooltip.add("§ePins can neither be changed, nor copied.§r");
+			tooltip.add(I18nUtil.resolveKey("desc.keypin3"));
 		}
 	}
 	

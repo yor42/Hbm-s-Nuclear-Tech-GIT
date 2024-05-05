@@ -1,38 +1,51 @@
 package com.hbm.tileentity.machine.rbmk;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.blocks.machine.rbmk.RBMKBase;
 import com.hbm.capability.HbmCapability;
 import com.hbm.capability.HbmCapability.IHBMData;
 import com.hbm.handler.HbmKeybinds.EnumKeybind;
 import com.hbm.items.machine.ItemRBMKRod;
-import com.hbm.lib.ForgeDirection;
 import com.hbm.packet.NBTPacket;
+import com.hbm.lib.ForgeDirection;
+import com.hbm.inventory.control_panel.IControllable;
+import com.hbm.inventory.control_panel.ControlEventSystem;
+import com.hbm.inventory.control_panel.ControlEvent;
+import com.hbm.inventory.control_panel.DataValue;
+import com.hbm.inventory.control_panel.DataValueFloat;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.INBTPacketReceiver;
+import com.hbm.tileentity.machine.rbmk.IRBMKLoadable;
 import com.hbm.tileentity.TileEntityMachineBase;
+
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.Optional;
+
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
 import li.cil.oc.api.machine.Context;
 import li.cil.oc.api.network.SimpleComponent;
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ITickable;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
 
 @Optional.InterfaceList({@Optional.Interface(iface = "li.cil.oc.api.network.SimpleComponent", modid = "OpenComputers")})
-public class TileEntityRBMKCraneConsole extends TileEntityMachineBase implements ITickable, INBTPacketReceiver, SimpleComponent {
+public class TileEntityRBMKCraneConsole extends TileEntityMachineBase implements ITickable, INBTPacketReceiver, SimpleComponent, IControllable {
 	
 	public int centerX;
 	public int centerY;
@@ -105,17 +118,20 @@ public class TileEntityRBMKCraneConsole extends TileEntityMachineBase implements
 				progress = 0;
 				goesDown = false;
 
-				if(!world.isRemote && this.canTargetInteract()) {
-					if(inventory.getStackInSlot(0).isEmpty()) {
-						IRBMKLoadable column = getColumnAtPos();
-						inventory.setStackInSlot(0, column.provideNext());
-						column.unload();
-					} else {
-						getColumnAtPos().load(inventory.getStackInSlot(0));
-						inventory.setStackInSlot(0, ItemStack.EMPTY);
+				if(!world.isRemote) {
+					ControlEventSystem.get(world).broadcastToSubscribed(this, ControlEvent.newEvent("rbmk_crane_load"));
+
+					if(this.canTargetInteract()) {
+						if(inventory.getStackInSlot(0).isEmpty()) {
+							IRBMKLoadable column = getColumnAtPos();
+							inventory.setStackInSlot(0, column.provideNext());
+							column.unload();
+						} else {
+							getColumnAtPos().load(inventory.getStackInSlot(0));
+							inventory.setStackInSlot(0, ItemStack.EMPTY);
+						}
+						this.markDirty();
 					}
-					
-					this.markDirty();
 				}
 					
 			}
@@ -225,6 +241,7 @@ public class TileEntityRBMKCraneConsole extends TileEntityMachineBase implements
 				nbt.setBoolean("loaded", this.hasItemLoaded());
 				nbt.setDouble("loadedHeat", loadedHeat);
 				nbt.setDouble("loadedEnrichment", loadedEnrichment);
+				nbt.setBoolean("goesDown", goesDown);
 			}
 			PacketDispatcher.wrapper.sendToAllAround(new NBTPacket(nbt, pos), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 250));
 		}
@@ -255,6 +272,12 @@ public class TileEntityRBMKCraneConsole extends TileEntityMachineBase implements
 			}else{
 				tiltLeft = -30;
 			}
+		}
+
+		if (!world.isRemote && (up || down || left || right)) {
+			ControlEventSystem.get(world).broadcastToSubscribed(this, ControlEvent.newEvent("rbmk_crane_move")
+					.setVar("up", new DataValueFloat(up)).setVar("down", new DataValueFloat(down))
+					.setVar("left", new DataValueFloat(left)).setVar("right", new DataValueFloat(right)));
 		}
 	}
 	
@@ -335,6 +358,7 @@ public class TileEntityRBMKCraneConsole extends TileEntityMachineBase implements
 		this.posLeft = nbt.getDouble("posLeft");
 		this.loadedHeat = nbt.getDouble("loadedHeat");
 		this.loadedEnrichment = nbt.getDouble("loadedEnrichment");
+		this.goesDown = nbt.getBoolean("goesDown");
 	}
 	
 	public void setTarget(int x, int y, int z) {
@@ -537,5 +561,72 @@ public class TileEntityRBMKCraneConsole extends TileEntityMachineBase implements
 		if (setUpCrane) 
 			return new Object[] {-posLeft, posFront};
 		return new Object[] {"No crane found"};
+	}
+
+
+	// control panel
+	@Override
+	public Map<String, DataValue> getQueryData() {
+		Map<String, DataValue> data = new HashMap<>();
+		if (setUpCrane) {
+			data.put("posX", new DataValueFloat((float) -posLeft));
+			data.put("posY", new DataValueFloat((float) posFront));
+		}
+		return data;
+	}
+
+	@Override
+	public void receiveEvent(BlockPos from, ControlEvent e) {
+		switch (e.name) {
+			case "rbmk_crane_move": {
+				boolean up = e.vars.get("up").getBoolean();
+				boolean down = e.vars.get("down").getBoolean();
+				boolean left = e.vars.get("left").getBoolean();
+				boolean right = e.vars.get("right").getBoolean();
+
+				if (setUpCrane && !isCraneLoading()) {
+					processInput(up, down, left, right);
+				}
+				break;
+			}
+			case "rbmk_crane_load": {
+				if (setUpCrane && !isCraneLoading()) {
+					goesDown = true;
+				}
+				break;
+			}
+		}
+	}
+
+	@Override
+	public List<String> getInEvents() {
+		return Arrays.asList("rbmk_crane_move", "rbmk_crane_load");
+	}
+
+	@Override
+	public List<String> getOutEvents() {
+		return Arrays.asList("rbmk_crane_move", "rbmk_crane_load");
+	}
+
+	@Override
+	public void validate() {
+		super.validate();
+		ControlEventSystem.get(world).addControllable(this);
+	}
+
+	@Override
+	public void invalidate() {
+		super.invalidate();
+		ControlEventSystem.get(world).removeControllable(this);
+	}
+
+	@Override
+	public BlockPos getControlPos() {
+		return getPos();
+	}
+
+	@Override
+	public World getControlWorld() {
+		return getWorld();
 	}
 }

@@ -1,27 +1,33 @@
 package com.hbm.handler.guncfg;
 
+import java.util.List;
+import java.util.Random;
+
+import com.hbm.config.CompatibilityConfig;
 import com.hbm.entity.particle.EntityBSmokeFX;
 import com.hbm.entity.projectile.EntityBulletBase;
-import com.hbm.explosion.ExplosionNukeSmall;
+import com.hbm.entity.effect.EntityNukeTorex;
+import com.hbm.entity.logic.EntityNukeExplosionMK5;
 import com.hbm.handler.ArmorUtil;
 import com.hbm.handler.BulletConfigSyncingUtil;
 import com.hbm.handler.BulletConfiguration;
 import com.hbm.interfaces.IBulletImpactBehavior;
 import com.hbm.interfaces.IBulletUpdateBehavior;
+import com.hbm.util.ArmorRegistry;
+import com.hbm.util.ArmorRegistry.HazardClass;
 import com.hbm.items.ModItems;
 import com.hbm.lib.Library;
 import com.hbm.packet.AuxParticlePacketNT;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.potion.HbmPotion;
 import com.hbm.render.amlfrom1710.Vec3;
-import com.hbm.util.ArmorRegistry;
-import com.hbm.util.ArmorRegistry.HazardClass;
 import com.hbm.util.BobMathUtil;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.init.MobEffects;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -29,9 +35,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
-
-import java.util.List;
-import java.util.Random;
 
 public class BulletConfigFactory {
 
@@ -283,23 +286,23 @@ public class BulletConfigFactory {
 
 			@Override
 			public void behaveBlockHit(EntityBulletBase bullet, int x, int y, int z) {
-				
-				List<Entity> hit = bullet.world.getEntitiesWithinAABBExcludingEntity(bullet, new AxisAlignedBB(bullet.posX - radius, bullet.posY - radius, bullet.posZ - radius, bullet.posX + radius, bullet.posY + radius, bullet.posZ + radius));
-				
-				for(Entity e : hit) {
+				if(CompatibilityConfig.isWarDim(bullet.world)){
+					List<Entity> hit = bullet.world.getEntitiesWithinAABBExcludingEntity(bullet, new AxisAlignedBB(bullet.posX - radius, bullet.posY - radius, bullet.posZ - radius, bullet.posX + radius, bullet.posY + radius, bullet.posZ + radius));
 					
-					if(!Library.isObstructed(bullet.world, bullet.posX, bullet.posY, bullet.posZ, e.posX, e.posY + e.getEyeHeight(), e.posZ)) {
-						e.setFire(5);
+					for(Entity e : hit) {
 						
-						if(e instanceof EntityLivingBase) {
+						if(!Library.isObstructed(bullet.world, bullet.posX, bullet.posY, bullet.posZ, e.posX, e.posY + e.getEyeHeight(), e.posZ)) {
+							e.setFire(5);
 							
-							PotionEffect eff = new PotionEffect(HbmPotion.phosphorus, duration, 0, true, false);
-							eff.getCurativeItems().clear();
-							((EntityLivingBase)e).addPotionEffect(eff);
+							if(e instanceof EntityLivingBase) {
+								
+								PotionEffect eff = new PotionEffect(HbmPotion.phosphorus, duration, 0, true, false);
+								eff.getCurativeItems().clear();
+								((EntityLivingBase)e).addPotionEffect(eff);
+							}
 						}
 					}
 				}
-				
 				NBTTagCompound data = new NBTTagCompound();
 				data.setString("type", "vanillaburst");
 				data.setString("mode", "flame");
@@ -497,8 +500,9 @@ public class BulletConfigFactory {
 				posY = y + 1.5;
 				posZ = z + 0.5;
 			}
-			
-			ExplosionNukeSmall.explode(bullet.world, posX, posY, posZ, size);
+			if(size > 0)
+				bullet.world.spawnEntity(EntityNukeExplosionMK5.statFac(bullet.world, size, posX, posY, posZ));
+            EntityNukeTorex.statFac(bullet.world, posX, posY, posZ, size == 0 ? 15 : size);
 		}
 	}
 }

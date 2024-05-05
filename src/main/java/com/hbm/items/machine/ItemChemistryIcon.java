@@ -1,7 +1,8 @@
 package com.hbm.items.machine;
 
-import com.hbm.inventory.ChemplantRecipes.EnumChemistryTemplate;
 import com.hbm.items.ModItems;
+import com.hbm.inventory.ChemplantRecipes;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -24,8 +25,8 @@ public class ItemChemistryIcon extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public String getItemStackDisplayName(ItemStack stack) {
-		String s = (I18n.format(ModItems.chemistry_template.getUnlocalizedName() + ".name")).trim();
-        String s1 = (I18n.format("chem." + EnumChemistryTemplate.getEnum(stack.getItemDamage()).name())).trim();
+		String s = ("" + I18n.format(ModItems.chemistry_template.getUnlocalizedName() + ".name")).trim();
+        String s1 = ("" + I18n.format("chem." + ChemplantRecipes.getName(stack))).trim();
 
         if (s1 != null)
         {
@@ -38,12 +39,9 @@ public class ItemChemistryIcon extends Item {
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> list) {
 		if(tab == this.getCreativeTab()){
-		for (int i = 0; i < EnumChemistryTemplate.values().length; ++i)
-			{
+		for (int i: ChemplantRecipes.recipeNames.keySet()){
 				list.add(new ItemStack(this, 1, i));
         	}
 		}
 	}
-	
-	
 }

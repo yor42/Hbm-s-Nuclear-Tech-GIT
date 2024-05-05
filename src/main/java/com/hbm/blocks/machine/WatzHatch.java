@@ -57,13 +57,12 @@ public class WatzHatch extends BlockContainer {
 					{
 						player.openGui(MainRegistry.instance, ModBlocks.guiID_watz_multiblock, world, pos.getX(), pos.getY(), pos.getZ() + 3);
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Watz Power Plant] Error: Reactor Structure not valid!"));
+						player.sendMessage(new TextComponentTranslation("chat.watz.structurebad"));
 					}
 				} else {
-					player.sendMessage(new TextComponentTranslation("[Watz Power Plant] Error: Reactor Core not found!"));
+					player.sendMessage(new TextComponentTranslation("chat.watz.corebad"));
 				}
-			}
-			if(e == EnumFacing.SOUTH)
+			} else if(e == EnumFacing.SOUTH)
 			{
 				if(world.getTileEntity(pos.add(0, 0, -3)) instanceof TileEntityWatzCore)
 				{
@@ -71,13 +70,12 @@ public class WatzHatch extends BlockContainer {
 					{
 						player.openGui(MainRegistry.instance, ModBlocks.guiID_watz_multiblock, world, pos.getX(), pos.getY(), pos.getZ() - 3);
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Watz Power Plant] Error: Reactor Structure not valid!"));
+						player.sendMessage(new TextComponentTranslation("chat.watz.structurebad"));
 					}
 				} else {
-					player.sendMessage(new TextComponentTranslation("[Watz Power Plant] Error: Reactor Core not found!"));
+					player.sendMessage(new TextComponentTranslation("chat.watz.corebad"));
 				}
-			}
-			if(e == EnumFacing.WEST)
+			} else if(e == EnumFacing.WEST)
 			{
 				if(world.getTileEntity(pos.add(3, 0, 0)) instanceof TileEntityWatzCore)
 				{
@@ -85,13 +83,12 @@ public class WatzHatch extends BlockContainer {
 					{
 						player.openGui(MainRegistry.instance, ModBlocks.guiID_watz_multiblock, world, pos.getX() + 3, pos.getY(), pos.getZ());
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Watz Power Plant] Error: Reactor Structure not valid!"));
+						player.sendMessage(new TextComponentTranslation("chat.watz.structurebad"));
 					}
 				} else {
-					player.sendMessage(new TextComponentTranslation("[Watz Power Plant] Error: Reactor Core not found!"));
+					player.sendMessage(new TextComponentTranslation("chat.watz.corebad"));
 				}
-			}
-			if(e == EnumFacing.EAST)
+			} else if(e == EnumFacing.EAST)
 			{
 				if(world.getTileEntity(pos.add(-3, 0, 0)) instanceof TileEntityWatzCore)
 				{
@@ -99,10 +96,10 @@ public class WatzHatch extends BlockContainer {
 					{
 						player.openGui(MainRegistry.instance, ModBlocks.guiID_watz_multiblock, world, pos.getX() - 3, pos.getY(), pos.getZ());
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Watz Power Plant] Error: Reactor Structure not valid!"));
+						player.sendMessage(new TextComponentTranslation("chat.watz.structurebad"));
 					}
 				} else {
-					player.sendMessage(new TextComponentTranslation("[Watz Power Plant] Error: Reactor Core not found!"));
+					player.sendMessage(new TextComponentTranslation("chat.watz.corebad"));
 				}
 			}
 			return true;

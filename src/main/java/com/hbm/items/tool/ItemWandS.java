@@ -1,7 +1,18 @@
 package com.hbm.items.tool;
 
 import com.hbm.items.ModItems;
+<<<<<<< HEAD
 import com.hbm.world.*;
+=======
+import com.hbm.util.I18nUtil;
+import com.hbm.world.FWatz;
+import com.hbm.world.FactoryAdvanced;
+import com.hbm.world.FactoryTitanium;
+import com.hbm.world.ParticleAccelerator;
+import com.hbm.world.NuclearReactor;
+import com.hbm.world.Watz;
+
+>>>>>>> upstream/Custom-1.12.2
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -29,31 +40,31 @@ public class ItemWandS extends Item {
 	
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add("Creative-only item");
-		tooltip.add("\"Instant structures for everyone!\"");
-		tooltip.add("(Cycle with shift-right click,");
-		tooltip.add("spawn structures with right click!)");
+		tooltip.add(I18nUtil.resolveKey("desc.creative"));
+		tooltip.add(I18nUtil.resolveKey("desc.structurewand.1"));
+		tooltip.add(I18nUtil.resolveKey("desc.structurewand.2"));
+		tooltip.add(I18nUtil.resolveKey("desc.structurewand.3"));
 		if(stack.getTagCompound() != null)
 		{
 			switch(stack.getTagCompound().getInteger("building"))
 			{
 			case 0:
-				tooltip.add("Structure: Titanium Factory");
+				tooltip.add(I18nUtil.resolveKey("desc.structurewand.factory"));
 				break;
 			case 1:
-				tooltip.add("Structure: Advanced Factory");
+				tooltip.add(I18nUtil.resolveKey("desc.structurewand.factoryadvanced"));
 				break;
 			case 2:
-				tooltip.add("Structure: Nuclear Reactor");
+				tooltip.add(I18nUtil.resolveKey("desc.structurewand.nuclear"));
 				break;
 			case 3:
-				tooltip.add("Structure: Particle Accelerator");
+				tooltip.add(I18nUtil.resolveKey("desc.structurewand.hadron"));
 				break;
 			case 4:
-				tooltip.add("Structure: Watz Power Plant");
+				tooltip.add(I18nUtil.resolveKey("desc.structurewand.watz"));
 				break;
 			case 5:
-				tooltip.add("Structure: Singularity-Anti-Fusion-Experiment Reactor");
+				tooltip.add(I18nUtil.resolveKey("desc.structurewand.safe"));
 				break;
 			}
 		}
@@ -116,7 +127,7 @@ public class ItemWandS extends Item {
 				stack.setTagCompound(new NBTTagCompound());
 				stack.getTagCompound().setInteger("building", 0);
 				if(world.isRemote)
-					player.sendMessage(new TextComponentTranslation("Set Structure: Titanium Factory"));
+					player.sendMessage(new TextComponentTranslation("chat.structurewand.set.factory"));
 			} else {
 				int i = stack.getTagCompound().getInteger("building");
 				i++;
@@ -130,25 +141,25 @@ public class ItemWandS extends Item {
 				switch(i)
 				{
 					case 0:
-						player.sendMessage(new TextComponentTranslation("Set Structure: Titanium Factory"));
+						player.sendMessage(new TextComponentTranslation("chat.structurewand.set.factory"));
 						break;
 					case 1:
-						player.sendMessage(new TextComponentTranslation("Set Structure: Advanced Factory"));
+						player.sendMessage(new TextComponentTranslation("chat.structurewand.set.factoryadvanced"));
 						break;
 					case 2:
-						player.sendMessage(new TextComponentTranslation("Set Structure: Nuclear Reactor"));
+						player.sendMessage(new TextComponentTranslation("chat.structurewand.set.nuclear"));
 						break;
 					case 3:
-						player.sendMessage(new TextComponentTranslation("Set Structure: Particle Accelerator"));
+						player.sendMessage(new TextComponentTranslation("chat.structurewand.set.hadron"));
 						break;
 					case 4:
-						player.sendMessage(new TextComponentTranslation("Set Structure: Watz Power Plant"));
+						player.sendMessage(new TextComponentTranslation("chat.structurewand.set.watz"));
 						break;
 					case 5:
-						player.sendMessage(new TextComponentTranslation("Set Structure: Singularity-Anti-Fusion-Experiment Reactor"));
+						player.sendMessage(new TextComponentTranslation("chat.structurewand.set.safe"));
 						break;
 					default:
-						player.sendMessage(new TextComponentTranslation("Set Structure: Titanium Factory"));
+						player.sendMessage(new TextComponentTranslation("chat.structurewand.set.factory"));
 						break;
 					}
 				}

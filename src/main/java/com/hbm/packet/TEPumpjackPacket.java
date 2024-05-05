@@ -66,7 +66,7 @@ public class TEPumpjackPacket implements IMessage {
 						gen.rotation = m.spin;
 						gen.isProgressing = m.progress;
 					}
-					} catch(Exception x) { }
+				} catch(Exception x) { }
 			});
 			
 			return null;

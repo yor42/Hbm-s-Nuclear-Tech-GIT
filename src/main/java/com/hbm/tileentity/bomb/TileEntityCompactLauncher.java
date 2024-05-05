@@ -1,23 +1,33 @@
 package com.hbm.tileentity.bomb;
 
-import api.hbm.energy.IEnergyUser;
+import java.util.List;
+
 import com.hbm.entity.missile.EntityMissileCustom;
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.handler.MissileStruct;
 import com.hbm.interfaces.ITankPacketAcceptor;
+import com.hbm.interfaces.IBomb;
 import com.hbm.items.ModItems;
 import com.hbm.items.weapon.ItemCustomMissile;
 import com.hbm.items.weapon.ItemMissile;
 import com.hbm.items.weapon.ItemMissile.FuelType;
 import com.hbm.items.weapon.ItemMissile.PartSize;
-import com.hbm.lib.ForgeDirection;
 import com.hbm.lib.HBMSoundHandler;
+import com.hbm.lib.ForgeDirection;
 import com.hbm.lib.Library;
 import com.hbm.main.MainRegistry;
-import com.hbm.packet.*;
+import com.hbm.packet.AuxElectricityPacket;
+import com.hbm.packet.AuxGaugePacket;
+import com.hbm.packet.FluidTankPacket;
+import com.hbm.packet.PacketDispatcher;
+import com.hbm.packet.TEMissileMultipartPacket;
 import com.hbm.render.amlfrom1710.Vec3;
 import com.hbm.tileentity.TileEntityLoadedBase;
+import net.minecraftforge.fml.common.Optional;
+
+import api.hbm.energy.IEnergyUser;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -31,7 +41,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
@@ -41,9 +55,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-import java.util.List;
+import li.cil.oc.api.machine.Arguments;
+import li.cil.oc.api.machine.Callback;
+import li.cil.oc.api.machine.Context;
+import li.cil.oc.api.network.SimpleComponent;
 
-public class TileEntityCompactLauncher extends TileEntityLoadedBase implements ITickable, IEnergyUser, IFluidHandler, ITankPacketAcceptor {
+@Optional.InterfaceList({@Optional.Interface(iface = "li.cil.oc.api.network.SimpleComponent", modid = "OpenComputers")})
+public class TileEntityCompactLauncher extends TileEntityLoadedBase implements ITickable, IEnergyUser, IFluidHandler, ITankPacketAcceptor, SimpleComponent {
 
 	public ItemStackHandler inventory;
 
@@ -59,6 +77,9 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 
 	private static final int[] access = new int[] { 0 };
 
+	public static final int clearingDuraction = 100;
+	public int clearingTimer = 0;
+	
 	private String customName;
 
 	public TileEntityCompactLauncher() {
@@ -111,6 +132,7 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 		updateTypes();
 		if(!world.isRemote) {
 
+			if(clearingTimer > 0) clearingTimer--;
 			if(this.inputValidForTank(0, 2))
 				if(FFUtils.fillFromFluidContainer(inventory, tanks[0], 2, 6))
 					needsUpdate = true;
@@ -140,7 +162,8 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 
 			PacketDispatcher.wrapper.sendToAllAround(new AuxElectricityPacket(pos, power), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
 			PacketDispatcher.wrapper.sendToAllAround(new AuxGaugePacket(pos, solid, 0), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
-			PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, tanks[0], tanks[1]), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
+			PacketDispatcher.wrapper.sendToAllAround(new AuxGaugePacket(pos, clearingTimer, 1), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
+			PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, new FluidTank[] { tanks[0], tanks[1] }), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 20));
 			MissileStruct multipart = getStruct(inventory.getStackInSlot(0));
 
 			if(multipart != null)
@@ -194,8 +217,11 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 	}
 
 	public boolean canLaunch() {
-        return power >= maxPower * 0.75 && isMissileValid() && hasDesignator() && hasFuel();
-    }
+		if(power >= maxPower * 0.75 && isMissileValid() && hasDesignator() && hasFuel() && clearingTimer == 0)
+			return true;
+
+		return false;
+	}
 
 	public void launch() {
 
@@ -223,7 +249,7 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 		world.spawnEntity(missile);
 
 		subtractFuel();
-
+		clearingTimer = clearingDuraction;
 		inventory.setStackInSlot(0, ItemStack.EMPTY);
 	}
 
@@ -239,7 +265,7 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 		if(multipart == null || multipart.fuselage == null)
 			return;
 
-		ItemMissile fuselage = multipart.fuselage;
+		ItemMissile fuselage = (ItemMissile) multipart.fuselage;
 
 		float f = (Float) fuselage.attributes[1];
 		int fuel = (int) f;
@@ -272,7 +298,9 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 
 	protected boolean inputValidForTank(int tank, int slot) {
 		if(tanks[tank] != null) {
-            return isValidFluidForTank(tank, FluidUtil.getFluidContained(inventory.getStackInSlot(slot)));
+			if(isValidFluidForTank(tank, FluidUtil.getFluidContained(inventory.getStackInSlot(slot)))) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -295,7 +323,7 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 		if(multipart == null || multipart.fuselage == null)
 			return false;
 
-		ItemMissile fuselage = multipart.fuselage;
+		ItemMissile fuselage = (ItemMissile) multipart.fuselage;
 
 		return fuselage.top == PartSize.SIZE_10;
 	}
@@ -317,9 +345,9 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 		if(multipart == null || multipart.fuselage == null)
 			return -1;
 
-		ItemMissile fuselage = multipart.fuselage;
+		ItemMissile fuselage = (ItemMissile) multipart.fuselage;
 
-		if(fuselage.attributes[0] == FuelType.SOLID) {
+		if((FuelType) fuselage.attributes[0] == FuelType.SOLID) {
 
 			if(solid >= (Float) fuselage.attributes[1])
 				return 1;
@@ -337,7 +365,7 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 		if(multipart == null || multipart.fuselage == null)
 			return -1;
 
-		ItemMissile fuselage = multipart.fuselage;
+		ItemMissile fuselage = (ItemMissile) multipart.fuselage;
 
 		switch((FuelType) fuselage.attributes[0]) {
 		case KEROSENE:
@@ -363,7 +391,7 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 		if(multipart == null || multipart.fuselage == null)
 			return -1;
 
-		ItemMissile fuselage = multipart.fuselage;
+		ItemMissile fuselage = (ItemMissile) multipart.fuselage;
 
 		switch((FuelType) fuselage.attributes[0]) {
 		case KEROSENE:
@@ -388,7 +416,7 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 		if(multipart == null || multipart.fuselage == null)
 			return;
 
-		ItemMissile fuselage = multipart.fuselage;
+		ItemMissile fuselage = (ItemMissile) multipart.fuselage;
 
 		switch((FuelType) fuselage.attributes[0]) {
 		case KEROSENE:
@@ -506,7 +534,8 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 	@Override
 	public void recievePacket(NBTTagCompound[] tags) {
 		if(tags.length != 2) {
-        } else {
+			return;
+		} else {
 			tanks[0].readFromNBT(tags[0]);
 			tanks[1].readFromNBT(tags[1]);
 		}
@@ -534,4 +563,42 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 		}
 	}
 
+	public boolean setCoords(int x, int z){
+		if(!inventory.getStackInSlot(1).isEmpty() && (inventory.getStackInSlot(1).getItem() == ModItems.designator || inventory.getStackInSlot(1).getItem() == ModItems.designator_range || inventory.getStackInSlot(1).getItem() == ModItems.designator_manual)){
+			NBTTagCompound nbt;
+			if(inventory.getStackInSlot(1).hasTagCompound())
+				nbt = inventory.getStackInSlot(1).getTagCompound();
+			else
+				nbt = new NBTTagCompound();
+			nbt.setInteger("xCoord", x);
+			nbt.setInteger("zCoord", z);
+			inventory.getStackInSlot(1).setTagCompound(nbt);
+			return true;
+		}
+		return false;
+	}
+
+	// opencomputers interface
+
+	@Override
+	public String getComponentName() {
+		return "launchpad_compact";
+	}
+
+	@Callback(doc = "setTarget(x:int, z:int); saves coords in target designator item - returns true if it worked")
+	public Object[] setTarget(Context context, Arguments args) {
+		int x = args.checkInteger(0);
+		int z = args.checkInteger(1);
+		
+		return new Object[] {setCoords(x, z)};
+	}
+
+	@Callback(doc = "launch(); tries to launch the rocket")
+	public Object[] launch(Context context, Arguments args) {
+		Block b = world.getBlockState(pos).getBlock();
+		if(b instanceof IBomb){
+			((IBomb)b).explode(world, pos);
+		}
+		return new Object[] {null};
+	}
 }

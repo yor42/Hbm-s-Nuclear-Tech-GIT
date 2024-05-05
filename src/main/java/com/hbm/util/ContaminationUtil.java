@@ -7,6 +7,16 @@ import com.hbm.capability.HbmLivingProps;
 import com.hbm.config.CompatibilityConfig;
 import com.hbm.config.GeneralConfig;
 import com.hbm.entity.mob.EntityQuackos;
+import com.hbm.entity.projectile.EntityBulletBase;
+import com.hbm.entity.projectile.EntityExplosiveBeam;
+import com.hbm.entity.projectile.EntityMiniMIRV;
+import com.hbm.entity.projectile.EntityMiniNuke;
+import com.hbm.entity.effect.EntityNukeTorex;
+import com.hbm.entity.effect.EntityBlackHole;
+import com.hbm.entity.logic.EntityNukeExplosionMK5;
+import com.hbm.entity.grenade.EntityGrenadeASchrab;
+import com.hbm.entity.grenade.EntityGrenadeNuclear;
+import com.hbm.entity.missile.EntityMIRV;
 import com.hbm.handler.ArmorUtil;
 import com.hbm.handler.HazmatRegistry;
 import com.hbm.interfaces.IItemHazard;
@@ -14,6 +24,9 @@ import com.hbm.interfaces.IRadiationImmune;
 import com.hbm.items.ModItems;
 import com.hbm.lib.Library;
 import com.hbm.lib.ModDamageSource;
+import com.hbm.render.amlfrom1710.Vec3;
+import com.hbm.util.ArmorRegistry.HazardClass;
+import com.hbm.util.BobMathUtil;
 import com.hbm.potion.HbmPotion;
 import com.hbm.render.amlfrom1710.Vec3;
 import com.hbm.saveddata.RadiationSavedData;
@@ -27,7 +40,10 @@ import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.passive.EntitySkeletonHorse;
 import net.minecraft.entity.passive.EntityZombieHorse;
+import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -220,13 +236,16 @@ public class ContaminationUtil {
 		float playerAsbestos = 100F-((int)(10000F * HbmLivingProps.getAsbestos(player) / EntityHbmProps.maxAsbestos))/100F;
 		float playerBlacklung = 100F-((int)(10000F * HbmLivingProps.getBlackLung(player) / EntityHbmProps.maxBlacklung))/100F;
 		float playerTotal = (playerAsbestos * playerBlacklung/100F);
-		
+		int contagion = HbmLivingProps.getContagion(player);
 
 		player.sendMessage(new TextComponentString("===== L ").appendSibling(new TextComponentTranslation("lung_scanner.title")).appendSibling(new TextComponentString(" L =====")).setStyle(new Style().setColor(TextFormatting.WHITE)));
 		player.sendMessage(new TextComponentTranslation("lung_scanner.player_asbestos_health").setStyle(new Style().setColor(TextFormatting.WHITE)).appendSibling(new TextComponentString(String.format(getTextColorLung(playerAsbestos/100D)+" %6.2f", playerAsbestos)+" %")));
 		player.sendMessage(new TextComponentTranslation("lung_scanner.player_coal_health").setStyle(new Style().setColor(TextFormatting.DARK_GRAY)).appendSibling(new TextComponentString(String.format(getTextColorLung(playerBlacklung/100D)+" %6.2f", playerBlacklung)+" %")));
 		player.sendMessage(new TextComponentTranslation("lung_scanner.player_total_health").setStyle(new Style().setColor(TextFormatting.GRAY)).appendSibling(new TextComponentString(String.format(getTextColorLung(playerTotal/100D)+" %6.2f", playerTotal)+" %")));
-	
+		player.sendMessage(new TextComponentTranslation("lung_scanner.player_mku").setStyle(new Style().setColor(TextFormatting.GRAY)).appendSibling(new TextComponentTranslation(contagion > 0 ? "lung_scanner.pos" : "lung_scanner.neg" )));
+		if(contagion > 0){
+			player.sendMessage(new TextComponentTranslation("lung_scanner.player_mku_duration").setStyle(new Style().setColor(TextFormatting.GRAY)).appendSibling(new TextComponentString(" §c"+BobMathUtil.ticksToDateString(contagion, 72000))));
+		}
 	}
 
 	public static double getStackRads(ItemStack stack) {
@@ -263,10 +282,10 @@ public class ContaminationUtil {
 	}
 
 	public static double getPlayerRads(EntityLivingBase entity) {
-		float rads = HbmLivingProps.getRadBuf(entity);
+		double rads = HbmLivingProps.getRadBuf(entity);
 		if(entity instanceof EntityPlayer)
-			 rads = rads + HbmLivingProps.getNeutron(entity)*20F;
-		return rads;
+			 rads = rads + HbmLivingProps.getNeutron((EntityPlayer)entity)*20;
+		return (double)rads;
 	}
 
 	public static double getNoNeutronPlayerRads(EntityLivingBase entity) {
@@ -425,6 +444,7 @@ public class ContaminationUtil {
 				e instanceof EntityMooshroom ||
 				e instanceof EntityZombieHorse ||
 				e instanceof EntitySkeletonHorse ||
+				e instanceof EntityArmorStand ||
 				e instanceof IRadiationImmune || checkConfigEntityImmunity(e);
 	}
 	
@@ -550,22 +570,29 @@ public class ContaminationUtil {
 	}
 
 	public static void radiate(World world, double x, double y, double z, double range, float rad3d) {
-		radiate(world, x, y, z, range, rad3d, 0, 0);
-	}
-
-	public static void radiate(World world, double x, double y, double z, double range, float rad3d, float fire3d) {
-		radiate(world, x, y, z, range, rad3d, 0, fire3d);
+		radiate(world, x, y, z, range, rad3d, 0, 0, 0, 0);
 	}
 
 	public static void radiate(World world, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d) {
+		radiate(world, x, y, z, range, rad3d, dig3d, fire3d, 0, 0);
+	}
+
+	public static void radiate(World world, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d, float blast3d) {
+		radiate(world, x, y, z, range, rad3d, dig3d, fire3d, blast3d, range);
+	}
+
+	public static void radiate(World world, double x, double y, double z, double range, float rad3d, float dig3d, float fire3d, float blast3d, double blastRange) {
+		List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(x-range, y-range, z-range, x+range, y+range, z+range));
 		
-		List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x, y, z, x, y, z).grow(range, range, range));
-		
-		for(EntityLivingBase e : entities) {
-			
+		for(Entity e : entities) {
+			if(isExplosionExempt(e)) continue;
+
 			Vec3 vec = Vec3.createVectorHelper(e.posX - x, (e.posY + e.getEyeHeight()) - y, e.posZ - z);
 			double len = vec.lengthVector();
+
+			if(len > range) continue;
 			vec = vec.normalize();
+			double dmgLen = Math.max(len, range * 0.05D);
 			
 			float res = 0;
 			
@@ -574,46 +601,83 @@ public class ContaminationUtil {
 				int ix = (int)Math.floor(x + vec.xCoord * i);
 				int iy = (int)Math.floor(y + vec.yCoord * i);
 				int iz = (int)Math.floor(z + vec.zCoord * i);
-				
 				res += world.getBlockState(new BlockPos(ix, iy, iz)).getBlock().getExplosionResistance(null);
 			}
+			boolean isLiving = e instanceof EntityLivingBase;
 			
 			if(res < 1)
 				res = 1;
-			if(rad3d > 0){
+			if(isLiving && rad3d > 0){
 				float eRads = rad3d;
-				eRads /= res;
-				eRads /= (float)(len * len);
+				eRads /= (float)(dmgLen * dmgLen * Math.sqrt(res));
 				
-				contaminate(e, HazardType.RADIATION, ContaminationType.CREATIVE, eRads);
+				contaminate((EntityLivingBase)e, HazardType.RADIATION, ContaminationType.CREATIVE, eRads);
 			}
-			if(dig3d > 0){
+			if(isLiving && dig3d > 0){
 				float eDig = dig3d;
-				eDig /= res;
-				eDig /= (float)(len * len);
+				eDig /= (float)(dmgLen * dmgLen * dmgLen);
 				
-				contaminate(e, HazardType.DIGAMMA, ContaminationType.DIGAMMA, eDig);
+				contaminate((EntityLivingBase)e, HazardType.DIGAMMA, ContaminationType.DIGAMMA, eDig);
 			}
 			
-			if(len < 15 && fire3d > 0) {
+			if(fire3d > 0.025) {
 				float fireDmg = fire3d;
-				fireDmg /= (float)Math.sqrt(res);
-				fireDmg /= (float)(len * len);
-				e.attackEntityFrom(DamageSource.IN_FIRE, fireDmg);
-			}
-			
-			if(e instanceof EntityPlayer && len < 10) {
-				EntityPlayer p = (EntityPlayer) e;
-				
-				if(p.getHeldItemMainhand().getItem() == ModItems.marshmallow && p.getRNG().nextInt(100) == 0) {
-					p.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(ModItems.marshmallow_roasted));
-				}
+				fireDmg /= (float)(dmgLen * dmgLen * res * res);
+				if(fireDmg > 0.025){
+					if(fireDmg > 0.1 && e instanceof EntityPlayer) {
+						EntityPlayer p = (EntityPlayer) e;
+						
+						if(p.getHeldItemMainhand().getItem() == ModItems.marshmallow && p.getRNG().nextInt((int)len) == 0) {
+							p.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(ModItems.marshmallow_roasted));
+						}
 
-				if(p.getHeldItemOffhand().getItem() == ModItems.marshmallow && p.getRNG().nextInt(100) == 0) {
-					p.setHeldItem(EnumHand.OFF_HAND, new ItemStack(ModItems.marshmallow_roasted));
+						if(p.getHeldItemOffhand().getItem() == ModItems.marshmallow && p.getRNG().nextInt((int)len) == 0) {
+							p.setHeldItem(EnumHand.OFF_HAND, new ItemStack(ModItems.marshmallow_roasted));
+						}
+					}
+					e.attackEntityFrom(DamageSource.IN_FIRE, fireDmg);
+					e.setFire(5);
 				}
+			}
+
+			if(len < blastRange && blast3d > 0.025) {
+				float blastDmg = blast3d;
+				blastDmg /= (float)(dmgLen * dmgLen * res);
+				if(blastDmg > 0.025){
+					if(rad3d > 0)
+						e.attackEntityFrom(ModDamageSource.nuclearBlast, blastDmg);
+					else
+						e.attackEntityFrom(ModDamageSource.blast, blastDmg);
+				}
+				e.motionX += vec.xCoord * 0.005D * blastDmg;
+				e.motionY += vec.yCoord * 0.005D * blastDmg;
+				e.motionZ += vec.zCoord * 0.005D * blastDmg;
 			}
 		}
+	}
+
+	private static boolean isExplosionExempt(Entity e) {
+
+		if (e instanceof EntityOcelot ||
+				e instanceof EntityNukeTorex ||
+				e instanceof EntityNukeExplosionMK5 ||
+				e instanceof EntityMIRV ||
+				e instanceof EntityMiniNuke ||
+				e instanceof EntityMiniMIRV ||
+				e instanceof EntityGrenadeASchrab ||
+				e instanceof EntityGrenadeNuclear ||
+				e instanceof EntityExplosiveBeam ||
+				e instanceof EntityBulletBase ||
+				(e instanceof EntityPlayer &&
+				ArmorUtil.checkArmor((EntityPlayer) e, ModItems.euphemium_helmet, ModItems.euphemium_plate, ModItems.euphemium_legs, ModItems.euphemium_boots))) {
+			return true;
+		}
+
+		if(e instanceof EntityPlayer && (((EntityPlayer)e).isCreative() || ((EntityPlayer)e).isSpectator())) {
+			return true;
+		}
+
+		return false;
 	}
 
 	

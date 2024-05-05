@@ -1,23 +1,28 @@
 package com.hbm.entity.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.hbm.config.CompatibilityConfig;
+import com.hbm.entity.logic.IChunkLoader;
+import com.hbm.main.MainRegistry;
+import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.ForgeChunkManager.Ticket;
+import net.minecraftforge.common.ForgeChunkManager.Type;
+import net.minecraft.util.math.ChunkPos;
+
+import org.apache.logging.log4j.Level;
 
 import com.hbm.config.GeneralConfig;
+import com.hbm.util.ContaminationUtil;
 import com.hbm.explosion.ExplosionBalefire;
-import com.hbm.explosion.ExplosionNukeGeneric;
 import com.hbm.main.MainRegistry;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeChunkManager;
-import net.minecraftforge.common.ForgeChunkManager.Ticket;
-import net.minecraftforge.common.ForgeChunkManager.Type;
-import org.apache.logging.log4j.Level;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class EntityBalefire extends Entity implements IChunkLoader {
 
@@ -41,7 +46,6 @@ public class EntityBalefire extends Entity implements IChunkLoader {
 		exp.readFromNbt(nbt, "exp_");
     	
     	this.did = true;
-		
 	}
 
 	@Override
@@ -64,7 +68,10 @@ public class EntityBalefire extends Entity implements IChunkLoader {
     @Override
 	public void onUpdate() {
         super.onUpdate();
-        	
+        if(!CompatibilityConfig.isWarDim(world)){
+			this.setDead();
+			return;
+		}
         if(!this.did)
         {
     		if(GeneralConfig.enableExtendedLogging && !world.isRemote)
@@ -88,14 +95,15 @@ public class EntityBalefire extends Entity implements IChunkLoader {
         	}
         }
         
-    	if(!mute && rand.nextInt(5) == 0)
-        	this.world.playSound(null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.AMBIENT, 10000.0F, 0.8F + this.rand.nextFloat() * 0.2F);
-        	
         if(!flag)
         {
-        	if(!mute)
-        		this.world.playSound(null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.AMBIENT, 10000.0F, 0.8F + this.rand.nextFloat() * 0.2F);
-        	ExplosionNukeGeneric.dealDamage(this.world, this.posX, this.posY, this.posZ, this.destructionRange * 2);
+        	if(this.destructionRange > 15){
+				this.world.playSound(null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.AMBIENT, this.destructionRange * 0.05F, 0.8F + this.rand.nextFloat() * 0.2F);
+			}else{
+				if(rand.nextInt(5) == 0)
+					this.world.playSound(null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.AMBIENT, this.destructionRange * 0.05F, 0.8F + this.rand.nextFloat() * 0.2F);
+			}
+        	ContaminationUtil.radiate(this.world, this.posX, this.posY, this.posZ, this.destructionRange*2D, this.destructionRange*2000F, 0F, this.destructionRange*100F, this.destructionRange*500F);
         }
         
         age++;

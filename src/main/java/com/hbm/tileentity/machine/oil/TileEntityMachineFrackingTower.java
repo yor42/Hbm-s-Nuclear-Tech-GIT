@@ -111,17 +111,17 @@ public class TileEntityMachineFrackingTower extends TileEntityOilDrillBase {
                     // drill is jammed
                     // warning 2, yellow: drill has reached max depth
 
-                    for(int i = pos.getY() - 1; i > pos.getY() - 1 - 100; i--) {
+                    for(int i = pos.getY() - 1; i > pos.getY() - 1 - 250; i--) {
 
                         Block b = world.getBlockState(new BlockPos(pos.getX(), i, pos.getZ())).getBlock();
                         if(b == ModBlocks.oil_pipe)
                             continue;
 
-                        if((b.isReplaceable(world, new BlockPos(pos.getX(), i, pos.getZ())) || b.getExplosionResistance(null) < 100) && !(b == ModBlocks.ore_oil || b == ModBlocks.ore_oil_empty)) {
+                        if((b.isReplaceable(world, new BlockPos(pos.getX(), i, pos.getZ())) || b.getExplosionResistance(null) < 1000) && !(b == ModBlocks.ore_oil || b == ModBlocks.ore_oil_empty)) {
                             world.setBlockState(new BlockPos(pos.getX(), i, pos.getZ()), ModBlocks.oil_pipe.getDefaultState());
 
                             // Code 2: The drilling ended
-                            if(i == pos.getY() - 200)
+                            if(i == pos.getY() - 250)
                                 warning = 2;
                             break;
 
@@ -154,7 +154,7 @@ public class TileEntityMachineFrackingTower extends TileEntityOilDrillBase {
 
                                 break;
                             } else {
-                                world.setBlockState(new BlockPos(pos.getX(), i, pos.getZ()), ModBlocks.oil_pipe.getDefaultState());
+                                warning = 2;
                                 break;
                             }
 

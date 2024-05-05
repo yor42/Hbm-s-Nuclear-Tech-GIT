@@ -12,6 +12,11 @@ import com.hbm.render.util.BakedModelUtil;
 import com.hbm.render.util.BakedModelUtil.DecalType;
 import com.hbm.tileentity.conductor.TileEntityFFDuctBaseMk2;
 import com.hbm.tileentity.network.energy.TileEntityPylonBase;
+<<<<<<< HEAD
+=======
+
+import com.hbm.util.I18nUtil;
+>>>>>>> upstream/Custom-1.12.2
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
@@ -29,7 +34,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
@@ -68,7 +73,7 @@ public class ItemWandD extends Item {
 				TileEntityPylonBase te = (TileEntityPylonBase) world.getTileEntity(pos);
 				for(int i = 0; i < te.connected.size(); i++)
 					if(world.isRemote)
-						player.sendMessage(new TextComponentTranslation(te.connected.get(i).getX() + " " + te.connected.get(i).getY() + " " + te.connected.get(i).getZ()));
+						player.sendMessage(new TextComponentString(te.connected.get(i).getX() + " " + te.connected.get(i).getY() + " " + te.connected.get(i).getZ()));
 			}
 			
 			if(player.isSneaking()){
@@ -155,7 +160,7 @@ public class ItemWandD extends Item {
 		if(player.isSneaking())
 		{
 			if(world.isRemote)
-				player.sendMessage(new TextComponentTranslation(MainRegistry.x + " " + MainRegistry.y + " " + MainRegistry.z));
+				player.sendMessage(new TextComponentString(MainRegistry.x + " " + MainRegistry.y + " " + MainRegistry.z));
 		} else {
 			if(!world.isRemote){
 				RayTraceResult r = Library.rayTraceIncludeEntities(player, 50, 1);
@@ -181,6 +186,6 @@ public class ItemWandD extends Item {
 	
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add("Used for debugging purposes.");
+		tooltip.add(I18nUtil.resolveKey("desc.debugwand"));
 	}
 }

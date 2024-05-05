@@ -1,6 +1,10 @@
 package com.hbm.entity.projectile;
 
+import java.util.List;
+
+import com.hbm.config.CompatibilityConfig;
 import com.hbm.lib.ModDamageSource;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -19,12 +23,14 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketChangeGameState;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
 
 public class EntityMinerBeam extends Entity implements IProjectile {
 
@@ -132,7 +138,7 @@ public class EntityMinerBeam extends Entity implements IProjectile {
 
         if (blockstate.getMaterial() != Material.AIR)
         {
-        	if(!world.isRemote) {
+        	if(!world.isRemote && CompatibilityConfig.isWarDim(world)) {
         		this.dropMinedItem(this.world, field_145791_d, field_145792_e, field_145789_f);
         	}
     		this.setDead();
@@ -164,7 +170,7 @@ public class EntityMinerBeam extends Entity implements IProjectile {
 
             for (i = 0; i < list.size(); ++i)
             {
-                Entity entity1 = list.get(i);
+                Entity entity1 = (Entity)list.get(i);
 
                 if (entity1.canBeCollidedWith() && (entity1 != this.shootingEntity || this.ticksInAir >= 5))
                 {
@@ -203,7 +209,7 @@ public class EntityMinerBeam extends Entity implements IProjectile {
             float f2;
             float f4;
 
-            if (movingobjectposition != null)
+            if (movingobjectposition != null && CompatibilityConfig.isWarDim(world))
             {
                 if (movingobjectposition.entityHit != null)
                 {

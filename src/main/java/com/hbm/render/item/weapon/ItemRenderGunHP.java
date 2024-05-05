@@ -12,7 +12,7 @@ import org.lwjgl.opengl.GL11;
 public class ItemRenderGunHP extends TEISRBase {
 
 	protected ModelHP hppLaserjet;
-	protected ResourceLocation hp_loc = new ResourceLocation(RefStrings.MODID +":textures/models/ModelHP.png");
+	protected ResourceLocation hp_loc = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelHP.png");
 	
 	public ItemRenderGunHP() {
 		hppLaserjet = new ModelHP();

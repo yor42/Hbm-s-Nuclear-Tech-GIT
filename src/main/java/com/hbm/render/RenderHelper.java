@@ -1,19 +1,48 @@
 package com.hbm.render;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL13;
+import org.lwjgl.opengl.GL14;
+import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL30;
+import org.lwjgl.util.glu.Project;
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector4f;
+
 import com.hbm.entity.missile.EntityCarrier;
-import com.hbm.entity.missile.EntityMissileBaseAdvanced;
 import com.hbm.entity.missile.EntityMissileCustom;
+import com.hbm.entity.missile.EntityMissileAntiBallistic;
+import com.hbm.entity.missile.EntityMissileBaseAdvanced;
 import com.hbm.handler.HbmShaderManager2;
 import com.hbm.lib.Library;
 import com.hbm.main.ClientProxy;
 import com.hbm.main.MainRegistry;
 import com.hbm.main.ResourceManager;
 import com.hbm.util.BobMathUtil;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GLAllocation;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.ViewFrustum;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.chunk.RenderChunk;
@@ -37,21 +66,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.*;
-import org.lwjgl.util.glu.Project;
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 @SideOnly(Side.CLIENT)
 public class RenderHelper {
 	
@@ -59,10 +73,10 @@ public class RenderHelper {
 	public static Field r_viewFrustum;
 	public static Method r_getRenderChunk;
 	
-	private static final FloatBuffer MODELVIEW = GLAllocation.createDirectFloatBuffer(16);
-	private static final FloatBuffer PROJECTION = GLAllocation.createDirectFloatBuffer(16);
-	private static final IntBuffer VIEWPORT = GLAllocation.createDirectIntBuffer(16);
-	private static final FloatBuffer POSITION = GLAllocation.createDirectFloatBuffer(4);
+	private static FloatBuffer MODELVIEW = GLAllocation.createDirectFloatBuffer(16);
+	private static FloatBuffer PROJECTION = GLAllocation.createDirectFloatBuffer(16);
+	private static IntBuffer VIEWPORT = GLAllocation.createDirectIntBuffer(16);
+	private static FloatBuffer POSITION = GLAllocation.createDirectFloatBuffer(4);
 	
 	public static boolean useFullPost = true;
 	public static boolean flashlightInit = false;
@@ -92,7 +106,7 @@ public class RenderHelper {
 	//Render them here
 	private static boolean flashlightLock = false;
 	//List of future flashlights to render;
-	private static final List<Runnable> flashlightQueue = new ArrayList<>();
+	private static List<Runnable> flashlightQueue = new ArrayList<>();
 	
 	/**
 	 * 
@@ -183,6 +197,7 @@ public class RenderHelper {
 		BufferBuilder buf = tes.getBuffer();
 		buf.pos(x, y, z).tex(u, v).endVertex();
 	}
+
 	public static void startDrawingTexturedQuads(){
 		startDrawingTexturedQuads(Tessellator.getInstance());
 	}
@@ -191,6 +206,9 @@ public class RenderHelper {
 	}
 	public static void startDrawingTexturedQuads(Tessellator tes){
 		tes.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+	}
+	public static void startDrawingColoredTriangles(Tessellator tes){
+		tes.getBuffer().begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
 	}
 	public static void draw(){
 		draw(Tessellator.getInstance());
@@ -271,11 +289,15 @@ public class RenderHelper {
 	
 	public static void addVertexColor(double x, double y, double z, int red, int green, int blue, int alpha){
 		Tessellator.getInstance().getBuffer().pos(x, y, z).color(red, green, blue, alpha).endVertex();
-    }
+	}
 	
 	public static void addVertexColor(double x, double y, double z, float red, float green, float blue, float alpha){
 		Tessellator.getInstance().getBuffer().pos(x, y, z).color(red, green, blue, alpha).endVertex();
-    }
+	}
+
+	public static void addVertexColor(double x, double y, double z, float red, float green, float blue, float alpha, Tessellator tess){
+		tess.getBuffer().pos(x, y, z).color(red, green, blue, alpha).endVertex();
+	}
 
 	public static void renderAll(IBakedModel boxcar) {
 		Tessellator tes = Tessellator.getInstance();
@@ -294,25 +316,25 @@ public class RenderHelper {
 	 * @return A three element double array, containing the render pos x at index 0, y at index 1, and z at index 2
 	 */
 	public static double[] getRenderPosFromMissile(EntityMissileBaseAdvanced missile, float partialTicks){
-		double d0 = missile.prevPosX + (missile.posX - missile.prevPosX) * (double) partialTicks;
-		double d1 = missile.prevPosY + (missile.posY - missile.prevPosY) * (double) partialTicks;
-		double d2 = missile.prevPosZ + (missile.posZ - missile.prevPosZ) * (double) partialTicks;
+		double d0 = missile.prevPosX + (missile.posX - missile.prevPosX) * partialTicks;
+		double d1 = missile.prevPosY + (missile.posY - missile.prevPosY) * partialTicks;
+		double d2 = missile.prevPosZ + (missile.posZ - missile.prevPosZ) * partialTicks;
 		Entity entity = Minecraft.getMinecraft().getRenderViewEntity();
-		double d3 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks;
-		double d4 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks;
-		double d5 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) partialTicks;
+		double d3 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+		double d4 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+		double d5 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
 		
 		return new double[]{d0 - d3, d1 - d4, d2 - d5};
 	}
 
 	public static double[] getRenderPosFromMissile(EntityMissileCustom missile, float partialTicks){
-		double d0 = missile.prevPosX + (missile.posX - missile.prevPosX) * (double) partialTicks;
-		double d1 = missile.prevPosY + (missile.posY - missile.prevPosY) * (double) partialTicks;
-		double d2 = missile.prevPosZ + (missile.posZ - missile.prevPosZ) * (double) partialTicks;
+		double d0 = missile.prevPosX + (missile.posX - missile.prevPosX) * partialTicks;
+		double d1 = missile.prevPosY + (missile.posY - missile.prevPosY) * partialTicks;
+		double d2 = missile.prevPosZ + (missile.posZ - missile.prevPosZ) * partialTicks;
 		Entity entity = Minecraft.getMinecraft().getRenderViewEntity();
-		double d3 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks;
-		double d4 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks;
-		double d5 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) partialTicks;
+		double d3 = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
+		double d4 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
+		double d5 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
 		
 		return new double[]{d0 - d3, d1 - d4, d2 - d5};
 	}
@@ -702,98 +724,7 @@ public class RenderHelper {
         GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, deferredFbo);
         GlStateManager.viewport(0, 0, RenderHelper.width, RenderHelper.height);
         
-        if(!useFullPost){
-        	/*
-	        enableBlockVBOs();
-	        ResourceManager.flashlight_new.use();
-	        sendFlashlightUniforms(ResourceManager.flashlight_new.getShaderId(), new Vec3d(entPosX, entPosY, entPosZ), start, startToEnd.normalize(), (float)height, degrees, cookie);
-	       
-	        GL11.glPushMatrix();
-	        GlStateManager.doPolygonOffset(-4, -4);
-	        */
-	        //setup necessary matrices
-	        /*Matrix4f flashlight_view = new Matrix4f();
-	        Matrix4f flashlight_project = new Matrix4f();
-	        flashlight_view.load(ClientProxy.AUX_GL_BUFFER2);
-	        flashlight_project.load(ClientProxy.AUX_GL_BUFFER);
-	        ClientProxy.AUX_GL_BUFFER2.rewind();
-	        ClientProxy.AUX_GL_BUFFER.rewind();
-	       // Matrix4f.mul(flashlight_project, flashlight_view, flashlight_view);
-	        flashlight_view.store(ClientProxy.AUX_GL_BUFFER);
-	        ClientProxy.AUX_GL_BUFFER.rewind();*/
-	        /*ClientProxy.AUX_GL_BUFFER.put(projecion);
-	        ClientProxy.AUX_GL_BUFFER.rewind();
-	        GL20.glUniformMatrix4(GL20.glGetUniformLocation(ResourceManager.flashlight_new.getShaderId(), "shadow_view"), false, ClientProxy.AUX_GL_BUFFER2);
-	        GL20.glUniformMatrix4(GL20.glGetUniformLocation(ResourceManager.flashlight_new.getShaderId(), "shadow_proj"), false, ClientProxy.AUX_GL_BUFFER);
-	        
-	        GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, ClientProxy.AUX_GL_BUFFER);
-	        ClientProxy.AUX_GL_BUFFER.rewind();
-	        GL20.glUniformMatrix4(GL20.glGetUniformLocation(ResourceManager.flashlight_new.getShaderId(), "mc_view"), false, ClientProxy.AUX_GL_BUFFER);
-	        
-	        bindBlockTexture();
-	        
-	        GL11.glLoadIdentity();
-	       
-	        renderChunks(toRender, entPosX, entPosY, entPosZ);
-	        
-	        disableBlockVBOs();
-	        OpenGlHelper.glBindBuffer(OpenGlHelper.GL_ARRAY_BUFFER, 0);
-	        
-	        ResourceManager.flashlight_nogeo.use();
-	        GL20.glUniformMatrix4(GL20.glGetUniformLocation(ResourceManager.flashlight_nogeo.getShaderId(), "mc_view"), false, ClientProxy.AUX_GL_BUFFER);
-	        sendFlashlightUniforms(ResourceManager.flashlight_nogeo.getShaderId(), playerPos, start, startToEnd.normalize(), (float)height, degrees, cookie);
-	        ClientProxy.AUX_GL_BUFFER.put(projecion);
-	        ClientProxy.AUX_GL_BUFFER.rewind();
-	        GL20.glUniformMatrix4(GL20.glGetUniformLocation(ResourceManager.flashlight_nogeo.getShaderId(), "shadow_view"), false, ClientProxy.AUX_GL_BUFFER2);
-	        GL20.glUniformMatrix4(GL20.glGetUniformLocation(ResourceManager.flashlight_nogeo.getShaderId(), "shadow_proj"), false, ClientProxy.AUX_GL_BUFFER);
-	        
-	        GlStateManager.enableDepth();
-	        GlStateManager.depthMask(true);
-	        
-	        for(Entity ent : entitiesToRender){
-	        	Minecraft.getMinecraft().getRenderManager().renderEntityStatic(ent, partialTicks, false);
-	        }
-	        for(TileEntity te : tilesToRender){
-	        	TileEntityRendererDispatcher.instance.render(te, partialTicks, -1);
-	        }
-	        
-	        GlStateManager.disableBlend();
-	        
-	       
-	        HbmShaderManager2.releaseShader();
-	        GlStateManager.resetColor();
-	        GlStateManager.disablePolygonOffset();
-	        
-	        GL11.glPopMatrix();
-	       
-	        Minecraft.getMinecraft().getFramebuffer().bindFramebuffer(true);
-	        GlStateManager.enableBlend();
-	        GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE);
-	        ResourceManager.flashlight_deferred.use();
-	        
-	        Vec3d pos = start.subtract(entPosX, entPosY, entPosZ);
-	        GL20.glUniform3f(GL20.glGetUniformLocation(ResourceManager.flashlight_deferred.getShaderId(), "pos"), (float) pos.x, (float) pos.y, (float) pos.z);
-	        GL20.glUniform1f(GL20.glGetUniformLocation(ResourceManager.flashlight_deferred.getShaderId(), "height"), (float) height);
-	        
-	        bindTexture(cookie);
-	        GlStateManager.setActiveTexture(GL13.GL_TEXTURE3);
-	        GlStateManager.bindTexture(deferredColorTex);
-	        GL20.glUniform1i(GL20.glGetUniformLocation(ResourceManager.flashlight_deferred.getShaderId(), "colors"), 3);
-	        GlStateManager.setActiveTexture(GL13.GL_TEXTURE4);
-	        GlStateManager.bindTexture(deferredPositionTex);
-	        GL20.glUniform1i(GL20.glGetUniformLocation(ResourceManager.flashlight_deferred.getShaderId(), "positions"), 4);
-	        GlStateManager.setActiveTexture(GL13.GL_TEXTURE5);
-	        GlStateManager.bindTexture(deferredProjCoordTex);
-	        GL20.glUniform1i(GL20.glGetUniformLocation(ResourceManager.flashlight_deferred.getShaderId(), "proj_coords"), 5);
-	        GlStateManager.setActiveTexture(GL13.GL_TEXTURE6);
-	        GlStateManager.bindTexture(deferredNormalTex);
-	        GL20.glUniform1i(GL20.glGetUniformLocation(ResourceManager.flashlight_deferred.getShaderId(), "normals"), 6);
-	        GlStateManager.setActiveTexture(GL13.GL_TEXTURE7);
-	        GlStateManager.bindTexture(shadowFboTex);
-	        GL20.glUniform1i(GL20.glGetUniformLocation(ResourceManager.flashlight_deferred.getShaderId(), "shadowTex"), 7);
-	        GlStateManager.setActiveTexture(GL13.GL_TEXTURE0);
-	        */
-        } else {
+        if(useFullPost){
         	GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, deferredFbo);
         	
         	ResourceManager.flashlight_post.use();
@@ -896,7 +827,7 @@ public class RenderHelper {
         }
         buf.pos(0, 0, 0).endVertex();
         buf.pos(vertices[sides*3], vertices[sides*3+1], vertices[sides*3+2]).endVertex();
-        buf.pos(vertices[3], vertices[3 +1], vertices[3 +2]).endVertex();
+        buf.pos(vertices[1*3], vertices[1*3+1], vertices[1*3+2]).endVertex();
 		
         for(int i = 1; i < sides-1; i ++){
         	buf.pos(vertices[3], vertices[3+1], vertices[3+2]).endVertex();
@@ -1153,5 +1084,4 @@ public class RenderHelper {
 	public static float[] getBoxCenter(float[] box){
 		return new float[]{box[0]+(box[2]-box[0])*0.5F, box[1]+(box[3]-box[1])*0.5F};
 	}
-	
 }

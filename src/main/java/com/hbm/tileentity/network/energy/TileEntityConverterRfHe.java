@@ -1,14 +1,18 @@
 package com.hbm.tileentity.network.energy;
 
-import api.hbm.energy.IEnergyGenerator;
-import cofh.redstoneflux.api.IEnergyReceiver;
 import com.hbm.config.GeneralConfig;
 import com.hbm.tileentity.TileEntityLoadedBase;
-import net.minecraft.util.EnumFacing;
+
+import api.hbm.energy.IEnergyGenerator;
+import cofh.redstoneflux.api.IEnergyReceiver;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.common.Optional;
 
+@Optional.InterfaceList({@Optional.Interface(iface = "cofh.redstoneflux.api.IEnergyReceiver", modid = "redstoneflux")})
 public class TileEntityConverterRfHe extends TileEntityLoadedBase implements IEnergyGenerator, IEnergyReceiver, IEnergyStorage {
 
 	private long subBuffer;
@@ -56,14 +60,14 @@ public class TileEntityConverterRfHe extends TileEntityLoadedBase implements IEn
 		
 		recursionBrake = true;
 		
-		long capacity = maxReceive / GeneralConfig.rfConversionRate;
+		long capacity = (long)(maxReceive / GeneralConfig.conversionRateHeToRF);
 		subBuffer = capacity;
 		
 		this.sendPower(world, pos);
 		
 		recursionBrake = false;
 		
-		return (int) ((capacity - subBuffer) * GeneralConfig.rfConversionRate);
+		return (int) ((capacity - subBuffer) * GeneralConfig.conversionRateHeToRF);
 	}
 
 	//FE
@@ -102,14 +106,14 @@ public class TileEntityConverterRfHe extends TileEntityLoadedBase implements IEn
 		
 		recursionBrake = true;
 		
-		long capacity = maxReceive / GeneralConfig.rfConversionRate;
+		long capacity = (long)(maxReceive / GeneralConfig.conversionRateHeToRF);
 		subBuffer = capacity;
 		
 		this.sendPower(world, pos);
 		
 		recursionBrake = false;
 		
-		return (int) ((capacity - subBuffer) * GeneralConfig.rfConversionRate);
+		return (int) ((capacity - subBuffer) * GeneralConfig.conversionRateHeToRF);
 	}
 
 	@Override

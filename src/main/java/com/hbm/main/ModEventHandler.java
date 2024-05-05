@@ -1,52 +1,112 @@
 package com.hbm.main;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Map.Entry;
+import java.util.Random;
+
+import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.logging.log4j.Level;
+
 import com.google.common.collect.Multimap;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.capability.HbmCapability;
-import com.hbm.capability.HbmCapability.IHBMData;
 import com.hbm.capability.HbmLivingCapability;
 import com.hbm.capability.HbmLivingProps;
-import com.hbm.config.CompatibilityConfig;
+import com.hbm.capability.HbmCapability.IHBMData;
 import com.hbm.config.GeneralConfig;
+import com.hbm.config.CompatibilityConfig;
+import com.hbm.config.RadiationConfig;
 import com.hbm.entity.logic.IChunkLoader;
 import com.hbm.entity.mob.EntityCyberCrab;
 import com.hbm.entity.mob.EntityTaintedCreeper;
 import com.hbm.entity.projectile.EntityBurningFOEQ;
 import com.hbm.forgefluid.FFPipeNetwork;
-import com.hbm.handler.*;
+import com.hbm.potion.HbmDetox;
+import com.hbm.handler.ArmorModHandler;
+import com.hbm.handler.ArmorUtil;
+import com.hbm.handler.BossSpawnHandler;
+import com.hbm.handler.EntityEffectHandler;
+import com.hbm.handler.HTTPHandler;
+import com.hbm.handler.JetpackHandler;
+import com.hbm.handler.MissileStruct;
+import com.hbm.handler.RadiationWorldHandler;
+import com.hbm.handler.WeightedRandomChestContentFrom1710;
 import com.hbm.handler.HbmKeybinds.EnumKeybind;
 import com.hbm.interfaces.IBomb;
 import com.hbm.inventory.AssemblerRecipes;
 import com.hbm.items.IEquipReceiver;
 import com.hbm.items.ModItems;
+import com.hbm.items.tool.ItemDigammaDiagnostic;
 import com.hbm.items.armor.ItemArmorMod;
 import com.hbm.items.armor.ItemModRevive;
 import com.hbm.items.armor.ItemModShackles;
 import com.hbm.items.gear.ArmorFSB;
 import com.hbm.items.special.ItemHot;
-import com.hbm.items.tool.ItemDigammaDiagnostic;
 import com.hbm.items.weapon.ItemGunBase;
-import com.hbm.lib.*;
-import com.hbm.packet.*;
+import com.hbm.lib.ForgeDirection;
+import com.hbm.lib.HBMSoundHandler;
+import com.hbm.lib.Library;
+import com.hbm.lib.ModDamageSource;
+import com.hbm.lib.RefStrings;
+import com.hbm.util.ArmorRegistry;
+import com.hbm.util.ArmorRegistry.HazardClass;
+import com.hbm.packet.AssemblerRecipeSyncPacket;
+import com.hbm.packet.AuxParticlePacketNT;
+import com.hbm.packet.KeybindPacket;
+import com.hbm.packet.PacketDispatcher;
+import com.hbm.packet.PlayerInformPacket;
+import com.hbm.packet.SurveyPacket;
 import com.hbm.particle.bullet_hit.EntityHitDataHandler;
 import com.hbm.render.amlfrom1710.Vec3;
+import com.hbm.saveddata.AuxSavedData;
+import com.hbm.saveddata.RadiationSavedData;
 import com.hbm.tileentity.machine.rbmk.RBMKDials;
 import com.hbm.tileentity.network.RTTYSystem;
+import com.hbm.util.EnchantmentUtil;
+import com.hbm.util.EntityDamageUtil;
 import com.hbm.util.ContaminationUtil;
 import com.hbm.util.ContaminationUtil.ContaminationType;
 import com.hbm.util.ContaminationUtil.HazardType;
-import com.hbm.util.EnchantmentUtil;
-import com.hbm.util.EntityDamageUtil;
 import com.hbm.world.generator.TimedGenerator;
+
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.*;
+import net.minecraft.entity.monster.EntityCaveSpider;
+import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntitySpider;
+import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.monster.EntityZombieVillager;
+import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.entity.monster.EntityBlaze;
+import net.minecraft.entity.monster.EntityIronGolem;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityCow;
+import net.minecraft.entity.passive.EntityMooshroom;
+import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.EntityZombieHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -56,32 +116,55 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.*;
+import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.*;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootEntry;
+import net.minecraft.world.storage.loot.LootEntryItem;
+import net.minecraft.world.storage.loot.LootPool;
+import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraft.world.storage.loot.RandomValueRange;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.conditions.RandomChanceWithLooting;
 import net.minecraft.world.storage.loot.functions.LootFunction;
 import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.event.*;
+import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityEvent.EnteringChunk;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
-import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingFallEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.living.PotionEvent.PotionApplicableEvent;
 import net.minecraftforge.event.entity.player.PlayerFlyableFallEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -93,16 +176,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.registries.DataSerializerEntry;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.logging.log4j.Level;
-
-import java.lang.reflect.Field;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Random;
 
 public class ModEventHandler {
 
@@ -139,6 +212,14 @@ public class ModEventHandler {
 				net.destroySoft();
 				itr.remove();
 			}
+		}
+	}
+
+	@SubscribeEvent
+	public void potionCheck(PotionApplicableEvent e) {
+		if(HbmDetox.isBlacklisted(e.getPotionEffect().getPotion()) && ArmorUtil.checkForHazmat(e.getEntityLiving()) && ArmorRegistry.hasProtection(e.getEntityLiving(), EntityEquipmentSlot.HEAD, HazardClass.BACTERIA)){
+			e.setResult(Result.DENY);
+			ArmorUtil.damageGasMaskFilter(e.getEntityLiving(), 10);
 		}
 	}
 
@@ -221,6 +302,10 @@ public class ModEventHandler {
 				e.player.inventoryContainer.detectAndSendChanges();
 		}
 	}
+
+	public boolean canWear(Entity entity){
+		return entity instanceof EntityZombie || entity instanceof EntitySkeleton || entity instanceof EntityVillager || entity instanceof EntityIronGolem;
+	}
 	
 	@SubscribeEvent
 	public void mobSpawn(LivingSpawnEvent.SpecialSpawn event) {
@@ -228,16 +313,16 @@ public class ModEventHandler {
 			EntityLivingBase entity = event.getEntityLiving();
 			World world = event.getWorld();
 
-			if(entity instanceof EntityZombie) {
+			if(entity instanceof EntityLiving && canWear(entity)) {
 				int randomArmorNumber = rand.nextInt(2<<16);
 				int randomHandNumber = rand.nextInt(256);
-				EntityZombie zombie = (EntityZombie)entity;
-				boolean hasMainHand = !zombie.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).isEmpty();
-				boolean hasOffHand = !zombie.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND).isEmpty();
-				boolean hasHat = !zombie.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
-				boolean hasChest = !zombie.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
-				boolean hasLegs = !zombie.getItemStackFromSlot(EntityEquipmentSlot.LEGS).isEmpty();
-				boolean hasFeet = !zombie.getItemStackFromSlot(EntityEquipmentSlot.FEET).isEmpty();
+				EntityLiving mob = (EntityLiving)entity;
+				boolean hasMainHand = !mob.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).isEmpty();
+				boolean hasOffHand = !mob.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND).isEmpty();
+				boolean hasHat = !mob.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
+				boolean hasChest = !mob.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
+				boolean hasLegs = !mob.getItemStackFromSlot(EntityEquipmentSlot.LEGS).isEmpty();
+				boolean hasFeet = !mob.getItemStackFromSlot(EntityEquipmentSlot.FEET).isEmpty();
 
 				if(!hasHat){
 					if(rand.nextInt(64) == 0)
@@ -248,48 +333,48 @@ public class ModEventHandler {
 						entity.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ModItems.mask_of_infamy, 1, world.rand.nextInt(100)));
 				}
 				if(!(hasHat || hasChest || hasLegs || hasFeet)){
-					if(randomArmorNumber == 0){
+					if(randomArmorNumber < 2){ //1:32768
 						entity.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ModItems.dns_helmet, 1));
 						entity.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(ModItems.dns_plate, 1));
 						entity.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(ModItems.dns_legs, 1));
 						entity.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(ModItems.dns_boots, 1));
 					}
-					if(randomArmorNumber <= 2<<6){
+					else if(randomArmorNumber < 2<<6){ //1:1024
 						entity.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ModItems.rpa_helmet, 1));
 						entity.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(ModItems.rpa_plate, 1));
 						entity.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(ModItems.rpa_legs, 1));
 						entity.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(ModItems.rpa_boots, 1));
 					}
 
-					else if(randomArmorNumber <= 2<<8){
+					else if(randomArmorNumber < 2<<8){ //1:256
 						entity.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ModItems.ajr_helmet, 1));
 						entity.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(ModItems.ajr_plate, 1));
 						entity.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(ModItems.ajr_legs, 1));
 						entity.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(ModItems.ajr_boots, 1));
 					}
 
-					else if(randomArmorNumber <= 2<<10){
+					else if(randomArmorNumber < 2<<10){ //1:64
 						entity.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ModItems.t45_helmet, 1));
 						entity.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(ModItems.t45_plate, 1));
 						entity.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(ModItems.t45_legs, 1));
 						entity.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(ModItems.t45_boots, 1));
 					}
 
-					else if(randomArmorNumber <= 2<<11){
+					else if(randomArmorNumber < 2<<11){ //1:32
 						entity.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ModItems.hazmat_helmet, 1, world.rand.nextInt(ModItems.hazmat_helmet.getMaxDamage(ItemStack.EMPTY))));
 						entity.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(ModItems.hazmat_plate, 1, world.rand.nextInt(ModItems.hazmat_helmet.getMaxDamage(ItemStack.EMPTY))));
 						entity.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(ModItems.hazmat_legs, 1, world.rand.nextInt(ModItems.hazmat_helmet.getMaxDamage(ItemStack.EMPTY))));
 						entity.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(ModItems.hazmat_boots, 1, world.rand.nextInt(ModItems.hazmat_helmet.getMaxDamage(ItemStack.EMPTY))));
 					}
 
-					else if(randomArmorNumber <= 2<<12){
+					else if(randomArmorNumber < 2<<12){ //1:16
 						entity.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ModItems.titanium_helmet, 1, world.rand.nextInt(ModItems.titanium_helmet.getMaxDamage(ItemStack.EMPTY))));
 						entity.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(ModItems.titanium_plate, 1, world.rand.nextInt(ModItems.titanium_plate.getMaxDamage(ItemStack.EMPTY))));
 						entity.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(ModItems.titanium_legs, 1, world.rand.nextInt(ModItems.titanium_legs.getMaxDamage(ItemStack.EMPTY))));
 						entity.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(ModItems.titanium_boots, 1, world.rand.nextInt(ModItems.titanium_boots.getMaxDamage(ItemStack.EMPTY))));
 					}
 
-					else if(randomArmorNumber <= 2<<13){
+					else if(randomArmorNumber < 2<<13){ //1:8
 						entity.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ModItems.steel_helmet, 1, world.rand.nextInt(ModItems.steel_helmet.getMaxDamage(ItemStack.EMPTY))));
 						entity.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(ModItems.steel_plate, 1, world.rand.nextInt(ModItems.steel_plate.getMaxDamage(ItemStack.EMPTY))));
 						entity.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(ModItems.steel_legs, 1, world.rand.nextInt(ModItems.steel_legs.getMaxDamage(ItemStack.EMPTY))));
@@ -330,27 +415,16 @@ public class ModEventHandler {
 					if(rand.nextInt(128) == 0)
 						entity.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, new ItemStack(ModItems.geiger_counter, 1));
 				}
-
-			} else if(entity instanceof EntitySkeleton) {
-				EntitySkeleton skelli = (EntitySkeleton)entity;
-				boolean hasHat = !skelli.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
-				if(!hasHat){
-					if(rand.nextInt(16) == 0) {
-						entity.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(ModItems.gas_mask_m65, 1, world.rand.nextInt(100)));
-					}
-				}
-				boolean hasMainHand = !skelli.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).isEmpty();
-				if(!hasMainHand){
-					if(rand.nextInt(32) == 0) {
-						entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ModItems.syringe_poison));
-					}
-				}
 			}
 		}
 	}
 
-	private static final String hash = "cce6b36fbaa6ec2327c1af5cbcadc4e2d340738ab9328c459365838e79d12e5e";
-
+	private static final Set<String> hashes = new HashSet();
+	
+	static {
+		hashes.add("41de5c372b0589bbdb80571e87efa95ea9e34b0d74c6005b8eab495b7afd9994");
+		hashes.add("31da6223a100ed348ceb3254ceab67c9cc102cb2a04ac24de0df3ef3479b1036");
+	}
 
 	@SubscribeEvent
 	public void onClickSign(PlayerInteractEvent event) {
@@ -365,7 +439,7 @@ public class ModEventHandler {
 			String result = smoosh(sign.signText[0].getUnformattedText(), sign.signText[1].getUnformattedText(), sign.signText[2].getUnformattedText(), sign.signText[3].getUnformattedText());
 			//System.out.println(result);
 
-			if(result.equals(hash)){
+			if(hashes.contains(result)){
 				world.destroyBlock(pos, false);
 				EntityItem entityitem = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.bobmazon_hidden));
 				entityitem.setPickupDelay(10);
@@ -472,7 +546,7 @@ public class ModEventHandler {
 
 			String[] msg = message.split(" ");
 
-			String m = msg[0].substring(1).toLowerCase();
+			String m = msg[0].substring(1, msg[0].length()).toLowerCase();
 
 			if("gv".equals(m)) {
 
@@ -557,7 +631,7 @@ public class ModEventHandler {
 		
 		/// V1 ///
 		if(EntityDamageUtil.wasAttackedByV1(e.getSource())) {
-			EntityPlayer attacker = (EntityPlayer) e.getSource().getImmediateSource();
+			EntityPlayer attacker = (EntityPlayer) ((EntityDamageSource)e.getSource()).getImmediateSource();
 					
 			NBTTagCompound data = new NBTTagCompound();
 			data.setString("type", "vanillaburst");
@@ -693,12 +767,6 @@ public class ModEventHandler {
 		}
 
 		if(event.getEntity().getUniqueID().toString().equals(Library.Alcater)) {
-			if(event.getSource() instanceof EntityDamageSource){
-				if(event.getSource().getImmediateSource() instanceof EntityLivingBase){
-					EntityLivingBase attacker = (EntityLivingBase) event.getSource().getImmediateSource();
-					ContaminationUtil.contaminate(attacker, HazardType.RADIATION, ContaminationType.CREATIVE, 690F);
-				}
-			}
 			event.getEntity().entityDropItem(new ItemStack(ModItems.bottle_rad).setStackDisplayName("§aAlcater's §2Neo §aNuka§r"), 0.5F);
 		}
 
@@ -711,8 +779,8 @@ public class ModEventHandler {
 		
 		if(!event.getEntityLiving().world.isRemote) {
 			
-			if(event.getSource() instanceof EntityDamageSource && event.getSource().getTrueSource() instanceof EntityPlayer
-					 && !(event.getSource().getTrueSource() instanceof FakePlayer)) {
+			if(event.getSource() instanceof EntityDamageSource && ((EntityDamageSource)event.getSource()).getTrueSource() instanceof EntityPlayer
+					 && !(((EntityDamageSource)event.getSource()).getTrueSource() instanceof FakePlayer)) {
 				
 				if(event.getEntityLiving() instanceof EntitySpider && event.getEntityLiving().getRNG().nextInt(500) == 0) {
 					event.getEntityLiving().dropItem(ModItems.spider_milk, 1);
@@ -796,7 +864,7 @@ public class ModEventHandler {
 			
 			entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, SoundCategory.HOSTILE, 2.0F, 0.95F + entity.world.rand.nextFloat() * 0.2F);
 			
-			EntityPlayer attacker = (EntityPlayer) event.getSource().getImmediateSource();
+			EntityPlayer attacker = (EntityPlayer) ((EntityDamageSource)event.getSource()).getImmediateSource();
 			
 			if(attacker.getDistanceSq(entity) < 100) {
 				attacker.heal(entity.getMaxHealth() * 0.25F);
@@ -919,15 +987,6 @@ public class ModEventHandler {
 	public void blockBreak(BlockEvent.BreakEvent event){
 		if(event.isCancelable() && event.isCanceled())
 			return;
-		/*PacketDispatcher.wrapper.sendToAll(new PacketCreatePhysTree(e.getPos().up()));
-		Set<BlockPos> blocks = new HashSet<>();
-		BlockPos pos = e.getPos().up();
-		int recurse = PacketCreatePhysTree.recurseFloodFill(pos, 0, blocks);
-		if(recurse > 0){
-			for(BlockPos b : blocks){
-				e.getWorld().setBlockToAir(b);
-			}
-		}*/
 		if(!(event.getPlayer() instanceof EntityPlayerMP))
 			return;
 
@@ -946,7 +1005,7 @@ public class ModEventHandler {
 			}
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void clientJoinServer(PlayerLoggedInEvent e) {
 		if(e.player instanceof EntityPlayerMP){
@@ -955,19 +1014,20 @@ public class ModEventHandler {
 			JetpackHandler.playerLoggedIn(e);
 			IHBMData props = HbmCapability.getData(e.player);
 
-			PacketDispatcher.sendTo(new KeybindPacket(EnumKeybind.TOGGLE_HEAD, props.getEnableHUD()), playerMP);
 			PacketDispatcher.sendTo(new KeybindPacket(EnumKeybind.TOGGLE_JETPACK, props.getEnableBackpack()), playerMP);
-
+			PacketDispatcher.sendTo(new KeybindPacket(EnumKeybind.TOGGLE_HEAD, props.getEnableHUD()), playerMP);
+			
 			if (GeneralConfig.enableWelcomeMessage) {
-				e.player.sendMessage(new TextComponentTranslation("§3Welcome back§r"));
+				e.player.sendMessage(new TextComponentTranslation("chat.welcome"));
 			}
 
 			if(HTTPHandler.newVersion && GeneralConfig.changelog) {
-				e.player.sendMessage(new TextComponentString("§aNew§e version §3" + HTTPHandler.versionNumber + "§e is available§r"));
-				e.player.sendMessage(new TextComponentString("§ePlaying on version §7" + RefStrings.VERSION + "§e right now§r"));
+				e.player.sendMessage(new TextComponentTranslation("chat.newver", HTTPHandler.versionNumber));
+				e.player.sendMessage(new TextComponentTranslation("chat.curver", RefStrings.VERSION));
+
 				if(HTTPHandler.changes != ""){
 					String[] lines = HTTPHandler.changes.split("\\$");
-					e.player.sendMessage(new TextComponentString("§6[New Features]§r"));//RefStrings.CHANGELOG
+					e.player.sendMessage(new TextComponentString("§6[Some of the new Features]§r"));//RefStrings.CHANGELOG
 					for(String w: lines){
 						e.player.sendMessage(new TextComponentString(w));//RefStrings.CHANGELOG
 					}
@@ -979,12 +1039,17 @@ public class ModEventHandler {
 			}
 			if(GeneralConfig.duckButton){
 				if(e.player instanceof EntityPlayerMP && !e.player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).getBoolean("hasDucked")){
-	        		PacketDispatcher.sendTo(new PlayerInformPacket("Press O to Duck!"), (EntityPlayerMP)e.player);
+	        		PacketDispatcher.sendTo(new PlayerInformPacket("chat.duck"), (EntityPlayerMP)e.player);
 				}
 	        }
 		}
 	}
 	
+	@SubscribeEvent
+	public void worldLoad(WorldEvent.Load e) {
+		JetpackHandler.worldLoad(e);
+	}
+
 	@SubscribeEvent
 	public void worldSave(WorldEvent.Save e) {
 		JetpackHandler.worldSave(e);

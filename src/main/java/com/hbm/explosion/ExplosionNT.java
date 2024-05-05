@@ -1,6 +1,7 @@
 package com.hbm.explosion;
 
 import com.google.common.collect.Lists;
+import com.hbm.config.CompatibilityConfig;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.render.amlfrom1710.Vec3;
 import net.minecraft.block.material.Material;
@@ -69,11 +70,13 @@ public class ExplosionNT extends Explosion {
 	}
 
 	public void explode() {
-    	doExplosionA();
-    	doExplosionB(false);
+		if(CompatibilityConfig.isWarDim(worldObj)){
+			doNTExplosionA();
+    		doNTExplosionB(false);
+		}
     }
 	
-	public void doExplosionA() {
+	private void doNTExplosionA() {
 		float f = this.explosionSize;
 		HashSet hashset = new HashSet();
 		int i;
@@ -174,7 +177,7 @@ public class ExplosionNT extends Explosion {
 		}
 	}
 
-	public void doExplosionB(boolean p_77279_1_) {
+	private void doNTExplosionB(boolean p_77279_1_) {
 		if(!has(ExAttrib.NOSOUND))
 			this.worldObj.playSound(null, this.explosionX, this.explosionY, this.explosionZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 

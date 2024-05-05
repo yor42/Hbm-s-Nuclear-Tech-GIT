@@ -1,5 +1,9 @@
 package com.hbm.tileentity.machine.rbmk;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.hbm.blocks.ModBlocks;
 import com.hbm.entity.projectile.EntityRBMKDebris.DebrisType;
 import com.hbm.forgefluid.FFUtils;
@@ -9,7 +13,11 @@ import com.hbm.interfaces.ITankPacketAcceptor;
 import com.hbm.packet.FluidTankPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.render.amlfrom1710.Vec3;
+import com.hbm.inventory.control_panel.DataValue;
+import com.hbm.inventory.control_panel.DataValueFloat;
+import com.hbm.inventory.control_panel.DataValueString;
 import com.hbm.tileentity.machine.rbmk.TileEntityRBMKConsole.ColumnType;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -296,5 +304,17 @@ public class TileEntityRBMKBoiler extends TileEntityRBMKSlottedBase implements I
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this);
 		return super.getCapability(capability, facing);
+	}
+
+	// control panel
+	@Override
+	public Map<String, DataValue> getQueryData() {
+		Map<String, DataValue> data = super.getQueryData();
+
+		data.put("feed", new DataValueFloat((float) feed.getFluidAmount()));
+		data.put("steam", new DataValueFloat((float) steam.getFluidAmount()));
+		data.put("steamType", new DataValueString(steamType.getName()));
+
+		return data;
 	}
 }

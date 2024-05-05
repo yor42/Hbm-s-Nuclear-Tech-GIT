@@ -1,7 +1,11 @@
 package com.hbm.blocks.machine;
 
+import java.util.List;
+
 import com.hbm.blocks.ModBlocks;
 import com.hbm.tileentity.deco.TileEntitySpinnyLight;
+
+import com.hbm.util.I18nUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockDirectional;
@@ -26,8 +30,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.List;
 
 public class BlockSpinnyLight extends BlockContainer {
 
@@ -70,7 +72,7 @@ public class BlockSpinnyLight extends BlockContainer {
 					name = "dyeSilver";
 				if(name.length() > 3 && name.startsWith("dye")){
 					try {
-						EnumDyeColor color = EnumDyeColor.valueOf(name.substring(3).toUpperCase());
+						EnumDyeColor color = EnumDyeColor.valueOf(name.substring(3, name.length()).toUpperCase());
 						TileEntitySpinnyLight ent = (TileEntitySpinnyLight)worldIn.getTileEntity(pos);
 						ent.color = color;
 						ent.markDirty();
@@ -88,7 +90,7 @@ public class BlockSpinnyLight extends BlockContainer {
 	@Override
 	public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
 		super.addInformation(stack, player, tooltip, advanced);
-		tooltip.add("Change color by right clicking with dye");
+		tooltip.add(I18nUtil.resolveKey("desc.spinnylight"));
 	}
 	
 	@Override
@@ -158,25 +160,29 @@ public class BlockSpinnyLight extends BlockContainer {
 
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		if (this.checkForDrop(world, pos, state) && !canPlaceBlock(world, pos, state.getValue(FACING)))
+		if (this.checkForDrop(world, pos, state) && !canPlaceBlock(world, pos, (EnumFacing)state.getValue(FACING)))
         {
             this.dropBlockAsItem(world, pos, state, 0);
             world.setBlockToAir(pos);
             return;
         }
 		if(world.isBlockIndirectlyGettingPowered(pos) > 0) {
-			if(!state.getValue(POWERED)){
+			if(state.getValue(POWERED) == false){
 				TileEntity te = world.getTileEntity(pos);
 				world.setBlockState(pos, state.withProperty(POWERED, true));
-				te.validate();
-				world.setTileEntity(pos, te);
+				if(te != null){
+					te.validate();
+					world.setTileEntity(pos, te);
+				}
 			}
 		} else {
-			if(state.getValue(POWERED)){
+			if(state.getValue(POWERED) == true){
 				TileEntity te = world.getTileEntity(pos);
 				world.setBlockState(pos, state.withProperty(POWERED, false));
-				te.validate();
-				world.setTileEntity(pos, te);
+				if(te != null){
+					te.validate();
+					world.setTileEntity(pos, te);
+				}
 			}
 		}
 	}

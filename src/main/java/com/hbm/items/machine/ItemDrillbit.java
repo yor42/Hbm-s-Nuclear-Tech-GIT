@@ -1,12 +1,14 @@
 package com.hbm.items.machine;
 
+import java.util.List;
+
+import com.hbm.util.I18nUtil;
 import com.hbm.items.ModItems;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public class ItemDrillbit extends Item {
 
@@ -26,14 +28,14 @@ public class ItemDrillbit extends Item {
 	public void addInformation(ItemStack stack, World worldIn, List<String> list, ITooltipFlag flagIn) {
 		EnumDrillType type = ((ItemDrillbit)stack.getItem()).drillType;
 		if(type == null) return;
-		list.add("§eSpeed: " + ((int) (type.speed * 100)) + "%");
-		list.add("§eTier: " + type.tier);
-		if(type.fortune > 0) list.add("§dFortune " + type.fortune);
-		if(type.vein) list.add("§aVein miner");
-		if(type.silk) list.add("§aSilk touch");
+		list.add("§e"+I18nUtil.resolveKey("desc.speed")+" " + ((int) (type.speed * 100)) + "%");
+		list.add("§e"+I18nUtil.resolveKey("desc.tier", type.tier));
+		if(type.fortune > 0) list.add("§d"+I18nUtil.resolveKey("desc.fortune")+" " + type.fortune);
+		if(type.vein) list.add("§a"+I18nUtil.resolveKey("desc.veinminer"));
+		if(type.silk) list.add("§a"+I18nUtil.resolveKey("desc.silktouch"));
 	}
 	
-	public enum EnumDrillType {
+	public static enum EnumDrillType {
 		STEEL			(1.0D, 1, 0, false, false),
 		STEEL_DIAMOND	(1.0D, 1, 2, false, true),
 		HSS				(1.2D, 2, 0, true, false),
@@ -53,7 +55,7 @@ public class ItemDrillbit extends Item {
 		public boolean vein;
 		public boolean silk;
 		
-		EnumDrillType(double speed, int tier, int fortune, boolean vein, boolean silk) {
+		private EnumDrillType(double speed, int tier, int fortune, boolean vein, boolean silk) {
 			this.speed = speed;
 			this.tier = tier;
 			this.fortune = fortune;

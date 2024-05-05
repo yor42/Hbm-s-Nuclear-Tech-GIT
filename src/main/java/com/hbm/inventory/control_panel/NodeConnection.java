@@ -45,35 +45,35 @@ public class NodeConnection extends NodeElement {
 	
 	public NBTTagCompound writeToNBT(NBTTagCompound tag, NodeSystem sys){
 		super.writeToNBT(tag, sys);
-		tag.setString("eleType", "connection");
+//		tag.setString("eleType", "connection");
 		tag.setString("name", name);
-		tag.setInteger("connectionIdx", connectionIndex);
-		tag.setInteger("nodeIdx", sys.nodes.indexOf(connection));
-		tag.setBoolean("isInput", isInput);
-		tag.setInteger("type", type.ordinal());
-		tag.setTag("default", defaultValue.writeToNBT());
-		tag.setBoolean("drawLine", drawsLine);
+		tag.setInteger("Ci", connectionIndex);
+		tag.setInteger("Ni", sys.nodes.indexOf(connection));
+		tag.setBoolean("in", isInput);
+		tag.setInteger("T", type.ordinal());
+		tag.setTag("D", defaultValue.writeToNBT());
+		tag.setBoolean("DL", drawsLine);
 		return tag;
 	}
 	
 	public void readFromNBT(NBTTagCompound tag, NodeSystem sys){
 		super.readFromNBT(tag, sys);
 		name = tag.getString("name");
-		connectionIndex = tag.getInteger("connectionIdx");
-		int nodeIdx = tag.getInteger("nodeIdx");
+		connectionIndex = tag.getInteger("Ci");
+		int nodeIdx = tag.getInteger("Ni");
 		if(nodeIdx == -1){
 			connection = null;
 		} else {
 			connection = sys.nodes.get(nodeIdx);
 		}
-		isInput = tag.getBoolean("isInput");
-		type = DataType.values()[tag.getInteger("type") % DataType.values().length];
-		defaultValue = DataValue.newFromNBT(tag.getTag("default"));
+		isInput = tag.getBoolean("in");
+		type = DataType.values()[tag.getInteger("T") % DataType.values().length];
+		defaultValue = DataValue.newFromNBT(tag.getTag("D"));
 		if(defaultValue == null){
 			type = DataType.NUMBER;
 			defaultValue = new DataValueFloat(0);
 		}
-		drawsLine = tag.getBoolean("drawLine");
+		drawsLine = tag.getBoolean("DL");
 		builder = null;
 		isTyping = false;
 	}
@@ -112,6 +112,13 @@ public class NodeConnection extends NodeElement {
 			return n;
 		}
 		return null;
+	}
+
+	public NodeConnection setData(Node connection, int connectionIndex, boolean drawsLine) {
+		this.connection = connection;
+		this.connectionIndex = connectionIndex;
+		this.drawsLine = drawsLine;
+		return this;
 	}
 	
 	@Override
@@ -155,7 +162,7 @@ public class NodeConnection extends NodeElement {
 		GL11.glTranslated(-x, -y, 0);
 		if(isTyping){
 			String s = builder.toString();
-			font.drawString(s + (Minecraft.getMinecraft().world.getWorldTime()%20 > 10 ? "_" : ""), x+(isInput ? 16 : -font.getStringWidth(name)-1), y+1F, 0xFFAFAFAF, false);
+			font.drawString(s + (Minecraft.getMinecraft().world.getTotalWorldTime()%20 > 10 ? "_" : ""), x+(isInput ? 16 : -font.getStringWidth(name)-1), y+1F, 0xFFAFAFAF, false);
 		} else {
 			int hex = isInput ? 0xFFAFAFAF : 0xFF2F2F2F;
 			font.drawString(name, x+(isInput ? 16 : -font.getStringWidth(name)-1), y+1F, hex, false);

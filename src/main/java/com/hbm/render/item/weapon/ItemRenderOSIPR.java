@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 public class ItemRenderOSIPR extends TEISRBase {
 
 	protected ModelOSIPR osipr;
-	protected static ResourceLocation osipr_rl = new ResourceLocation(RefStrings.MODID +":textures/models/ModelOSIPR.png");
+	protected static ResourceLocation osipr_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelOSIPR.png");
 	
 	public ItemRenderOSIPR() {
 		osipr = new ModelOSIPR();

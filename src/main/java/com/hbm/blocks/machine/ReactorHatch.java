@@ -57,10 +57,10 @@ public class ReactorHatch extends BlockContainer {
 					{
 						player.openGui(MainRegistry.instance, ModBlocks.guiID_reactor_multiblock, world, pos.getX(), pos.getY(), pos.getZ() + 2);
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Nuclear Reactor] Error: Reactor Structure not valid!"));
+						player.sendMessage(new TextComponentTranslation("chat.bigreactor.structurebad"));
 					}
 				} else {
-					player.sendMessage(new TextComponentTranslation("[Nuclear Reactor Error: Reactor Core not found!"));
+					player.sendMessage(new TextComponentTranslation("chat.bigreactor.corebad"));
 				}
 			}
 			if(e == EnumFacing.SOUTH)
@@ -71,10 +71,10 @@ public class ReactorHatch extends BlockContainer {
 					{
 						player.openGui(MainRegistry.instance, ModBlocks.guiID_reactor_multiblock, world, pos.getX(), pos.getY(), pos.getZ() - 2);
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Nuclear Reactor] Error: Reactor Structure not valid!"));
+						player.sendMessage(new TextComponentTranslation("chat.bigreactor.structurebad"));
 					}
 				} else {
-					player.sendMessage(new TextComponentTranslation("[Nuclear Reactor Error: Reactor Core not found!"));
+					player.sendMessage(new TextComponentTranslation("chat.bigreactor.corebad"));
 				}
 			}
 			if(e == EnumFacing.WEST)
@@ -85,10 +85,10 @@ public class ReactorHatch extends BlockContainer {
 					{
 						player.openGui(MainRegistry.instance, ModBlocks.guiID_reactor_multiblock, world, pos.getX() + 2, pos.getY(), pos.getZ());
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Nuclear Reactor] Error: Reactor Structure not valid!"));
+						player.sendMessage(new TextComponentTranslation("chat.bigreactor.structurebad"));
 					}
 				} else {
-					player.sendMessage(new TextComponentTranslation("[Nuclear Reactor Error: Reactor Core not found!"));
+					player.sendMessage(new TextComponentTranslation("chat.bigreactor.corebad"));
 				}
 			}
 			if(e == EnumFacing.EAST)
@@ -99,10 +99,10 @@ public class ReactorHatch extends BlockContainer {
 					{
 						player.openGui(MainRegistry.instance, ModBlocks.guiID_reactor_multiblock, world, pos.getX() - 2, pos.getY(), pos.getZ());
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Nuclear Reactor] Error: Reactor Structure not valid!"));
+						player.sendMessage(new TextComponentTranslation("chat.bigreactor.structurebad"));
 					}
 				} else {
-					player.sendMessage(new TextComponentTranslation("[Nuclear Reactor Error: Reactor Core not found!"));
+					player.sendMessage(new TextComponentTranslation("chat.bigreactor.corebad"));
 				}
 			}
 			return true;

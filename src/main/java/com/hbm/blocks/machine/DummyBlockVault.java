@@ -1,15 +1,19 @@
 package com.hbm.blocks.machine;
 
-import com.hbm.blocks.ModBlocks;
+import java.util.Random;
+
 import com.hbm.handler.RadiationSystemNT;
-import com.hbm.interfaces.IBomb;
 import com.hbm.interfaces.IDoor;
+import com.hbm.interfaces.IBomb;
 import com.hbm.interfaces.IDummy;
 import com.hbm.interfaces.IRadResistantBlock;
+import com.hbm.blocks.ModBlocks;
 import com.hbm.items.ModItems;
 import com.hbm.items.tool.ItemLock;
 import com.hbm.tileentity.machine.TileEntityDummy;
 import com.hbm.tileentity.machine.TileEntityVaultDoor;
+
+import micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -25,10 +29,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 
-import java.util.Random;
-
-public class DummyBlockVault extends BlockContainer implements IDummy, IBomb, IRadResistantBlock {
+@Optional.InterfaceList({@Optional.Interface(iface = "micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock", modid = "galacticraftcore")})
+public class DummyBlockVault extends BlockContainer implements IDummy, IBomb, IRadResistantBlock, IPartialSealableBlock {
 
 	public static boolean safeBreak = false;
 
@@ -38,6 +42,24 @@ public class DummyBlockVault extends BlockContainer implements IDummy, IBomb, IR
 		this.setRegistryName(s);
 		
 		ModBlocks.ALL_BLOCKS.add(this);
+	}
+
+	public boolean isSealed(World worldIn, BlockPos blockPos, EnumFacing direction){
+		if (worldIn != null)
+		{
+			TileEntity te = worldIn.getTileEntity(blockPos);
+			if(te != null && te instanceof TileEntityDummy && ((TileEntityDummy) te).target != null) {
+
+				TileEntity actualTileEntity = worldIn.getTileEntity(((TileEntityDummy) te).target);
+				if (actualTileEntity != null) {
+					if (IDoor.class.isAssignableFrom(actualTileEntity.getClass())) {
+						// Doors should be sealed only when closed
+						return ((IDoor) actualTileEntity).getState() == IDoor.DoorState.CLOSED;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -163,8 +185,7 @@ public class DummyBlockVault extends BlockContainer implements IDummy, IBomb, IR
 
 		if (worldIn != null) {
 			TileEntity te = worldIn.getTileEntity(blockPos);
-			if(te != null && te instanceof TileEntityDummy) {
-
+			if(te != null && te instanceof TileEntityDummy && ((TileEntityDummy) te).target != null) {
 				TileEntity actualTileEntity = worldIn.getTileEntity(((TileEntityDummy) te).target);
 				if (actualTileEntity != null) {
 					if (IDoor.class.isAssignableFrom(actualTileEntity.getClass())) {
@@ -174,8 +195,6 @@ public class DummyBlockVault extends BlockContainer implements IDummy, IBomb, IR
 				}
 			}
 		}
-
-		return true;
+		return false;
 	}
-
 }

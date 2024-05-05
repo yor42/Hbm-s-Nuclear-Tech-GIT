@@ -17,7 +17,7 @@ import org.lwjgl.opengl.GL11;
 public class RenderBeam2 extends Render<EntityLaserBeam> {
 
 	public static final IRenderFactory<EntityLaserBeam> FACTORY = (RenderManager man) -> {return new RenderBeam2(man);};
-	public static final ResourceLocation beam_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/PlasmaBeam.png");
+	public static final ResourceLocation beam_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/PlasmaBeam.png");
 	
 	protected RenderBeam2(RenderManager renderManager) {
 		super(renderManager);

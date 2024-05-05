@@ -16,8 +16,8 @@ import java.util.Random;
 
 public class BlockNetherCoal extends BlockOutgas {
 
-	public BlockNetherCoal(Material mat, boolean randomTick, int rate, boolean onBreak, String s) {
-		super(mat, randomTick, rate, onBreak, s);
+	public BlockNetherCoal(boolean randomTick, int rate, boolean onBreak, String s) {
+		super(randomTick, rate, onBreak, s);
 	}
 
 	@Override
@@ -61,5 +61,4 @@ public class BlockNetherCoal extends BlockOutgas {
 			}
 		}
 	}
-	
 }

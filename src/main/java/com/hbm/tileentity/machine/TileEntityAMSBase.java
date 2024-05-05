@@ -1,7 +1,7 @@
 package com.hbm.tileentity.machine;
 
 import com.hbm.entity.effect.EntityCloudFleijaRainbow;
-import com.hbm.entity.logic.EntityNukeExplosionMK4;
+import com.hbm.entity.logic.EntityNukeExplosionMK5;
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.handler.ArmorUtil;
@@ -341,7 +341,7 @@ public class TileEntityAMSBase extends TileEntity implements ITickable, IFluidHa
 			
 			int radius = (int)(50 + (double)(tanks[2].getFluidAmount() + tanks[3].getFluidAmount()) / 16000D * 150);
 			
-			world.spawnEntity(EntityNukeExplosionMK4.statFacExperimental(world, radius, pos.getX(), pos.getY(), pos.getZ()));
+			world.spawnEntity(EntityNukeExplosionMK5.statFac(world, radius, pos.getX(), pos.getY(), pos.getZ()));
 			
 			world.setBlockToAir(pos);
 		}

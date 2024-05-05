@@ -1,30 +1,40 @@
 package com.hbm.tileentity.machine;
 
-import api.hbm.energy.IEnergyGenerator;
+import java.util.List;
+
 import com.hbm.entity.particle.EntitySSmokeFX;
+import com.hbm.entity.particle.EntityTSmokeFX;
 import com.hbm.forgefluid.FFUtils;
-import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.interfaces.ITankPacketAcceptor;
 import com.hbm.items.ModItems;
-import com.hbm.lib.ForgeDirection;
-import com.hbm.lib.HBMSoundHandler;
-import com.hbm.lib.Library;
-import com.hbm.lib.ModDamageSource;
 import com.hbm.main.MainRegistry;
-import com.hbm.packet.*;
+import com.hbm.inventory.EngineRecipes;
+import com.hbm.lib.Library;
+import com.hbm.lib.ForgeDirection;
+import com.hbm.lib.ModDamageSource;
+import com.hbm.lib.HBMSoundHandler;
 import com.hbm.sound.AudioWrapper;
+import com.hbm.packet.AuxElectricityPacket;
+import com.hbm.packet.AuxParticlePacketNT;
+import com.hbm.packet.FluidTankPacket;
+import com.hbm.packet.LoopedSoundPacket;
+import com.hbm.packet.PacketDispatcher;
+import com.hbm.packet.TETurbofanPacket;
 import com.hbm.tileentity.TileEntityLoadedBase;
+
+import api.hbm.energy.IEnergyGenerator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.DamageSource;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -37,8 +47,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-
-import java.util.List;
 
 public class TileEntityMachineTurbofan extends TileEntityLoadedBase implements ITickable, IEnergyGenerator, IFluidHandler, ITankPacketAcceptor {
 
@@ -118,24 +126,16 @@ public class TileEntityMachineTurbofan extends TileEntityLoadedBase implements I
 	@Override
 	public void update() {
 		if(!world.isRemote) {
-			int nrg = 1250;
-			int cnsp = 1;
 			
 			afterburner = 0;
 			if(!inventory.getStackInSlot(2).isEmpty()) {
 				if(inventory.getStackInSlot(2).getItem() == ModItems.upgrade_afterburn_1) {
-					nrg *= 2;
-					cnsp *= 2.5;
 					afterburner = 1;
 				}
 				if(inventory.getStackInSlot(2).getItem() == ModItems.upgrade_afterburn_2) {
-					nrg *= 3;
-					cnsp *= 5;
 					afterburner = 2;
 				}
 				if(inventory.getStackInSlot(2).getItem() == ModItems.upgrade_afterburn_3) {
-					nrg *= 4;
-					cnsp *= 7.5;
 					afterburner = 3;
 				}
 			}
@@ -145,6 +145,16 @@ public class TileEntityMachineTurbofan extends TileEntityLoadedBase implements I
 			if (needsUpdate) {
 				needsUpdate = false;
 			}
+
+			long burnValue = 0;
+			int amount = 1 + this.afterburner;
+			
+			if(tank.getFluid() != null && EngineRecipes.isAero(tank.getFluid().getFluid())) {
+				burnValue = EngineRecipes.getEnergy(tank.getFluid().getFluid()) / 1_000;
+			}
+			
+			int amountToBurn = Math.min(amount, tank.getFluidAmount());
+			
 			this.sendTurboPower();
 
 			power = Library.chargeItemsFromTE(inventory, 3, power, maxPower);
@@ -157,11 +167,11 @@ public class TileEntityMachineTurbofan extends TileEntityLoadedBase implements I
 			
 			isRunning = false;
 				
-			if(tank.getFluidAmount() >= cnsp) {
-				tank.drain(cnsp, true);
+			if(amountToBurn > 0) {
+				tank.drain(amountToBurn, true);
 				needsUpdate = true;
-				power += nrg;
-
+				power += burnValue * amountToBurn * (1 + Math.min(this.afterburner / 3D, 4));
+				
 				isRunning = true;
 				
 				if(power > maxPower)
@@ -323,7 +333,7 @@ public class TileEntityMachineTurbofan extends TileEntityLoadedBase implements I
 		if(!world.isRemote) {
 			PacketDispatcher.wrapper.sendToAllAround(new TETurbofanPacket(pos.getX(), pos.getY(), pos.getZ(), isRunning), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 50));
 			PacketDispatcher.wrapper.sendToAllAround(new AuxElectricityPacket(pos, power), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 10));
-			PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, tank), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 10));
+			PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, new FluidTank[] {tank}), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 10));
 		}
 	}
 
@@ -353,7 +363,9 @@ public class TileEntityMachineTurbofan extends TileEntityLoadedBase implements I
 	
 	protected boolean inputValidForTank(int tank, int slot){
 		if(!inventory.getStackInSlot(slot).isEmpty()){
-            return isValidFluid(FluidUtil.getFluidContained(inventory.getStackInSlot(slot)));
+			if(isValidFluid(FluidUtil.getFluidContained(inventory.getStackInSlot(slot)))){
+				return true;	
+			}
 		}
 		return false;
 	}
@@ -361,7 +373,7 @@ public class TileEntityMachineTurbofan extends TileEntityLoadedBase implements I
 	private boolean isValidFluid(FluidStack stack) {
 		if(stack == null)
 			return false;
-		return stack.getFluid() == ModForgeFluids.kerosene;
+		return EngineRecipes.isAero(stack.getFluid());
 	}
 
 	protected void sendTurboPower() {
@@ -414,7 +426,8 @@ public class TileEntityMachineTurbofan extends TileEntityLoadedBase implements I
 	@Override
 	public void recievePacket(NBTTagCompound[] tags) {
 		if(tags.length != 1){
-        } else {
+			return;
+		} else {
 			tank.readFromNBT(tags[0]);
 		}
 	}

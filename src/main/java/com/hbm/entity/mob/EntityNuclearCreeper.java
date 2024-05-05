@@ -1,20 +1,26 @@
 package com.hbm.entity.mob;
 
-import com.hbm.entity.logic.EntityNukeExplosionMK4;
-import com.hbm.entity.mob.ai.EntityAINuclearCreeperSwell;
-import com.hbm.explosion.ExplosionNukeGeneric;
-import com.hbm.explosion.ExplosionNukeSmall;
+import java.util.List;
+
 import com.hbm.interfaces.IRadiationImmune;
+import com.hbm.entity.effect.EntityNukeTorex;
+import com.hbm.entity.logic.EntityNukeExplosionMK5;
+import com.hbm.entity.mob.ai.EntityAINuclearCreeperSwell;
 import com.hbm.items.ModItems;
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.lib.ModDamageSource;
 import com.hbm.main.AdvancementManager;
-import com.hbm.packet.AuxParticlePacketNT;
-import com.hbm.packet.PacketDispatcher;
 import com.hbm.util.ContaminationUtil;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.*;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySkeleton;
@@ -39,12 +45,10 @@ import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
-
 public class EntityNuclearCreeper extends EntityMob implements IRadiationImmune {
-	private static final DataParameter<Integer> STATE = EntityDataManager.createKey(EntityNuclearCreeper.class, DataSerializers.VARINT);
-	public static final DataParameter<Boolean> POWERED = EntityDataManager.createKey(EntityNuclearCreeper.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(EntityNuclearCreeper.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> STATE = EntityDataManager.<Integer> createKey(EntityNuclearCreeper.class, DataSerializers.VARINT);
+	public static final DataParameter<Boolean> POWERED = EntityDataManager.<Boolean> createKey(EntityNuclearCreeper.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> IGNITED = EntityDataManager.<Boolean> createKey(EntityNuclearCreeper.class, DataSerializers.BOOLEAN);
 	/**
 	 * Time when this creeper was last in an active state (Messed up code here,
 	 * probably causes creeper animation to go weird)
@@ -134,7 +138,7 @@ public class EntityNuclearCreeper extends EntityMob implements IRadiationImmune 
 	public void writeEntityToNBT(NBTTagCompound compound){
 		super.writeEntityToNBT(compound);
 
-		if(this.dataManager.get(POWERED)) {
+		if((Boolean) this.dataManager.get(POWERED)) {
 			compound.setBoolean("powered", true);
 		}
 
@@ -277,7 +281,7 @@ public class EntityNuclearCreeper extends EntityMob implements IRadiationImmune 
 				this.dropItem(ModItems.fusion_core, 1);
 			}
 			if(i == 10)
-				this.dropItem(ModItems.gun_fatman_ammo, 1);
+				this.dropItem(ModItems.ammo_nuke, 1);
 		}
 	}
 
@@ -358,20 +362,19 @@ public class EntityNuclearCreeper extends EntityMob implements IRadiationImmune 
 			boolean flag = this.world.getGameRules().getBoolean("mobGriefing");
 
 			if(this.getPowered()) {
-
-				NBTTagCompound data = new NBTTagCompound();
-				data.setString("type", "muke");
-				PacketDispatcher.wrapper.sendToAllAround(new AuxParticlePacketNT(data, posX, posY + 0.5, posZ), new TargetPoint(dimension, posX, posY, posZ, 250));
-				world.playSound(null, posX, posY + 0.5, posZ, HBMSoundHandler.mukeExplosion, SoundCategory.HOSTILE, 15.0F, 1.0F);
-
+				EntityNukeTorex.statFac(world, posX, posY, posZ, 70);
 				if(flag) {
-					world.spawnEntity(EntityNukeExplosionMK4.statFac(world, 50, posX, posY, posZ).mute());
+					world.spawnEntity(EntityNukeExplosionMK5.statFac(world, 70, posX, posY, posZ));
 				} else {
-					ExplosionNukeGeneric.dealDamage(world, posX, posY + 0.5, posZ, 100);
+					ContaminationUtil.radiate(world, posX, posY + 0.5, posZ, 70, 1000, 0, 100, 500);
 				}
 			} else {
-
-				ExplosionNukeSmall.explode(world, posX, posY + 0.5, posZ, ExplosionNukeSmall.medium);
+				EntityNukeTorex.statFac(world, posX, posY, posZ, 20);
+				if(flag) {
+					world.spawnEntity(EntityNukeExplosionMK5.statFacNoRad(world, 20, posX, posY, posZ));
+				} else {
+					ContaminationUtil.radiate(world, posX, posY + 0.5, posZ, 20, 1000, 0, 100, 500);
+				}
 			}
 
 			this.setDead();

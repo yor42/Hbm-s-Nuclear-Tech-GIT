@@ -1,5 +1,9 @@
 package com.hbm.tileentity.machine.rbmk;
 
+import java.util.Map;
+
+import com.hbm.inventory.control_panel.DataValue;
+import com.hbm.inventory.control_panel.DataValueFloat;
 import com.hbm.entity.projectile.EntityRBMKDebris.DebrisType;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
@@ -112,6 +116,16 @@ public abstract class TileEntityRBMKControl extends TileEntityRBMKSlottedBase {
 	public NBTTagCompound getNBTForConsole() {
 		NBTTagCompound data = new NBTTagCompound();
 		data.setDouble("level", this.level);
+		return data;
+	}
+
+	// control panel
+	@Override
+	public Map<String, DataValue> getQueryData() {
+		Map<String, DataValue> data = super.getQueryData();
+
+		data.put("level", new DataValueFloat((float) this.level*100));
+
 		return data;
 	}
 }

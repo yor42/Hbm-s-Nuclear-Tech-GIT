@@ -1,5 +1,9 @@
 package com.hbm.blocks.bomb;
 
+import java.util.Random;
+import java.util.List;
+
+import com.hbm.util.I18nUtil;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.config.BombConfig;
 import com.hbm.entity.effect.EntityCloudFleija;
@@ -8,13 +12,15 @@ import com.hbm.interfaces.IBomb;
 import com.hbm.lib.InventoryHelper;
 import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.bomb.TileEntityNukeFleija;
+
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -29,9 +35,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import java.util.List;
-import java.util.Random;
 
 public class NukeFleija extends BlockContainer implements IBomb {
 
@@ -63,7 +66,7 @@ public class NukeFleija extends BlockContainer implements IBomb {
 		TileEntity tileentity = world.getTileEntity(pos);
 
 		if (tileentity instanceof TileEntityNukeFleija) {
-			InventoryHelper.dropInventoryItems(world, pos, tileentity);
+			InventoryHelper.dropInventoryItems(world, pos, (TileEntityNukeFleija) tileentity);
 
 			world.updateComparatorOutputLevel(pos, this);
 		}
@@ -216,12 +219,12 @@ public class NukeFleija extends BlockContainer implements IBomb {
 	
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, FACING);
+		return new BlockStateContainer(this, new IProperty[]{FACING});
 	}
 
 	@Override
 	public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
-		tooltip.add("§b[Schrabidium Bomb]§r");
-		tooltip.add(" §eRadius: "+BombConfig.fleijaRadius+"m§r");
+		tooltip.add("§b["+ I18nUtil.resolveKey("trait.schrabbomb")+"]§r");
+		tooltip.add(" §e"+I18nUtil.resolveKey("desc.radius", BombConfig.fleijaRadius)+"§r");
 	}
 }

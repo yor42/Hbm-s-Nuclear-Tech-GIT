@@ -1,37 +1,39 @@
 package com.hbm.inventory;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+
+import com.hbm.items.ModItems;
 import com.hbm.forgefluid.ModForgeFluids;
-import com.hbm.inventory.ChemplantRecipes.EnumChemistryTemplate;
 import com.hbm.inventory.RecipesCommon.AStack;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
-import com.hbm.items.ModItems;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
+import com.hbm.inventory.ChemplantRecipes;
 
-import java.util.HashMap;
+import net.minecraft.init.Items;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class MixerRecipes {
 
 	public static HashMap<Fluid, FluidStack[]> recipesFluidInputs = new HashMap();
 	public static HashMap<Fluid, Integer> recipesFluidOutputAmount = new HashMap();
-	public static HashMap<Fluid, Integer> recipesDurations = new HashMap();
+	public static LinkedHashMap<Fluid, Integer> recipesDurations = new LinkedHashMap();
 	public static HashMap<Fluid, AStack> recipesItemInputs = new HashMap();
 	
 	public static void copyChemplantRecipes() {
-		for(EnumChemistryTemplate enumX : EnumChemistryTemplate.values()){
-			FluidStack[] fStacks = ChemplantRecipes.recipeFluidOutputs.get(enumX);
+		for (int i: ChemplantRecipes.recipeNames.keySet()){
+			FluidStack[] fStacks = ChemplantRecipes.recipeFluidOutputs.get(i);
 			if(!(fStacks != null && fStacks.length == 1)){
 				continue;
 			}
-			AStack[] itemOut = ChemplantRecipes.recipeItemOutputs.get(enumX);
+			AStack[] itemOut = ChemplantRecipes.recipeItemOutputs.get(i);
 			if(itemOut != null)
 				continue;
-			AStack[] itemInputs = ChemplantRecipes.recipeItemInputs.get(enumX);
+			AStack[] itemInputs = ChemplantRecipes.recipeItemInputs.get(i);
 			AStack itemInput = null;
 			if(itemInputs != null)
 				if(itemInputs.length == 0 ||itemInputs.length > 1){
@@ -39,7 +41,7 @@ public class MixerRecipes {
 				} else {
 					itemInput = itemInputs[0];
 				}
-			addRecipe(fStacks[0], ChemplantRecipes.recipeFluidInputs.get(enumX), itemInput, ChemplantRecipes.recipeDurations.get(enumX));
+			addRecipe(fStacks[0], ChemplantRecipes.recipeFluidInputs.get(i), itemInput, ChemplantRecipes.recipeDurations.get(i));
 		}
 	}
 

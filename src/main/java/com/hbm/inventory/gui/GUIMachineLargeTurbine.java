@@ -1,20 +1,23 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.util.I18nUtil;
+import org.lwjgl.opengl.GL11;
+
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.inventory.container.ContainerMachineLargeTurbine;
 import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityMachineLargeTurbine;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 public class GUIMachineLargeTurbine extends GuiInfoContainer {
 
 	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/generators/gui_turbine_large.png");
-	private final TileEntityMachineLargeTurbine turbine;
+	private TileEntityMachineLargeTurbine turbine;
 
 	public GUIMachineLargeTurbine(InventoryPlayer invPlayer, TileEntityMachineLargeTurbine tedf) {
 		super(new ContainerMachineLargeTurbine(invPlayer, tedf));
@@ -33,7 +36,7 @@ public class GUIMachineLargeTurbine extends GuiInfoContainer {
 
 		if(turbine.types[1] == null) {
 
-			String[] text2 = new String[] { "Error: Invalid fluid!" };
+			String[] text2 = I18nUtil.resolveKeyArray("desc.errorfluid");
 			this.drawCustomInfoStat(mouseX, mouseY, guiLeft - 16, guiTop + 36 + 32, 16, 16, guiLeft - 8, guiTop + 36 + 16 + 32, text2);
 		}
 

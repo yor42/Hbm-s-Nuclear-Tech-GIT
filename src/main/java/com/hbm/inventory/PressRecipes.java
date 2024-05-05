@@ -1,27 +1,29 @@
 package com.hbm.inventory;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import static com.hbm.inventory.OreDictManager.*;
+import com.hbm.util.Tuple.Pair;
+import com.hbm.items.ModItems;
 import com.hbm.inventory.RecipesCommon.AStack;
+import com.hbm.inventory.RecipesCommon.NbtComparableStack;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
 import com.hbm.inventory.RecipesCommon.OreDictStack;
-import com.hbm.items.ModItems;
-import com.hbm.util.Tuple.Pair;
+
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import static com.hbm.inventory.OreDictManager.*;
 
 //TODO: clean this shit up
 //Alcater: on it
 
 public class PressRecipes {
 
-	public enum PressType {
+	public static enum PressType {
 		NONE,
 		FLAT,
 		PLATE,
@@ -30,10 +32,10 @@ public class PressRecipes {
 		THREEFIFESEVEN,
 		FOURFOUR,
 		NINE,
-		FIVEZERO
-    }
+		FIVEZERO;
+	}
 
-	public static HashMap<Pair<PressType, AStack>, ItemStack> pressRecipes = new HashMap<Pair<PressType, AStack>, ItemStack>();
+	public static LinkedHashMap<Pair<PressType, AStack>, ItemStack> pressRecipes = new LinkedHashMap<Pair<PressType, AStack>, ItemStack>();
 
 	public static void addRecipe(PressType stamp, AStack input, ItemStack output){
 		if(!input.getStackList().isEmpty())
@@ -52,6 +54,8 @@ public class PressRecipes {
 		addRecipe(PressType.FLAT, new ComparableStack(ModItems.powder_lignite), new ItemStack(ModItems.briquette_lignite)); 
 		addRecipe(PressType.FLAT, new ComparableStack(ModItems.meteorite_sword_reforged), new ItemStack(ModItems.meteorite_sword_hardened)); 
 		addRecipe(PressType.FLAT, new OreDictStack("fuelCoke"), new ItemStack(ModItems.ingot_graphite));
+		addRecipe(PressType.FLAT, new OreDictStack("sugarcane"), new ItemStack(Items.PAPER, 2));
+		addRecipe(PressType.FLAT, new ComparableStack(Blocks.LOG, 1, 3), new ItemStack(ModItems.ball_resin, 1));
 
 		addRecipe(PressType.PLATE, new OreDictStack(IRON.ingot()), new ItemStack(ModItems.plate_iron));
 		addRecipe(PressType.PLATE, new OreDictStack(GOLD.ingot()), new ItemStack(ModItems.plate_gold));

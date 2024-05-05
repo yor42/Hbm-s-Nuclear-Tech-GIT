@@ -1,21 +1,23 @@
 package com.hbm.render.entity;
 
+import org.lwjgl.opengl.GL11;
+
 import com.hbm.entity.projectile.EntityMiniMIRV;
 import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelMIRV;
+
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import org.lwjgl.opengl.GL11;
 
 public class RenderMiniMIRV extends Render<EntityMiniMIRV> {
 
 	public static final IRenderFactory<EntityMiniMIRV> FACTORY = (RenderManager man) -> {return new RenderMiniMIRV(man);};
 	
-	private final ModelMIRV miniNuke;
-	private static final ResourceLocation mirv_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/Mirv.png");
+	private ModelMIRV miniNuke;
+	private static ResourceLocation mirv_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/Mirv.png");
 	
 	protected RenderMiniMIRV(RenderManager renderManager) {
 		super(renderManager);

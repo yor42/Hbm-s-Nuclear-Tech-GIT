@@ -1,5 +1,10 @@
 package com.hbm.inventory.gui;
 
+import java.io.IOException;
+
+import com.hbm.util.I18nUtil;
+import org.lwjgl.opengl.GL11;
+
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.inventory.container.ContainerMachineCyclotron;
@@ -7,20 +12,18 @@ import com.hbm.lib.RefStrings;
 import com.hbm.packet.AuxButtonPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.machine.TileEntityMachineCyclotron;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
-
-import java.io.IOException;
 
 public class GUIMachineCyclotron extends GuiInfoContainer {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_cyclotron.png");
-	private final TileEntityMachineCyclotron cyclotron;
+	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_cyclotron.png");
+	private TileEntityMachineCyclotron cyclotron;
 
 	public GUIMachineCyclotron(InventoryPlayer invPlayer, TileEntityMachineCyclotron tile) {
 		super(new ContainerMachineCyclotron(invPlayer, tile));
@@ -39,10 +42,7 @@ public class GUIMachineCyclotron extends GuiInfoContainer {
 		FFUtils.renderTankInfo(this, mouseX, mouseY, guiLeft + 53, guiTop + 72, 7, 52, cyclotron.coolant, ModForgeFluids.coolant);
 		FFUtils.renderTankInfo(this, mouseX, mouseY, guiLeft + 134, guiTop + 90, 7, 34, cyclotron.amat, ModForgeFluids.amat);
 
-		String[] text = new String[] { "Acceptable upgrades:",
-				" -Speed (stacks to level 3)",
-				" -Effectiveness (stacks to level 3)",
-				" -Power Saving (stacks to level 3)"};
+		String[] text = I18nUtil.resolveKeyArray("desc.guiacceptupgrades2");
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 21, guiTop + 75, 8, 8, mouseX, mouseY, text);
 		super.renderHoveredToolTip(mouseX, mouseY);
 	}

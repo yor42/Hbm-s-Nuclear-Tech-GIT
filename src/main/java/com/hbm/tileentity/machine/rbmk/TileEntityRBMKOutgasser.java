@@ -1,17 +1,26 @@
 package com.hbm.tileentity.machine.rbmk;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.hbm.blocks.ModBlocks;
 import com.hbm.entity.projectile.EntityRBMKDebris.DebrisType;
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.interfaces.ITankPacketAcceptor;
+import com.hbm.inventory.RecipesCommon.ComparableStack;
 import com.hbm.inventory.RBMKOutgasserRecipes;
+import com.hbm.util.ContaminationUtil;
 import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemFluidIcon;
 import com.hbm.packet.FluidTankPacket;
 import com.hbm.packet.PacketDispatcher;
+import com.hbm.inventory.control_panel.DataValue;
+import com.hbm.inventory.control_panel.DataValueFloat;
 import com.hbm.tileentity.machine.rbmk.TileEntityRBMKConsole.ColumnType;
-import com.hbm.util.ContaminationUtil;
+
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -289,5 +298,17 @@ public class TileEntityRBMKOutgasser extends TileEntityRBMKSlottedBase implement
 	public void unload() {
 		inventory.setStackInSlot(1, ItemStack.EMPTY);
 		this.markDirty();
+	}
+
+	// control panel
+	@Override
+	public Map<String, DataValue> getQueryData() {
+		Map<String, DataValue> data = super.getQueryData();
+
+		data.put("gas", new DataValueFloat(this.gas.getFluidAmount()));
+		data.put("progress", new DataValueFloat((float) this.progress));
+		data.put("maxProgress", new DataValueFloat((float) this.duration));
+
+		return data;
 	}
 }

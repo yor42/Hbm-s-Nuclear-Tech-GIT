@@ -59,7 +59,6 @@ public class EntityRADBeast extends EntityMob implements IRadiationImmune {
     
     @Override
     public void onDeath(DamageSource cause) {
-    	super.onDeath(cause);
     	if(this.getMaxHealth() > 150) {
 	        List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, this.getEntityBoundingBox().grow(50, 50, 50));
 
@@ -67,6 +66,7 @@ public class EntityRADBeast extends EntityMob implements IRadiationImmune {
 	        	AdvancementManager.grantAchievement(player, AdvancementManager.achMeltdown);
 	        }
         }
+        super.onDeath(cause);
     }
     
     @Override
@@ -207,32 +207,28 @@ public class EntityRADBeast extends EntityMob implements IRadiationImmune {
     }
 
     @Override
-    protected void dropFewItems(boolean beenHit, int looting) {
-    	if(beenHit) {
-        	
-        	if(looting > 0) {
+    protected void dropLoot(boolean wasRecentlyHit, int looting, DamageSource source) {
+        super.dropLoot(wasRecentlyHit, looting, source);
+        if(looting > 0) {
                 this.dropItem(ModItems.nugget_polonium, looting);
-        	}
-        	
-        	int count = this.rand.nextInt(3) + 1;
-        	
-        	for(int i = 0; i < count; i++) {
-        		
-        		int r = this.rand.nextInt(3);
-        		
-        		if(r == 0) {
-                    this.dropItem(this.isWet() ? ModItems.waste_uranium : ModItems.rod_uranium_fuel_depleted, 1);
-                    
-        		} else if(r == 1) {
-                    this.dropItem(this.isWet() ? ModItems.waste_mox : ModItems.rod_mox_fuel_depleted, 1);
-        			
-        		} else if(r == 2) {
-                    this.dropItem(this.isWet() ? ModItems.waste_plutonium : ModItems.rod_plutonium_fuel_depleted, 1);
-        			
-        		}
-        	}
+            }
+            
+        int count = this.rand.nextInt(3) + 1;
+        
+        for(int i = 0; i < count; i++) {
+            
+            int r = this.rand.nextInt(3);
+            
+            if(r == 0) {
+                this.dropItem(this.isWet() ? ModItems.waste_uranium : ModItems.rod_uranium_fuel_depleted, 1);
+                
+            } else if(r == 1) {
+                this.dropItem(this.isWet() ? ModItems.waste_mox : ModItems.rod_mox_fuel_depleted, 1);
+                
+            } else if(r == 2) {
+                this.dropItem(this.isWet() ? ModItems.waste_plutonium : ModItems.rod_plutonium_fuel_depleted, 1);
+                
+            }
         }
     }
-    
-    
 }

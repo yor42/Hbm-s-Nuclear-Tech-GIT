@@ -1,12 +1,15 @@
 package com.hbm.blocks;
 
 import com.hbm.main.MainRegistry;
+import com.hbm.util.I18nUtil;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -17,6 +20,7 @@ public class BlockBase extends Block {
 		super(m);
 		this.setUnlocalizedName(s);
 		this.setRegistryName(s);
+		this.setHarvestLevel("pickaxe", 0);
 		this.setCreativeTab(MainRegistry.controlTab);
 		ModBlocks.ALL_BLOCKS.add(this);
 	}
@@ -26,19 +30,20 @@ public class BlockBase extends Block {
 		this.setUnlocalizedName(s);
 		this.setRegistryName(s);
 		this.setSoundType(sound);
+		this.setHarvestLevel("pickaxe", 0);
 		this.setCreativeTab(MainRegistry.controlTab);
 		ModBlocks.ALL_BLOCKS.add(this);
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
+	public void addInformation(ItemStack stack, World player, List<String> list, ITooltipFlag advanced) {
 		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.meteor_battery)){
-			tooltip.add("Provides infinite charge to tesla coils");
+			list.add(I18nUtil.resolveKey("desc.teslacoils"));
 		}
 		
 		float hardness = this.getExplosionResistance(null);
 		if(hardness > 50){
-			tooltip.add("§6Blast Resistance: "+hardness+"§r");
+			list.add(TextFormatting.GOLD + I18nUtil.resolveKey("trait.blastres", hardness));
 		}
 	}
 

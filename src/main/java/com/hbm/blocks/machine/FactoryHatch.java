@@ -60,10 +60,10 @@ public class FactoryHatch extends BlockContainer {
 						{
 							player.openGui(MainRegistry.instance, ModBlocks.guiID_factory_titanium, world, pos.getX(), pos.getY(), pos.getZ() + 1);
 						} else {
-							player.sendMessage(new TextComponentTranslation("[Basic Factory] Error: Factory Structure not valid!"));
+							player.sendMessage(new TextComponentTranslation("chat.factory.structurebad"));
 						}
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Basic Factory] Error: Factory Core not found!"));
+						player.sendMessage(new TextComponentTranslation("chat.factory.corebad"));
 					}
 				}
 				if(e == EnumFacing.SOUTH)
@@ -74,10 +74,10 @@ public class FactoryHatch extends BlockContainer {
 						{
 							player.openGui(MainRegistry.instance, ModBlocks.guiID_factory_titanium, world, pos.getX(), pos.getY(), pos.getZ() - 1);
 						} else {
-							player.sendMessage(new TextComponentTranslation("[Basic Factory] Error: Factory Structure not valid!"));
+							player.sendMessage(new TextComponentTranslation("chat.factory.structurebad"));
 						}
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Basic Factory] Error: Factory Core not found!"));
+						player.sendMessage(new TextComponentTranslation("chat.factory.corebad"));
 					}
 				}
 				if(e == EnumFacing.WEST)
@@ -88,10 +88,10 @@ public class FactoryHatch extends BlockContainer {
 						{
 							player.openGui(MainRegistry.instance, ModBlocks.guiID_factory_titanium, world, pos.getX() + 1, pos.getY(), pos.getZ());
 						} else {
-							player.sendMessage(new TextComponentTranslation("[Basic Factory] Error: Factory Structure not valid!"));
+							player.sendMessage(new TextComponentTranslation("chat.factory.structurebad"));
 						}
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Basic Factory] Error: Factory Core not found!"));
+						player.sendMessage(new TextComponentTranslation("chat.factory.corebad"));
 					}
 				}
 				if(e == EnumFacing.EAST)
@@ -102,10 +102,10 @@ public class FactoryHatch extends BlockContainer {
 						{
 							player.openGui(MainRegistry.instance, ModBlocks.guiID_factory_titanium, world, pos.getX() - 1, pos.getY(), pos.getZ());
 						} else {
-							player.sendMessage(new TextComponentTranslation("[Basic Factory] Error: Factory Structure not valid!"));
+							player.sendMessage(new TextComponentTranslation("chat.factory.structurebad"));
 						}
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Basic Factory] Error: Factory Core not found!"));
+						player.sendMessage(new TextComponentTranslation("chat.factory.corebad"));
 					}
 				}
 			}
@@ -120,10 +120,10 @@ public class FactoryHatch extends BlockContainer {
 						{
 							player.openGui(MainRegistry.instance, ModBlocks.guiID_factory_advanced, world, pos.getX(), pos.getY(), pos.getZ() + 1);
 						} else {
-							player.sendMessage(new TextComponentTranslation("[Advanced Factory] Error: Factory Structure not valid!"));
+							player.sendMessage(new TextComponentTranslation("chat.factoryadvanced.structurebad"));
 						}
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Advanced Factory] Error: Factory Core not found!"));
+						player.sendMessage(new TextComponentTranslation("chat.factoryadvanced.corebad"));
 					}
 				}
 				if(e == EnumFacing.SOUTH)
@@ -134,10 +134,10 @@ public class FactoryHatch extends BlockContainer {
 						{
 							player.openGui(MainRegistry.instance, ModBlocks.guiID_factory_advanced, world, pos.getX(), pos.getY(), pos.getZ() - 1);
 						} else {
-							player.sendMessage(new TextComponentTranslation("[Advanced Factory] Error: Factory Structure not valid!"));
+							player.sendMessage(new TextComponentTranslation("chat.factoryadvanced.structurebad"));
 						}
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Advanced Factory] Error: Factory Core not found!"));
+						player.sendMessage(new TextComponentTranslation("chat.factoryadvanced.corebad"));
 					}
 				}
 				if(e == EnumFacing.WEST)
@@ -148,10 +148,10 @@ public class FactoryHatch extends BlockContainer {
 						{
 							player.openGui(MainRegistry.instance, ModBlocks.guiID_factory_advanced, world, pos.getX() + 1, pos.getY(), pos.getZ());
 						} else {
-							player.sendMessage(new TextComponentTranslation("[Advanced Factory] Error: Factory Structure not valid!"));
+							player.sendMessage(new TextComponentTranslation("chat.factoryadvanced.structurebad"));
 						}
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Advanced Factory] Error: Factory Core not found!"));
+						player.sendMessage(new TextComponentTranslation("chat.factoryadvanced.corebad"));
 					}
 				}
 				if(e == EnumFacing.EAST)
@@ -162,10 +162,10 @@ public class FactoryHatch extends BlockContainer {
 						{
 							player.openGui(MainRegistry.instance, ModBlocks.guiID_factory_advanced, world, pos.getX() - 1, pos.getY(), pos.getZ());
 						} else {
-							player.sendMessage(new TextComponentTranslation("[Advanced Factory] Error: Factory Structure not valid!"));
+							player.sendMessage(new TextComponentTranslation("chat.factoryadvanced.structurebad"));
 						}
 					} else {
-						player.sendMessage(new TextComponentTranslation("[Advanced Factory] Error: Factory Core not found!"));
+						player.sendMessage(new TextComponentTranslation("chat.factoryadvanced.corebad"));
 					}
 				}
 			}

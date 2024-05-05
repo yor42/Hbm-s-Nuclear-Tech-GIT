@@ -1,5 +1,9 @@
 package com.hbm.entity.projectile;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
+import com.hbm.config.CompatibilityConfig;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.generic.EntityGrenadeTau;
 import com.hbm.blocks.generic.RedBarrel;
@@ -11,6 +15,7 @@ import com.hbm.lib.HBMSoundHandler;
 import com.hbm.lib.ModDamageSource;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.packet.ParticleBurstPacket;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -40,14 +45,15 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.lang.reflect.Field;
-import java.util.List;
 
 public class EntityBullet extends Entity implements IProjectile {
 
@@ -352,7 +358,7 @@ public class EntityBullet extends Entity implements IProjectile {
 			float f1;
 
 			for (i = 0; i < list.size(); ++i) {
-				Entity entity1 = list.get(i);
+				Entity entity1 = (Entity) list.get(i);
 				if(entity1 instanceof EntityBullet){
 					if(((EntityBullet)entity1).shootingEntity == this.shootingEntity){
 						continue;
@@ -389,7 +395,7 @@ public class EntityBullet extends Entity implements IProjectile {
 			float f2;
 			float f4;
 
-			if (movingobjectposition != null) {
+			if (movingobjectposition != null && CompatibilityConfig.isWarDim(world)) {
 				if (movingobjectposition.entityHit != null) {
 					// TODO: Remove test feature in release version
 					if (!(movingobjectposition.entityHit instanceof EntityItemFrame) || movingobjectposition.entityHit instanceof EntityItemFrame && (((EntityItemFrame) movingobjectposition.entityHit).getDisplayedItem() == null || ((EntityItemFrame) movingobjectposition.entityHit).getDisplayedItem() != null && ((EntityItemFrame) movingobjectposition.entityHit).getDisplayedItem().getItem() != ModItems.flame_pony)) {
@@ -459,7 +465,7 @@ public class EntityBullet extends Entity implements IProjectile {
 									} else if (entitylivingbase instanceof EntityLivingBase && !(entitylivingbase instanceof EntityNuclearCreeper) && !(entitylivingbase instanceof EntityMooshroom) && !(entitylivingbase instanceof EntityZombie)) {
 										entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.POISON, 2 * 60 * 20, 2));
 										entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.WITHER, 20, 4));
-										entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 60 * 20, 1));
+										entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 1 * 60 * 20, 1));
 									}
 								}
 
@@ -586,7 +592,8 @@ public class EntityBullet extends Entity implements IProjectile {
 			// this.prevRotationPitch < -180.0F; this.prevRotationPitch -=
 			// 360.0F)
 			{
-            }
+				;
+			}
 
 			/*
 			 * while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
@@ -834,5 +841,4 @@ public class EntityBullet extends Entity implements IProjectile {
 		d0 = d0 * 64.0D * getRenderDistanceWeight();
 		return distance < d0 * d0;
 	}
-
 }

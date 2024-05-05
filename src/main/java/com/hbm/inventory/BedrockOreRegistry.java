@@ -1,18 +1,27 @@
 package com.hbm.inventory;
 
-import com.hbm.config.BedrockOreJsonConfig;
+import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.HashSet;
+
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.interfaces.Spaghetti;
 import com.hbm.lib.Library;
+import com.hbm.config.BedrockOreJsonConfig;
+import com.hbm.config.CompatibilityConfig;
 import com.hbm.util.WeightedRandomObject;
-import net.minecraft.block.Block;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.WeightedRandom;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.*;
+import net.minecraft.init.Items;
+import net.minecraft.init.Blocks;
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.util.WeightedRandom;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.fluids.FluidStack;
 
 //TODO: clean this shit up
 @Spaghetti("everything")
@@ -33,39 +42,67 @@ public class BedrockOreRegistry {
 		fillOreCasino();
 	}
 
+	public static boolean is3DBlock(String ore){
+		boolean isBlock = false;
+		for(ItemStack item : OreDictionary.getOres(ore))
+			isBlock |= (item != null && !item.isEmpty() && item.getItem() instanceof ItemBlock);
+			if(isBlock) return true;
+		return false;
+	}
+
+	public static boolean isActualItem(String ore){
+		boolean isActualItem = false;
+		for(ItemStack item : OreDictionary.getOres(ore))
+			isActualItem |= (item != null && !item.isEmpty() && item.getItem() != Items.AIR);
+			if(isActualItem) return true;
+		return false;
+	}
+
+	public static boolean tryRegister(int index, String oreName, String output){
+		if(OreDictionary.doesOreNameExist(output) && isActualItem(output)){
+			oreIndexes.put(index, oreName);
+			oreToIndexes.put(oreName, index);
+			oreResults.put(oreName, output);
+			oreTiers.put(oreName, Math.max(1, 1+getDirectOreTier(oreName)));
+			return true;
+		}
+		return false;
+	}
+
 	public static void collectBedrockOres(){
 		int index = 0;
 		for(String oreName : OreDictionary.getOreNames()){
-			if(oreName.startsWith("ore")){
+			if(oreName.startsWith("ore") && is3DBlock(oreName) && !CompatibilityConfig.bedrockOreBlacklist.contains(oreName)){
+
 				String resourceName = oreName.substring(3);
 				
-				String oreGem = "gem"+resourceName;
-				if(OreDictionary.doesOreNameExist(oreGem)){
-					oreIndexes.put(index, oreName);
-					oreToIndexes.put(oreName, index);
+				String oreOutput = "gem"+resourceName;
+				if(tryRegister(index, oreName, oreOutput)){
 					index++;
-					oreResults.put(oreName, oreGem);
-					oreTiers.put(oreName, Math.max(1, 1+getDirectOreTier(oreName)));
 					continue;
 				}
 
-				String oreDust = "dust"+resourceName;
-				if(OreDictionary.doesOreNameExist(oreDust)){
-					oreIndexes.put(index, oreName);
-					oreToIndexes.put(oreName, index);
+				oreOutput = "dust"+resourceName;
+				if(tryRegister(index, oreName, oreOutput)){
 					index++;
-					oreResults.put(oreName, oreDust);
-					oreTiers.put(oreName, Math.max(1, 1+getDirectOreTier(oreName)));
 					continue;
 				}
 
-				String oreIngot = "ingot"+resourceName;
-				if(OreDictionary.doesOreNameExist(oreIngot)){
-					oreIndexes.put(index, oreName);
-					oreToIndexes.put(oreName, index);
+				oreOutput = "ingot"+resourceName;
+				if(tryRegister(index, oreName, oreOutput)){
 					index++;
-					oreResults.put(oreName, oreIngot);
-					oreTiers.put(oreName, Math.max(1, 1+getDirectOreTier(oreName)));
+					continue;
+				}
+
+				oreOutput = "item"+resourceName;
+				if(tryRegister(index, oreName, oreOutput)){
+					index++;
+					continue;
+				}
+
+				oreOutput = "food"+resourceName;
+				if(tryRegister(index, oreName, oreOutput)){
+					index++;
 					continue;
 				}
 			}
@@ -96,12 +133,12 @@ public class BedrockOreRegistry {
 	}
 
 	public static int getTierWeight(int tier){
-		if(tier == 1) return 64;
+		if(tier <= 1) return 64;
 		if(tier == 2) return 48;
 		if(tier == 3) return 32;
 		if(tier == 4) return 8;
 		if(tier == 5) return 2;
-		if(tier == 6) return 1;
+		if(tier >= 6) return 1;
 		return 1;
 	}
 
@@ -137,7 +174,7 @@ public class BedrockOreRegistry {
 			}
 		}
 		if(tierCount > 0)
-			return tierSum/tierCount;
+			return (int)(tierSum/tierCount);
 		return 0;
 	}
 

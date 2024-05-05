@@ -1,21 +1,29 @@
 package com.hbm.blocks.generic;
 
-import com.hbm.blocks.BlockDummyable;
+import java.util.List;
+
+import com.hbm.util.I18nUtil;
 import com.hbm.handler.RadiationSystemNT;
+import com.hbm.interfaces.IAnimatedDoor;
 import com.hbm.interfaces.IDoor;
 import com.hbm.interfaces.IRadResistantBlock;
+import com.hbm.blocks.BlockDummyable;
 import com.hbm.lib.ForgeDirection;
+import com.hbm.items.ModItems;
+import com.hbm.items.tool.ItemLock;
 import com.hbm.tileentity.DoorDecl;
 import com.hbm.tileentity.TileEntityDoorGeneric;
+
+import micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -24,18 +32,33 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 
-import java.util.List;
-
-public class BlockDoorGeneric extends BlockDummyable  implements IRadResistantBlock {
+@Optional.InterfaceList({@Optional.Interface(iface = "micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock", modid = "galacticraftcore")})
+public class BlockDoorGeneric extends BlockDummyable implements IRadResistantBlock, IPartialSealableBlock {
 
 	public DoorDecl type;
-	private final boolean isRadResistant;
+	private boolean isRadResistant;
 	
 	public BlockDoorGeneric(Material materialIn, DoorDecl type, boolean isRadResistant, String s){
 		super(materialIn, s);
 		this.type = type;
 		this.isRadResistant = isRadResistant;
+	}
+
+	public boolean isSealed(World world, BlockPos blockPos, EnumFacing direction){
+		if (world != null) {
+			int[] corePos = findCore(world, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+			if(corePos != null){
+				TileEntity core = world.getTileEntity(new BlockPos(corePos[0], corePos[1], corePos[2]));
+				if (core != null && IDoor.class.isAssignableFrom(core.getClass())) {
+					// Doors should be sealed only when closed
+					return ((IDoor) core).getState() == IDoor.DoorState.CLOSED;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	@Override
@@ -61,19 +84,24 @@ public class BlockDoorGeneric extends BlockDummyable  implements IRadResistantBl
 	}
 	
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
-		if(!world.isRemote && !playerIn.isSneaking()) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
+		if(world.isRemote) {
+			return true;
+		} else if(player.getHeldItem(hand).getItem() instanceof ItemLock || player.getHeldItem(hand).getItem() == ModItems.key_kit) {
+			return false;
+			
+		} if(!player.isSneaking()) {
 			int[] pos1 = findCore(world, pos.getX(), pos.getY(), pos.getZ());
 			if(pos1 == null)
 				return false;
 			TileEntityDoorGeneric door = (TileEntityDoorGeneric) world.getTileEntity(new BlockPos(pos1[0], pos1[1], pos1[2]));
 
-			if(door != null) {
-				return door.tryToggle(playerIn);
+			if(door != null && door.canAccess(player)) {
+				return door.tryToggle(player);
 			}
 		}
-        return !playerIn.isSneaking();
-    }
+		return false;
+	}
 	
 	@Override
 	public boolean isLadder(IBlockState state, IBlockAccess world, BlockPos pos, EntityLivingBase entity){
@@ -158,31 +186,32 @@ public class BlockDoorGeneric extends BlockDummyable  implements IRadResistantBl
 	}
 
 	@Override
-	public boolean isRadResistant(World worldIn, BlockPos blockPos){
+	public boolean isRadResistant(World world, BlockPos blockPos){
 		if (!this.isRadResistant)
 			return false;
 
-		if (worldIn != null) {
-			TileEntity entity = worldIn.getTileEntity(blockPos);
-			if (entity != null) {
-				if (IDoor.class.isAssignableFrom(entity.getClass())) {
+		if (world != null) {
+			int[] corePos = findCore(world, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+			if(corePos != null){
+				TileEntity core = world.getTileEntity(new BlockPos(corePos[0], corePos[1], corePos[2]));
+				if (core != null && IDoor.class.isAssignableFrom(core.getClass())) {
 					// Doors should be rad resistant only when closed
-					return ((IDoor) entity).getState() == IDoor.DoorState.CLOSED;
+					return ((IDoor) core).getState() == IDoor.DoorState.CLOSED;
 				}
 			}
 		}
 
-		return true;
+		return false;
 	}
 
 	@Override
 	public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
 		float hardness = this.getExplosionResistance(null);
 		if(this.isRadResistant){
-			tooltip.add("§2[Radiation Shielding]§r");
+			tooltip.add("§2[" + I18nUtil.resolveKey("trait.radshield") + "]");
 		}
 		if(hardness > 50){
-			tooltip.add("§6Blast Resistance: "+hardness+"§r");
+			tooltip.add("§6" + I18nUtil.resolveKey("trait.blastres", hardness));
 		}
 	}
 }

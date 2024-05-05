@@ -8,6 +8,11 @@ import com.hbm.interfaces.IHasCustomModel;
 import com.hbm.items.ModItems;
 import com.hbm.lib.RefStrings;
 import com.hbm.main.MainRegistry;
+<<<<<<< HEAD
+=======
+
+import com.hbm.util.I18nUtil;
+>>>>>>> upstream/Custom-1.12.2
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -68,9 +73,9 @@ public class ItemFluidCanister extends Item implements IHasCustomModel {
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		FluidStack f = FluidUtil.getFluidContained(stack);
 		if (this == ModItems.canister_generic && f != null && f.getFluid() == ModForgeFluids.diesel) {
-			tooltip.add("All hail the spout!");
+			tooltip.add(I18nUtil.resolveKey("desc.canisterdiesel"));
 		}
-		String s = (f == null ? "0" : f.amount) + "/" + cap + " mb";
+		String s = (f == null ? "0" : f.amount) + "/" + cap + " mB";
 		if(stack.getCount() > 1)
 			s = stack.getCount() + "x " + s;
 		tooltip.add(s);

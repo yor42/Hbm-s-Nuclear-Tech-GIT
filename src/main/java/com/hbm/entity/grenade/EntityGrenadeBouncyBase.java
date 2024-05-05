@@ -1,9 +1,15 @@
 package com.hbm.entity.grenade;
 
+import java.util.List;
+
+import org.apache.logging.log4j.Level;
+
+import com.hbm.config.CompatibilityConfig;
 import com.hbm.config.GeneralConfig;
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.main.MainRegistry;
 import com.hbm.render.amlfrom1710.Vec3;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockFenceGate;
@@ -27,9 +33,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.logging.log4j.Level;
-
-import java.util.List;
 
 public abstract class EntityGrenadeBouncyBase extends Entity implements IProjectile {
 
@@ -48,20 +51,20 @@ public abstract class EntityGrenadeBouncyBase extends Entity implements IProject
 		this.setSize(0.25F, 0.25F);
 		this.setLocationAndAngles(living.posX, living.posY + (double) living.getEyeHeight(), living.posZ, living.rotationYaw, living.rotationPitch);
 		if (hand == EnumHand.MAIN_HAND) {
-			this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
+			this.posX -= (double) (MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F);
 			this.posY -= 0.10000000149011612D;
-			this.posZ -= MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
+			this.posZ -= (double) (MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F);
 		} else {
-			this.posX += MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
+			this.posX += (double) (MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F);
 			this.posY -= 0.10000000149011612D;
-			this.posZ += MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
+			this.posZ += (double) (MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F);
 		}
 
 		this.setPosition(this.posX, this.posY, this.posZ);
 		float f = 0.4F;
-		this.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * f;
-		this.motionZ = MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * f;
-		this.motionY = -MathHelper.sin((this.rotationPitch + this.func_70183_g()) / 180.0F * (float) Math.PI) * f;
+		this.motionX = (double) (-MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * f);
+		this.motionZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI) * f);
+		this.motionY = (double) (-MathHelper.sin((this.rotationPitch + this.func_70183_g()) / 180.0F * (float) Math.PI) * f);
 		this.shoot(this.motionX, this.motionY, this.motionZ, this.func_70182_d(), 1.0F);
 		this.rotationPitch = 0;
         this.prevRotationPitch = 0;
@@ -98,15 +101,15 @@ public abstract class EntityGrenadeBouncyBase extends Entity implements IProject
 
 	public void shoot(double motionX, double motionY, double motionZ, float f0, float f1) {
 		float f2 = MathHelper.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
-		motionX /= f2;
-		motionY /= f2;
-		motionZ /= f2;
+		motionX /= (double) f2;
+		motionY /= (double) f2;
+		motionZ /= (double) f2;
 		motionX += this.rand.nextGaussian() * 0.007499999832361937D * (double) f1;
 		motionY += this.rand.nextGaussian() * 0.007499999832361937D * (double) f1;
 		motionZ += this.rand.nextGaussian() * 0.007499999832361937D * (double) f1;
-		motionX *= f0;
-		motionY *= f0;
-		motionZ *= f0;
+		motionX *= (double) f0;
+		motionY *= (double) f0;
+		motionZ *= (double) f0;
 		this.motionX = motionX;
 		this.motionY = motionY;
 		this.motionZ = motionZ;
@@ -159,9 +162,9 @@ public abstract class EntityGrenadeBouncyBase extends Entity implements IProject
 			f = underState.getBlock().getSlipperiness(underState, this.world, underPos, this) * 0.98F;
 		}
 
-		this.motionX *= f;
+		this.motionX *= (double) f;
 		this.motionY *= 0.9800000190734863D;
-		this.motionZ *= f;
+		this.motionZ *= (double) f;
 
 		this.handleWaterMovement();
 
@@ -178,12 +181,16 @@ public abstract class EntityGrenadeBouncyBase extends Entity implements IProject
 		timer++;
 
 		if (timer >= getMaxTimer() && !world.isRemote) {
+			if(!CompatibilityConfig.isWarDim(world)){
+	            this.setDead();
+	            return;
+	        }
 			explode();
 
 			String s = "null";
 
 			if (thrower != null && thrower instanceof EntityPlayer)
-				s = thrower.getDisplayName().getUnformattedText();
+				s = ((EntityPlayer) thrower).getDisplayName().getUnformattedText();
 
 			if (GeneralConfig.enableExtendedLogging)
 				MainRegistry.logger.log(Level.INFO, "[GREN] Set off grenade at " + ((int) posX) + " / " + ((int) posY) + " / " + ((int) posZ) + " by " + s + "!");
@@ -218,7 +225,7 @@ public abstract class EntityGrenadeBouncyBase extends Entity implements IProject
 				int k = 0;
 
 				for (int l = list1.size(); k < l; ++k) {
-					y = list1.get(k).calculateYOffset(this.getEntityBoundingBox(), y);
+					y = ((AxisAlignedBB) list1.get(k)).calculateYOffset(this.getEntityBoundingBox(), y);
 				}
 
 				this.setEntityBoundingBox(this.getEntityBoundingBox().offset(0.0D, y, 0.0D));
@@ -228,7 +235,7 @@ public abstract class EntityGrenadeBouncyBase extends Entity implements IProject
 				int j5 = 0;
 
 				for (int l5 = list1.size(); j5 < l5; ++j5) {
-					x = list1.get(j5).calculateXOffset(this.getEntityBoundingBox(), x);
+					x = ((AxisAlignedBB) list1.get(j5)).calculateXOffset(this.getEntityBoundingBox(), x);
 				}
 
 				if (x != 0.0D) {
@@ -240,7 +247,7 @@ public abstract class EntityGrenadeBouncyBase extends Entity implements IProject
 				int k5 = 0;
 
 				for (int i6 = list1.size(); k5 < i6; ++k5) {
-					z = list1.get(k5).calculateZOffset(this.getEntityBoundingBox(), z);
+					z = ((AxisAlignedBB) list1.get(k5)).calculateZOffset(this.getEntityBoundingBox(), z);
 				}
 
 				if (z != 0.0D) {
@@ -328,119 +335,6 @@ public abstract class EntityGrenadeBouncyBase extends Entity implements IProject
 			this.world.profiler.endSection();
 		}
 	}
-
-	/*public void onUpdate() {
-		this.lastTickPosX = this.posX;
-		this.lastTickPosY = this.posY;
-		this.lastTickPosZ = this.posZ;
-		super.onUpdate();
-	
-		// Bounce here
-		
-		boolean bounce = false;
-		Vec3d vec3 = new Vec3d(this.posX, this.posY, this.posZ);
-		Vec3d vec31 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-		RayTraceResult movingobjectposition = this.world.rayTraceBlocks(vec3, vec31, false, true, true);
-	
-		if (movingobjectposition != null) {
-			vec31 = new Vec3d(movingobjectposition.hitVec.x, movingobjectposition.hitVec.y, movingobjectposition.hitVec.z);
-	
-			float mod = 0.6F;
-			this.posX += (movingobjectposition.hitVec.x - this.posX) * mod;
-			this.posY += (movingobjectposition.hitVec.y - this.posY) * mod;
-			this.posZ += (movingobjectposition.hitVec.z - this.posZ) * mod;
-			System.out.println(movingobjectposition.hitVec.y - this.posY);
-			switch (movingobjectposition.sideHit.getAxis()) {
-			case Y:
-				motionY *= -1;
-				break;
-			case Z:
-				motionZ *= -1;
-				break;
-			case X:
-				motionX *= -1;
-				break;
-	
-			}
-	
-			bounce = true;
-	
-			Vec3d mot = new Vec3d(motionX, motionY, motionZ);
-			if (mot.lengthVector() > 0.05)
-				world.playSound(null, this.posX, this.posY, this.posZ, HBMSoundHandler.grenadeBounce, SoundCategory.HOSTILE, 2.0F, 1.0F);
-	
-			motionX *= getBounceMod();
-			motionY *= getBounceMod();
-			motionZ *= getBounceMod();
-		}
-	
-		// Bounce here [END]
-	
-		if (!bounce) {
-			this.posX += this.motionX;
-			this.posY += this.motionY;
-			this.posZ += this.motionZ;
-			System.out.println(motionY);
-		}
-	
-		float f1 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-		this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
-	
-		for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) f1) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-			;
-		}
-	
-		while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
-			this.prevRotationPitch += 360.0F;
-		}
-	
-		while (this.rotationYaw - this.prevRotationYaw < -180.0F) {
-			this.prevRotationYaw -= 360.0F;
-		}
-	
-		while (this.rotationYaw - this.prevRotationYaw >= 180.0F) {
-			this.prevRotationYaw += 360.0F;
-		}
-	
-		this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
-		this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
-		float f2 = 0.99F;
-		
-	
-		if (this.isInWater()) {
-			for (int i = 0; i < 4; ++i) {
-				float f4 = 0.25F;
-				this.world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * (double) f4, this.posY - this.motionY * (double) f4, this.posZ - this.motionZ * (double) f4, this.motionX, this.motionY, this.motionZ);
-			}
-	
-			f2 = 0.8F;
-		}
-	
-		if (!bounce) {
-			this.motionX *= (double) f2;
-			this.motionY *= (double) f2;
-			this.motionZ *= (double) f2;
-			float f3 = this.getGravityVelocity();
-			this.motionY -= (double) f3;
-			
-		}
-		
-		this.setPosition(this.posX, this.posY, this.posZ);
-	
-		timer++;
-	
-		if (timer >= getMaxTimer() && !world.isRemote) {
-			explode();
-	
-			String s = "null";
-	
-			if (thrower != null && thrower instanceof EntityPlayer)
-				s = ((EntityPlayer) thrower).getDisplayName().getUnformattedText();
-	
-			if (MainRegistry.enableExtendedLogging)
-				MainRegistry.logger.log(Level.INFO, "[GREN] Set off grenade at " + ((int) posX) + " / " + ((int) posY) + " / " + ((int) posZ) + " by " + s + "!");
-		}
-	}*/
 
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound nbt) {

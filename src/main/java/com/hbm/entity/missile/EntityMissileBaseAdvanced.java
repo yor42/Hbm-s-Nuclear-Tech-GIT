@@ -1,17 +1,21 @@
 package com.hbm.entity.missile;
 
-import api.hbm.entity.IRadarDetectable;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.hbm.config.WeaponConfig;
 import com.hbm.entity.logic.IChunkLoader;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.interfaces.IConstantRenderer;
 import com.hbm.main.MainRegistry;
-import com.hbm.packet.LoopedEntitySoundPacket;
 import com.hbm.packet.PacketDispatcher;
+import api.hbm.entity.IRadarDetectable;
+import com.hbm.packet.LoopedEntitySoundPacket;
 import com.hbm.render.amlfrom1710.Vec3;
-import net.minecraft.block.Block;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -26,15 +30,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ForgeChunkManager.Type;
+import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class EntityMissileBaseAdvanced extends Entity implements IChunkLoader, IConstantRenderer, IRadarDetectable {
 
 	public static final DataParameter<Integer> HEALTH = EntityDataManager.createKey(EntityMissileBaseAdvanced.class, DataSerializers.VARINT);
+	public static final double particleSpeed = 1.75D;
 
 	int chunkX = 0;
 	int chunkZ = 0;
@@ -63,9 +66,6 @@ public abstract class EntityMissileBaseAdvanced extends Entity implements IChunk
 	public EntityMissileBaseAdvanced(World world, float x, float y, float z, int a, int b) {
 		super(world);
 		this.ignoreFrustumCheck = true;
-		/*this.posX = x;
-		this.posY = y;
-		this.posZ = z;*/
 		this.setLocationAndAngles(x, y, z, 0, 0);
 		startX = (int) x;
 		startZ = (int) z;
@@ -78,12 +78,11 @@ public abstract class EntityMissileBaseAdvanced extends Entity implements IChunk
 		decelY *= 2;
 
 		velocity = 0.0;
-
-		this.setSize(1.5F, 1.5F);
+		this.setSize(1.5F, 9F);
 	}
 
 	public void setAcceleration(double multiplier){
-		acceleration = multiplier;
+		this.acceleration = multiplier;
 	}
 
 	@Override
@@ -160,6 +159,34 @@ public abstract class EntityMissileBaseAdvanced extends Entity implements IChunk
 		}
 	}
 
+	public void clearLoadedChunks() {
+		if(!world.isRemote && loaderTicket != null && loadedChunks != null) {
+			for(ChunkPos chunk : loadedChunks) {
+				ForgeChunkManager.unforceChunk(loaderTicket, chunk);
+			}
+		}
+	}
+
+	private ChunkPos mainChunk;
+	public void loadMainChunk() {
+		if(!world.isRemote && loaderTicket != null){
+			ChunkPos currentChunk = new ChunkPos((int) Math.floor(this.posX / 16D), (int) Math.floor(this.posZ / 16D));
+			if(mainChunk == null){
+				ForgeChunkManager.forceChunk(loaderTicket, currentChunk);
+				this.mainChunk = currentChunk;
+			} else if(!mainChunk.equals(currentChunk)){
+				ForgeChunkManager.forceChunk(loaderTicket, currentChunk);
+				ForgeChunkManager.unforceChunk(loaderTicket, this.mainChunk);
+				this.mainChunk = currentChunk;
+			}
+		}
+	}
+	public void unloadMainChunk() {
+		if(!world.isRemote && loaderTicket != null && this.mainChunk != null) {
+			ForgeChunkManager.unforceChunk(loaderTicket, this.mainChunk);
+		}
+	}
+
 	@Override
 	protected void entityInit() {
 		init(ForgeChunkManager.requestTicket(MainRegistry.instance, world, Type.ENTITY));
@@ -201,42 +228,23 @@ public abstract class EntityMissileBaseAdvanced extends Entity implements IChunk
 
 	}
 
-	protected void rotation() {
-		float f2 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-		this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
-
-		for (this.rotationPitch = (float) (Math.atan2(this.motionY, f2) * 180.0D / Math.PI) - 90; this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-        }
-
-		while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
-			this.prevRotationPitch += 360.0F;
-		}
-
-		while (this.rotationYaw - this.prevRotationYaw < -180.0F) {
-			this.prevRotationYaw -= 360.0F;
-		}
-
-		while (this.rotationYaw - this.prevRotationYaw >= 180.0F) {
-			this.prevRotationYaw += 360.0F;
-		}
-	}
-
 	@Override
 	public void onUpdate() {
+		super.onUpdate();
+
+		//load own chunk
+		loadMainChunk();
+
 		if(this.ticksExisted < 10){
 			ExplosionLarge.spawnParticlesRadial(world, posX, posY, posZ, 15);
 			return;
 		}
 		this.getDataManager().set(HEALTH, Integer.valueOf(this.health));
-
-		this.prevPosX = this.posX;
-		this.prevPosY = this.posY;
-		this.prevPosZ = this.posZ;
-		this.setLocationAndAngles(posX + this.motionX * velocity, posY + this.motionY * velocity, posZ + this.motionZ * velocity, 0, 0);
-
-		this.rotation();
-	
-
+		
+		double oldPosY = this.posY;
+		this.setLocationAndAngles(posX + this.motionX * velocity, posY + this.motionY * velocity, posZ + this.motionZ * velocity, (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI), (float)(Math.atan2(this.motionY, MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ)) * 180.0D / Math.PI) - 90);
+		this.prevPosY = oldPosY;
+		
 		this.motionY -= decelY * velocity;
 
 		Vec3 vector = Vec3.createVectorHelper(targetX - startX, 0, targetZ - startZ);
@@ -262,7 +270,7 @@ public abstract class EntityMissileBaseAdvanced extends Entity implements IChunk
 			v = v.normalize();
 			for(int i = 0; i < velocity; i++){
 				//PacketDispatcher.wrapper.sendToAllAround(new AuxParticlePacket(posX, posY, posZ, 2), new TargetPoint(world.provider.getDimension(), posX, posY, posZ, 300));
-				MainRegistry.proxy.spawnParticle(posX - v.xCoord * i, posY - v.yCoord * i, posZ - v.zCoord * i, "exDark", new float[]{(float)(this.motionX * -3D), (float)(this.motionY * -3D), (float)(this.motionZ * -3D)});
+				MainRegistry.proxy.spawnParticle(posX - v.xCoord * i, posY - v.yCoord * i, posZ - v.zCoord * i, "exDark", new float[]{(float)(this.motionX * -particleSpeed), (float)(this.motionY * -particleSpeed), (float)(this.motionZ * -particleSpeed)});
 			}
 		}
 
@@ -272,15 +280,19 @@ public abstract class EntityMissileBaseAdvanced extends Entity implements IChunk
 				this.setLocationAndAngles((int)this.posX, world.getHeight((int)this.posX, (int)this.posZ), (int)this.posZ, 0, 0);
 			}
 			if (!this.world.isRemote) {
-				if(this.ticksExisted > 60)
+				if(this.ticksExisted > 100)
 					onImpact();
 			}
+			this.clearLoadedChunks();
+			unloadMainChunk();
 			this.setDead();
 			return;
 		}
 
-		if (motionY < -1 && this.isCluster && !world.isRemote) {
+		if (this.isCluster && !world.isRemote && posY < 300 && motionY < -1) {
 			cluster();
+			this.clearLoadedChunks();
+			unloadMainChunk();
 			this.setDead();
 			return;
 		}

@@ -3,7 +3,6 @@ package com.hbm.tileentity.machine;
 import api.hbm.energy.IEnergyUser;
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.inventory.ChemplantRecipes;
-import com.hbm.inventory.ChemplantRecipes.EnumChemistryTemplate;
 import com.hbm.inventory.RecipesCommon.AStack;
 import com.hbm.items.ModItems;
 import com.hbm.lib.ForgeDirection;
@@ -135,7 +134,7 @@ public abstract class TileEntityMachineChemplantBase extends TileEntityMachineBa
 			return false;
 		}
 
-		if(templateStack.getItemDamage() >= EnumChemistryTemplate.values().length) {
+		if(!ChemplantRecipes.hasRecipe(templateStack)) {
 			return false;
 		}
 
@@ -319,7 +318,7 @@ public abstract class TileEntityMachineChemplantBase extends TileEntityMachineBa
 			return;
 		}
 
-		if(templateStack.getItemDamage() < EnumChemistryTemplate.values().length) {
+		if(ChemplantRecipes.hasRecipe(templateStack)) {
 			List<AStack> itemInputs = ChemplantRecipes.getChemInputFromTempate(templateStack);
 			if(itemInputs == null) {
 				return;
@@ -601,7 +600,7 @@ public abstract class TileEntityMachineChemplantBase extends TileEntityMachineBa
 			}
 		}
 
-		for(int i = 0; i < 100 && needed > 0; i++) {
+		for(int i = 0; i < 100 && needed > 0 && i < send.size(); i++) {
 			TypedFluidTank tank = send.get(i);
 			if(tank.tank.getFluidAmount() > 0) {
 				int total = Math.min(tank.tank.getFluidAmount(), needed);

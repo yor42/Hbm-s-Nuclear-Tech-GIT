@@ -1,17 +1,19 @@
 package com.hbm.inventory;
 
-import com.hbm.items.ModItems;
-import com.hbm.util.Tuple;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-
+import java.util.LinkedHashMap;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import com.hbm.items.ModItems;
+
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
 public class WasteDrumRecipes {
 
-	public static HashMap<Item, ItemStack> recipes = new HashMap<>();
-	private static final HashSet<Item> outputs = new HashSet<>();
+	public static LinkedHashMap<Item, ItemStack> recipes = new LinkedHashMap<>();
+	private static HashSet<Item> outputs = new HashSet<>();
 	
 	public static void registerRecipes() {
 
@@ -31,16 +33,6 @@ public class WasteDrumRecipes {
 	public static void addRecipe(Item input, ItemStack output){
 		recipes.put(input, output);
 		outputs.add(output.getItem());
-	}
-
-	public static void removeRecipe(Item input, ItemStack output){
-		recipes.remove(input, output);
-		outputs.remove(output.getItem());
-	}
-
-	public static void removeRecipe(Tuple.Pair<Item, ItemStack> pair){
-		recipes.remove(pair.getKey(), pair.getValue());
-		outputs.remove(pair.getValue().getItem());
 	}
 	
 	public static ItemStack getOutput(Item item) {

@@ -1,5 +1,11 @@
 package com.hbm.items.tool;
 
+<<<<<<< HEAD
+=======
+import java.util.List;
+
+import com.hbm.util.I18nUtil;
+>>>>>>> upstream/Custom-1.12.2
 import com.hbm.entity.projectile.EntityMeteor;
 import com.hbm.items.ModItems;
 import com.hbm.lib.HBMSoundHandler;
@@ -29,7 +35,7 @@ public class ItemMeteorRemote extends Item {
 	
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add("Right click to summon a meteorite!");
+		tooltip.add(I18nUtil.resolveKey("item.meteor_remote.desc"));
 	}
 	
 	@Override
@@ -50,7 +56,7 @@ public class ItemMeteorRemote extends Item {
 		}
 		if(world.isRemote)
 		{
-			player.sendMessage(new TextComponentTranslation("Watch your head!"));
+			player.sendMessage(new TextComponentTranslation("chat.meteorremote.watchhead"));
 		}
 
     	world.playSound(null, player.posX, player.posY, player.posZ, HBMSoundHandler.techBleep, SoundCategory.PLAYERS, 1.0F, 1.0F);

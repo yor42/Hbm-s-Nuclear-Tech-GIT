@@ -1,10 +1,17 @@
 package com.hbm.entity.logic;
 
-import api.hbm.energy.IEnergyUser;
-import cofh.redstoneflux.api.IEnergyProvider;
+import java.util.ArrayList;
+import java.util.List;
+import java.lang.NoClassDefFoundError;
+
+import com.hbm.config.CompatibilityConfig;
+import com.hbm.entity.logic.IChunkLoader;
 import com.hbm.main.MainRegistry;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.packet.ParticleBurstPacket;
+
+import api.hbm.energy.IEnergyUser;
+import cofh.redstoneflux.api.IEnergyProvider;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -14,14 +21,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ForgeChunkManager.Type;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class EntityEMP extends Entity implements IChunkLoader {
 
@@ -37,6 +41,10 @@ public class EntityEMP extends Entity implements IChunkLoader {
 	public void onUpdate() {
 		
 		if(!world.isRemote) {
+			if(!CompatibilityConfig.isWarDim(world)){
+				this.setDead();
+				return;
+			}
 			if(machines == null) {
 				allocate();
 			} else {
@@ -85,11 +93,16 @@ public class EntityEMP extends Entity implements IChunkLoader {
 		TileEntity te = world.getTileEntity(pos);
 		if(te == null)
 			return;
-		if (te instanceof IEnergyUser) {
+		if(te instanceof IEnergyUser) {
 			machines.add(pos);
-		} else if (te instanceof IEnergyProvider) {
-			machines.add(pos);
-		} else if(te.hasCapability(CapabilityEnergy.ENERGY, null)){
+		} else {
+			try{
+				if(te instanceof IEnergyProvider) {
+					machines.add(pos);
+				}
+			} catch(NoClassDefFoundError e){}
+		}
+		if(te.hasCapability(CapabilityEnergy.ENERGY, null)){
 			machines.add(pos);
 		}
 	}
@@ -106,16 +119,18 @@ public class EntityEMP extends Entity implements IChunkLoader {
 			((IEnergyUser)te).setPower(0);
 			flag = true;
 		}
-		if (te instanceof IEnergyProvider) {
+		try{
+			if (te instanceof IEnergyProvider) {
 
-			((IEnergyProvider)te).extractEnergy(EnumFacing.UP, ((IEnergyProvider)te).getEnergyStored(EnumFacing.UP), false);
-			((IEnergyProvider)te).extractEnergy(EnumFacing.DOWN, ((IEnergyProvider)te).getEnergyStored(EnumFacing.DOWN), false);
-			((IEnergyProvider)te).extractEnergy(EnumFacing.NORTH, ((IEnergyProvider)te).getEnergyStored(EnumFacing.NORTH), false);
-			((IEnergyProvider)te).extractEnergy(EnumFacing.SOUTH, ((IEnergyProvider)te).getEnergyStored(EnumFacing.SOUTH), false);
-			((IEnergyProvider)te).extractEnergy(EnumFacing.EAST, ((IEnergyProvider)te).getEnergyStored(EnumFacing.EAST), false);
-			((IEnergyProvider)te).extractEnergy(EnumFacing.WEST, ((IEnergyProvider)te).getEnergyStored(EnumFacing.WEST), false);
-			flag = true;
-		}
+				((IEnergyProvider)te).extractEnergy(EnumFacing.UP, ((IEnergyProvider)te).getEnergyStored(EnumFacing.UP), false);
+				((IEnergyProvider)te).extractEnergy(EnumFacing.DOWN, ((IEnergyProvider)te).getEnergyStored(EnumFacing.DOWN), false);
+				((IEnergyProvider)te).extractEnergy(EnumFacing.NORTH, ((IEnergyProvider)te).getEnergyStored(EnumFacing.NORTH), false);
+				((IEnergyProvider)te).extractEnergy(EnumFacing.SOUTH, ((IEnergyProvider)te).getEnergyStored(EnumFacing.SOUTH), false);
+				((IEnergyProvider)te).extractEnergy(EnumFacing.EAST, ((IEnergyProvider)te).getEnergyStored(EnumFacing.EAST), false);
+				((IEnergyProvider)te).extractEnergy(EnumFacing.WEST, ((IEnergyProvider)te).getEnergyStored(EnumFacing.WEST), false);
+				flag = true;
+			}
+		} catch(NoClassDefFoundError e){}
 		if(te != null && te.hasCapability(CapabilityEnergy.ENERGY, null)){
 			IEnergyStorage handle = te.getCapability(CapabilityEnergy.ENERGY, null);
 			handle.extractEnergy(handle.getEnergyStored(), false);

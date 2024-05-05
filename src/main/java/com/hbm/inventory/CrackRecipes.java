@@ -1,17 +1,18 @@
 package com.hbm.inventory;
 
+import java.util.LinkedHashMap;
+
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.interfaces.Spaghetti;
+
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-
-import java.util.HashMap;
 
 //TODO: clean this shit up
 @Spaghetti("everything")
 public class CrackRecipes {
 
-	public static HashMap<Fluid, FluidStack[]> recipeFluids = new HashMap<>();
+	public static LinkedHashMap<Fluid, FluidStack[]> recipeFluids = new LinkedHashMap<>();
 
 	public static void registerRecipes() {
 		makeRecipe(ModForgeFluids.oil, new FluidStack[]{ new FluidStack(ModForgeFluids.crackoil, 80), new FluidStack(ModForgeFluids.petroleum, 20) });

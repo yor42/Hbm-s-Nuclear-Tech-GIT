@@ -1,29 +1,31 @@
 package com.hbm.items.food;
 
-import com.hbm.config.BombConfig;
-import com.hbm.entity.logic.EntityNukeExplosionMK4;
-import com.hbm.explosion.ExplosionParticle;
-import com.hbm.interfaces.IItemHazard;
+import java.util.List;
+
 import com.hbm.items.ModItems;
-import com.hbm.lib.ModDamageSource;
+import com.hbm.interfaces.IItemHazard;
 import com.hbm.modules.ItemHazardModule;
+import com.hbm.config.BombConfig;
+import com.hbm.entity.effect.EntityNukeTorex;
+import com.hbm.entity.logic.EntityNukeExplosionMK5;
+import com.hbm.lib.ModDamageSource;
 import com.hbm.potion.HbmPotion;
+
+import net.minecraft.init.MobEffects;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
+import net.minecraft.item.ItemFood;
 
 public class ItemFoodHazard extends ItemFood implements IItemHazard {
 
@@ -103,10 +105,8 @@ public class ItemFoodHazard extends ItemFood implements IItemHazard {
 			player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 60 * 20, 0));
 			player.addPotionEffect(new PotionEffect(MobEffects.HASTE, 60 * 20, 10));
 			player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 60 * 20, 10));
-			player.addPotionEffect(new PotionEffect(HbmPotion.bang, 60 * 20, 100));
-			worldIn.spawnEntity(EntityNukeExplosionMK4.statFac(worldIn, (int)(BombConfig.fatmanRadius * 1.5), player.posX, player.posY, player.posZ));
-	    	
-	    	ExplosionParticle.spawnMush(worldIn, (int)player.posX, (int)player.posY - 3, (int)player.posZ);
+			worldIn.spawnEntity(EntityNukeExplosionMK5.statFac(worldIn, (int)(BombConfig.fatmanRadius * 1.5), player.posX, player.posY, player.posZ));
+	    	EntityNukeTorex.statFac(worldIn, player.posX, player.posY, player.posZ, (int)(BombConfig.fatmanRadius * 1.5));
 		}
 		if(stack.getItem() == ModItems.cotton_candy){
 			player.addPotionEffect(new PotionEffect(MobEffects.WITHER, 5 * 20, 0));
@@ -131,7 +131,6 @@ public class ItemFoodHazard extends ItemFood implements IItemHazard {
 			player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 600, 4));
 			player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 600, 0));
 			player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 600, 0));
-			player.addPotionEffect(new PotionEffect(HbmPotion.bang, 30 * 20, 100));
 		}
 		if(stack.getItem() == ModItems.apple_schrabidium1){
 			player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 10 * 20, 0));
@@ -146,7 +145,6 @@ public class ItemFoodHazard extends ItemFood implements IItemHazard {
 			player.addPotionEffect(new PotionEffect(MobEffects.HEALTH_BOOST, 1200, 9));
 			player.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 1200, 4));
 			player.addPotionEffect(new PotionEffect(MobEffects.SATURATION, 1200, 9));
-			player.addPotionEffect(new PotionEffect(HbmPotion.bang, 60 * 20, 100));
 		}
 		if(stack.getItem() == ModItems.apple_schrabidium2){
 			player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 10 * 20, 0));
@@ -179,7 +177,7 @@ public class ItemFoodHazard extends ItemFood implements IItemHazard {
 			player.attackEntityFrom(ModDamageSource.lead, 10F);
 		}
 		if(stack.getItem() == ModItems.apple_lead2){
-			player.addPotionEffect(new PotionEffect(HbmPotion.radx, 60 * 20, 40));
+			player.addPotionEffect(new PotionEffect(HbmPotion.radx, 1 * 60 * 20, 40));
 			player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 15 * 60 * 20, 2));
 			player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 2 * 60 * 20, 0));
 			player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 30 * 20, 0));

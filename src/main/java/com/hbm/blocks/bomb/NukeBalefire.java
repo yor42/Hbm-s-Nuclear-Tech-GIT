@@ -1,5 +1,8 @@
 package com.hbm.blocks.bomb;
 
+import java.util.List;
+
+import com.hbm.util.I18nUtil;
 import com.hbm.blocks.machine.BlockMachineBase;
 import com.hbm.interfaces.IBomb;
 import com.hbm.tileentity.bomb.TileEntityNukeBalefire;
@@ -81,7 +84,7 @@ public class NukeBalefire extends BlockMachineBase implements IBomb {
 
 	@Override
 	public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
-		tooltip.add("§a[Balefire Bomb]§r");
-		tooltip.add(" §eRadius: 250m§r");
+		tooltip.add("§a["+ I18nUtil.resolveKey("trait.balefirebomb")+"]"+"§r");
+		tooltip.add(" §e"+I18nUtil.resolveKey("desc.radius", 250)+"§r");
 	}
 }

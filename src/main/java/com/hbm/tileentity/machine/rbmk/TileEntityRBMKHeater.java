@@ -1,18 +1,29 @@
 package com.hbm.tileentity.machine.rbmk;
 
+import java.util.Map;
+
 import com.hbm.blocks.ModBlocks;
-import com.hbm.entity.projectile.EntityRBMKDebris.DebrisType;
-import com.hbm.forgefluid.FFUtils;
-import com.hbm.forgefluid.ModForgeFluids;
-import com.hbm.interfaces.ITankPacketAcceptor;
-import com.hbm.inventory.HeatRecipes;
 import com.hbm.items.ModItems;
+import com.hbm.blocks.BlockDummyable;
 import com.hbm.items.machine.ItemForgeFluidIdentifier;
+import com.hbm.entity.projectile.EntityRBMKDebris.DebrisType;
 import com.hbm.packet.FluidTankPacket;
 import com.hbm.packet.PacketDispatcher;
+import com.hbm.interfaces.ITankPacketAcceptor;
+import com.hbm.inventory.HeatRecipes;
+import com.hbm.lib.ForgeDirection;
+import com.hbm.lib.Library;
+import com.hbm.forgefluid.FFUtils;
+import com.hbm.forgefluid.ModForgeFluids;
+import com.hbm.inventory.control_panel.DataValue;
+import com.hbm.inventory.control_panel.DataValueFloat;
+import com.hbm.inventory.control_panel.DataValueString;
 import com.hbm.tileentity.machine.rbmk.TileEntityRBMKConsole.ColumnType;
-import net.minecraft.item.ItemStack;
+
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
@@ -24,6 +35,9 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileEntityRBMKHeater extends TileEntityRBMKSlottedBase implements IFluidHandler, ITankPacketAcceptor {
 
@@ -52,7 +66,7 @@ public class TileEntityRBMKHeater extends TileEntityRBMKSlottedBase implements I
 		
 		if(!world.isRemote) {
 			setFluidType();
-            PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, tanks[0], tanks[1]), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 50));
+            PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, new FluidTank[] { tanks[0], tanks[1] }), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 50));
 
 			if(HeatRecipes.hasBoilRecipe(tankTypes[0])) {
 				Fluid hotFluid = HeatRecipes.getBoilFluid(tankTypes[0]);
@@ -175,6 +189,7 @@ public class TileEntityRBMKHeater extends TileEntityRBMKSlottedBase implements I
 	@Override
     public void recievePacket(NBTTagCompound[] tags) {
         if (tags.length != 2) {
+            return;
         } else {
             tanks[0].readFromNBT(tags[0]);
             tanks[1].readFromNBT(tags[1]);
@@ -249,5 +264,18 @@ public class TileEntityRBMKHeater extends TileEntityRBMKSlottedBase implements I
 		if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
 			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this);
 		return super.getCapability(capability, facing);
+	}
+
+	// control panel
+	@Override
+	public Map<String, DataValue> getQueryData() {
+		Map<String, DataValue> data = super.getQueryData();
+
+		data.put("t0_fluidType", new DataValueString(tankTypes[0].getName()));
+		data.put("t0_fluidAmount", new DataValueFloat((float) tanks[0].getFluidAmount()));
+		data.put("t1_fluidType", new DataValueString(tankTypes[1].getName()));
+		data.put("t1_fluidAmount", new DataValueFloat((float) tanks[1].getFluidAmount()));
+
+		return data;
 	}
 }

@@ -1,9 +1,13 @@
 package com.hbm.blocks.bomb;
 
+import java.util.List;
+
+import com.hbm.util.I18nUtil;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.lib.InventoryHelper;
 import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.bomb.TileEntityRailgun;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
@@ -20,8 +24,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class RailgunPlasma extends BlockContainer {
 
 	public RailgunPlasma(Material p_i45386_1_, String s) {
@@ -34,7 +36,7 @@ public class RailgunPlasma extends BlockContainer {
 	
 	@Override
 	public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
-		tooltip.add("Uses Deuterium Plasma Capsules");
+		tooltip.add(I18nUtil.resolveKey("desc.usesdpc"));
 	}
 	
 	@Override

@@ -1,10 +1,10 @@
 package com.hbm.render.amlfrom1710;
 
+import javax.vecmath.Matrix3f;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-
-import javax.vecmath.Matrix3f;
 
 public class Vec3
 {
@@ -22,6 +22,11 @@ public class Vec3
     public static Vec3 createVectorHelper(double p_72443_0_, double p_72443_2_, double p_72443_4_)
     {
         return new Vec3(p_72443_0_, p_72443_2_, p_72443_4_);
+    }
+
+    public static Vec3 createVectorHelper(Entity e)
+    {
+        return new Vec3(e.posX, e.posY, e.posZ);
     }
     
     public Vec3(Vec3d vec) {
@@ -94,7 +99,7 @@ public class Vec3
      */
     public Vec3 normalize()
     {
-        double d0 = MathHelper.sqrt(this.xCoord * this.xCoord + this.yCoord * this.yCoord + this.zCoord * this.zCoord);
+        double d0 = (double)MathHelper.sqrt(this.xCoord * this.xCoord + this.yCoord * this.yCoord + this.zCoord * this.zCoord);
         return d0 < 1.0E-4D ? createVectorHelper(0.0D, 0.0D, 0.0D) : createVectorHelper(this.xCoord / d0, this.yCoord / d0, this.zCoord / d0);
     }
 
@@ -140,7 +145,23 @@ public class Vec3
         double d0 = p_72438_1_.xCoord - this.xCoord;
         double d1 = p_72438_1_.yCoord - this.yCoord;
         double d2 = p_72438_1_.zCoord - this.zCoord;
-        return MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+        return (double)MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+    }
+
+    public double distanceTo(double x, double y, double z)
+    {
+        double d0 = x - this.xCoord;
+        double d1 = y - this.yCoord;
+        double d2 = z - this.zCoord;
+        return (double)MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+    }
+
+    public double distanceTo(Entity e)
+    {
+        double d0 = e.posX - this.xCoord;
+        double d1 = e.posY - this.yCoord;
+        double d2 = e.posZ - this.zCoord;
+        return (double)MathHelper.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
     }
 
     /**
@@ -170,7 +191,7 @@ public class Vec3
      */
     public double lengthVector()
     {
-        return MathHelper.sqrt(this.xCoord * this.xCoord + this.yCoord * this.yCoord + this.zCoord * this.zCoord);
+        return (double)MathHelper.sqrt(this.xCoord * this.xCoord + this.yCoord * this.yCoord + this.zCoord * this.zCoord);
     }
     
     public double lengthSquared(){

@@ -1,5 +1,13 @@
 package com.hbm.inventory.gui;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.hbm.util.I18nUtil;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
+
 import com.hbm.inventory.AnvilRecipes;
 import com.hbm.inventory.AnvilRecipes.AnvilConstructionRecipe;
 import com.hbm.inventory.AnvilRecipes.AnvilOutput;
@@ -10,6 +18,7 @@ import com.hbm.inventory.container.ContainerAnvil;
 import com.hbm.lib.RefStrings;
 import com.hbm.packet.AnvilCraftPacket;
 import com.hbm.packet.PacketDispatcher;
+
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiTextField;
@@ -25,25 +34,19 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.oredict.OreDictionary;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GUIAnvil extends GuiContainer {
 
 	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_anvil.png");
 	
-	private final int tier;
-	private final List<AnvilConstructionRecipe> originList = new ArrayList<>();
-	private final List<AnvilConstructionRecipe> recipes = new ArrayList<>();
+	private int tier;
+	private List<AnvilConstructionRecipe> originList = new ArrayList<>();
+	private List<AnvilConstructionRecipe> recipes = new ArrayList<>();
 	int index;
 	int size;
 	int selection;
 	private GuiTextField search;
-	private final EntityPlayer player;
+	private EntityPlayer player;
 
 	public GUIAnvil(EntityPlayer player, int tier) {
 		super(new ContainerAnvil(player.inventory, tier));
@@ -222,7 +225,7 @@ public class GUIAnvil extends GuiContainer {
 
 		List<String> list = new ArrayList<>();
 		
-		list.add(TextFormatting.YELLOW + "Inputs:");
+		list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("info.template_in_p"));
 		
 		for(AStack stack : recipe.input) {
 			if(stack instanceof ComparableStack)  {
@@ -244,7 +247,7 @@ public class GUIAnvil extends GuiContainer {
 		}
 
 		list.add("");
-		list.add(TextFormatting.YELLOW + "Outputs:");
+		list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("info.template_out_p"));
 		
 		for(AnvilOutput stack : recipe.output) {
 			list.add(">" + stack.stack.getCount() + "x " + stack.stack.getDisplayName() + (stack.chance != 1F ? (" (" + (stack.chance * 100) + "%)" ) : ""));

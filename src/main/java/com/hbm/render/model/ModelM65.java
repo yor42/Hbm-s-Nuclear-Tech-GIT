@@ -101,13 +101,13 @@ public class ModelM65 extends ModelBiped {
 	}
 
 	@Override
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
+	public void setRotationAngles(float f2, float f3, float f4, float f5, float f6, float f7, Entity entity) {
 		
 		if(entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
             this.isSneak = player.isSneaking();
 		}
-		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+		super.setRotationAngles(f2, f3, f4, f5, f6, f7, entity);
 		this.mask.rotationPointX = this.bipedHead.rotationPointX;
 		this.mask.rotationPointY = this.bipedHead.rotationPointY;
 		this.mask.rotateAngleY = this.bipedHead.rotateAngleY;
@@ -116,6 +116,11 @@ public class ModelM65 extends ModelBiped {
 		this.filter.rotationPointY = this.bipedHead.rotationPointY;
 		this.filter.rotateAngleY = this.bipedHead.rotateAngleY;
 		this.filter.rotateAngleX = this.bipedHead.rotateAngleX;
+
+		if(this.isSneak) {
+            this.mask.rotationPointY = 3.73F;
+            this.filter.rotationPointY = 3.73F;
+        }
 	}
 
 	@Override

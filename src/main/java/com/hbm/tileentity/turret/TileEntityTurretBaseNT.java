@@ -84,6 +84,8 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 	public boolean targetMobs = true;
 	public boolean targetMachines = true;
 
+	public boolean manualOverride = false;
+
 	public Entity target;
 	public Vec3d tPos;
 
@@ -139,12 +141,14 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		
 		if(!world.isRemote) {
 			this.updateConnections();
+			//Target is dead - start searching
 			if(this.target != null && !target.isEntityAlive()) {
 				this.target = null;
 				this.stattrak++;
 			}
 		}
 		
+		//check if we can see target
 		if(target != null) {
 			if(!this.entityInLOS(this.target)) {
 				this.target = null;
@@ -155,7 +159,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 			
 			if(target != null) {
 				this.tPos = this.getEntityPos(target);
-			} else {
+			} else if(!manualOverride){
 				this.tPos = null;
 			}
 		}
@@ -172,7 +176,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		
 		if(!world.isRemote) {
 			
-			if(this.target != null && !target.isEntityAlive()) {
+			if(this.target != null && !target.isEntityAlive() && !manualOverride) {
 				this.target = null;
 				this.tPos = null;
 				this.stattrak++;
@@ -186,7 +190,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 				if(searchTimer <= 0) {
 					searchTimer = this.getDecetorInterval();
 					
-					if(this.target == null)
+					if(this.target == null && !manualOverride)
 						this.seekNewTarget();
 				}
 			} else {
@@ -198,7 +202,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 			}
 			
 			this.power = Library.chargeTEFromItems(inventory, 10, this.power, this.getMaxPower());
-			
+			manualOverride = false;
 			networkPack();
 			
 		} else {

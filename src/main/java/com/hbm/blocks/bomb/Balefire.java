@@ -2,6 +2,8 @@ package com.hbm.blocks.bomb;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.potion.HbmPotion;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockFire;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -23,7 +25,40 @@ public class Balefire extends BlockFire {
 
 	@Override 
 	protected boolean canDie(World worldIn, BlockPos pos){
-		return false;
+		Block b = worldIn.getBlockState(pos.down()).getBlock();
+
+		return (b != ModBlocks.baleonitite_slaked && 
+			b != ModBlocks.baleonitite_1 && 
+			b != ModBlocks.baleonitite_2 && 
+			b != ModBlocks.baleonitite_3 && 
+			b != ModBlocks.baleonitite_4 && 
+			b != ModBlocks.baleonitite_core);
+	}
+
+	@Override 
+	public int getFlammability(Block b){
+		if(b != ModBlocks.baleonitite_slaked && 
+			b != ModBlocks.baleonitite_1 && 
+			b != ModBlocks.baleonitite_2 && 
+			b != ModBlocks.baleonitite_3 && 
+			b != ModBlocks.baleonitite_4 && 
+			b != ModBlocks.baleonitite_core){
+			return 20000;
+		}
+		return super.getEncouragement(b);
+	}
+
+	@Override 
+	public int getEncouragement(Block b){
+		if(b != ModBlocks.baleonitite_slaked && 
+			b != ModBlocks.baleonitite_1 && 
+			b != ModBlocks.baleonitite_2 && 
+			b != ModBlocks.baleonitite_3 && 
+			b != ModBlocks.baleonitite_4 && 
+			b != ModBlocks.baleonitite_core){
+			return 20000;
+		}
+		return super.getEncouragement(b);
 	}
 
 	@Override

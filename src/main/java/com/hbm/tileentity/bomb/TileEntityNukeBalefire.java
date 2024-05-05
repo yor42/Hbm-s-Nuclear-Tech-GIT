@@ -1,11 +1,13 @@
 package com.hbm.tileentity.bomb;
 
-import api.hbm.energy.IBatteryItem;
-import com.hbm.entity.effect.EntityNukeCloudSmall;
+import com.hbm.config.BombConfig;
+import com.hbm.entity.effect.EntityNukeTorex;
 import com.hbm.entity.logic.EntityBalefire;
 import com.hbm.items.ModItems;
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.tileentity.TileEntityMachineBase;
+
+import api.hbm.energy.IBatteryItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -83,8 +85,12 @@ public class TileEntityNukeBalefire extends TileEntityMachineBase implements ITi
 
 	public boolean hasEgg() {
 
-        return inventory.getStackInSlot(0).getItem() == ModItems.egg_balefire;
-    }
+		if(inventory.getStackInSlot(0).getItem() == ModItems.egg_balefire) {
+			return true;
+		}
+
+		return false;
+	}
 
 	public boolean hasBattery() {
 
@@ -115,9 +121,11 @@ public class TileEntityNukeBalefire extends TileEntityMachineBase implements ITi
 		bf.posX = pos.getX() + 0.5;
 		bf.posY = pos.getY() + 0.5;
 		bf.posZ = pos.getZ() + 0.5;
-		bf.destructionRange = 250;
+		bf.destructionRange = (int) 250;
 		world.spawnEntity(bf);
-		world.spawnEntity(EntityNukeCloudSmall.statFacBale(world, pos.getX() + 0.5, pos.getY() + 5, pos.getZ() + 0.5, 250F));
+		if(BombConfig.enableNukeClouds) {
+			EntityNukeTorex.statFacBale(world, pos.getX() + 0.5, pos.getY() + 5, pos.getZ() + 0.5, 250F);
+		}
 	}
 
 	public String getMinutes() {

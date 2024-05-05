@@ -1,8 +1,12 @@
 package com.hbm.blocks.generic;
 
+import java.util.Random;
+
 import com.hbm.blocks.ModBlocks;
 import com.hbm.items.tool.ItemToolAbility;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockOre;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,12 +20,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
-import java.util.Random;
+public class BlockCoalOil extends BlockOre {
 
-public class BlockCoalOil extends Block {
-
-	public BlockCoalOil(Material materialIn, String s) {
-		super(materialIn);
+	public BlockCoalOil(String s) {
+		super();
 		this.setUnlocalizedName(s);
 		this.setRegistryName(s);
 		
@@ -77,5 +79,4 @@ public class BlockCoalOil extends Block {
 	public int quantityDropped(IBlockState state, int fortune, Random random) {
 		return 2 + random.nextInt(2);
 	}
-
 }

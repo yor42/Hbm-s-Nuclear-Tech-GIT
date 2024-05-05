@@ -1,16 +1,25 @@
 package com.hbm.tileentity.machine;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.hbm.blocks.ModBlocks;
 import com.hbm.config.MobConfig;
 import com.hbm.explosion.ExplosionNukeGeneric;
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.forgefluid.ModForgeFluids;
-import com.hbm.interfaces.IRadResistantBlock;
 import com.hbm.interfaces.ITankPacketAcceptor;
+import com.hbm.interfaces.IRadResistantBlock;
 import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemFuelRod;
-import com.hbm.packet.*;
+import com.hbm.packet.AuxGaugePacket;
+import com.hbm.packet.FluidTankPacket;
+import com.hbm.packet.FluidTypePacketTest;
+import com.hbm.packet.LargeReactorPacket;
+import com.hbm.packet.PacketDispatcher;
 import com.hbm.saveddata.RadiationSavedData;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,7 +34,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
@@ -34,10 +47,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class TileEntityMachineReactorLarge extends TileEntity implements ITickable, IFluidHandler, ITankPacketAcceptor {
 
@@ -62,7 +71,7 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 
 	public static int fuelMult = 1000;
 	public static int cycleDuration = 24000;
-	private static final int fuelBase = 240 * fuelMult;
+	private static int fuelBase = 240 * fuelMult;
 	//private static int waterBase = 128 * 1000;
 	//private static int coolantBase = 64 * 1000;
 	//private static int steamBase = 32 * 1000;
@@ -100,7 +109,7 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 		};
 		tanks = new FluidTank[3];
 		tankTypes = new Fluid[3];
-		tanks[0] = new FluidTank(128000);
+		tanks[0] = new FluidTank(512000);
 		tankTypes[0] = FluidRegistry.WATER;
 		tanks[1] = new FluidTank(64000);
 		tankTypes[1] = ModForgeFluids.coolant;
@@ -223,7 +232,7 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 			if(compression == 1){
 				if(level == 0){
 					tankTypes[2] = ModForgeFluids.steam;
-					int newAmount = tanks[2].getFluidAmount()*10;
+					int newAmount = (int) (tanks[2].getFluidAmount()*10);
 					tanks[2].drain(tanks[2].getCapacity(), true);
 					tanks[2].fill(new FluidStack(tankTypes[2], newAmount), true);
 				}
@@ -237,7 +246,7 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 			if(compression == 2){
 				if(level == 0){
 					tankTypes[2] = ModForgeFluids.steam;
-					int newAmount = tanks[2].getFluidAmount()*100;
+					int newAmount = (int) (tanks[2].getFluidAmount()*100);
 					tanks[2].drain(tanks[2].getCapacity(), true);
 					tanks[2].fill(new FluidStack(tankTypes[2], newAmount), true);
 				}
@@ -338,8 +347,11 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 		if(b instanceof IRadResistantBlock)
 			return true;
 
-        return b == ModBlocks.reactor_hatch || b == ModBlocks.reactor_ejector || b == ModBlocks.reactor_inserter;
-    }
+		if(b == ModBlocks.reactor_hatch || b == ModBlocks.reactor_ejector || b == ModBlocks.reactor_inserter)
+			return true;
+		
+		return false;
+	}
 	
 	private void caluclateSize() {
 		
@@ -404,11 +416,11 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 				
 				if (age == 9 || age == 19)
 					fillFluidInit(tanks[2]);
-				
-				PacketDispatcher.wrapper.sendToAllAround(new AuxGaugePacket(pos, size, 0), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 15));
-				PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, tanks[0], tanks[1], tanks[2]), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 15));
-				PacketDispatcher.wrapper.sendToAllAround(new FluidTypePacketTest(pos.getX(), pos.getY(), pos.getZ(), new Fluid[]{tankTypes[2]}), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 15));
 			}
+
+			PacketDispatcher.wrapper.sendToAllAround(new AuxGaugePacket(pos, size, 0), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 15));
+			PacketDispatcher.wrapper.sendToAllAround(new FluidTankPacket(pos, new FluidTank[]{tanks[0], tanks[1], tanks[2]}), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 15));
+			PacketDispatcher.wrapper.sendToAllAround(new FluidTypePacketTest(pos.getX(), pos.getY(), pos.getZ(), new Fluid[]{tankTypes[2]}), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 15));
 		
 			maxWaste = maxFuel = fuelBase * getSize();
 			
@@ -521,9 +533,7 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 			if (rods > 0 && coreHeat > 0 && age == 5) {
 
 				float rad = (float)coreHeat / (float)maxCoreHeat * 50F;
-				//System.out.println(rad);
 				rad *= checkHull();
-				//System.out.println(rad);
 				
 				RadiationSavedData.incrementRad(world, pos, rad, 50 * 4);
 			}
@@ -557,7 +567,9 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 	
 	protected boolean inputValidForTank(int tank, int slot){
 		if(!inventory.getStackInSlot(slot).isEmpty() && tanks[tank] != null){
-            return inventory.getStackInSlot(slot).getItem() == ModItems.fluid_barrel_infinite || isValidFluidForTank(tank, FluidUtil.getFluidContained(inventory.getStackInSlot(slot)));
+			if(inventory.getStackInSlot(slot).getItem() == ModItems.fluid_barrel_infinite || isValidFluidForTank(tank, FluidUtil.getFluidContained(inventory.getStackInSlot(slot)))){
+				return true;
+			}
 		}
 		return false;
 	}
@@ -709,25 +721,29 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 		
 		double statSteMaFiFiLe = 32000;
 		
-		double steam = (((double)hullHeat / (double)maxHullHeat) * (/*(double)tanks[2].getMaxFill()*/statSteMaFiFiLe / 50D)) * size;
+		int waterConsumption = (int)((((double)hullHeat / (double)maxHullHeat) * (statSteMaFiFiLe / 50D)) * size);
 		
-		double water = steam;
-		
+		int steamMul = 1;
 		if(tankTypes[2] == ModForgeFluids.steam){
-			water /= 100D;
+			steamMul = 100;
 		} else if(tankTypes[2] == ModForgeFluids.hotsteam){
-			water /= 10;
+			steamMul = 10;
 		} else if(tankTypes[2] == ModForgeFluids.superhotsteam){
-			
+			steamMul = 1;
 		}
 
-		if(tanks[0].getFluidAmount() > 0){
-			if(tanks[0].getFluidAmount() < water){
-				steam = steam * tanks[0].getFluidAmount()/water;
-				water = tanks[0].getFluidAmount();
+		int steamProduction = waterConsumption * steamMul;
+
+		int waterFill = tanks[0].getFluidAmount();
+
+		if(waterFill > 0){
+			if(waterFill < waterConsumption){
+				waterConsumption = waterFill;
+				steamProduction = waterConsumption * steamMul;
 			}
-			tanks[0].drain((int)Math.ceil(water), true);
-			tanks[2].fill(new FluidStack(tankTypes[2], (int)Math.floor(steam)), true);
+
+			tanks[0].drain(waterConsumption, true);
+			tanks[2].fill(new FluidStack(tankTypes[2], steamProduction), true);
 		}
 		
 	}
@@ -764,7 +780,7 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 			}
 		}
 		
-		world.setBlockState(pos, ModBlocks.sellafield_core.getDefaultState());
+		world.setBlockState(pos, ModBlocks.sellafield_core.getStateFromMeta(world.rand.nextInt(4)));
 		if(MobConfig.enableElementals) {
 			List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5).grow(100, 100, 100));
 
@@ -843,7 +859,8 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 	@Override
 	public void recievePacket(NBTTagCompound[] tags) {
 		if(tags.length != 3){
-        } else {
+			return;
+		} else {
 			tanks[0].readFromNBT(tags[0]);
 			tanks[1].readFromNBT(tags[1]);
 			tanks[2].readFromNBT(tags[2]);
@@ -869,12 +886,12 @@ public class TileEntityMachineReactorLarge extends TileEntity implements ITickab
 		SCHRABIDIUM(2085000),
 		UNKNOWN(1);
 		
-		ReactorFuelType(int i) {
+		private ReactorFuelType(int i) {
 			heat = i;
 		}
 		
 		//Heat per nugget burned
-		private final int heat;
+		private int heat;
 		
 		public int getHeat() {
 			return heat;

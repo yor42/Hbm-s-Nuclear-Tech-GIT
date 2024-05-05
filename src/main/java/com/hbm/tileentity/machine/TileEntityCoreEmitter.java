@@ -7,6 +7,7 @@ import com.hbm.interfaces.ITankPacketAcceptor;
 import com.hbm.lib.ForgeDirection;
 import com.hbm.lib.ModDamageSource;
 import com.hbm.packet.AuxGaugePacket;
+import com.hbm.packet.AuxLongPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.TileEntityMachineBase;
 import net.minecraft.block.state.IBlockState;
@@ -43,7 +44,8 @@ public class TileEntityCoreEmitter extends TileEntityMachineBase implements ITic
 	public boolean isOn;
 	public FluidTank tank;
 	public long prev;
-	
+	public int prevWatts = -1;
+			
 	public static final int range = 50;
 	
 	public TileEntityCoreEmitter() {
@@ -56,7 +58,7 @@ public class TileEntityCoreEmitter extends TileEntityMachineBase implements ITic
 		if (!world.isRemote) {
 			
 			this.updateStandardConnections(world, pos);
-
+			
 			watts = MathHelper.clamp(watts, 1, 100);
 			long demand = maxPower * watts / 2000;
 
@@ -73,7 +75,6 @@ public class TileEntityCoreEmitter extends TileEntityMachineBase implements ITic
 			}
 			
 			if(isOn) {
-				
 				//i.e. 50,000,000 HE = 10,000 SPK
 				//1 SPK = 5,000HE
 				
@@ -89,7 +90,7 @@ public class TileEntityCoreEmitter extends TileEntityMachineBase implements ITic
 				
 				if(joules > 0) {
 					
-					long out = joules * 99 / 100;
+					long out = joules;
 					
 					EnumFacing dir = EnumFacing.getFront(this.getBlockMetadata());
 					for(int i = 1; i <= range; i++) {
@@ -106,7 +107,7 @@ public class TileEntityCoreEmitter extends TileEntityMachineBase implements ITic
 						
 						if(te instanceof ILaserable) {
 							
-							((ILaserable)te).addEnergy(out * 99 * watts / 10000, dir);
+							((ILaserable)te).addEnergy(out * 100 * watts / 10000, dir);
 							break;
 						}
 						
@@ -127,7 +128,8 @@ public class TileEntityCoreEmitter extends TileEntityMachineBase implements ITic
 							
 							@SuppressWarnings("deprecation")
 							float hardness = b.getBlock().getExplosionResistance(null);
-							if(hardness < 10000 && world.rand.nextInt(20) == 0) {
+							if(hardness < 10000 && world.rand.nextDouble() < (out * 0.00000001F)/hardness) {
+								world.playSound(null, x + 0.5, y + 0.5, z + 0.5, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 1.0F);
 								world.destroyBlock(pos1, false);
 							}
 							
@@ -135,9 +137,6 @@ public class TileEntityCoreEmitter extends TileEntityMachineBase implements ITic
 						}
 					}
 					
-					
-					joules = 0;
-		
 					double blx = Math.min(pos.getX(), pos.getX() + dir.getFrontOffsetX() * beam) + 0.2;
 					double bux = Math.max(pos.getX(), pos.getX() + dir.getFrontOffsetX() * beam) + 0.8;
 					double bly = Math.min(pos.getY(), pos.getY() + dir.getFrontOffsetY() * beam) + 0.2;
@@ -148,9 +147,11 @@ public class TileEntityCoreEmitter extends TileEntityMachineBase implements ITic
 					List<Entity> list = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(blx, bly, blz, bux, buy, buz));
 					
 					for(Entity e : list) {
-						e.attackEntityFrom(ModDamageSource.amsCore, 50);
+						e.attackEntityFrom(ModDamageSource.amsCore, joules*0.000001F);
 						e.setFire(10);
 					}
+
+					joules = 0;
 				}
 			} else {
 				joules = 0;
@@ -160,6 +161,9 @@ public class TileEntityCoreEmitter extends TileEntityMachineBase implements ITic
 			this.markDirty();
 			
 			PacketDispatcher.wrapper.sendToAllTracking(new AuxGaugePacket(pos, beam, 0), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 250));
+			if(watts != prevWatts) PacketDispatcher.wrapper.sendToAllTracking(new AuxGaugePacket(pos, watts, 1), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 250));
+			PacketDispatcher.wrapper.sendToAllTracking(new AuxLongPacket(pos, prev, 0), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 250));
+			prevWatts = watts;
 			
 			//this.networkPack(data, 250);
 		}

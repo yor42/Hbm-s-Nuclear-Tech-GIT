@@ -1,33 +1,63 @@
 package com.hbm.handler.jei;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import com.hbm.blocks.ModBlocks;
+import com.hbm.config.GeneralConfig;
 import com.hbm.forgefluid.ModForgeFluids;
-import com.hbm.forgefluid.SpecialContainerFillLists.EnumCanister;
 import com.hbm.forgefluid.SpecialContainerFillLists.EnumCell;
+import com.hbm.forgefluid.SpecialContainerFillLists.EnumCanister;
 import com.hbm.forgefluid.SpecialContainerFillLists.EnumGasCanister;
-import com.hbm.inventory.*;
+import com.hbm.inventory.AnvilRecipes;
 import com.hbm.inventory.AnvilRecipes.AnvilConstructionRecipe;
 import com.hbm.inventory.AnvilRecipes.AnvilOutput;
 import com.hbm.inventory.AnvilRecipes.OverlayType;
+import com.hbm.inventory.AnvilSmithingRecipe;
+import com.hbm.inventory.AssemblerRecipes;
+import com.hbm.inventory.ChemplantRecipes;
+import com.hbm.inventory.MixerRecipes;
+import com.hbm.inventory.BreederRecipes;
 import com.hbm.inventory.BreederRecipes.BreederRecipe;
-import com.hbm.inventory.ChemplantRecipes.EnumChemistryTemplate;
+import com.hbm.inventory.RBMKFuelRecipes;
+import com.hbm.inventory.WasteDrumRecipes;
+import com.hbm.inventory.StorageDrumRecipes;
+import com.hbm.inventory.CyclotronRecipes;
+import com.hbm.inventory.FusionRecipes;
+import com.hbm.inventory.DiFurnaceRecipes;
+import com.hbm.inventory.HeatRecipes;
+import com.hbm.inventory.PressRecipes;
+import com.hbm.inventory.MachineRecipes;
 import com.hbm.inventory.MachineRecipes.GasCentOutput;
+import com.hbm.inventory.MagicRecipes;
+import com.hbm.inventory.RefineryRecipes;
+import com.hbm.inventory.CrackRecipes;
+import com.hbm.inventory.NuclearTransmutationRecipes;
 import com.hbm.inventory.MagicRecipes.MagicRecipe;
 import com.hbm.inventory.RecipesCommon.AStack;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
 import com.hbm.inventory.RecipesCommon.NbtComparableStack;
+import com.hbm.inventory.ChemplantRecipes;
 import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemAssemblyTemplate;
-import com.hbm.items.machine.ItemFELCrystal.EnumWavelengths;
+import com.hbm.items.machine.ItemChemistryTemplate;
 import com.hbm.items.machine.ItemFluidIcon;
 import com.hbm.items.machine.ItemFluidTank;
+import com.hbm.items.machine.ItemFELCrystal.EnumWavelengths;
 import com.hbm.items.special.ItemCell;
 import com.hbm.items.tool.ItemFluidCanister;
 import com.hbm.items.tool.ItemGasCanister;
 import com.hbm.lib.Library;
-import com.hbm.util.I18nUtil;
-import com.hbm.util.Tuple.Pair;
-import com.hbm.util.Tuple.Quartet;
+import com.hbm.main.MainRegistry;
 import com.hbm.util.WeightedRandomObject;
+import com.hbm.util.Tuple.Quartet;
+import com.hbm.util.Tuple.Pair;
+import com.hbm.util.I18nUtil;
+
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
@@ -35,15 +65,14 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-
-import java.util.*;
-import java.util.Map.Entry;
+import net.minecraft.util.text.TextFormatting;
 
 public class JeiRecipes {
 
@@ -58,6 +87,7 @@ public class JeiRecipes {
 	private static List<ReactorRecipe> reactorRecipes = null;
 	private static List<WasteDrumRecipe> wasteDrumRecipes = null;
 	private static List<StorageDrumRecipe> storageDrumRecipes = null;
+	private static List<RBMKFuelRecipe> rbmkFuelRecipes = null;
 	private static List<RefineryRecipe> refineryRecipes = null;
 	private static List<CrackingRecipe> crackingRecipes = null;
 	private static List<FractioningRecipe> fractioningRecipes = null;
@@ -67,13 +97,13 @@ public class JeiRecipes {
 	private static List<SAFERecipe> safeRecipes = null;
 	private static List<HadronRecipe> hadronRecipes = null;
 	private static List<SILEXRecipe> silexRecipes = null;
-	private static final Map<EnumWavelengths, List<SILEXRecipe>> waveSilexRecipes = new HashMap<EnumWavelengths, List<SILEXRecipe>>();
+	private static Map<EnumWavelengths, List<SILEXRecipe>> waveSilexRecipes = new HashMap<EnumWavelengths, List<SILEXRecipe>>();
 	private static List<SmithingRecipe> smithingRecipes = null;
 	private static List<AnvilRecipe> anvilRecipes = null;
 	private static List<TransmutationRecipe> transmutationRecipes = null;
 	
 	private static List<ItemStack> batteries = null;
-	private static final Map<Integer, List<ItemStack>> reactorFuelMap = new HashMap<Integer, List<ItemStack>>();
+	private static Map<Integer, List<ItemStack>> reactorFuelMap = new HashMap<Integer, List<ItemStack>>();
 	private static List<ItemStack> blades = null;
 	private static List<ItemStack> alloyFuels = null;
 	
@@ -320,6 +350,23 @@ public class JeiRecipes {
 			ingredients.setOutput(VanillaTypes.ITEM, output);
 		}
 	}
+
+	public static class RBMKFuelRecipe implements IRecipeWrapper {
+		
+		private final ItemStack input;
+		private final ItemStack output;
+		
+		public RBMKFuelRecipe(ItemStack input, ItemStack output) {
+			this.input = input;
+			this.output = output; 
+		}
+		
+		@Override
+		public void getIngredients(IIngredients ingredients) {
+			ingredients.setInput(VanillaTypes.ITEM, input);
+			ingredients.setOutput(VanillaTypes.ITEM, output);
+		}
+	}
 	
 	public static class RefineryRecipe implements IRecipeWrapper {
 		
@@ -426,7 +473,7 @@ public class JeiRecipes {
 		public void getIngredients(IIngredients ingredients) {
 			List<List<ItemStack>> in = Library.copyItemStackListList(inputs);
 			while(in.size() < 12)
-				in.add(Collections.singletonList(new ItemStack(ModItems.nothing)));
+				in.add(Arrays.asList(new ItemStack(ModItems.nothing)));
 			int index = -1;
 			for(int i = 0; i < AssemblerRecipes.recipeList.size(); i++){ // finding the template item
 				if(AssemblerRecipes.recipeList.get(i).isApplicable(output)){
@@ -435,9 +482,9 @@ public class JeiRecipes {
 				}
 			}
 			if(index >= 0) // adding the template item
-				in.add(Collections.singletonList(ItemAssemblyTemplate.getTemplate(index)));
+				in.add(Arrays.asList(ItemAssemblyTemplate.getTemplate(index)));
 			else {
-				in.add(Collections.singletonList(new ItemStack(ModItems.nothing)));
+				in.add(Arrays.asList(new ItemStack(ModItems.nothing)));
 			}
 			ingredients.setInputLists(VanillaTypes.ITEM, in);
 			ingredients.setOutput(VanillaTypes.ITEM, output);
@@ -561,7 +608,7 @@ public class JeiRecipes {
 			FontRenderer fontRenderer = minecraft.fontRenderer;
 
 			int output_size = this.outputs.size();
-			int sep = output_size > 4 ? 3 : 2;
+			int sep = output_size > 6 ? 4 : output_size > 4 ? 3 : 2;
 			for(int i = 0; i < output_size; i ++){
 				double chance = this.chances.get(i);
 				if(i < sep) {
@@ -632,7 +679,7 @@ public class JeiRecipes {
 			return chemRecipes;
 		chemRecipes = new ArrayList<ChemRecipe>();
 		
-        for (int i = 0; i < EnumChemistryTemplate.values().length; ++i) {
+       for(int i: ChemplantRecipes.recipeNames.keySet()){
 
         	List<AStack> inputs = new ArrayList<AStack>(7);
         	for(int j = 0; j < 7; j ++)
@@ -741,6 +788,17 @@ public class JeiRecipes {
 			alloyFurnaceRecipes.add(new AlloyFurnaceRecipe(pairEntry.getKey().getKey(), pairEntry.getKey().getValue(), pairEntry.getValue()));
 		}
 		return alloyFurnaceRecipes;
+	}
+
+	public static List<RBMKFuelRecipe> getRBMKFuelRecipes() {
+		if(rbmkFuelRecipes != null)
+			return rbmkFuelRecipes;
+		rbmkFuelRecipes = new ArrayList<RBMKFuelRecipe>();
+
+		for(Map.Entry<ItemStack, ItemStack> pairEntry : RBMKFuelRecipes.recipes.entrySet()){
+			rbmkFuelRecipes.add(new RBMKFuelRecipe(pairEntry.getKey(), pairEntry.getValue()));
+		}
+		return rbmkFuelRecipes;
 	}
 	
 	public static List<ItemStack> getAlloyFuels() {

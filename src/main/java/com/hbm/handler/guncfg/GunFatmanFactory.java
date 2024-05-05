@@ -1,5 +1,9 @@
 package com.hbm.handler.guncfg;
 
+import java.util.ArrayList;
+
+import com.hbm.config.BombConfig;
+import com.hbm.entity.effect.EntityNukeTorex;
 import com.hbm.entity.projectile.EntityBulletBase;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.explosion.ExplosionNT;
@@ -14,11 +18,10 @@ import com.hbm.lib.HBMSoundHandler;
 import com.hbm.packet.AuxParticlePacketNT;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.render.misc.RenderScreenOverlay.Crosshair;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
-
-import java.util.ArrayList;
 
 public class GunFatmanFactory {
 	
@@ -128,7 +131,7 @@ public static GunConfiguration getFatmanConfig() {
 
 			@Override
 			public void behaveBlockHit(EntityBulletBase bullet, int x, int y, int z) {
-				BulletConfigFactory.nuclearExplosion(bullet, x, y, z, 3);
+				BulletConfigFactory.nuclearExplosion(bullet, x, y, z, 35);
 			}
 		};
 		
@@ -144,7 +147,7 @@ public static GunConfiguration getFatmanConfig() {
 
 			@Override
 			public void behaveBlockHit(EntityBulletBase bullet, int x, int y, int z) {
-				BulletConfigFactory.nuclearExplosion(bullet, x, y, z, 2);
+				BulletConfigFactory.nuclearExplosion(bullet, x, y, z, 20);
 			}
 		};
 		
@@ -160,7 +163,7 @@ public static GunConfiguration getFatmanConfig() {
 
 			@Override
 			public void behaveBlockHit(EntityBulletBase bullet, int x, int y, int z) {
-				BulletConfigFactory.nuclearExplosion(bullet, x, y, z, 4);
+				BulletConfigFactory.nuclearExplosion(bullet, x, y, z, 50);
 			}
 		};
 		
@@ -174,13 +177,13 @@ public static GunConfiguration getFatmanConfig() {
 		bullet.bulletsMin = 8;
 		bullet.bulletsMax = 8;
 		bullet.spread = 0.1F;
-		bullet.style = BulletConfiguration.STYLE_GRENADE;
+		bullet.style = bullet.STYLE_GRENADE;
 		
 		bullet.bImpact = new IBulletImpactBehavior() {
 
 			@Override
 			public void behaveBlockHit(EntityBulletBase bullet, int x, int y, int z) {
-				BulletConfigFactory.nuclearExplosion(bullet, x, y, z, 1);
+				BulletConfigFactory.nuclearExplosion(bullet, x, y, z, 10);
 			}
 		};
 		
@@ -463,18 +466,14 @@ public static GunConfiguration getFatmanConfig() {
 							.addAttrib(ExAttrib.NODROP)
 							.addAttrib(ExAttrib.NOHURT)
 							.overrideResolution(64);
-					exp.doExplosionA();
-					exp.doExplosionB(false);
+					exp.explode();
 					
-					NBTTagCompound data = new NBTTagCompound();
-					data.setString("type", "muke");
-					data.setBoolean("balefire", true);
-					PacketDispatcher.wrapper.sendToAllAround(new AuxParticlePacketNT(data, x, y + 0.5, z), new TargetPoint(bullet.dimension, bullet.posX, bullet.posY, bullet.posZ, 250));
+					if(BombConfig.enableNukeClouds) {
+						EntityNukeTorex.statFacBale(bullet.world, posX, posY, posZ, 15);
+					}
 				}
 			}
 		};
-		
 		return bullet;
 	}
-
 }

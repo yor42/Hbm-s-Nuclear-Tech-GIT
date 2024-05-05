@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderTestRender extends TileEntitySpecialRenderer<TileEntityTestRender> {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID, "textures/models/modeltestrender.png");
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID, "textures/models/misc/modeltestrender.png");
 	
 	private final ModelTestRender model;
 	

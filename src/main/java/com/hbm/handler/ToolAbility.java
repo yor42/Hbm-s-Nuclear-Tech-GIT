@@ -14,6 +14,7 @@ import com.hbm.items.tool.IItemAbility;
 import com.hbm.render.amlfrom1710.Vec3;
 import com.hbm.util.EnchantmentUtil;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRedstoneOre;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -81,6 +82,10 @@ public abstract class ToolAbility {
 		public boolean isAllowed() {
 			return ToolConfig.abilityVein;
 		}
+
+		private boolean areRedstone(IBlockState ref, IBlockState b){
+			return ref.getBlock() instanceof BlockRedstoneOre && b.getBlock() instanceof BlockRedstoneOre;
+		}
 		
 		private void breakExtra(World world, int x, int y, int z, int refX, int refY, int refZ, EntityPlayer player, IItemAbility tool, EnumHand hand, int depth) {
 			
@@ -104,7 +109,7 @@ public abstract class ToolAbility {
 			IBlockState b = world.getBlockState(new BlockPos(x, y, z));
 			IBlockState ref = world.getBlockState(new BlockPos(refX, refY, refZ));
 			
-			if(b != ref)
+			if(b != ref && !areRedstone(ref, b))
 				return;
 			
 			if(player.getHeldItem(hand).isEmpty())
@@ -504,8 +509,7 @@ public abstract class ToolAbility {
 			ex.addAttrib(ExAttrib.ALLDROP);
 			ex.addAttrib(ExAttrib.NOHURT);
 			ex.addAttrib(ExAttrib.NOPARTICLE);
-			ex.doExplosionA();
-			ex.doExplosionB(false);
+			ex.explode();
 
 			player.world.createExplosion(player, x + 0.5, y + 0.5, z + 0.5, 0.1F, false);
 		}

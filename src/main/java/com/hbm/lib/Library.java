@@ -1,10 +1,26 @@
 package com.hbm.lib;
 
-import api.hbm.energy.IBatteryItem;
-import api.hbm.energy.IEnergyConnector;
-import api.hbm.energy.IEnergyConnectorBlock;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.Map;
+import java.util.TreeMap;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
+import javax.annotation.Nullable;
+
+import org.apache.logging.log4j.Level;
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.google.common.base.Predicates;
 import com.google.common.collect.Sets;
+import com.hbm.main.MainRegistry;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.capability.HbmLivingCapability.EntityHbmPropsProvider;
 import com.hbm.capability.HbmLivingCapability.IEntityHbmProps;
@@ -15,11 +31,15 @@ import com.hbm.interfaces.Spaghetti;
 import com.hbm.items.ModItems;
 import com.hbm.render.amlfrom1710.Vec3;
 import com.hbm.util.BobMathUtil;
+
+import api.hbm.energy.IBatteryItem;
+import api.hbm.energy.IEnergyConnector;
+import api.hbm.energy.IEnergyConnectorBlock;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -32,25 +52,24 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.WeightedRandom;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.oredict.OreDictionary;
-import org.apache.commons.lang3.tuple.Pair;
-
-import javax.annotation.Nullable;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.text.DecimalFormat;
-import java.util.*;
 
 @Spaghetti("this whole class")
 public class Library {
@@ -81,6 +100,7 @@ public class Library {
 	public static String SweatySwiggs = "5544aa30-b305-4362-b2c1-67349bb499d5";
 	public static String Drillgon = "41ebd03f-7a12-42f3-b037-0caa4d6f235b";
 	public static String Alcater = "0b399a4a-8545-45a1-be3d-ece70d7d48e9";
+	public static String ege444 = "42ee978c-442a-4cd8-95b6-29e469b6df10";
 	public static String Doctor17 = "e4ab1199-1c22-4f82-a516-c3238bc2d0d1";
 	public static String Doctor17PH = "4d0477d7-58da-41a9-a945-e93df8601c5a";
 	public static String ShimmeringBlaze = "061bc566-ec74-4307-9614-ac3a70d2ef38";
@@ -89,9 +109,10 @@ public class Library {
 	public static String Pu_238 = "c95fdfd3-bea7-4255-a44b-d21bc3df95e3";
 
 	public static String Golem = "058b52a6-05b7-4d11-8cfa-2db665d9a521";
-	public static Set<String> contributors = Sets.newHashSet("06ab7c03-55ce-43f8-9d3c-2850e3c652de", //mustang_rudolf
-            "5bf069bc-5b46-4179-aafe-35c0a07dee8b" //JMF781
-    );
+	public static Set<String> contributors = Sets.newHashSet(new String[] {
+			"06ab7c03-55ce-43f8-9d3c-2850e3c652de", //mustang_rudolf
+			"5bf069bc-5b46-4179-aafe-35c0a07dee8b", //JMF781
+			});
 
 
 	public static final ForgeDirection POS_X = ForgeDirection.EAST;
@@ -144,32 +165,44 @@ public class Library {
 	}
 
 	public static String getShortNumber(long l) {
-		boolean negative = l < 0;
-		if(negative){
-			l = l * -1;
-		}
-		String result = "";
+		return getShortNumber(new BigDecimal(l));
+	}
 
-		if(l >= Math.pow(10, 18)) {
-			double res = l / Math.pow(10, 18);
-			result = numberformat.format(roundFloat(res, 2)) + "E";
-		} else if(l >= Math.pow(10, 15)) {
-			double res = l / Math.pow(10, 15);
-			result = numberformat.format(roundFloat(res, 2)) + "P";
-		} else if(l >= Math.pow(10, 12)) {
-			double res = l / Math.pow(10, 12);
-			result = numberformat.format(roundFloat(res, 2)) + "T";
-		} else if(l >= Math.pow(10, 9)) {
-			double res = l / Math.pow(10, 9);
-			result = numberformat.format(roundFloat(res, 2)) + "G";
-		} else if(l >= Math.pow(10, 6)) {
-			double res = l / Math.pow(10, 6);
-			result = numberformat.format(roundFloat(res, 2)) + "M";
-		}else if(l >= Math.pow(10, 3)) {
-			double res = l / Math.pow(10, 3);
-			result = numberformat.format(roundFloat(res, 2)) + "k";
-		} else{
-			result = Long.toString(l);
+	public static Map<Integer, String> numbersMap = null;
+	
+
+	public static void initNumbers(){
+		numbersMap = new TreeMap<>();
+		numbersMap.put(3, "k");
+		numbersMap.put(6, "M");
+		numbersMap.put(9, "G");
+		numbersMap.put(12, "T");
+		numbersMap.put(15, "P");
+		numbersMap.put(18, "E");
+		numbersMap.put(21, "Z");
+		numbersMap.put(24, "Y");
+		numbersMap.put(27, "R");
+		numbersMap.put(30, "Q");
+	}
+	
+	public static String getShortNumber(BigDecimal l) {
+		if(numbersMap == null) initNumbers();
+
+		boolean negative = l.signum() < 0;
+		if(negative){
+			l = l.negate();
+		}
+
+		String result = l.toPlainString();
+		BigDecimal c = null;
+		for(Map.Entry<Integer, String> num : numbersMap.entrySet()){
+			c = new BigDecimal("1E"+num.getKey());
+			if(l.compareTo(c) >= 0){
+				double res = l.divide(c).doubleValue();
+				result = numberformat.format(roundFloat(res, 2)) + num.getValue();
+			} else {
+				break;
+			}
 		}
 
 		if (negative){
@@ -180,11 +213,11 @@ public class Library {
 	}
 
 	public static float roundFloat(float number, int decimal){
-		return Math.round(number * powersOfTen[decimal]) / (float)powersOfTen[decimal];
+		return (float) (Math.round(number * powersOfTen[decimal]) / (float)powersOfTen[decimal]);  
 	}
 
 	public static float roundFloat(double number, int decimal){
-		return Math.round(number * powersOfTen[decimal]) / (float)powersOfTen[decimal];
+		return (float) (Math.round(number * powersOfTen[decimal]) / (float)powersOfTen[decimal]);  
 	}
 
 	public static int getColorFromItemStack(ItemStack stack){
@@ -209,7 +242,7 @@ public class Library {
 			BufferedImage image = ImageIO.read(Minecraft.getMinecraft().getResourceManager().getResource(r).getInputStream());
 			return getRGBfromARGB(image.getRGB(image.getWidth()>>1, image.getHeight()>>1));
 		} catch(Exception e) {
-			e.printStackTrace(); 
+			MainRegistry.logger.log(Level.INFO, "[NTM] Fluid Texture not found for "+e.getMessage());
 			return 0xFFFFFF;
 		}
 	}
@@ -278,10 +311,8 @@ public class Library {
 		boolean flag = true;
 
 		for(int i = 0; i < array.length; i++) {
-            if (array[i] != null) {
-                flag = false;
-                break;
-            }
+			if(array[i] != null)
+				flag = false;
 		}
 
 		return flag;
@@ -298,15 +329,14 @@ public class Library {
 	public static EntityPlayer getClosestPlayerForSound(World world, double x, double y, double z, double radius) {
 		double d4 = -1.0D;
 		EntityPlayer entity = null;
-
+		if(world == null) return null;
 		for (int i = 0; i < world.loadedEntityList.size(); ++i) {
-				Entity entityplayer1 = world.loadedEntityList.get(i);
+				Entity entityplayer1 = (Entity)world.loadedEntityList.get(i);
 
 				if (entityplayer1.isEntityAlive() && entityplayer1 instanceof EntityPlayer) {
 					double d5 = entityplayer1.getDistanceSq(x, y, z);
-					double d6 = radius;
 
-					if ((radius < 0.0D || d5 < d6 * d6) && (d4 == -1.0D || d5 < d4)) {
+					if ((radius < 0.0D || d5 < radius * radius) && (d4 == -1.0D || d5 < d4)) {
 						d4 = d5;
 						entity = (EntityPlayer)entityplayer1;
 					}
@@ -321,7 +351,7 @@ public class Library {
 		EntityHunterChopper entity = null;
 
 		for (int i = 0; i < world.loadedEntityList.size(); ++i) {
-				Entity entityplayer1 = world.loadedEntityList.get(i);
+				Entity entityplayer1 = (Entity)world.loadedEntityList.get(i);
 
 				if (entityplayer1.isEntityAlive() && entityplayer1 instanceof EntityHunterChopper) {
 					double d5 = entityplayer1.getDistanceSq(x, y, z);
@@ -342,7 +372,7 @@ public class Library {
 		EntityChopperMine entity = null;
 
 		for (int i = 0; i < world.loadedEntityList.size(); ++i) {
-				Entity entityplayer1 = world.loadedEntityList.get(i);
+				Entity entityplayer1 = (Entity)world.loadedEntityList.get(i);
 
 				if (entityplayer1.isEntityAlive() && entityplayer1 instanceof EntityChopperMine) {
 					double d5 = entityplayer1.getDistanceSq(x, y, z);
@@ -360,7 +390,7 @@ public class Library {
 
 	public static RayTraceResult rayTrace(EntityPlayer player, double length, float interpolation) {
 		Vec3d vec3 = getPosition(interpolation, player);
-		vec3 = vec3.addVector(0D, player.eyeHeight, 0D);
+		vec3 = vec3.addVector(0D, (double) player.eyeHeight, 0D);
 		Vec3d vec31 = player.getLook(interpolation);
 		Vec3d vec32 = vec3.addVector(vec31.x * length, vec31.y * length, vec31.z * length);
 		return player.world.rayTraceBlocks(vec3, vec32, false, false, true);
@@ -368,7 +398,7 @@ public class Library {
 	
 	public static RayTraceResult rayTrace(EntityPlayer player, double length, float interpolation, boolean b1, boolean b2, boolean b3) {
 		Vec3d vec3 = getPosition(interpolation, player);
-		vec3 = vec3.addVector(0D, player.eyeHeight, 0D);
+		vec3 = vec3.addVector(0D, (double) player.eyeHeight, 0D);
 		Vec3d vec31 = player.getLook(interpolation);
 		Vec3d vec32 = vec3.addVector(vec31.x * length, vec31.y * length, vec31.z * length);
 		return player.world.rayTraceBlocks(vec3, vec32, b1, b2, b3);
@@ -391,7 +421,7 @@ public class Library {
 	
 	public static RayTraceResult rayTraceIncludeEntities(EntityPlayer player, double d, float f) {
 		Vec3d vec3 = getPosition(f, player);
-		vec3 = vec3.addVector(0D, player.eyeHeight, 0D);
+		vec3 = vec3.addVector(0D, (double) player.eyeHeight, 0D);
 		Vec3d vec31 = player.getLook(f);
 		Vec3d vec32 = vec3.addVector(vec31.x * d, vec31.y * d, vec31.z * d);
 		return rayTraceIncludeEntities(player.world, vec3, vec32, player);
@@ -399,7 +429,7 @@ public class Library {
 	
 	public static RayTraceResult rayTraceIncludeEntitiesCustomDirection(EntityPlayer player, Vec3d look, double d, float f) {
 		Vec3d vec3 = getPosition(f, player);
-		vec3 = vec3.addVector(0D, player.eyeHeight, 0D);
+		vec3 = vec3.addVector(0D, (double) player.eyeHeight, 0D);
 		Vec3d vec32 = vec3.addVector(look.x * d, look.y * d, look.z * d);
 		return rayTraceIncludeEntities(player.world, vec3, vec32, player);
 	}
@@ -434,7 +464,7 @@ public class Library {
 	
 	public static Pair<RayTraceResult, List<Entity>> rayTraceEntitiesOnLine(EntityPlayer player, double d, float f){
 		Vec3d vec3 = getPosition(f, player);
-		vec3 = vec3.addVector(0D, player.eyeHeight, 0D);
+		vec3 = vec3.addVector(0D, (double) player.eyeHeight, 0D);
 		Vec3d vec31 = player.getLook(f);
 		Vec3d vec32 = vec3.addVector(vec31.x * d, vec31.y * d, vec31.z * d);
 		RayTraceResult result = player.world.rayTraceBlocks(vec3, vec32, false, true, true);
@@ -457,7 +487,7 @@ public class Library {
 	public static RayTraceResult rayTraceEntitiesInCone(EntityPlayer player, double d, float f, float degrees) {
 		double cosDegrees = Math.cos(Math.toRadians(degrees));
 		Vec3d vec3 = getPosition(f, player);
-		vec3 = vec3.addVector(0D, player.eyeHeight, 0D);
+		vec3 = vec3.addVector(0D, (double) player.eyeHeight, 0D);
 		Vec3d vec31 = player.getLook(f);
 		Vec3d vec32 = vec3.addVector(vec31.x * d, vec31.y * d, vec31.z * d);
 		
@@ -731,8 +761,9 @@ public static boolean canConnect(IBlockAccess world, BlockPos pos, ForgeDirectio
 		
 		if(te instanceof IEnergyConnector) {
 			IEnergyConnector con = (IEnergyConnector) te;
-
-            return con.canConnect(dir.getOpposite() /* machine's connecting side */);
+			
+			if(con.canConnect(dir.getOpposite() /* machine's connecting side */))
+				return true;
 		}
 		
 		return false;
@@ -855,7 +886,7 @@ public static boolean canConnect(IBlockAccess world, BlockPos pos, ForgeDirectio
 				
 				for (int j = 0; j < p_76293_3_; ++j)
 		        {
-					WeightedRandomChestContentFrom1710 weightedrandomchestcontent = WeightedRandom.getRandomItem(p_76293_0_, Arrays.asList(p_76293_1_));
+					WeightedRandomChestContentFrom1710 weightedrandomchestcontent = (WeightedRandomChestContentFrom1710)WeightedRandom.getRandomItem(p_76293_0_, Arrays.asList(p_76293_1_));
 		            ItemStack[] stacks = weightedrandomchestcontent.generateChestContent(p_76293_0_, inventory);
 
 		            for (ItemStack item : stacks)

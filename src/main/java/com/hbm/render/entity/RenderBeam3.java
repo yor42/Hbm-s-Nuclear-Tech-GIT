@@ -17,7 +17,7 @@ import org.lwjgl.opengl.GL11;
 public class RenderBeam3 extends Render<EntityMinerBeam> {
 
 	public static final IRenderFactory<EntityMinerBeam> FACTORY = (RenderManager man) -> {return new RenderBeam3(man);};
-	public static final ResourceLocation beam_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/PlasmaBeam.png");
+	public static final ResourceLocation beam_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/PlasmaBeam.png");
 	
 	protected RenderBeam3(RenderManager renderManager) {
 		super(renderManager);

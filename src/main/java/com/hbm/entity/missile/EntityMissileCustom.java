@@ -1,27 +1,32 @@
 package com.hbm.entity.missile;
 
-import api.hbm.entity.IRadarDetectable;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.bomb.BlockTaint;
-import com.hbm.entity.effect.EntityNukeCloudSmall;
+import com.hbm.interfaces.IConstantRenderer;
+import com.hbm.config.BombConfig;
+import com.hbm.entity.effect.EntityNukeTorex;
 import com.hbm.entity.logic.EntityBalefire;
-import com.hbm.entity.logic.EntityNukeExplosionMK4;
+import com.hbm.entity.logic.EntityNukeExplosionMK5;
 import com.hbm.entity.logic.IChunkLoader;
 import com.hbm.explosion.ExplosionChaos;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.handler.MissileStruct;
-import com.hbm.interfaces.IConstantRenderer;
 import com.hbm.items.weapon.ItemMissile;
 import com.hbm.items.weapon.ItemMissile.FuelType;
 import com.hbm.items.weapon.ItemMissile.PartSize;
 import com.hbm.items.weapon.ItemMissile.WarheadType;
 import com.hbm.main.MainRegistry;
-import com.hbm.packet.LoopedEntitySoundPacket;
 import com.hbm.packet.PacketDispatcher;
+import com.hbm.packet.LoopedEntitySoundPacket;
 import com.hbm.render.amlfrom1710.Vec3;
-import net.minecraft.block.Block;
+
+import api.hbm.entity.IRadarDetectable;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -40,14 +45,12 @@ import net.minecraftforge.common.ForgeChunkManager.Type;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class EntityMissileCustom extends Entity implements IChunkLoader, IRadarDetectable, IConstantRenderer {
 
 	public static final DataParameter<Integer> HEALTH = EntityDataManager.createKey(EntityMissileCustom.class, DataSerializers.VARINT);
 	public static final DataParameter<MissileStruct> TEMPLATE = EntityDataManager.createKey(EntityMissileCustom.class, MissileStruct.SERIALIZER);
-	
+	public static final double particleSpeed = 1.75D;
+
 	int chunkX = 0;
 	int chunkZ = 0;
 
@@ -95,13 +98,13 @@ public class EntityMissileCustom extends Entity implements IChunkLoader, IRadarD
 		
 		velocity = 0.0;
 
-		ItemMissile fuselage = template.fuselage;
-		ItemMissile thruster = template.thruster;
+		ItemMissile fuselage = (ItemMissile) template.fuselage;
+		ItemMissile thruster = (ItemMissile) template.thruster;
 
 		this.fuel = (Float)fuselage.attributes[1];
 		this.consumption = (Float)thruster.attributes[1];
 
-        this.setSize(1.5F, 1.5F);
+        this.setSize(1.5F, 11F);
 	}
 	
 	@Override
@@ -176,6 +179,34 @@ public class EntityMissileCustom extends Entity implements IChunkLoader, IRadarD
         }
 	}
 
+	public void clearLoadedChunks() {
+		if(!world.isRemote && loaderTicket != null && loadedChunks != null) {
+			for(ChunkPos chunk : loadedChunks) {
+				ForgeChunkManager.unforceChunk(loaderTicket, chunk);
+			}
+		}
+	}
+
+	private ChunkPos mainChunk;
+	public void loadMainChunk() {
+		if(!world.isRemote && loaderTicket != null){
+			ChunkPos currentChunk = new ChunkPos((int) Math.floor(this.posX / 16D), (int) Math.floor(this.posZ / 16D));
+			if(mainChunk == null){
+				ForgeChunkManager.forceChunk(loaderTicket, currentChunk);
+				this.mainChunk = currentChunk;
+			} else if(!mainChunk.equals(currentChunk)){
+				ForgeChunkManager.forceChunk(loaderTicket, currentChunk);
+				ForgeChunkManager.unforceChunk(loaderTicket, this.mainChunk);
+				this.mainChunk = currentChunk;
+			}
+		}
+	}
+	public void unloadMainChunk() {
+		if(!world.isRemote && loaderTicket != null && this.mainChunk != null) {
+			ForgeChunkManager.unforceChunk(loaderTicket, this.mainChunk);
+		}
+	}
+
 	@Override
 	protected void entityInit() {
 		init(ForgeChunkManager.requestTicket(MainRegistry.instance, world, Type.ENTITY));
@@ -239,29 +270,11 @@ public class EntityMissileCustom extends Entity implements IChunkLoader, IRadarD
 		}
 	}
 	
-	protected void rotation() {
-        float f2 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-        this.rotationYaw = (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
-
-        for (this.rotationPitch = (float)(Math.atan2(this.motionY, f2) * 180.0D / Math.PI) - 90; this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
-        {
-        }
-
-        while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
-            this.prevRotationPitch += 360.0F;
-        }
-
-        while (this.rotationYaw - this.prevRotationYaw < -180.0F) {
-            this.prevRotationYaw -= 360.0F;
-        }
-
-        while (this.rotationYaw - this.prevRotationYaw >= 180.0F) {
-            this.prevRotationYaw += 360.0F;
-        }
-	}
-	
 	@Override
 	public void onUpdate() {
+		super.onUpdate();
+		//load own chunk
+		loadMainChunk();
 		if(this.ticksExisted < 10){
 			ExplosionLarge.spawnParticlesRadial(world, posX, posY, posZ, 15);
 			return;
@@ -269,12 +282,10 @@ public class EntityMissileCustom extends Entity implements IChunkLoader, IRadarD
 		
 		this.getDataManager().set(HEALTH, this.health);
 		
-		this.prevPosX = this.posX;
-		this.prevPosY = this.posY;
-		this.prevPosZ = this.posZ;
-		this.setLocationAndAngles(posX + this.motionX * velocity, posY + this.motionY * velocity, posZ + this.motionZ * velocity, 0, 0);
-
-		this.rotation();
+		double oldPosY = this.posY;
+		this.setLocationAndAngles(posX + this.motionX * velocity, posY + this.motionY * velocity, posZ + this.motionZ * velocity, (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI), (float)(Math.atan2(this.motionY, MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ)) * 180.0D / Math.PI) - 90);
+		this.prevPosY = oldPosY;
+		
 		
 		if(fuel > 0 || world.isRemote) {
 			
@@ -314,9 +325,11 @@ public class EntityMissileCustom extends Entity implements IChunkLoader, IRadarD
 				this.setLocationAndAngles((int)this.posX, world.getHeight((int)this.posX, (int)this.posZ), (int)this.posZ, 0, 0);
 			}
 			if (!this.world.isRemote) {
-				if(this.ticksExisted > 60)
+				if(this.ticksExisted > 100)
 					onImpact();
 			}
+			this.clearLoadedChunks();
+			unloadMainChunk();
 			this.setDead();
 			return;
 		}
@@ -368,13 +381,9 @@ public class EntityMissileCustom extends Entity implements IChunkLoader, IRadarD
 	}
 
 	private void spawnRocketExhaust(){
-		Vec3 v = Vec3.createVectorHelper(this.motionX, this.motionY, this.motionZ);
-		v = v.normalize();
-		
-		String smoke = "exDark";
-		
 		FuelType type = (FuelType)template.fuselage.attributes[0];
 		
+		String smoke = "exDark";
 		switch(type) {
 		case BALEFIRE:
 			smoke = "exBalefire";
@@ -389,10 +398,12 @@ public class EntityMissileCustom extends Entity implements IChunkLoader, IRadarD
 			smoke = "exSolid";
 			break;
 		case XENON:
-			break;
+			return;
 		}
+		Vec3 v = Vec3.createVectorHelper(this.motionX, this.motionY, this.motionZ).normalize();
+		
 		for(int i = 0; i < 2; i++){
-			MainRegistry.proxy.spawnParticle(posX - v.xCoord * i, posY - v.yCoord * i, posZ - v.zCoord * i, smoke, new float[]{(float)(this.motionX * -3D), (float)(this.motionY * -3D), (float)(this.motionZ * -3D)});
+			MainRegistry.proxy.spawnParticle(posX - v.xCoord * i, posY - v.yCoord * i, posZ - v.zCoord * i, smoke, new float[]{(float)(this.motionX * -particleSpeed), (float)(this.motionY * -particleSpeed), (float)(this.motionZ * -particleSpeed)});
 		}
 	}
 		
@@ -419,18 +430,15 @@ public class EntityMissileCustom extends Entity implements IChunkLoader, IRadarD
 		case CLUSTER:
 			break;
 		case BUSTER:
-			ExplosionLarge.buster(world, posX, posY, posZ, Vec3.createVectorHelper(motionX, motionY, motionZ), strength, strength * 4);
+			ExplosionLarge.buster(world, posX, posY, posZ, Vec3.createVectorHelper(motionX, motionY, motionZ), strength, strength);
 			break;
 		case NUCLEAR:
 		case TX:
 		case MIRV:
-	    	world.spawnEntity(EntityNukeExplosionMK4.statFac(world, (int) strength, posX, posY, posZ));
-	    	
-			EntityNukeCloudSmall nuke = new EntityNukeCloudSmall(world, strength);
-			nuke.posX = posX;
-			nuke.posY = posY;
-			nuke.posZ = posZ;
-			world.spawnEntity(nuke);
+	    	world.spawnEntity(EntityNukeExplosionMK5.statFac(world, (int) strength, posX, posY, posZ));
+	    	if(BombConfig.enableNukeClouds) {
+				EntityNukeTorex.statFac(world, posX, posY, posZ, strength);
+			}
 			break;
 		case VOLCANO:
 			ExplosionLarge.buster(world, posX, posY, posZ, Vec3.createVectorHelper(motionX, motionY, motionZ), strength, strength * 2);
@@ -450,16 +458,16 @@ public class EntityMissileCustom extends Entity implements IChunkLoader, IRadarD
 			bf.posZ = this.posZ;
 			bf.destructionRange = (int) strength;
 			world.spawnEntity(bf);
-			world.spawnEntity(EntityNukeCloudSmall.statFacBale(world, posX, posY + 5, posZ, strength));
+			if(BombConfig.enableNukeClouds) {
+				EntityNukeTorex.statFac(world, posX, posY, posZ, strength);
+			}
 			break;
 		case N2:
-	    	world.spawnEntity(EntityNukeExplosionMK4.statFacNoRad(world, (int) strength, posX, posY, posZ));
+	    	world.spawnEntity(EntityNukeExplosionMK5.statFacNoRad(world, (int) strength, posX, posY, posZ));
 
-			EntityNukeCloudSmall n2 = new EntityNukeCloudSmall(world, strength);
-			n2.posX = posX;
-			n2.posY = posY;
-			n2.posZ = posZ;
-			world.spawnEntity(n2);
+			if(BombConfig.enableNukeClouds) {
+				EntityNukeTorex.statFac(world, posX, posY, posZ, strength);
+			}
 			break;
 		case TAINT:
             int r = (int) strength;

@@ -1,15 +1,21 @@
 package com.hbm.inventory;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.hbm.blocks.ModBlocks;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
 import com.hbm.items.ModItems;
-import net.minecraft.item.ItemStack;
 
-import java.util.HashMap;
-import java.util.Map;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public class SAFERecipes {
 
-	private static final HashMap<ComparableStack, ItemStack> recipes = new HashMap<>();
+	private static LinkedHashMap<ComparableStack, ItemStack> recipes = new LinkedHashMap<>();
 	
 	public static void registerRecipes() {
 		addRecipe(new ComparableStack(ModItems.tiny_singularity), new ItemStack(ModItems.singularity));
@@ -27,9 +33,9 @@ public class SAFERecipes {
 		recipes.remove(input);
 	}
 	
-	public static HashMap<ItemStack, ItemStack> getAllRecipes() {
+	public static LinkedHashMap<ItemStack, ItemStack> getAllRecipes() {
 		
-		HashMap<ItemStack, ItemStack> map = new HashMap<>();
+		LinkedHashMap<ItemStack, ItemStack> map = new LinkedHashMap<>();
 		for(Map.Entry<ComparableStack, ItemStack> recipe : recipes.entrySet()) {
 			map.put(recipe.getKey().toStack(), recipe.getValue());
 		}

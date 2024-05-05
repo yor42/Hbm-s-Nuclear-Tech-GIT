@@ -1,21 +1,23 @@
 package com.hbm.render.entity;
 
+import org.lwjgl.opengl.GL11;
+
 import com.hbm.entity.projectile.EntityMiniNuke;
 import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelMiniNuke;
+
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import org.lwjgl.opengl.GL11;
 
 public class RenderMiniNuke extends Render<EntityMiniNuke> {
 
 	public static final IRenderFactory<EntityMiniNuke> FACTORY = (RenderManager man) -> {return new RenderMiniNuke(man);};
 	
-	protected static ResourceLocation nuke_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/MiniNuke.png");
-	private final ModelMiniNuke miniNuke;
+	protected static ResourceLocation nuke_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/MiniNuke.png");
+	private ModelMiniNuke miniNuke;
 	
 	protected RenderMiniNuke(RenderManager renderManager) {
 		super(renderManager);

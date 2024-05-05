@@ -1,5 +1,8 @@
 package com.hbm.handler.jei;
 
+import com.hbm.handler.jei.SILEXRecipeHandler;
+
+import com.hbm.util.I18nUtil;
 import mezz.jei.api.IGuiHelper;
 
 public class SILEXDigammaRecipeHandler extends SILEXRecipeHandler {
@@ -15,6 +18,6 @@ public class SILEXDigammaRecipeHandler extends SILEXRecipeHandler {
 
 	@Override
 	public String getTitle(){
-		return "SILEX Digamma Recipes";
+		return I18nUtil.resolveKey("jei.silexdigamma");
 	}
 }

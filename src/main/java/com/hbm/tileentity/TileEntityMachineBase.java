@@ -27,7 +27,11 @@ public abstract class TileEntityMachineBase extends TileEntityLoadedBase impleme
 	}
 
 	public TileEntityMachineBase(int scount, int slotlimit) {
-		inventory = new ItemStackHandler(scount){
+		inventory = getNewInventory(scount, slotlimit);
+	}
+
+	public ItemStackHandler getNewInventory(int scount, int slotlimit){
+		return new ItemStackHandler(scount){
 			@Override
 			protected void onContentsChanged(int slot) {
 				super.onContentsChanged(slot);
@@ -153,5 +157,4 @@ public abstract class TileEntityMachineBase extends TileEntityLoadedBase impleme
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
 		return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && inventory != null) || super.hasCapability(capability, facing);
 	}
-	
 }

@@ -1,8 +1,16 @@
 package com.hbm.inventory;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map.Entry;
+
+import com.hbm.lib.Library;
+import com.hbm.blocks.ModBlocks;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
 import com.hbm.items.ModItems;
-import com.hbm.lib.Library;
+
+import static com.hbm.inventory.OreDictManager.*;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
@@ -16,16 +24,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-
-import static com.hbm.inventory.OreDictManager.*;
-
 public class DFCRecipes {
 
-	public static HashMap<ComparableStack, Object[]> dfcRecipes = new HashMap<ComparableStack, Object[]>();
+	public static LinkedHashMap<ComparableStack, Object[]> dfcRecipes = new LinkedHashMap<ComparableStack, Object[]>();
 	public static List<DFCRecipe> jeiDFCRecipes = null;
 	
 	public static void register() {
@@ -82,9 +83,7 @@ public class DFCRecipes {
 		DFCRecipes.setRecipe(420000000000L, U238.nugget(), new ItemStack(ModItems.nugget_u238m2));
 		DFCRecipes.setRecipe(690000000000L, ModItems.gun_uboinik, new ItemStack(ModItems.gun_supershotgun));
 		
-		DFCRecipes.setRecipe(1000000000000L, ModItems.undefined, new ItemStack(ModItems.glitch));
-		DFCRecipes.setRecipe(10000000000000L, ModItems.rod_of_discord, new ItemStack(ModItems.wand));
-		DFCRecipes.setRecipe(12000000000000L, ModItems.battery_spark_cell_power, new ItemStack(ModItems.battery_creative));
+		DFCRecipes.setRecipe(8000000000000L, ModItems.undefined, new ItemStack(ModItems.glitch));
 		DFCRecipes.setRecipe(69000000000000L, Items.WRITABLE_BOOK, new ItemStack(ModItems.book_of_));
 	}
 
@@ -95,10 +94,6 @@ public class DFCRecipes {
 	public static void setRecipe(long requiredFlux, Item in, ItemStack out) {
 		dfcRecipes.put(new ComparableStack(in), new Object[] {requiredFlux, out});
 	}
-
-	public static void setRecipe(long requiredFlux, ComparableStack in, ItemStack out) {
-		dfcRecipes.put(in, new Object[] {requiredFlux, out});
-	}
 	
 	public static void setRecipe(long requiredFlux, Block in, ItemStack out) {
 		dfcRecipes.put(new ComparableStack(in), new Object[] {requiredFlux, out});
@@ -108,13 +103,8 @@ public class DFCRecipes {
 		dfcRecipes.put(new ComparableStack(OreDictionary.getOres(in).get(0)), new Object[] {requiredFlux, out});
 	}
 
-
 	public static void removeRecipe(ItemStack in) {
-		removeRecipe(new ComparableStack(in));
-	}
-
-	public static void removeRecipe(ComparableStack in) {
-		dfcRecipes.remove(in);
+		dfcRecipes.remove(new ComparableStack(in));
 	}
 
 	public static long getRequiredFlux(ItemStack stack) {
@@ -139,7 +129,7 @@ public class DFCRecipes {
 
 	public static ItemStack getOutput(ItemStack stack) {
 		
-		if(stack == null)
+		if(stack == null || stack.getItem() == null)
 			return null;
 
 		ComparableStack comp = new ComparableStack(stack).makeSingular();

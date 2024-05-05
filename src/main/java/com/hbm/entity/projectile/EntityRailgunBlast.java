@@ -1,11 +1,15 @@
 package com.hbm.entity.projectile;
 
-import com.hbm.config.RadiationConfig;
-import com.hbm.entity.logic.EntityBlast;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.hbm.config.BombConfig;
+import com.hbm.entity.effect.EntityNukeTorex;
+import com.hbm.entity.logic.EntityNukeExplosionMK5;
 import com.hbm.entity.logic.IChunkLoader;
 import com.hbm.main.MainRegistry;
+
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
@@ -15,9 +19,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ForgeChunkManager.Type;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class EntityRailgunBlast extends Entity implements IChunkLoader {
 
@@ -95,10 +96,11 @@ public class EntityRailgunBlast extends Entity implements IChunkLoader {
 
 			if(!this.world.isRemote) {
 				this.setLocationAndAngles(movingobjectposition.getBlockPos().getX(), movingobjectposition.getBlockPos().getY(), movingobjectposition.getBlockPos().getZ(), 0, 0);
-
-				EntityTNTPrimed scapegoat = new EntityTNTPrimed(world);
-				world.newExplosion(scapegoat, posX, posY, posZ, 12F, false, true);
-				world.spawnEntity(EntityBlast.statFac(world, posX, posY, posZ, 45, RadiationConfig.railgunDamage, 12, 5, false));
+				
+				world.spawnEntity(EntityNukeExplosionMK5.statFac(world, BombConfig.missileRadius>>1, posX, posY, posZ));
+				if(BombConfig.enableNukeClouds) {
+					EntityNukeTorex.statFac(world, posX, posY, posZ, BombConfig.missileRadius>>1);
+				}
 			}
 			this.setDead();
 			return;
@@ -118,7 +120,8 @@ public class EntityRailgunBlast extends Entity implements IChunkLoader {
 		this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
 
 		for(this.rotationPitch = (float) (Math.atan2(this.motionY, f2) * 180.0D / Math.PI) - 90; this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-        }
+			;
+		}
 
 		while(this.rotationPitch - this.prevRotationPitch >= 180.0F) {
 			this.prevRotationPitch += 360.0F;

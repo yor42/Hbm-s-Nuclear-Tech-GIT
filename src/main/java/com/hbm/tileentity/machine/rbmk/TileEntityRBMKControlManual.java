@@ -1,8 +1,16 @@
 package com.hbm.tileentity.machine.rbmk;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.hbm.blocks.machine.rbmk.RBMKControl;
 import com.hbm.interfaces.IControlReceiver;
 import com.hbm.render.amlfrom1710.Vec3;
+import net.minecraft.util.math.BlockPos;
+import com.hbm.inventory.control_panel.ControlEvent;
+import com.hbm.inventory.control_panel.DataValue;
+import com.hbm.inventory.control_panel.DataValueFloat;
 import com.hbm.tileentity.machine.rbmk.TileEntityRBMKConsole.ColumnType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -128,5 +136,39 @@ public class TileEntityRBMKControlManual extends TileEntityRBMKControl implement
 			data.setShort("color", (short)-1);
 		
 		return data;
+	}
+
+	// control panel
+	@Override
+	public Map<String, DataValue> getQueryData() {
+		Map<String, DataValue> data = super.getQueryData();
+
+		if (this.color != null) {
+			data.put("color", new DataValueFloat(this.color.ordinal()));
+		}
+
+		return data;
+	}
+
+	@Override
+	public void receiveEvent(BlockPos from, ControlEvent e) {
+		super.receiveEvent(from, e);
+
+		if (e.name.equals("rbmk_ctrl_set_level")) {
+			this.startingLevel = this.level;
+			setTarget(Math.min(1, Math.max(0, e.vars.get("level").getNumber()/100)));
+			markDirty();
+		}
+		if (e.name.equals("rbmk_ctrl_set_color")) {
+			this.color = RBMKColor.values()[(int) (e.vars.get("color").getNumber()) % RBMKColor.values().length - 1];
+		}
+	}
+
+	@Override
+	public List<String> getInEvents() {
+		List<String> events = new ArrayList<>(super.getInEvents());
+		events.add("rbmk_ctrl_set_level");
+		events.add("rbmk_ctrl_set_color");
+		return events;
 	}
 }

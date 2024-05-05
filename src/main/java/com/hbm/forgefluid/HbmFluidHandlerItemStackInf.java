@@ -31,6 +31,8 @@ public class HbmFluidHandlerItemStackInf implements IFluidHandlerItem, ICapabili
 	
 	@Override
 	public int fill(FluidStack resource, boolean doFill) {
+		if(resource != null)
+			return resource.amount;
 		return 0;
 	}
 

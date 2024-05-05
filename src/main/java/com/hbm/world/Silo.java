@@ -2520,7 +2520,7 @@ public class Silo extends WorldGenerator
 		world.setBlockState(pos.setPos(x + 8, y + -9, z + 3), Blocks.WALL_SIGN.getDefaultState().withProperty(BlockWallSign.FACING, EnumFacing.WEST), 3);
 		world.setBlockState(pos.setPos(x + 10, y + -9, z + 3), Blocks.WALL_SIGN.getDefaultState().withProperty(BlockWallSign.FACING, EnumFacing.EAST), 3);
 		world.setBlockState(pos.setPos(x + 9, y + -8, z + 2), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.values()[3]), 3);
-		world.setBlockState(pos.setPos(x + 9, y + -8, z + 5), Blocks.LEVER.getDefaultState().withProperty(BlockLever.FACING, EnumOrientation.UP_Z), 3);
+		world.setBlockState(pos.setPos(x + 9, y + -8, z + 5), Blocks.STONE_BUTTON.getDefaultState().withProperty(BlockDirectional.FACING, EnumFacing.UP), 3);
 		world.setBlockState(pos.setPos(x + 9, y + -7, z + 2), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.values()[3]), 3);
 		world.setBlockState(pos.setPos(x + 9, y + -6, z + 2), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.values()[3]), 3);
 		world.setBlockState(pos.setPos(x + 9, y + -5, z + 2), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.values()[3]), 3);

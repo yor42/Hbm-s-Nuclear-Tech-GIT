@@ -96,5 +96,4 @@ public class JetpackGlider extends ItemArmorMod implements IItemFluidHandler {
 			setTank(stack, tank);
 		return drain;
 	}
-
 }

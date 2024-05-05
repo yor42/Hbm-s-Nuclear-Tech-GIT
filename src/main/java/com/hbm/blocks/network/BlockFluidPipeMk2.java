@@ -1,17 +1,23 @@
 package com.hbm.blocks.network;
 
-import api.hbm.block.IToolable;
-import com.hbm.blocks.ILookOverlay;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.hbm.blocks.ModBlocks;
+import com.hbm.blocks.ILookOverlay;
 import com.hbm.forgefluid.ModForgeFluids;
+import com.hbm.util.I18nUtil;
 import com.hbm.items.machine.ItemFFFluidDuct;
 import com.hbm.tileentity.conductor.TileEntityFFDuctBaseMk2;
 import com.hbm.tileentity.conductor.TileEntityFFFluidDuctMk2;
 import com.hbm.tileentity.conductor.TileEntityFFFluidSuccMk2;
-import com.hbm.util.I18nUtil;
+
+import api.hbm.block.IToolable;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -22,16 +28,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.Pre;
 import net.minecraftforge.fluids.Fluid;
-
-import java.util.ArrayList;
-import java.util.List;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.client.event.RenderGameOverlayEvent.Pre;
 
 public class BlockFluidPipeMk2 extends BlockContainer implements IToolable, ILookOverlay {
 
@@ -60,7 +64,7 @@ public class BlockFluidPipeMk2 extends BlockContainer implements IToolable, ILoo
 	
 	@Override
 	public void addInformation(ItemStack stack, World player, List<String> tooltip, ITooltipFlag advanced) {
-		tooltip.add("Right click with screwdriver to toggle extraction");
+		tooltip.add(I18nUtil.resolveKey("desc.extraction"));
 	}
 	
 	@Override
@@ -110,7 +114,7 @@ public class BlockFluidPipeMk2 extends BlockContainer implements IToolable, ILoo
 				boolean pZ = te.connections[4] != null;
 				boolean nZ = te.connections[2] != null;
 				
-				int mask = (pX ? 32 : 0) + (nX ? 16 : 0) + (pY ? 8 : 0) + (nY ? 4 : 0) + (pZ ? 2 : 0) + (nZ ? 1 : 0);
+				int mask = 0 + (pX ? 32 : 0) + (nX ? 16 : 0) + (pY ? 8 : 0) + (nY ? 4 : 0) + (pZ ? 2 : 0) + (nZ ? 1 : 0);
 			
 				if(mask == 0) {
 					return new AxisAlignedBB(0F, 0F, 0F, 1F, 1F, 1F);
@@ -169,10 +173,15 @@ public class BlockFluidPipeMk2 extends BlockContainer implements IToolable, ILoo
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
+
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face){
+		return BlockFaceShape.CENTER;
+	}
 	
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, EXTRACTS);
+		return new BlockStateContainer(this, new IProperty[]{ EXTRACTS });
 	}
 	
 	@Override
@@ -233,7 +242,7 @@ public class BlockFluidPipeMk2 extends BlockContainer implements IToolable, ILoo
 		
 		List<String> text = new ArrayList();
 		if(ductFluid == null){
-			text.add("§7None");
+			text.add("§7" + I18nUtil.resolveKey("desc.none"));
 		} else{
 			int color = ModForgeFluids.getFluidColor(ductFluid);
 			text.add("&[" + color + "&]" +I18nUtil.resolveKey(ductFluid.getUnlocalizedName()));

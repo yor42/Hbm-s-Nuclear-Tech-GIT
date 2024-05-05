@@ -1,11 +1,19 @@
 package com.hbm.entity.projectile;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
+import javax.annotation.Nullable;
+
+import com.hbm.config.BombConfig;
+import com.hbm.config.CompatibilityConfig;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.generic.RedBarrel;
+import com.hbm.entity.effect.EntityNukeTorex;
 import com.hbm.entity.effect.EntityCloudFleijaRainbow;
 import com.hbm.entity.effect.EntityEMPBlast;
 import com.hbm.entity.logic.EntityNukeExplosionMK3;
-import com.hbm.entity.logic.EntityNukeExplosionMK4;
+import com.hbm.entity.logic.EntityNukeExplosionMK5;
 import com.hbm.entity.particle.EntityTSmokeFX;
 import com.hbm.explosion.ExplosionChaos;
 import com.hbm.explosion.ExplosionLarge;
@@ -23,6 +31,7 @@ import com.hbm.particle.bullet_hit.EntityHitDataHandler;
 import com.hbm.potion.HbmPotion;
 import com.hbm.render.amlfrom1710.Vec3;
 import com.hbm.util.BobMathUtil;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -40,17 +49,17 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
-import java.lang.reflect.Field;
-import java.util.List;
 
 @SuppressWarnings("deprecation")
 public class EntityBulletBase extends Entity implements IProjectile {
@@ -249,7 +258,7 @@ public class EntityBulletBase extends Entity implements IProjectile {
 		if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
 			float f = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
 			this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
-			this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(this.motionY, f) * 180.0D / Math.PI);
+			this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(this.motionY, (double) f) * 180.0D / Math.PI);
 		}
 
 		/// ZONE 1 START ///
@@ -272,7 +281,7 @@ public class EntityBulletBase extends Entity implements IProjectile {
 		float f1;
 
 		for (i = 0; i < list.size(); ++i) {
-			Entity entity1 = list.get(i);
+			Entity entity1 = (Entity) list.get(i);
 
 			if (entity1.canBeCollidedWith() && (entity1 != this.shooter)) {
 				f1 = 0.3F;
@@ -303,7 +312,7 @@ public class EntityBulletBase extends Entity implements IProjectile {
 		if (movement != null) {
 
 			// handle entity collision
-			if (movement.entityHit != null) {
+			if (movement.entityHit != null && CompatibilityConfig.isWarDim(world)) {
 
 				DamageSource damagesource = null;
 
@@ -330,7 +339,7 @@ public class EntityBulletBase extends Entity implements IProjectile {
 						if (lastDamage == null)
 							lastDamage = ReflectionHelper.findField(EntityLivingBase.class, "lastDamage", "field_110153_bc");
 
-						float dmg = damage + lastDamage.getFloat(victim);
+						float dmg = (float) damage + lastDamage.getFloat(victim);
 
 						victim.attackEntityFrom(damagesource, dmg);
 					} catch (Exception x) {
@@ -440,8 +449,9 @@ public class EntityBulletBase extends Entity implements IProjectile {
 		float f2;
 		this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
 		f2 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-		for (this.rotationPitch = (float) (Math.atan2(this.motionY, f2) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
-        }
+		for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) f2) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
+			;
+		}
 
 		while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
 			this.prevRotationPitch += 360.0F;
@@ -472,10 +482,6 @@ public class EntityBulletBase extends Entity implements IProjectile {
 				MainRegistry.proxy.effectNT(nbt);
 			}
 		}
-		// this.rotationPitch = this.prevRotationPitch + (this.rotationPitch -
-		// this.prevRotationPitch) * 0.2F;
-		// this.rotationYaw = this.prevRotationYaw + (this.rotationYaw -
-		// this.prevRotationYaw) * 0.2F;
 	}
 	
 	private void doHitVFX(@Nullable BlockPos pos, RayTraceResult hit){
@@ -507,14 +513,18 @@ public class EntityBulletBase extends Entity implements IProjectile {
 	private void onBlockImpact(BlockPos pos, RayTraceResult hit) {
 		if(config.bImpact != null)
 			config.bImpact.behaveBlockHit(this, pos.getX(), pos.getY(), pos.getZ());
-		if (!world.isRemote)
+		if(!world.isRemote){
 			this.setDead();
+		}
 		
 		IBlockState blockstate = world.getBlockState(pos);
 		Block block = blockstate.getBlock();
 		
 		doHitVFX(pos, hit);
 
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		if (config.incendiary > 0 && !this.world.isRemote) {
 			if (world.rand.nextInt(3) == 0 && world.getBlockState(new BlockPos((int) posX, (int) posY, (int) posZ)).getBlock() == Blocks.AIR)
 				world.setBlockState(new BlockPos((int) posX, (int) posY, (int) posZ), Blocks.FIRE.getDefaultState());
@@ -558,7 +568,7 @@ public class EntityBulletBase extends Entity implements IProjectile {
 
 		if (config.chlorine > 0 && !world.isRemote) {
 			ExplosionChaos.spawnChlorine(world, posX, posY, posZ, config.chlorine, 1.5, 0);
-			world.playSound(posX + 0.5F, posY + 0.5F, posZ + 0.5F, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.HOSTILE, 5.0F, 2.6F + (rand.nextFloat() - rand.nextFloat()) * 0.8F, true);
+			world.playSound((double) (posX + 0.5F), (double) (posY + 0.5F), (double) (posZ + 0.5F), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.HOSTILE, 5.0F, 2.6F + (rand.nextFloat() - rand.nextFloat()) * 0.8F, true);
 		}
 
 		if (config.rainbow > 0 && !world.isRemote) {
@@ -583,11 +593,16 @@ public class EntityBulletBase extends Entity implements IProjectile {
 		}
 
 		if (config.nuke > 0 && !world.isRemote) {
-			world.spawnEntity(EntityNukeExplosionMK4.statFac(world, config.nuke, posX, posY, posZ).mute());
-			NBTTagCompound data = new NBTTagCompound();
-			data.setString("type", "muke");
-			if(MainRegistry.polaroidID == 11 || rand.nextInt(100) == 0) data.setBoolean("balefire", true);
-			PacketDispatcher.wrapper.sendToAllAround(new AuxParticlePacketNT(data, posX, posY + 0.5, posZ), new TargetPoint(dimension, posX, posY, posZ, 250));
+			world.spawnEntity(EntityNukeExplosionMK5.statFac(world, config.nuke, posX, posY, posZ).mute());
+			
+			if(BombConfig.enableNukeClouds) {
+				if(MainRegistry.polaroidID == 11 || rand.nextInt(100) == 0){
+					EntityNukeTorex.statFacBale(world, pos.getX() + 0.5, pos.getY() + 5, pos.getZ() + 0.5, config.nuke);
+				}
+				else{
+					EntityNukeTorex.statFac(world, pos.getX() + 0.5, pos.getY() + 5, pos.getZ() + 0.5, config.nuke);
+				}
+			}
 			world.playSound(null, posX, posY, posZ, HBMSoundHandler.mukeExplosion, SoundCategory.HOSTILE, 15.0F, 1.0F);
 		}
 
@@ -610,6 +625,9 @@ public class EntityBulletBase extends Entity implements IProjectile {
 
 	// for when a bullet dies by hitting an entity
 	private void onEntityImpact(Entity e, RayTraceResult rt) {
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		onEntityHurt(e, rt, false);
 		onBlockImpact(new BlockPos(e), rt);
 
@@ -619,10 +637,11 @@ public class EntityBulletBase extends Entity implements IProjectile {
 
 	// for when a bullet hurts an entity, not necessarily dying
 	private void onEntityHurt(Entity e, RayTraceResult rt, boolean doVFX) {
-
 		if(doVFX)
 			doHitVFX(null, rt);
-		
+		if(!CompatibilityConfig.isWarDim(world)){
+			return;
+		}
 		if(config.bHurt != null)
 			config.bHurt.behaveEntityHurt(this, e);
 		

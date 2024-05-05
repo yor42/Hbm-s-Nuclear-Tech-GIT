@@ -15,7 +15,30 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 public class ItemDigammaDiagnostic extends Item {
+=======
+import com.hbm.items.ModItems;
+import com.hbm.lib.Library;
+import com.hbm.render.misc.RenderScreenOverlay;
+import com.hbm.capability.HbmLivingProps;
+import com.hbm.util.ContaminationUtil;
+import com.hbm.lib.HBMSoundHandler;
+
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.EnumHand;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
+
+@Optional.InterfaceList({@Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles")})
+public class ItemDigammaDiagnostic extends Item implements IBauble {
+>>>>>>> upstream/Custom-1.12.2
 
 	public ItemDigammaDiagnostic(String s) {
 		this.setUnlocalizedName(s);
@@ -79,5 +102,10 @@ public class ItemDigammaDiagnostic extends Item {
 				}
 			}
 		}
+	}
+
+	@Override
+	public BaubleType getBaubleType(ItemStack itemstack){
+		return BaubleType.TRINKET;
 	}
 }

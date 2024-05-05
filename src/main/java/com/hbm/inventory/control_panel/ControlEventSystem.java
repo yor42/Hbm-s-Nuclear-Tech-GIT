@@ -1,6 +1,14 @@
 package com.hbm.inventory.control_panel;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import com.hbm.lib.RefStrings;
+
+import com.hbm.main.MainRegistry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.WorldEvent;
@@ -8,17 +16,15 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 
-import java.util.*;
-
 @Mod.EventBusSubscriber(modid = RefStrings.MODID)
 public class ControlEventSystem {
 
-	private static final Map<World, ControlEventSystem> systems = new HashMap<>();
+	private static Map<World, ControlEventSystem> systems = new HashMap<>();
 	
-	private final Set<IControllable> allControllables = new HashSet<>();
-	private final Set<IControllable> tickables = new HashSet<>();
-	private final Map<String, Map<BlockPos, IControllable>> controllablesByEventName = new HashMap<>();
-	private final Map<BlockPos, Set<IControllable>> positionSubscriptions = new HashMap<>();
+	private Set<IControllable> allControllables = new HashSet<>();
+	private Set<IControllable> tickables = new HashSet<>();
+	private Map<String, Map<BlockPos, IControllable>> controllablesByEventName = new HashMap<>();
+	private Map<BlockPos, Set<IControllable>> positionSubscriptions = new HashMap<>();
 	
 	public void addControllable(IControllable c){
 		if(allControllables.contains(c))
@@ -63,7 +69,8 @@ public class ControlEventSystem {
 		if(!positionSubscriptions.containsKey(target)){
 			positionSubscriptions.put(target, new HashSet<>());
 		}
-        positionSubscriptions.get(target).add(subscriber);
+		if(!positionSubscriptions.get(target).contains(subscriber))
+			positionSubscriptions.get(target).add(subscriber);
 	}
 	
 	public void unsubscribeFrom(IControllable subscriber, IControllable target){
@@ -87,8 +94,9 @@ public class ControlEventSystem {
 		if(map == null)
 			return;
 		IControllable c = map.get(pos);
-		if(c != null)
+		if(c != null) {
 			c.receiveEvent(from, evt);
+		}
 	}
 	
 	public void broadcastEvent(BlockPos from, ControlEvent evt, Collection<BlockPos> positions){
@@ -133,7 +141,7 @@ public class ControlEventSystem {
 		if(systems.containsKey(evt.world)){
 			ControlEventSystem s = systems.get(evt.world);
 			for(IControllable c : s.tickables){
-				c.receiveEvent(c.getControlPos(), ControlEvent.newEvent("tick").setVar("time", evt.world.getWorldTime()));
+				c.receiveEvent(c.getControlPos(), ControlEvent.newEvent("tick").setVar("time", evt.world.getTotalWorldTime()));
 			}
 		}
 	}

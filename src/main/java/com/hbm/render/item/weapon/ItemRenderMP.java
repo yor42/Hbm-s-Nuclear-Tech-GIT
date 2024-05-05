@@ -12,7 +12,7 @@ import org.lwjgl.opengl.GL11;
 public class ItemRenderMP extends TEISRBase {
 
 	protected ModelMP swordModel;
-	protected static ResourceLocation mp_rl = new ResourceLocation(RefStrings.MODID +":textures/models/ModelMP.png");
+	protected static ResourceLocation mp_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelMP.png");
 	
 	public ItemRenderMP() {
 		swordModel = new ModelMP();

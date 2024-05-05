@@ -271,8 +271,7 @@ public class Gun4GaugeFactory {
 				ExplosionNT explosion = new ExplosionNT(bullet.world, null, bullet.posX, bullet.posY, bullet.posZ, 4);
 				explosion.atttributes.add(ExAttrib.ALLDROP);
 				explosion.atttributes.add(ExAttrib.NOHURT);
-				explosion.doExplosionA();
-				explosion.doExplosionB(false);
+				explosion.explode();
 
 				ExplosionLarge.spawnParticles(bullet.world, bullet.posX, bullet.posY, bullet.posZ, 15);
 			}
@@ -304,8 +303,7 @@ public class Gun4GaugeFactory {
 				
 				ExplosionNT explosion = new ExplosionNT(bullet.world, null, bullet.posX, bullet.posY, bullet.posZ, 6);
 				explosion.atttributes.add(ExAttrib.BALEFIRE);
-				explosion.doExplosionA();
-				explosion.doExplosionB(false);
+				explosion.explode();
 
 				ExplosionLarge.spawnParticles(bullet.world, bullet.posX, bullet.posY, bullet.posZ, 30);
 			}

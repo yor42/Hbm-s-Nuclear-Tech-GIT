@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 public class ItemRenderMIRVLauncher extends TEISRBase {
 
 	protected ModelMIRVLauncher swordModel;
-	public static ResourceLocation mirv_rl = new ResourceLocation(RefStrings.MODID +":textures/models/MIRVLauncher.png");
+	public static ResourceLocation mirv_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/MIRVLauncher.png");
 	
 	public ItemRenderMIRVLauncher() {
 		swordModel = new ModelMIRVLauncher();

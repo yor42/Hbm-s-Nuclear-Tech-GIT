@@ -43,12 +43,16 @@ public class TileEntityDoorGeneric extends TileEntityLockableBase implements ITi
 	private AudioWrapper audio;
 	private AudioWrapper audio2;
 
+	// if a control panel sends a toggle from 0->1, it masters the door until toggled again.
+	private boolean toggledByPanel = false;
+
+
 	public TileEntityDoorGeneric(){
 	}
 	
 	@Override
 	public void update(){
-		if(doorType == null)
+		if(doorType == null && this.getBlockType() instanceof BlockDoorGeneric)
 			doorType = ((BlockDoorGeneric)this.getBlockType()).type;
 		if(state == DoorState.OPENING) {
 			openTicks++;
@@ -154,6 +158,9 @@ public class TileEntityDoorGeneric extends TileEntityLockableBase implements ITi
 			if(redstonePower == -1){
 				redstonePower = 0;
 			}
+			if (toggledByPanel) {
+				tryOpen(-1);
+			}
 		}
 	}
 
@@ -174,28 +181,15 @@ public class TileEntityDoorGeneric extends TileEntityLockableBase implements ITi
 		doorType = ((BlockDoorGeneric)this.getBlockType()).type;
 	}
 
-	public boolean canLock(EntityPlayer player, EnumHand hand, EnumFacing facing) {
-		if (this.redstonePower > 0) {
-			player.sendMessage(new TextComponentString("Cannot lock while redstone powered"));
-			return false;
-		} else {
-			return true;
-		}
-	}
-
 	public boolean tryToggle(EntityPlayer player){
-		if(state == DoorState.CLOSED && redstonePower > 0) {
-			//Redstone "power locks" doors, just like minecraft iron doors
-			return false;
-		}
 		if(state == DoorState.CLOSED) {
-			if(!world.isRemote && canAccess(player)) {
+			if(!world.isRemote) {
 				open();
 				broadcastControlEvt();
 			}
 			return true;
 		} else if(state == DoorState.OPEN) {
-			if(!world.isRemote && canAccess(player)) {
+			if(!world.isRemote) {
 				close();
 				broadcastControlEvt();
 			}
@@ -218,8 +212,6 @@ public class TileEntityDoorGeneric extends TileEntityLockableBase implements ITi
 	}
 
 	public boolean tryToggle(int passcode){
-		if(isLocked() && passcode != lock)
-			return false;
 		if(state == DoorState.CLOSED) {
 			return tryOpen(passcode);
 		} else if(state == DoorState.OPEN) {
@@ -229,7 +221,9 @@ public class TileEntityDoorGeneric extends TileEntityLockableBase implements ITi
 	}
 
 	public boolean tryClose(int passcode){
-		if(isLocked() && passcode != lock)
+		if(toggledByPanel)
+			return false;
+		if(this.isLocked() && passcode != lock)
 			return false;
 		if(state == DoorState.OPEN) {
 			if(!world.isRemote) {
@@ -368,8 +362,10 @@ public class TileEntityDoorGeneric extends TileEntityLockableBase implements ITi
 	
 	@Override
 	public void receiveEvent(BlockPos from, ControlEvent e){
-		if(e.name.equals("door_toggle")){
-			tryToggle((int)e.vars.get("passcode").getNumber());
+		if (e.name.equals("door_toggle")) {
+			if (!isLocked() || (isLocked() && e.vars.get("passcode").getNumber() == lock)) {
+				toggledByPanel = !toggledByPanel;
+			}
 		}
 	}
 	

@@ -1,19 +1,22 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.util.I18nUtil;
+import org.lwjgl.opengl.GL11;
+
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.inventory.container.ContainerMachineCoal;
 import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityMachineCoal;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 public class GUIMachineCoal extends GuiInfoContainer {
 
 	private static final ResourceLocation TEXTURE = new ResourceLocation(RefStrings.MODID + ":textures/gui/GUICoal.png");
-	private final TileEntityMachineCoal diFurnace;
+	private TileEntityMachineCoal diFurnace;
 	
 	public GUIMachineCoal(InventoryPlayer invPlayer, TileEntityMachineCoal tedf) {
 		super(new ContainerMachineCoal(invPlayer, tedf));
@@ -30,28 +33,19 @@ public class GUIMachineCoal extends GuiInfoContainer {
 		FFUtils.renderTankInfo(this, mouseX, mouseY, guiLeft + 8, guiTop + 69 - 52, 16, 52, diFurnace.tank, diFurnace.tankType);
 		this.drawElectricityInfo(this, mouseX, mouseY, guiLeft + 152, guiTop + 69 - 52, 16, 52, diFurnace.power, TileEntityMachineCoal.maxPower);
 		
-		String[] text = new String[] { "Power generation rate:",
-				" 25 HE/t",
-				" 500 HE/s",
-				"Accepts all furnace fuels.",
-				"(All fuels burn half as long in this generator",
-				"as in a regular furnace)" };
+		String[] text = I18nUtil.resolveKeyArray("desc.guimachinecoal1");
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft - 16, guiTop + 36, 16, 16, guiLeft - 8, guiTop + 36 + 16, text);
 		
-		String[] text1 = new String[] { "Water consumption rate:",
-				"  1 mB/t",
-				"  20 mB/s",
-				"(Consumption rate is constant)" };
+		String[] text1 = I18nUtil.resolveKeyArray("desc.guimachinecoal2");
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft - 16, guiTop + 36 + 16, 16, 16, guiLeft - 8, guiTop + 36 + 16, text1);
 		
 		if(diFurnace.tank.getFluidAmount() <= 0) {
 			
-			String[] text2 = new String[] { "Error: Water is required for",
-					"the generator to function properly!" };
+			String[] text2 = I18nUtil.resolveKeyArray("desc.guimachinecoal3");
 			this.drawCustomInfoStat(mouseX, mouseY, guiLeft - 16, guiTop + 36 + 32, 16, 16, guiLeft - 8, guiTop + 36 + 16 + 32, text2);
 		}
 		
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 79, guiTop + 34, 18, 18, mouseX, mouseY, new String[] {(int) (Math.ceil((double) diFurnace.burnTime / 20D)) + "s"});
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 79, guiTop + 34, 18, 18, mouseX, mouseY, new String[] { String.valueOf((int)(Math.ceil((double)diFurnace.burnTime / 20D))) + "s"});
 		super.renderHoveredToolTip(mouseX, mouseY);
 	}
 	

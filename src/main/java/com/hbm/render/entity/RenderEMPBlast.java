@@ -22,7 +22,7 @@ public class RenderEMPBlast extends Render<EntityEMPBlast> {
 	protected RenderEMPBlast(RenderManager renderManager) {
 		super(renderManager);
 		ringModel = AdvancedModelLoader.loadModel(ringModelRL);
-    	ringTexture = new ResourceLocation(RefStrings.MODID, "textures/models/EMPBlast.png");
+    	ringTexture = new ResourceLocation(RefStrings.MODID, "textures/models/explosion/EMPBlast.png");
 	}
 	
 	@Override

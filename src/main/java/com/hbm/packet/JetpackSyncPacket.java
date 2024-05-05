@@ -74,7 +74,5 @@ public class JetpackSyncPacket implements IMessage {
 				}
 			});
 		}
-
 	}
-
 }

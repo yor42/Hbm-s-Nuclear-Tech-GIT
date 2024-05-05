@@ -1,11 +1,23 @@
 package com.hbm.items.tool;
 
 import com.hbm.blocks.ModBlocks;
+import com.hbm.lib.Library;
 import com.hbm.items.ModItems;
 import com.hbm.items.gear.ArmorFSB;
+<<<<<<< HEAD
+=======
+import com.hbm.items.weapon.ItemGunEgon;
+import com.hbm.render.misc.RenderScreenOverlay;
+>>>>>>> upstream/Custom-1.12.2
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.lib.Library;
 import com.hbm.util.ContaminationUtil;
+<<<<<<< HEAD
+=======
+
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
+>>>>>>> upstream/Custom-1.12.2
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,11 +27,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemGeigerCounter extends Item {
+=======
+@Optional.InterfaceList({@Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles")})
+public class ItemGeigerCounter extends Item implements IBauble {
+>>>>>>> upstream/Custom-1.12.2
 	
 	public ItemGeigerCounter(String s) {
 		this.setUnlocalizedName(s);
@@ -41,20 +59,6 @@ public class ItemGeigerCounter extends Item {
 			
 			playGeiger(world, (EntityPlayer)entity);
 		}
-	}
-	
-	static void setInt(ItemStack stack, int i, String name) {
-		if(!stack.hasTagCompound())
-			stack.setTagCompound(new NBTTagCompound());
-		
-		stack.getTagCompound().setInteger(name, i);
-	}
-	
-	public static int getInt(ItemStack stack, String name) {
-		if(stack.hasTagCompound())
-			return stack.getTagCompound().getInteger(name);
-		
-		return 0;
 	}
 
 	public static void playGeiger(World world, EntityPlayer player){
@@ -133,5 +137,15 @@ public class ItemGeigerCounter extends Item {
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
 		return !ItemStack.areItemsEqual(oldStack, newStack);
+	}
+
+	@Override
+	public BaubleType getBaubleType(ItemStack itemstack){
+		return BaubleType.TRINKET;
+	}
+
+	@Override
+	public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
+		onUpdate(itemstack, player.world, player, 0, true);
 	}
 }

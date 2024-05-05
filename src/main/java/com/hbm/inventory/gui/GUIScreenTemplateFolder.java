@@ -1,16 +1,22 @@
 package com.hbm.inventory.gui;
 
-import com.hbm.forgefluid.FluidTypeHandler;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.hbm.inventory.AssemblerRecipes;
-import com.hbm.inventory.ChemplantRecipes.EnumChemistryTemplate;
 import com.hbm.inventory.PressRecipes;
+import com.hbm.forgefluid.FluidTypeHandler;
 import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemCassette;
-import com.hbm.items.machine.ItemCassette.TrackType;
+import com.hbm.items.machine.ItemChemistryTemplate;
+import com.hbm.inventory.ChemplantRecipes;
 import com.hbm.items.machine.ItemForgeFluidIdentifier;
+import com.hbm.items.machine.ItemCassette.TrackType;
 import com.hbm.lib.RefStrings;
 import com.hbm.packet.ItemFolderPacket;
 import com.hbm.packet.PacketDispatcher;
+
 import com.hbm.util.I18nUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -28,10 +34,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import org.lwjgl.input.Keyboard;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class GUIScreenTemplateFolder extends GuiScreen {
 	
@@ -111,9 +113,9 @@ public class GUIScreenTemplateFolder extends GuiScreen {
 			allStacks.add(stack);
 		}
     	//Chemistry Templates
-    	for(int i = 0; i < EnumChemistryTemplate.values().length; i++)
+    	for (int i: ChemplantRecipes.recipeNames.keySet()){
 			allStacks.add(new ItemStack(ModItems.chemistry_template, 1, i));
-
+		}
 		search(null);
     }
     
@@ -174,7 +176,11 @@ public class GUIScreenTemplateFolder extends GuiScreen {
     }
 
     protected void mouseClicked(int i, int j, int k) {
-        this.search.setFocused(i >= guiLeft + 45 && i < guiLeft + 117 && j >= guiTop + 211 && j < guiTop + 223);
+		if(i >= guiLeft + 45 && i < guiLeft + 117 && j >= guiTop + 211 && j < guiTop + 223) {
+			this.search.setFocused(true);
+		} else  {
+			this.search.setFocused(false);
+		}
 
     	try {
     		for(FolderButton b : buttons)
@@ -288,7 +294,7 @@ public class GUIScreenTemplateFolder extends GuiScreen {
 					s = TrackType.getEnum(stack.getItemDamage()).getTrackTitle();
 			}
 
-			drawHoveringText(Arrays.asList(s), x, y);
+			drawHoveringText(Arrays.asList(new String[] { s }), x, y);
 		}
 		
 		public void executeAction() {

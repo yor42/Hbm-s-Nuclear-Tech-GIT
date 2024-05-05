@@ -1,5 +1,8 @@
 package com.hbm.modules;
 
+import java.util.List;
+
+import com.hbm.capability.HbmLivingProps;
 import com.hbm.config.GeneralConfig;
 import com.hbm.handler.ArmorUtil;
 import com.hbm.inventory.BreederRecipes;
@@ -11,6 +14,7 @@ import com.hbm.util.ContaminationUtil;
 import com.hbm.util.ContaminationUtil.ContaminationType;
 import com.hbm.util.ContaminationUtil.HazardType;
 import com.hbm.util.I18nUtil;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,8 +27,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
-
-import java.util.List;
 
 public class ItemHazardModule {
 	/**
@@ -119,14 +121,14 @@ public class ItemHazardModule {
 
 		if(this.cryogenic > 0 && !reacher){
 			if(entity instanceof EntityLivingBase){
-				EntityLivingBase livingCEntity = entity;
+				EntityLivingBase livingCEntity = (EntityLivingBase) entity;
 				boolean isProtected = entity instanceof EntityPlayer && ArmorUtil.checkForHazmat((EntityPlayer)entity);
 				if(!isProtected){
-					livingCEntity.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 100, this.cryogenic-1));
-					livingCEntity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, Math.min(4, this.cryogenic-1)));
-					livingCEntity.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, this.cryogenic-1));
+					livingCEntity.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 110, this.cryogenic-1));
+					livingCEntity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 110, Math.min(4, this.cryogenic-1)));
+					livingCEntity.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 110, this.cryogenic-1));
 					if(this.cryogenic > 4){
-						livingCEntity.addPotionEffect(new PotionEffect(MobEffects.WITHER, 100, this.cryogenic-3));
+						livingCEntity.addPotionEffect(new PotionEffect(MobEffects.WITHER, 110, this.cryogenic-3));
 						entity.extinguish();
 					}
 				}
@@ -139,35 +141,35 @@ public class ItemHazardModule {
 
 		if(this.toxic > 0){
 			if(entity instanceof EntityLivingBase){
-				EntityLivingBase livingTEntity = entity;
+				EntityLivingBase livingTEntity = (EntityLivingBase) entity;
 				boolean hasToxFilter = false;
 				boolean hasHazmat = false;
 				if(entity instanceof EntityPlayer){
 					if(ArmorRegistry.hasProtection(livingTEntity, EntityEquipmentSlot.HEAD, HazardClass.NERVE_AGENT)){
-						ArmorUtil.damageGasMaskFilter(livingTEntity, Math.max(1, this.toxic>>2));
+						ArmorUtil.damageGasMaskFilter(livingTEntity, 1);
 						hasToxFilter = true;
 					}
 					hasHazmat = ArmorUtil.checkForHazmat((EntityPlayer)entity);
 				}
 
 				if(!hasToxFilter && !hasHazmat){
-					livingTEntity.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 100, this.toxic-1));
+					livingTEntity.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 110, this.toxic-1));
 					
 					if(this.toxic > 2)
-						livingTEntity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, Math.min(4, this.toxic-4)));
+						livingTEntity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 110, Math.min(4, this.toxic-4)));
 					if(this.toxic > 4)
-						livingTEntity.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 100, this.toxic));
+						livingTEntity.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 110, this.toxic));
 					if(this.toxic > 6){
-						if(entity.world.rand.nextInt(2000/this.toxic) == 0){
-							livingTEntity.addPotionEffect(new PotionEffect(MobEffects.POISON, 100, this.toxic-4));
+						if(entity.world.rand.nextInt((int)(2000/this.toxic)) == 0){
+							livingTEntity.addPotionEffect(new PotionEffect(MobEffects.POISON, 110, this.toxic-4));
 						}
 					}
 				}
 				if(!(hasHazmat && hasToxFilter)){
 					if(this.toxic > 8)
-						livingTEntity.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 100, this.toxic-8));
+						livingTEntity.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 110, this.toxic-8));
 					if(this.toxic > 16)
-						livingTEntity.addPotionEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 100, this.toxic-16));
+						livingTEntity.addPotionEffect(new PotionEffect(MobEffects.INSTANT_DAMAGE, 110, this.toxic-16));
 				}
 			}
 		}
@@ -207,7 +209,7 @@ public class ItemHazardModule {
 		}
 
 		if(this.blinding && !ArmorRegistry.hasProtection(entity, EntityEquipmentSlot.HEAD, HazardClass.LIGHT)) {
-			entity.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 100, 0));
+			((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 110, 0));
 		}
 	}
 
@@ -225,9 +227,9 @@ public class ItemHazardModule {
 		if(radiation < 1000000){
 			return "";
 		} else if(radiation < 1000000000){
-			return "M";
+			return I18nUtil.resolveKey("desc.mil");
 		} else{
-			return "G";
+			return I18nUtil.resolveKey("desc.bil");
 		}
 	}
 	
@@ -236,11 +238,11 @@ public class ItemHazardModule {
 		if(this.radiation * tempMod > 0) {
 			list.add(TextFormatting.GREEN + "[" + I18nUtil.resolveKey("trait.radioactive") + "]");
 			float itemRad = radiation * tempMod;
-			list.add(TextFormatting.YELLOW + (Library.roundFloat(getNewValue(itemRad), 3)+ getSuffix(itemRad) + " RAD/s"));
+			list.add(TextFormatting.YELLOW + (Library.roundFloat(getNewValue(itemRad), 3)+ getSuffix(itemRad) + " " + I18nUtil.resolveKey("desc.rads")));
 			
 			if(stack.getCount() > 1) {
 				float stackRad = radiation * tempMod * stack.getCount();
-				list.add(TextFormatting.YELLOW + ("Stack: " + Library.roundFloat(getNewValue(stackRad), 3) + getSuffix(stackRad) + " RAD/s"));
+				list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("desc.stack")+" " + Library.roundFloat(getNewValue(stackRad), 3) + getSuffix(stackRad) + " " + I18nUtil.resolveKey("desc.rads"));
 			}
 		}
 		
@@ -287,9 +289,9 @@ public class ItemHazardModule {
 		
 		if(this.digamma * tempMod > 0) {
 			list.add(TextFormatting.RED + "[" + I18nUtil.resolveKey("trait.digamma") + "]");
-			list.add(TextFormatting.DARK_RED + "" + Library.roundFloat(digamma * tempMod * 1000F, 2) + " mDRX/s");
+			list.add(TextFormatting.DARK_RED + "" + Library.roundFloat(digamma * tempMod * 1000F, 2) + " " + I18nUtil.resolveKey("desc.digammaed"));
 			if(stack.getCount() > 1) {
-				list.add(TextFormatting.DARK_RED + ("Stack: " + Library.roundFloat(digamma * tempMod * stack.getCount() * 1000F, 2) + " mDRX/s"));
+				list.add(TextFormatting.DARK_RED + I18nUtil.resolveKey("desc.stack") + " " + Library.roundFloat(digamma * tempMod * stack.getCount() * 1000F, 2) + " " + I18nUtil.resolveKey("desc.digammaed"));
 			}
 		}
 		

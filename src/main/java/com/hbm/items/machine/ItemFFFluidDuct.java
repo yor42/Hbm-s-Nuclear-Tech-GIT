@@ -1,18 +1,26 @@
 package com.hbm.items.machine;
 
+import java.util.List;
+
+import com.hbm.util.I18nUtil;
 import com.hbm.blocks.ModBlocks;
-import com.hbm.config.GeneralConfig;
 import com.hbm.items.ModItems;
+import com.hbm.config.GeneralConfig;
 import com.hbm.tileentity.conductor.TileEntityFFFluidDuctMk2;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
@@ -20,8 +28,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
 
 public class ItemFFFluidDuct extends Item {
 
@@ -45,11 +51,11 @@ public class ItemFFFluidDuct extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public String getItemStackDisplayName(ItemStack stack) {
-		String s = (I18n.format(this.getUnlocalizedName() + ".name")).trim();
+		String s = ("" + I18n.format(this.getUnlocalizedName() + ".name")).trim();
 		Fluid f = getFluidFromStack(stack);
 		String s1 = null;
 		if(f != null)
-			s1  = (f.getLocalizedName(new FluidStack(f, 1000)).trim());
+			s1  = ("" + f.getLocalizedName(new FluidStack(f, 1000)).trim());
 
         if (s1 != null)
         {
@@ -77,7 +83,7 @@ public class ItemFFFluidDuct extends Item {
         {
             world.setBlockState(pos, ModBlocks.fluid_duct_mk2.getDefaultState());
             if(world.getTileEntity(pos) instanceof TileEntityFFFluidDuctMk2) {
-            	((TileEntityFFFluidDuctMk2)world.getTileEntity(pos)).setType(getFluidFromStack(stack));
+            	((TileEntityFFFluidDuctMk2)world.getTileEntity(pos)).setType(getFluidFromStack(stack));;
             }
             stack.shrink(1);
             world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_STONE_PLACE, SoundCategory.PLAYERS, 1F, 0.8F + world.rand.nextFloat() * 0.2F);
@@ -88,7 +94,7 @@ public class ItemFFFluidDuct extends Item {
 	
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add("Right click with screwdriver to toggle extraction");
+		tooltip.add(I18nUtil.resolveKey("desc.extraction"));
 	}
 	
 	public static Fluid getFluidFromStack(ItemStack stack){

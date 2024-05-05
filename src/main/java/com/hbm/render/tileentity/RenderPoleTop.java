@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderPoleTop extends TileEntitySpecialRenderer<TileEntityDecoPoleTop> {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":" + "textures/models/PoleTop.png");
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":" + "textures/models/deco/PoleTop.png");
 	
 	private final ModelPoleTop model;
 	

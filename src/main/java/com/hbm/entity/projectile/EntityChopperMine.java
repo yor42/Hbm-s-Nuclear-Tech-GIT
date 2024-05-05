@@ -1,6 +1,10 @@
 package com.hbm.entity.projectile;
 
+import java.util.List;
+
+import com.hbm.config.CompatibilityConfig;
 import com.hbm.lib.HBMSoundHandler;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
@@ -12,8 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public class EntityChopperMine extends Entity implements IProjectile {
 
@@ -75,7 +77,7 @@ public class EntityChopperMine extends Entity implements IProjectile {
 				this.posZ + this.motionZ);
 
 		if (movingobjectposition != null) {
-			vec3 = new Vec3d(movingobjectposition.hitVec.x, movingobjectposition.hitVec.y,movingobjectposition.hitVec.z);
+			vec3 = new Vec3d(movingobjectposition.hitVec.x, movingobjectposition.hitVec.y, movingobjectposition.hitVec.z);
 		}
 
 		Entity entity = null;
@@ -85,7 +87,7 @@ public class EntityChopperMine extends Entity implements IProjectile {
 		float f1;
 
 		for (i = 0; i < list.size(); ++i) {
-			Entity entity1 = list.get(i);
+			Entity entity1 = (Entity) list.get(i);
 
 			if (entity1.canBeCollidedWith() && (entity1 != this.shooter)) {
 				f1 = 0.3F;
@@ -109,8 +111,8 @@ public class EntityChopperMine extends Entity implements IProjectile {
 
 		if (movingobjectposition != null && movingobjectposition.entityHit != null
 				&& movingobjectposition.entityHit instanceof EntityPlayer) {
-
-			world.createExplosion(shooter, this.posX, this.posY, this.posZ, 5F, false);
+			if(CompatibilityConfig.isWarDim(world))
+				world.createExplosion(shooter, this.posX, this.posY, this.posZ, 5F, false);
 			this.setDead();
 		}
 		
@@ -122,8 +124,9 @@ public class EntityChopperMine extends Entity implements IProjectile {
 		world.playSound(null, this.posX, this.posY, this.posZ, HBMSoundHandler.nullMine, SoundCategory.HOSTILE, 10.0F, 1F);
 		
 		if(timer >= 100 || world.getBlockState(new BlockPos((int)this.posX, (int)this.posY, (int)this.posZ)).getMaterial() != Material.AIR)
-		{
-			world.createExplosion(shooter, this.posX, this.posY, this.posZ, 5F, false);
+		{	
+			if(CompatibilityConfig.isWarDim(world))
+				world.createExplosion(shooter, this.posX, this.posY, this.posZ, 5F, false);
 			this.setDead();
 		}
 
@@ -139,5 +142,4 @@ public class EntityChopperMine extends Entity implements IProjectile {
 		
 		timer++;
 	}
-
 }

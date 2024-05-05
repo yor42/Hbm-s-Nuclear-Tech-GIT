@@ -1,21 +1,23 @@
 package com.hbm.render.entity;
 
+import org.lwjgl.opengl.GL11;
+
 import com.hbm.entity.projectile.EntityBaleflare;
 import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelBaleflare;
+
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import org.lwjgl.opengl.GL11;
 
 public class RenderBaleflare extends Render<EntityBaleflare> {
 
 	public static final IRenderFactory<EntityBaleflare> FACTORY = (RenderManager man) -> {return new RenderBaleflare(man);};
 	
-	private final ModelBaleflare miniNuke;
-	private static final ResourceLocation bale_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/BaleFlare.png");
+	private ModelBaleflare miniNuke;
+	private static ResourceLocation bale_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/BaleFlare.png");
 	
 	protected RenderBaleflare(RenderManager renderManager) {
 		super(renderManager);

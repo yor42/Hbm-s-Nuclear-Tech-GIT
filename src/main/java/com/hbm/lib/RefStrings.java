@@ -3,8 +3,8 @@ package com.hbm.lib;
 public class RefStrings {
 	public static final String MODID = "hbm";
 	public static final String NAME = "Hbm's Nuclear Tech - Extended Edition";
-	public static final String VERSION = "NTM-Extended-1.12.2-1.9.8";
-	public static final String CHANGELOG = "§§aAdded Custom Nuke Solinium, Euphemium Rod$§aAdded configurable max values to the custom nuke$§aAdded Chargers and DNT Drill$§aAdded Radresistant 2x1 Door$§aAdded neoveline, coke, lignite, solid fuel, and presto log blocks$§aAdded deco block uncrafting$§aAdded more colors to item tooltips$§bChanged ammo clips to be craftable$§bChanged factory speed and mechanics$§bChanged gas to disappear faster$§bChanged bedrock ore recipe balance$§bChanged laser rendering$§eFixed tool abilities break batteries and crates$§eFixed factory connection issue$§eFixed fiberglass recipe$§eFixed RBMK Melting down below 1.5 k°C";
+	public static final String VERSION = "NTM-Extended-1.12.2-2.0.2";
+	public static final String CHANGELOG = "§aAdded more Conveyor stuff$§aAdded 1.7 Gerald Crater$§aAdded RBMK Fuel Uncrafting JEI Tab$§aAdded onArmor Jetpack fueling$§aAdded rare earth ore chunk$§dOptimized Nuke TPS/Speed/FPS$§bChanged Desh and Saturnite battery balance$§bChanged DFC to explode after overheating 60s even with jamming$§eFixed Meteor Dungeons$§eFixed HE-RF Converters$§eFixed MKU and 40 more bugs$§cRemoved chemplant oil processing by default";
 	//HBM's Beta Naming Convention:
 	//V T (X)
 	//V -> next release version

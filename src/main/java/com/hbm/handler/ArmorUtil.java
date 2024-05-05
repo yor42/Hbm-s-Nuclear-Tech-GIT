@@ -1,17 +1,22 @@
 package com.hbm.handler;
 
-import api.hbm.item.IGasMask;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.hbm.util.I18nUtil;
 import com.hbm.items.ModItems;
 import com.hbm.lib.Library;
 import com.hbm.potion.HbmPotion;
 import com.hbm.util.ArmorRegistry;
 import com.hbm.util.ArmorRegistry.HazardClass;
 import com.hbm.util.Compat;
-import net.minecraft.client.util.ITooltipFlag;
+
+import api.hbm.item.IGasMask;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,9 +25,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ArmorUtil {
 
@@ -79,12 +81,15 @@ public class ArmorUtil {
 		NonNullList<ItemStack> armor = player.inventory.armorInventory;
 		
 		if(armor.get(0).isEmpty() || armor.get(1).isEmpty() || armor.get(2).isEmpty() || armor.get(3).isEmpty()) return false;
-
-        return ArmorUtil.isFaradayArmor(armor.get(0)) &&
-                ArmorUtil.isFaradayArmor(armor.get(1)) &&
-                ArmorUtil.isFaradayArmor(armor.get(2)) &&
-                ArmorUtil.isFaradayArmor(armor.get(3));
-    }
+		
+		if(ArmorUtil.isFaradayArmor(armor.get(0)) &&
+				ArmorUtil.isFaradayArmor(armor.get(1)) &&
+				ArmorUtil.isFaradayArmor(armor.get(2)) &&
+				ArmorUtil.isFaradayArmor(armor.get(3)))
+			return true;
+		
+		return false;
+	}
 
 	public static boolean isFaradayArmor(ItemStack item) {
 		
@@ -166,24 +171,44 @@ public class ArmorUtil {
 		return ArmorUtil.checkArmorPiece(player, ModItems.jackt, 2) && Library.checkForHeld(player, ModItems.shimmer_sledge);
 	}
 
+	public static boolean checkPAA(EntityLivingBase player){
+		return checkArmor(player, ModItems.paa_helmet, ModItems.paa_plate, ModItems.paa_legs, ModItems.paa_boots);
+	}
+
 	// Drillgon200: Is there a reason for this method? I don't know and I don't
 	// care to find out.
 	// Alcater: Looks like some kind of hazmat tier 2 check
-	public static boolean checkForHaz2(EntityPlayer player) {
+	public static boolean checkForHaz2(EntityLivingBase player) {
+	
+		if(checkArmor(player, ModItems.hazmat_paa_helmet, ModItems.hazmat_paa_plate, ModItems.hazmat_paa_legs, ModItems.hazmat_paa_boots) ||
+			checkArmor(player, ModItems.paa_helmet, ModItems.paa_plate, ModItems.paa_legs, ModItems.paa_boots) ||
+			checkArmor(player, ModItems.liquidator_helmet, ModItems.liquidator_plate, ModItems.liquidator_legs, ModItems.liquidator_boots) || 
+			checkArmor(player, ModItems.euphemium_helmet, ModItems.euphemium_plate, ModItems.euphemium_legs, ModItems.euphemium_boots) ||
+			checkArmor(player, ModItems.hev_helmet, ModItems.hev_plate, ModItems.hev_legs, ModItems.hev_boots) || 
+			checkArmor(player, ModItems.ajr_helmet, ModItems.ajr_plate, ModItems.ajr_legs, ModItems.ajr_boots) || 
+			checkArmor(player, ModItems.ajro_helmet, ModItems.ajro_plate, ModItems.ajro_legs, ModItems.ajro_boots) || 
+			checkArmor(player, ModItems.rpa_helmet, ModItems.rpa_plate, ModItems.rpa_legs, ModItems.rpa_boots) || 
+			checkArmor(player, ModItems.fau_helmet, ModItems.fau_plate, ModItems.fau_legs, ModItems.fau_boots) || 
+			checkArmor(player, ModItems.dns_helmet, ModItems.dns_plate, ModItems.dns_legs, ModItems.dns_boots)) {
+			return true;
+		}
+	
+		return false;
+	}
 
-        return checkArmor(player, ModItems.hazmat_paa_helmet, ModItems.hazmat_paa_plate, ModItems.hazmat_paa_legs, ModItems.hazmat_paa_boots) ||
-                checkArmor(player, ModItems.paa_helmet, ModItems.paa_plate, ModItems.paa_legs, ModItems.paa_boots) ||
-                checkArmor(player, ModItems.liquidator_helmet, ModItems.liquidator_plate, ModItems.liquidator_legs, ModItems.liquidator_boots) ||
-                checkArmor(player, ModItems.euphemium_helmet, ModItems.euphemium_plate, ModItems.euphemium_legs, ModItems.euphemium_boots) ||
-                checkArmor(player, ModItems.hev_helmet, ModItems.hev_plate, ModItems.hev_legs, ModItems.hev_boots) ||
-                checkArmor(player, ModItems.ajr_helmet, ModItems.ajr_plate, ModItems.ajr_legs, ModItems.ajr_boots) ||
-                checkArmor(player, ModItems.ajro_helmet, ModItems.ajro_plate, ModItems.ajro_legs, ModItems.ajro_boots) ||
-                checkArmor(player, ModItems.rpa_helmet, ModItems.rpa_plate, ModItems.rpa_legs, ModItems.rpa_boots) ||
-                checkArmor(player, ModItems.fau_helmet, ModItems.fau_plate, ModItems.fau_legs, ModItems.fau_boots) ||
-                checkArmor(player, ModItems.dns_helmet, ModItems.dns_plate, ModItems.dns_legs, ModItems.dns_boots);
-    }
+	public static boolean checkForHazmatOnly(EntityLivingBase player) {
+		if(checkArmor(player, ModItems.hazmat_helmet, ModItems.hazmat_plate, ModItems.hazmat_legs, ModItems.hazmat_boots) || 
+			checkArmor(player, ModItems.hazmat_helmet_red, ModItems.hazmat_plate_red, ModItems.hazmat_legs_red, ModItems.hazmat_boots_red) || 
+			checkArmor(player, ModItems.hazmat_helmet_grey, ModItems.hazmat_plate_grey, ModItems.hazmat_legs_grey, ModItems.hazmat_boots_grey) || 
+			checkArmor(player, ModItems.hazmat_paa_helmet, ModItems.hazmat_paa_plate, ModItems.hazmat_paa_legs, ModItems.hazmat_paa_boots) ||
+			checkArmor(player, ModItems.paa_helmet, ModItems.paa_plate, ModItems.paa_legs, ModItems.paa_boots) ||
+			checkArmor(player, ModItems.liquidator_helmet, ModItems.liquidator_plate, ModItems.liquidator_legs, ModItems.liquidator_boots)){
+			return true;
+		}
+		return false;
+	}
 
-	public static boolean checkForHazmat(EntityPlayer player) {
+	public static boolean checkForHazmat(EntityLivingBase player) {
 		if(ArmorUtil.checkArmor(player, ModItems.hazmat_helmet, ModItems.hazmat_plate, ModItems.hazmat_legs, ModItems.hazmat_boots) || 
 			ArmorUtil.checkArmor(player, ModItems.hazmat_helmet_red, ModItems.hazmat_plate_red, ModItems.hazmat_legs_red, ModItems.hazmat_boots_red) || 
 			ArmorUtil.checkArmor(player, ModItems.hazmat_helmet_grey, ModItems.hazmat_plate_grey, ModItems.hazmat_legs_grey, ModItems.hazmat_boots_grey) || 
@@ -193,22 +218,40 @@ public class ArmorUtil {
 	
 			return true;
 		}
+	
+		if(player.isPotionActive(HbmPotion.mutation))
+			return true;
+	
+		return false;
+	}
 
-        return player.isPotionActive(HbmPotion.mutation);
-    }
+	public static boolean checkForAsbestos(EntityLivingBase player) {
+	
+		if(ArmorUtil.checkArmor(player, ModItems.asbestos_helmet, ModItems.asbestos_plate, ModItems.asbestos_legs, ModItems.asbestos_boots)) {
+			return true;
+		}
+	
+		return false;
+	}
 
-	public static boolean checkForAsbestos(EntityPlayer player) {
-
-        return ArmorUtil.checkArmor(player, ModItems.asbestos_helmet, ModItems.asbestos_plate, ModItems.asbestos_legs, ModItems.asbestos_boots);
-    }
-
-	public static boolean checkArmor(EntityPlayer player, Item helm, Item chest, Item leg, Item shoe) {
-        return player.inventory.armorInventory.get(0).getItem() == shoe && player.inventory.armorInventory.get(1).getItem() == leg && player.inventory.armorInventory.get(2).getItem() == chest && player.inventory.armorInventory.get(3).getItem() == helm;
-    }
+	public static boolean checkArmor(EntityLivingBase player, Item helm, Item chest, Item leg, Item shoe) {
+		if(player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() == shoe && 
+			player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() == leg && 
+			player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() == chest && 
+			player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() == helm) {
+			return true;
+		}
+	
+		return false;
+	}
 
 	public static boolean checkArmorPiece(EntityPlayer player, Item armor, int slot) {
-        return player.inventory.armorInventory.get(slot) != null && player.inventory.armorInventory.get(slot).getItem() == armor;
-    }
+		if(player.inventory.armorInventory.get(slot) != null && player.inventory.armorInventory.get(slot).getItem() == armor) {
+			return true;
+		}
+	
+		return false;
+	}
 	
 	/*
 	 * Default implementations for IGasMask items
@@ -226,7 +269,7 @@ public class ArmorUtil {
 			
 			if(ArmorModHandler.hasMods(mask)) {
 				
-				ItemStack[] mods = ArmorModHandler.pryMods(mask);
+				ItemStack mods[] = ArmorModHandler.pryMods(mask);
 				
 				if(mods[ArmorModHandler.helmet_only] != null && mods[ArmorModHandler.helmet_only].getItem() instanceof IGasMask)
 					mask = mods[ArmorModHandler.helmet_only];
@@ -242,7 +285,7 @@ public class ArmorUtil {
 		
 		if(filter == null) {
 			if(ArmorModHandler.hasMods(mask)) {
-				ItemStack[] mods = ArmorModHandler.pryMods(mask);
+				ItemStack mods[] = ArmorModHandler.pryMods(mask);
 				
 				if(mods[ArmorModHandler.helmet_only] != null && mods[ArmorModHandler.helmet_only].getItem() instanceof IGasMask)
 					filter = getGasMaskFilter(mods[ArmorModHandler.helmet_only]);
@@ -311,9 +354,12 @@ public class ArmorUtil {
 
 		if(checkArmor(player, ModItems.dns_helmet, ModItems.dns_plate, ModItems.dns_legs, ModItems.dns_boots))
 			return true;
-
-        return player.isPotionActive(HbmPotion.stability);
-    }
+		
+		if(player.isPotionActive(HbmPotion.stability))
+			return true; 
+		
+		return false;
+	}
 	
 	public static boolean checkForMonoMask(EntityPlayer player) {
 
@@ -336,9 +382,10 @@ public class ArmorUtil {
 		ItemStack helmet = player.inventory.armorInventory.get(3);
 		if(helmet != null && ArmorModHandler.hasMods(helmet)) {
 			
-			ItemStack[] mods = ArmorModHandler.pryMods(helmet);
-
-            return mods[ArmorModHandler.helmet_only] != null && mods[ArmorModHandler.helmet_only].getItem() == ModItems.attachment_mask_mono;
+			ItemStack mods[] = ArmorModHandler.pryMods(helmet);
+			
+			if(mods[ArmorModHandler.helmet_only] != null && mods[ArmorModHandler.helmet_only].getItem() == ModItems.attachment_mask_mono)
+				return true;
 		}
 		
 		return false;
@@ -378,8 +425,12 @@ public class ArmorUtil {
 		{
 			return true;
 		}
-        return checkArmorPiece(player, ModItems.paa_helmet, 3);
-    }
+		if(checkArmorPiece(player, ModItems.paa_helmet, 3))
+		{
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * Grabs the installed filter or the filter of the attachment, used for attachment rendering
@@ -393,7 +444,7 @@ public class ArmorUtil {
 		
 		if((filter == null || filter.isEmpty()) && ArmorModHandler.hasMods(mask)) {
 			
-			ItemStack[] mods = ArmorModHandler.pryMods(mask);
+			ItemStack mods[] = ArmorModHandler.pryMods(mask);
 			
 			if(mods[ArmorModHandler.helmet_only] != null && mods[ArmorModHandler.helmet_only].getItem() instanceof IGasMask)
 				filter = ((IGasMask)mods[ArmorModHandler.helmet_only].getItem()).getFilter(mods[ArmorModHandler.helmet_only]);
@@ -410,11 +461,11 @@ public class ArmorUtil {
 		ItemStack filter = ((IGasMask)mask.getItem()).getFilter(mask);
 		
 		if(filter == null) {
-			list.add("§cNo filter installed!");
+			list.add("§c" + I18nUtil.resolveKey("desc.nofilter"));
 			return;
 		}
 		
-		list.add("§6Installed filter:");
+		list.add("§6" + I18nUtil.resolveKey("desc.infilter"));
 		
 		int meta = filter.getItemDamage();
 		int max = filter.getMaxDamage();

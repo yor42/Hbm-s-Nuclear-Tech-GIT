@@ -1,5 +1,7 @@
 package com.hbm.items.machine;
 
+import java.util.List;
+
 import com.hbm.interfaces.IItemHazard;
 import com.hbm.items.ModItems;
 import com.hbm.main.MainRegistry;
@@ -7,6 +9,7 @@ import com.hbm.modules.ItemHazardModule;
 import com.hbm.tileentity.machine.rbmk.IRBMKFluxReceiver.NType;
 import com.hbm.tileentity.machine.rbmk.RBMKDials;
 import com.hbm.util.I18nUtil;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,9 +21,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class ItemRBMKRod extends Item implements IItemHazard {
+
+	public static final double xe135HalflifeMulPerTick = 0.9999241662036941; // 0.5^(1/9140) for a 9.14h halflife
 	
 	public ItemRBMKPellet pellet;
 	public String fullName = "";			//full name of the fuel rod
@@ -172,7 +175,7 @@ public class ItemRBMKRod extends Item implements IItemHazard {
 		
 		inFlux += selfRate;
 		
-		double xenon = getPoison(stack);
+		double xenon = getPoison(stack) * xe135HalflifeMulPerTick;
 		xenon -= xenonBurnFunc(inFlux);
 		
 		inFlux *= (1D - getPoisonLevel(stack));
@@ -266,20 +269,20 @@ public class ItemRBMKRod extends Item implements IItemHazard {
 		return ret;
 	}
 	
-	public enum EnumBurnFunc {
-		PASSIVE(TextFormatting.DARK_GREEN + "SAFE / PASSIVE"),			//const, no reactivity
-		PLATEU(TextFormatting.GREEN + "SAFE / EULER"),					//(1 - e^(-x/25)) * reactivity * 100
-		SIGMOID(TextFormatting.GREEN + "SAFE / SIGMOID"),				//100 / (1 + e^(-(x - 50) / 10)) <- tiny amount of reactivity at x=0 !
-		LOG_TEN(TextFormatting.YELLOW + "MEDIUM / LOGARITHMIC"),		//log10(x + 1) * reactivity * 50
-		SQUARE_ROOT(TextFormatting.YELLOW + "MEDIUM / SQUARE ROOT"),	//sqrt(x) * 10 * reactivity
-		ARCH(TextFormatting.GOLD + "RISKY / NEGATIVE-QUADRATIC"),		//x-(x²/archLength) * reactivity
-		LINEAR(TextFormatting.RED + "DANGEROUS / LINEAR"),				//x * reactivity
-		QUADRATIC(TextFormatting.DARK_RED + "DANGEROUS / QUADRATIC"),		//x^2 / 100 * reactivity
-		EXPERIMENTAL(TextFormatting.WHITE + "EXPERIMENTAL / SINE SLOPE");	//x * (sin(x) + 1)
+	public static enum EnumBurnFunc {
+		PASSIVE("trait.rbmx.flux.passive"),				//const, no reactivity
+		PLATEU("trait.rbmx.flux.euler"),				//(1 - e^(-x/25)) * reactivity * 100
+		SIGMOID("trait.rbmx.flux.sigmoid"),				//100 / (1 + e^(-(x - 50) / 10)) <- tiny amount of reactivity at x=0 !
+		LOG_TEN("trait.rbmx.flux.logten"),				//log10(x + 1) * reactivity * 50
+		SQUARE_ROOT("trait.rbmx.flux.squrt"),			//sqrt(x) * 10 * reactivity
+		ARCH("trait.rbmx.flux.arch"),					//x-(x²/archLength) * reactivity
+		LINEAR("trait.rbmx.flux.linear"),				//x * reactivity
+		QUADRATIC("trait.rbmx.flux.quadratic"),			//x^2 / 100 * reactivity
+		EXPERIMENTAL("trait.rbmx.flux.experimental");	//x * (sin(x) + 1)
 		
 		public String title = "";
 		
-		EnumBurnFunc(String title) {
+		private EnumBurnFunc(String title) {
 			this.title = title;
 		}
 	}
@@ -340,18 +343,18 @@ public class ItemRBMKRod extends Item implements IItemHazard {
 			String reactivity = TextFormatting.YELLOW + "" + ((int)(this.reactivity * enrichment * 1000D) / 1000D) + TextFormatting.WHITE;
 			String enrichmentPer = TextFormatting.GOLD + " (" + ((int)(enrichment * 1000D) / 10D) + "%)";
 			
-			return String.format(function, selfRate > 0 ? "(x" + TextFormatting.RED + " + " + selfRate + TextFormatting.WHITE + ")" : "x", reactivity).concat(enrichmentPer);
+			return String.format(function, selfRate > 0 ? "(x" + TextFormatting.RED + " + " + selfRate + "" + TextFormatting.WHITE + ")" : "x", reactivity).concat(enrichmentPer);
 		}
 		
-		return String.format(function, selfRate > 0 ? "(x" + TextFormatting.RED + " + " + selfRate + TextFormatting.WHITE + ")" : "x", reactivity);
+		return String.format(function, selfRate > 0 ? "(x" + TextFormatting.RED + " + " + selfRate + "" + TextFormatting.WHITE + ")" : "x", reactivity);
 	}
 
-	public enum EnumDepleteFunc {
+	public static enum EnumDepleteFunc {
 		LINEAR,			//old function
 		RAISING_SLOPE,	//for breeding fuels such as MEU, maximum of 110% at 28% depletion
 		BOOSTED_SLOPE,	//for strong breeding fuels such Th232, maximum of 132% at 64% depletion
 		GENTLE_SLOPE,	//recommended for most fuels, maximum barely over the start, near the beginning
-		STATIC            //for arcade-style neutron sources
+		STATIC;			//for arcade-style neutron sources
 	}
 
 	public double reactivityModByEnrichment(double enrichment) {
@@ -416,7 +419,7 @@ public class ItemRBMKRod extends Item implements IItemHazard {
 			list.add(TextFormatting.BLUE + I18nUtil.resolveKey("trait.rbmx.splitsWith", I18nUtil.resolveKey(nType.unlocalized + ".x")));
 			list.add(TextFormatting.BLUE + I18nUtil.resolveKey("trait.rbmx.splitsInto", I18nUtil.resolveKey(rType.unlocalized + ".x")));
 			list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("trait.rbmx.fluxFunc", TextFormatting.WHITE + getFuncDescription(stack)));
-			list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("trait.rbmx.funcType", this.function.title));
+			list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("trait.rbmx.funcType", I18nUtil.resolveKey(this.function.title)));
 			list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("trait.rbmx.xenonGen", TextFormatting.WHITE + "x * " + xGen));
 			list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("trait.rbmx.xenonBurn", TextFormatting.WHITE + "x² / " + xBurn));
 			list.add(TextFormatting.GOLD + I18nUtil.resolveKey("trait.rbmx.heat", heat + "°C"));
@@ -437,7 +440,7 @@ public class ItemRBMKRod extends Item implements IItemHazard {
 			list.add(TextFormatting.BLUE + I18nUtil.resolveKey("trait.rbmk.splitsWith", I18nUtil.resolveKey(nType.unlocalized)));
 			list.add(TextFormatting.BLUE + I18nUtil.resolveKey("trait.rbmk.splitsInto", I18nUtil.resolveKey(rType.unlocalized)));
 			list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("trait.rbmk.fluxFunc", TextFormatting.WHITE + getFuncDescription(stack)));
-			list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("trait.rbmk.funcType", this.function.title));
+			list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("trait.rbmk.funcType", I18nUtil.resolveKey(this.function.title)));
 			list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("trait.rbmk.xenonGen", TextFormatting.WHITE + "x * " + xGen));
 			list.add(TextFormatting.YELLOW + I18nUtil.resolveKey("trait.rbmk.xenonBurn", TextFormatting.WHITE + "x² / " + xBurn));
 			list.add(TextFormatting.GOLD + I18nUtil.resolveKey("trait.rbmk.heat", heat + "°C"));

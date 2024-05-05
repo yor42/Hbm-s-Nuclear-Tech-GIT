@@ -1,10 +1,9 @@
 package com.hbm.entity.item;
 
-import com.hbm.blocks.ModBlocks;
-import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.MoverType;
+import api.hbm.block.IConveyorItem;
+import api.hbm.block.IEnterableBlock;
+
+import com.hbm.lib.ForgeDirection;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -13,19 +12,20 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityMovingItem extends Entity {
+public class EntityMovingItem extends EntityMovingConveyorObject implements IConveyorItem {
 
 	public static final DataParameter<ItemStack> STACK = EntityDataManager.createKey(EntityMovingItem.class, DataSerializers.ITEM_STACK);
-	
+
 	public EntityMovingItem(World p_i1582_1_) {
 		super(p_i1582_1_);
-        this.setSize(0.5F, 0.25F);
-        this.noClip = true;
+		this.setSize(0.375F, 0.375F);
 	}
 
     public void setItemStack(ItemStack stack) {
@@ -42,15 +42,6 @@ public class EntityMovingItem extends Entity {
         return true;
     }
 
-    public boolean interactFirst(EntityPlayer player) {
-
-		if(!world.isRemote && player.inventory.addItemStackToInventory(this.getItemStack().copy())) {
-			this.setDead();
-		}
-
-		return false;
-    }
-
     public boolean attackEntityFrom(DamageSource source, float amount) {
 
     	if(!world.isRemote) {
@@ -60,63 +51,7 @@ public class EntityMovingItem extends Entity {
     	return true;
     }
 
-    public boolean canAttackWithItem() {
-        return true;
-    }
-
-    public boolean hitByEntity(Entity attacker) {
-
-    	if(attacker instanceof EntityPlayer) {
-    	}
-
-		this.setDead();
-
-        return false;
-    }
-
-    protected boolean canTriggerWalking() {
-        return true;
-    }
-
     private int schedule = 0;
-
-    public void onUpdate() {
-
-    	if(!world.isRemote) {
-
-    		if(world.getBlockState(new BlockPos((int)Math.floor(posX), (int)Math.floor(posY), (int)Math.floor(posZ))).getBlock() != ModBlocks.conveyor) {
-    			this.setDead();
-    			world.spawnEntity(new EntityItem(world, posX, posY, posZ, this.getItemStack()));
-    			return;
-    		}
-    	}
-
-    	IBlockState b = world.getBlockState(new BlockPos((int)Math.floor(posX), (int)Math.floor(posY), (int)Math.floor(posZ)));
-    	if(b.getBlock() == ModBlocks.conveyor) {
-
-    		if(schedule <= 0) {
-    			EnumFacing dir = b.getValue(BlockHorizontal.FACING);
-
-    			if(world.getBlockState(new BlockPos((int)Math.floor(posX), (int)Math.floor(posY) + 1, (int)Math.floor(posZ))).getBlock() == ModBlocks.conveyor && motionY >= 0) {
-    				dir = EnumFacing.DOWN;
-    			}
-
-    			if(world.getBlockState(new BlockPos((int)Math.floor(posX), (int)Math.floor(posY) - 1, (int)Math.floor(posZ))).getBlock() == ModBlocks.conveyor && motionY <= 0) {
-    				dir = EnumFacing.UP;
-    			}
-
-        		double speed = 0.1;
-
-        		schedule = (int) (1 / speed);
-        		motionX = -speed * dir.getFrontOffsetX();
-        		motionY = -speed * dir.getFrontOffsetY();
-        		motionZ = -speed * dir.getFrontOffsetZ();
-    		}
-
-    		this.move(MoverType.SELF, motionX, motionY, motionZ);
-    		schedule--;
-    	}
-    }
 
 	@Override
     protected void entityInit() {
@@ -146,4 +81,33 @@ public class EntityMovingItem extends Entity {
         nbt.setInteger("schedule", schedule);
 	}
 
+	@Override
+	public void enterBlock(IEnterableBlock enterable, BlockPos pos, EnumFacing dir) {
+
+		if(enterable.canItemEnter(world, pos.getX(), pos.getY(), pos.getZ(), dir, this)) {
+			enterable.onItemEnter(world, pos.getX(), pos.getY(), pos.getZ(), dir, this);
+			this.setDead();
+		}
+	}
+
+	@Override
+	public boolean onLeaveConveyor() {
+
+		this.setDead();
+		EntityItem item = new EntityItem(world, posX + motionX * 2, posY + motionY * 2, posZ + motionZ * 2, this.getItemStack());
+		item.motionX = this.motionX * 2;
+		item.motionY = 0.1;
+		item.motionZ = this.motionZ * 2;
+		item.velocityChanged = true;
+		world.spawnEntity(item);
+
+		return true;
+	}
+
+	@Override
+	public ItemStack getPickedResult(RayTraceResult target){
+		if(target.entityHit != null && target.entityHit instanceof EntityMovingItem)
+			return ((EntityMovingItem)target.entityHit).getItemStack();
+		return null;
+	}
 }

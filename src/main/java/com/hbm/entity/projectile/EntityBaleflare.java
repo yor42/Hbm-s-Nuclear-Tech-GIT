@@ -1,9 +1,13 @@
 package com.hbm.entity.projectile;
 
+import java.util.List;
+
+import com.hbm.config.CompatibilityConfig;
 import com.hbm.config.BombConfig;
 import com.hbm.entity.logic.EntityBalefire;
+import com.hbm.entity.effect.EntityNukeTorex;
 import com.hbm.entity.particle.EntitySSmokeFX;
-import com.hbm.explosion.ExplosionParticleB;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -23,12 +27,14 @@ import net.minecraft.network.play.server.SPacketChangeGameState;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
 
 public class EntityBaleflare extends Entity implements IProjectile {
 
@@ -262,8 +268,7 @@ public class EntityBaleflare extends Entity implements IProjectile {
             			bf.posZ = this.posZ;
             			bf.destructionRange = BombConfig.fatmanRadius;
             			world.spawnEntity(bf);
-                	    
-                    	ExplosionParticleB.spawnMush(this.world, (int)this.posX, (int)this.posY - 3, (int)this.posZ);
+                	    EntityNukeTorex.statFacBale(world, this.posX, this.posY, this.posZ, BombConfig.fatmanRadius);
                     }
                     this.setDead();
                 }
@@ -300,7 +305,7 @@ public class EntityBaleflare extends Entity implements IProjectile {
 
             for (i = 0; i < list.size(); ++i)
             {
-                Entity entity1 = list.get(i);
+                Entity entity1 = (Entity)list.get(i);
 
                 if (entity1.canBeCollidedWith() && (entity1 != this.shootingEntity || this.ticksInAir >= 5))
                 {
@@ -339,7 +344,7 @@ public class EntityBaleflare extends Entity implements IProjectile {
             float f2;
             float f4;
 
-            if (movingobjectposition != null)
+            if (movingobjectposition != null && CompatibilityConfig.isWarDim(world))
             {
                 if (movingobjectposition.entityHit != null)
                 {
@@ -433,6 +438,7 @@ public class EntityBaleflare extends Entity implements IProjectile {
 
             for (this.rotationPitch = (float)(Math.atan2(this.motionY, f2) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
             {
+                ;
             }
 
             while (this.rotationPitch - this.prevRotationPitch >= 180.0F)
