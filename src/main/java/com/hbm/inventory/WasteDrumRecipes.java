@@ -34,6 +34,11 @@ public class WasteDrumRecipes {
 		recipes.put(input, output);
 		outputs.add(output.getItem());
 	}
+
+	public static void removeRecipe(ItemStack input, ItemStack output){
+		recipes.remove(input.getItem(), output);
+		outputs.remove(output.getItem());
+	}
 	
 	public static ItemStack getOutput(Item item) {
 		

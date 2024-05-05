@@ -32,7 +32,8 @@ public static void generateConditionOverworld(World world, int x, int yMin, int 
 	}
 
 	public static void generate(World world, int x, int y, int z, int size, double fill, Block block, Random rand, Block genTarget, Block filler) {
-		
+		x+=8;
+		z+=8;
 		for(int i = x - size; i <= x + size; i++) {
 			for(int j = y - size; j <= y + size; j++) {
 				for(int k = z - size; k <= z + size; k++) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.hbm.handler.BobmazonOfferFactory;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.lib.RefStrings;
@@ -206,32 +207,39 @@ public class GUIScreenBobmazon extends GuiScreen {
 	public boolean doesGuiPauseGame() {
 		return false;
 	}
-	
+
 	public static class Offer {
-		
+
 		public ItemStack offer;
 		public Requirement requirement;
 		public int cost;
 		public int rating;
 		public String comment;
 		public String author;
-		
-		public Offer(ItemStack offer, Requirement requirement, int cost, int rating, String comment, String author) {
+		public final BobmazonOfferFactory.OfferCategorie categorie;
+
+		public Offer(ItemStack offer, Requirement requirement, int cost, int rating, String comment, String author, BobmazonOfferFactory.OfferCategorie category) {
 			this.offer = offer;
 			this.requirement = requirement;
 			this.cost = cost;
 			this.rating = rating * 4 - 1;
 			this.comment = comment;
 			this.author = author;
+			this.categorie = category;
 		}
-		
-		public Offer(ItemStack offer, Requirement requirement, int cost) {
+
+		public Offer(ItemStack offer, Requirement requirement, int cost, BobmazonOfferFactory.OfferCategorie category) {
 			this.offer = offer;
 			this.requirement = requirement;
 			this.cost = cost;
 			this.rating = 0;
 			this.comment = "No Ratings";
 			this.author = "";
+			this.categorie = category;
+		}
+
+		public BobmazonOfferFactory.OfferCategorie getCategorie() {
+			return this.categorie;
 		}
 		
 		public void drawRequirement(GUIScreenBobmazon gui, int x, int y) {

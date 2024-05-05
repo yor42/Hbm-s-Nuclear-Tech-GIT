@@ -78,9 +78,9 @@ public class DungeonToolbox {
 		if(veinCount > 0){
 			for(int i = 0; i < veinCount; i++) {
 
-				int x = chunkX + rand.nextInt(16);
+				int x = chunkX + rand.nextInt(16) + amount>8? 8:0;
 				int y = minHeight + (variance > 0 ? rand.nextInt(variance) : 0);
-				int z = chunkZ + rand.nextInt(16);
+				int z = chunkZ + rand.nextInt(16) + amount>8? 8:0;
 
 				(new WorldGenMinable(ore, amount, state -> state.getBlock() == target)).generate(world, rand, new BlockPos(x, y, z));
 			}

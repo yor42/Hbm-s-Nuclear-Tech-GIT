@@ -183,6 +183,22 @@ public class HeatRecipes {
 		}
 	}
 
+	public static void removeBoilRecipe(Fluid f){
+		hotFluids.remove(f);
+		requiredTU.remove(f);
+		inputAmountHot.remove(f);
+		outputAmountHot.remove(f);
+	}
+
+	public static void removeCoolRecipe(Fluid f){
+		if(FluidRegistry.isFluidRegistered(f)){
+			coolFluids.remove(f);
+			resultingTU.remove(f);
+			inputAmountCold.remove(f);
+			outputAmountCold.remove(f);
+		}
+	}
+
 	// return: FluidType, amount produced, amount required, heat required (°C * 100)
 	public static Object[] getBoilerOutput(Fluid type) {
 		if(hasBoilRecipe(type)){

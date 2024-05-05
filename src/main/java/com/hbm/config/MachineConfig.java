@@ -45,6 +45,8 @@ public class MachineConfig {
 
 	public static int crateByteSize = 8;
 
+	public static boolean directRFSupport = false;
+
 	public static int rbmkJumpTemp = 1250;
 
 	public static boolean chemplantKeepOilProcessing = false;
@@ -96,6 +98,7 @@ public class MachineConfig {
 		gasPerBedrockDepositBlockMinFrackingTower = CommonConfig.createConfigInt(config, CATEGORY_MACHINE, generateConfigName(22, "gasPerBedrockDepositBlockMinFrackingTower"), "Controls how much natural gas at minimum is extracted per bedrock deposit block for Fracking towers", 10);
 		gasPerBedrockDepositBlockMaxExtraFrackingTower = CommonConfig.createConfigInt(config, CATEGORY_MACHINE, generateConfigName(23, "gasPerBedrockDepositBlockMaxExtraFrackingTower"), "Controls how much extra natural gas can be extracted per bedrock deposit block for Fracking towers", 50);
 
+		directRFSupport= CommonConfig.createConfigBool(config, CATEGORY_MACHINE, generateConfigName(29, "directRFSupport"), "If true all machines and devices can accept RF directly", false);
 
 		uuMixerFluidRatio = CommonConfig.createConfigInt(config, CATEGORY_MACHINE, generateConfigName(24, "uuMixerFluidRatio"), "How much mB of UU-Matter is used per mB of output fluid", 100);
 		uuMixerFluidListIsWhitelist = CommonConfig.createConfigBool(config, CATEGORY_MACHINE, generateConfigName(25, "uuMixerFluidListIsWhitelist"), "If true then the follwing list of fluids is a whitelist. Otherwise it is a Blacklist", false);

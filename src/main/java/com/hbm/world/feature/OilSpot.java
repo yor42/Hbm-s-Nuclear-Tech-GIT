@@ -16,8 +16,8 @@ public class OilSpot {
     public static void generateOilSpot(World world, int x, int z, int width, int count) {
 
         for(int i = 0; i < count; i++) {
-            int rX = x + (int)(world.rand.nextGaussian() * width);
-            int rZ = z + (int)(world.rand.nextGaussian() * width);
+            int rX = x + (int)(world.rand.nextGaussian() * width)+8;
+            int rZ = z + (int)(world.rand.nextGaussian() * width)+8;
             int rY = world.getHeight(rX, rZ);
 
             BlockPos pos = new BlockPos(rX, rY - 1, rZ);
