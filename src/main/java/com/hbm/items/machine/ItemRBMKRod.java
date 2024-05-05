@@ -269,7 +269,7 @@ public class ItemRBMKRod extends Item implements IItemHazard {
 		return ret;
 	}
 	
-	public static enum EnumBurnFunc {
+	public enum EnumBurnFunc {
 		PASSIVE("trait.rbmx.flux.passive"),				//const, no reactivity
 		PLATEU("trait.rbmx.flux.euler"),				//(1 - e^(-x/25)) * reactivity * 100
 		SIGMOID("trait.rbmx.flux.sigmoid"),				//100 / (1 + e^(-(x - 50) / 10)) <- tiny amount of reactivity at x=0 !
@@ -282,7 +282,7 @@ public class ItemRBMKRod extends Item implements IItemHazard {
 		
 		public String title = "";
 		
-		private EnumBurnFunc(String title) {
+		EnumBurnFunc(String title) {
 			this.title = title;
 		}
 	}
@@ -343,18 +343,18 @@ public class ItemRBMKRod extends Item implements IItemHazard {
 			String reactivity = TextFormatting.YELLOW + "" + ((int)(this.reactivity * enrichment * 1000D) / 1000D) + TextFormatting.WHITE;
 			String enrichmentPer = TextFormatting.GOLD + " (" + ((int)(enrichment * 1000D) / 10D) + "%)";
 			
-			return String.format(function, selfRate > 0 ? "(x" + TextFormatting.RED + " + " + selfRate + "" + TextFormatting.WHITE + ")" : "x", reactivity).concat(enrichmentPer);
+			return String.format(function, selfRate > 0 ? "(x" + TextFormatting.RED + " + " + selfRate + TextFormatting.WHITE + ")" : "x", reactivity).concat(enrichmentPer);
 		}
 		
-		return String.format(function, selfRate > 0 ? "(x" + TextFormatting.RED + " + " + selfRate + "" + TextFormatting.WHITE + ")" : "x", reactivity);
+		return String.format(function, selfRate > 0 ? "(x" + TextFormatting.RED + " + " + selfRate + TextFormatting.WHITE + ")" : "x", reactivity);
 	}
 
-	public static enum EnumDepleteFunc {
+	public enum EnumDepleteFunc {
 		LINEAR,			//old function
 		RAISING_SLOPE,	//for breeding fuels such as MEU, maximum of 110% at 28% depletion
 		BOOSTED_SLOPE,	//for strong breeding fuels such Th232, maximum of 132% at 64% depletion
 		GENTLE_SLOPE,	//recommended for most fuels, maximum barely over the start, near the beginning
-		STATIC;			//for arcade-style neutron sources
+		STATIC            //for arcade-style neutron sources
 	}
 
 	public double reactivityModByEnrichment(double enrichment) {

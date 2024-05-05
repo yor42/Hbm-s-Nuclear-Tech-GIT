@@ -1514,10 +1514,8 @@ public class ModEventHandlerClient {
 				ArmorFSB chestplate = (ArmorFSB)plate.getItem();
 				if(chestplate.flashlightPosition != null && plate.hasTagCompound() && plate.getTagCompound().getBoolean("flActive")){
 					Vec3d start = chestplate.flashlightPosition.rotatePitch(-(float) Math.toRadians(player.rotationPitch)).rotateYaw(-(float) Math.toRadians(player.rotationYaw)).add(player.getPositionEyes(partialTicks));
-					boolean volume = true;
-					if(player == Minecraft.getMinecraft().player && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0)
-						volume = false;
-					LightRenderer.addFlashlight(start, start.add(player.getLook(partialTicks).scale(30)), 30, 200, ResourceManager.fl_cookie, volume, true, true, true);
+					boolean volume = player != Minecraft.getMinecraft().player || Minecraft.getMinecraft().gameSettings.thirdPersonView != 0;
+                    LightRenderer.addFlashlight(start, start.add(player.getLook(partialTicks).scale(30)), 30, 200, ResourceManager.fl_cookie, volume, true, true, true);
 				}
 			}
 			
@@ -1675,14 +1673,14 @@ public class ModEventHandlerClient {
 			if(!(ArmorFSB.hasFSBArmorHelmet(player) && ((ArmorFSB)player.inventory.armorInventory.get(3).getItem()).customGeiger)) {
 				if(Library.hasInventoryItem(player.inventory, ModItems.geiger_counter) || hasBauble(player, ModItems.geiger_counter)) {
 	
-					float rads = (float)Library.getEntRadCap(player).getRads();
+					float rads = Library.getEntRadCap(player).getRads();
 	
 					RenderScreenOverlay.renderRadCounter(event.getResolution(), rads, Minecraft.getMinecraft().ingameGUI);
 				}
 			}
 			if(Library.hasInventoryItem(player.inventory, ModItems.digamma_diagnostic) || hasBauble(player, ModItems.digamma_diagnostic)) {
 	
-				float digamma = (float)Library.getEntRadCap(player).getDigamma();
+				float digamma = Library.getEntRadCap(player).getDigamma();
 
 				RenderScreenOverlay.renderDigCounter(event.getResolution(), digamma, Minecraft.getMinecraft().ingameGUI);
 			}
@@ -1697,7 +1695,7 @@ public class ModEventHandlerClient {
 			World world = mc.world;
 			RayTraceResult mop = mc.objectMouseOver;
 			
-			if(mop != null && mop.typeOfHit == mop.typeOfHit.BLOCK) {
+			if(mop != null && mop.typeOfHit == Type.BLOCK) {
 				if(world.getBlockState(mop.getBlockPos()).getBlock() instanceof ILookOverlay) {
 					((ILookOverlay) world.getBlockState(mop.getBlockPos()).getBlock()).printHook(event, world, mop.getBlockPos().getX(), mop.getBlockPos().getY(), mop.getBlockPos().getZ());
 				}
@@ -2017,8 +2015,8 @@ public class ModEventHandlerClient {
 			if(!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && !(Minecraft.getMinecraft().currentScreen instanceof GUIArmorTable)) {
 				
 				list.add(TextFormatting.DARK_GRAY + "" + TextFormatting.ITALIC +"Hold <" +
-						TextFormatting.YELLOW + "" + TextFormatting.ITALIC + "LSHIFT" +
-						TextFormatting.DARK_GRAY + "" + TextFormatting.ITALIC + "> to display installed armor mods");
+						TextFormatting.YELLOW + TextFormatting.ITALIC + "LSHIFT" +
+						TextFormatting.DARK_GRAY + TextFormatting.ITALIC + "> to display installed armor mods");
 				
 			} else {
 				

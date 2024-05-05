@@ -177,7 +177,7 @@ public class ItemFoodHazard extends ItemFood implements IItemHazard {
 			player.attackEntityFrom(ModDamageSource.lead, 10F);
 		}
 		if(stack.getItem() == ModItems.apple_lead2){
-			player.addPotionEffect(new PotionEffect(HbmPotion.radx, 1 * 60 * 20, 40));
+			player.addPotionEffect(new PotionEffect(HbmPotion.radx, 60 * 20, 40));
 			player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 15 * 60 * 20, 2));
 			player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 2 * 60 * 20, 0));
 			player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 30 * 20, 0));

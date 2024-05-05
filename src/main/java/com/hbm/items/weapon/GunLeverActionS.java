@@ -145,9 +145,9 @@ public class GunLeverActionS extends Item {
 	@SideOnly(Side.CLIENT)
 	public String getItemStackDisplayName(ItemStack stack) {
 		if(MainRegistry.polaroidID == 11)
-			return ("" + I18n.format(this.getUnlocalizedName() + "_2.name")).trim();
+			return (I18n.format(this.getUnlocalizedName() + "_2.name")).trim();
 		else
-			return ("" + I18n.format(this.getUnlocalizedName() + ".name")).trim();
+			return (I18n.format(this.getUnlocalizedName() + ".name")).trim();
 	}
 	
 	@Override

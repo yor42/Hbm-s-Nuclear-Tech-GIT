@@ -23,7 +23,7 @@ public interface IEnergyConnector extends ILoadedTile {
 	 * @param power
 	 * @return
 	 */
-	public long transferPower(long power);
+    long transferPower(long power);
 	
 	/**
 	 * Whether the given side can be connected to
@@ -31,7 +31,7 @@ public interface IEnergyConnector extends ILoadedTile {
 	 * @param dir
 	 * @return
 	 */
-	public default boolean canConnect(ForgeDirection dir) {
+	default boolean canConnect(ForgeDirection dir) {
 		return dir != ForgeDirection.UNKNOWN;
 	}
 	
@@ -39,15 +39,15 @@ public interface IEnergyConnector extends ILoadedTile {
 	 * The current power of either the machine or an entire network
 	 * @return
 	 */
-	public long getPower();
+    long getPower();
 	
 	/**
 	 * The capacity of either the machine or an entire network
 	 * @return
 	 */
-	public long getMaxPower();
+    long getMaxPower();
 	
-	public default long getTransferWeight() {
+	default long getTransferWeight() {
 		return Math.max(getMaxPower() - getPower(), 0);
 	}
 	
@@ -58,7 +58,7 @@ public interface IEnergyConnector extends ILoadedTile {
 	 * @param y
 	 * @param z
 	 */
-	public default void trySubscribe(World world, BlockPos pos, ForgeDirection dir) {
+	default void trySubscribe(World world, BlockPos pos, ForgeDirection dir) {
 
 		TileEntity te = world.getTileEntity(pos);
 		boolean red = false;
@@ -90,7 +90,7 @@ public interface IEnergyConnector extends ILoadedTile {
 		// }
 	}
 	
-	public default void tryUnsubscribe(World world, BlockPos pos) {
+	default void tryUnsubscribe(World world, BlockPos pos) {
 
 		TileEntity te = world.getTileEntity(pos);
 		
@@ -102,40 +102,40 @@ public interface IEnergyConnector extends ILoadedTile {
 		}
 	}
 	
-	public static final boolean particleDebug = true;
+	boolean particleDebug = true;
 	
-	public default Vec3 getDebugParticlePos() {
+	default Vec3 getDebugParticlePos() {
 		BlockPos pos = ((TileEntity) this).getPos();
 		Vec3 vec = Vec3.createVectorHelper(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
 		return vec;
 	}
 	
-	public default ConnectionPriority getPriority() {
+	default ConnectionPriority getPriority() {
 		return ConnectionPriority.NORMAL;
 	}
 	
-	public enum ConnectionPriority {
+	enum ConnectionPriority {
 		LOW,
 		NORMAL,
 		HIGH
 	}
 
-	public default boolean isStorage() { //used for batteries
+	default boolean isStorage() { //used for batteries
 		return false;
 	}
 
-	public default void updateStandardConnections(World world, TileEntity te) {
+	default void updateStandardConnections(World world, TileEntity te) {
 		updateStandardConnections(world, te.getPos());
 	}
 		
-	public default void updateStandardConnections(World world, BlockPos pos) {
+	default void updateStandardConnections(World world, BlockPos pos) {
 		
 		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 			this.trySubscribe(world, pos.add(dir.offsetX, dir.offsetY, dir.offsetZ), dir);
 		}
 	}
 
-	public default void updateConnectionsExcept(World world, BlockPos pos, ForgeDirection nogo) {
+	default void updateConnectionsExcept(World world, BlockPos pos, ForgeDirection nogo) {
 		
 		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 			if(dir != nogo)

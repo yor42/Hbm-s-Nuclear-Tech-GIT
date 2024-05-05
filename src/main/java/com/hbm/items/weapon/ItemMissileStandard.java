@@ -90,14 +90,14 @@ public class ItemMissileStandard extends Item {
 
 		if(this == ModItems.missile_n2)	{
 			list.add("§c["+I18nUtil.resolveKey("desc.n2missile")+"]§r");
-			list.add(" "+TextFormatting.YELLOW+I18nUtil.resolveKey("desc.maxradius", (int)(BombConfig.n2Radius/12) * 5));
+			list.add(" "+TextFormatting.YELLOW+I18nUtil.resolveKey("desc.maxradius", (BombConfig.n2Radius/12) * 5));
 		}
 		if(this == ModItems.missile_nuclear){
 			list.add("§2["+I18nUtil.resolveKey("desc.numissile")+"]§r");
 			list.add(TextFormatting.YELLOW + " "+ I18nUtil.resolveKey("desc.radius", BombConfig.missileRadius));
 			if(!BombConfig.disableNuclear){
 				list.add(TextFormatting.DARK_GREEN + "["+I18nUtil.resolveKey("trait.fallout")+"]");
-				list.add(" " + TextFormatting.GREEN +I18nUtil.resolveKey("desc.radius",(int)BombConfig.missileRadius*(1+BombConfig.falloutRange/100)));
+				list.add(" " + TextFormatting.GREEN +I18nUtil.resolveKey("desc.radius", BombConfig.missileRadius *(1+BombConfig.falloutRange/100)));
 			}
 		}
 		if(this == ModItems.missile_nuclear_cluster){
@@ -105,7 +105,7 @@ public class ItemMissileStandard extends Item {
 			list.add(TextFormatting.YELLOW + " "+ I18nUtil.resolveKey("desc.radius", BombConfig.missileRadius*2));
 			if(!BombConfig.disableNuclear){
 				list.add(TextFormatting.DARK_GREEN + "["+I18nUtil.resolveKey("trait.fallout")+"]");
-				list.add(" " + TextFormatting.GREEN +I18nUtil.resolveKey("desc.radius",(int)BombConfig.missileRadius*2*(1+BombConfig.falloutRange/100)));
+				list.add(" " + TextFormatting.GREEN +I18nUtil.resolveKey("desc.radius", BombConfig.missileRadius *2*(1+BombConfig.falloutRange/100)));
 			}
 		}
 		if(this == ModItems.missile_volcano){
@@ -124,7 +124,7 @@ public class ItemMissileStandard extends Item {
 			list.add(TextFormatting.YELLOW + " "+ I18nUtil.resolveKey("desc.radius", BombConfig.fatmanRadius));
 			if(!BombConfig.disableNuclear){
 				list.add(TextFormatting.DARK_GREEN + "["+I18nUtil.resolveKey("trait.fallout")+"]");
-				list.add(" " + TextFormatting.GREEN + I18nUtil.resolveKey("desc.radius", (int)BombConfig.fatmanRadius*(1+BombConfig.falloutRange/100)));
+				list.add(" " + TextFormatting.GREEN + I18nUtil.resolveKey("desc.radius", BombConfig.fatmanRadius *(1+BombConfig.falloutRange/100)));
 			}
 		}
 		if(this == ModItems.missile_endo){

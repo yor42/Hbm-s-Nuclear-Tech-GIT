@@ -101,7 +101,7 @@ public class ArmorRegistry {
 		return prot;
 	}
 	
-	public static enum HazardClass {
+	public enum HazardClass {
 		GAS_CHLORINE("hazard.gasChlorine"),				//also attacks eyes -> no half mask (chlorine seal)
 		GAS_MONOXIDE("hazard.gasMonoxide"),				//only affects lungs (nether coal gas)
 		GAS_INERT("hazard.gasInert"),					//SA
@@ -116,7 +116,7 @@ public class ArmorRegistry {
 		
 		public final String lang;
 		
-		private HazardClass(String lang) {
+		HazardClass(String lang) {
 			this.lang = lang;
 		}
 	}

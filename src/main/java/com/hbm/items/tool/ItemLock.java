@@ -54,7 +54,7 @@ public class ItemLock extends ItemKeyPin {
 						lockTe.setPins(getPins(stack));
 						lockTe.lock();
 						lockTe.setMod(this.lockMod);
-						world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, HBMSoundHandler.lockHang, SoundCategory.PLAYERS, 1.0F, 1.0F);
+						world.playSound(null, player.posX, player.posY, player.posZ, HBMSoundHandler.lockHang, SoundCategory.PLAYERS, 1.0F, 1.0F);
 						stack.shrink(1);
 						return EnumActionResult.SUCCESS;
 					}

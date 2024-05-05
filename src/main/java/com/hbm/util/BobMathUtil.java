@@ -318,7 +318,7 @@ public class BobMathUtil {
 		final String[] dateOut = new String[5];
 		long year = Math.floorDiv(ticks, tickYear);
 		int day = (int) Math.floorDiv(ticks - tickYear * year, tickDay);
-		int h = (int) Math.floorDiv(ticks - tickYear * year-tickDay * day, tickHour);
+		int h = (int) Math.floorDiv(ticks - tickYear * year- (long) tickDay * day, tickHour);
 		int min = (int) Math.floor((ticks - tickYear * year-tickDay * day-tickHour * h) / tickMinute);
 		int s = (int) Math.floor((ticks - tickYear * year-tickDay * day-tickHour * h-min * tickMinute) / tickSecond);
 		dateOut[0] = String.valueOf(year);

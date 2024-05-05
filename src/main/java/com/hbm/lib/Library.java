@@ -109,10 +109,9 @@ public class Library {
 	public static String Pu_238 = "c95fdfd3-bea7-4255-a44b-d21bc3df95e3";
 
 	public static String Golem = "058b52a6-05b7-4d11-8cfa-2db665d9a521";
-	public static Set<String> contributors = Sets.newHashSet(new String[] {
-			"06ab7c03-55ce-43f8-9d3c-2850e3c652de", //mustang_rudolf
-			"5bf069bc-5b46-4179-aafe-35c0a07dee8b", //JMF781
-			});
+	public static Set<String> contributors = Sets.newHashSet("06ab7c03-55ce-43f8-9d3c-2850e3c652de", //mustang_rudolf
+            "5bf069bc-5b46-4179-aafe-35c0a07dee8b" //JMF781
+    );
 
 
 	public static final ForgeDirection POS_X = ForgeDirection.EAST;
@@ -213,11 +212,11 @@ public class Library {
 	}
 
 	public static float roundFloat(float number, int decimal){
-		return (float) (Math.round(number * powersOfTen[decimal]) / (float)powersOfTen[decimal]);  
+		return Math.round(number * powersOfTen[decimal]) / (float)powersOfTen[decimal];
 	}
 
 	public static float roundFloat(double number, int decimal){
-		return (float) (Math.round(number * powersOfTen[decimal]) / (float)powersOfTen[decimal]);  
+		return Math.round(number * powersOfTen[decimal]) / (float)powersOfTen[decimal];
 	}
 
 	public static int getColorFromItemStack(ItemStack stack){
@@ -311,8 +310,10 @@ public class Library {
 		boolean flag = true;
 
 		for(int i = 0; i < array.length; i++) {
-			if(array[i] != null)
-				flag = false;
+            if (array[i] != null) {
+                flag = false;
+                break;
+            }
 		}
 
 		return flag;
@@ -331,7 +332,7 @@ public class Library {
 		EntityPlayer entity = null;
 		if(world == null) return null;
 		for (int i = 0; i < world.loadedEntityList.size(); ++i) {
-				Entity entityplayer1 = (Entity)world.loadedEntityList.get(i);
+				Entity entityplayer1 = world.loadedEntityList.get(i);
 
 				if (entityplayer1.isEntityAlive() && entityplayer1 instanceof EntityPlayer) {
 					double d5 = entityplayer1.getDistanceSq(x, y, z);
@@ -351,7 +352,7 @@ public class Library {
 		EntityHunterChopper entity = null;
 
 		for (int i = 0; i < world.loadedEntityList.size(); ++i) {
-				Entity entityplayer1 = (Entity)world.loadedEntityList.get(i);
+				Entity entityplayer1 = world.loadedEntityList.get(i);
 
 				if (entityplayer1.isEntityAlive() && entityplayer1 instanceof EntityHunterChopper) {
 					double d5 = entityplayer1.getDistanceSq(x, y, z);
@@ -372,7 +373,7 @@ public class Library {
 		EntityChopperMine entity = null;
 
 		for (int i = 0; i < world.loadedEntityList.size(); ++i) {
-				Entity entityplayer1 = (Entity)world.loadedEntityList.get(i);
+				Entity entityplayer1 = world.loadedEntityList.get(i);
 
 				if (entityplayer1.isEntityAlive() && entityplayer1 instanceof EntityChopperMine) {
 					double d5 = entityplayer1.getDistanceSq(x, y, z);
@@ -390,7 +391,7 @@ public class Library {
 
 	public static RayTraceResult rayTrace(EntityPlayer player, double length, float interpolation) {
 		Vec3d vec3 = getPosition(interpolation, player);
-		vec3 = vec3.addVector(0D, (double) player.eyeHeight, 0D);
+		vec3 = vec3.addVector(0D, player.eyeHeight, 0D);
 		Vec3d vec31 = player.getLook(interpolation);
 		Vec3d vec32 = vec3.addVector(vec31.x * length, vec31.y * length, vec31.z * length);
 		return player.world.rayTraceBlocks(vec3, vec32, false, false, true);
@@ -398,7 +399,7 @@ public class Library {
 	
 	public static RayTraceResult rayTrace(EntityPlayer player, double length, float interpolation, boolean b1, boolean b2, boolean b3) {
 		Vec3d vec3 = getPosition(interpolation, player);
-		vec3 = vec3.addVector(0D, (double) player.eyeHeight, 0D);
+		vec3 = vec3.addVector(0D, player.eyeHeight, 0D);
 		Vec3d vec31 = player.getLook(interpolation);
 		Vec3d vec32 = vec3.addVector(vec31.x * length, vec31.y * length, vec31.z * length);
 		return player.world.rayTraceBlocks(vec3, vec32, b1, b2, b3);
@@ -421,7 +422,7 @@ public class Library {
 	
 	public static RayTraceResult rayTraceIncludeEntities(EntityPlayer player, double d, float f) {
 		Vec3d vec3 = getPosition(f, player);
-		vec3 = vec3.addVector(0D, (double) player.eyeHeight, 0D);
+		vec3 = vec3.addVector(0D, player.eyeHeight, 0D);
 		Vec3d vec31 = player.getLook(f);
 		Vec3d vec32 = vec3.addVector(vec31.x * d, vec31.y * d, vec31.z * d);
 		return rayTraceIncludeEntities(player.world, vec3, vec32, player);
@@ -429,7 +430,7 @@ public class Library {
 	
 	public static RayTraceResult rayTraceIncludeEntitiesCustomDirection(EntityPlayer player, Vec3d look, double d, float f) {
 		Vec3d vec3 = getPosition(f, player);
-		vec3 = vec3.addVector(0D, (double) player.eyeHeight, 0D);
+		vec3 = vec3.addVector(0D, player.eyeHeight, 0D);
 		Vec3d vec32 = vec3.addVector(look.x * d, look.y * d, look.z * d);
 		return rayTraceIncludeEntities(player.world, vec3, vec32, player);
 	}
@@ -464,7 +465,7 @@ public class Library {
 	
 	public static Pair<RayTraceResult, List<Entity>> rayTraceEntitiesOnLine(EntityPlayer player, double d, float f){
 		Vec3d vec3 = getPosition(f, player);
-		vec3 = vec3.addVector(0D, (double) player.eyeHeight, 0D);
+		vec3 = vec3.addVector(0D, player.eyeHeight, 0D);
 		Vec3d vec31 = player.getLook(f);
 		Vec3d vec32 = vec3.addVector(vec31.x * d, vec31.y * d, vec31.z * d);
 		RayTraceResult result = player.world.rayTraceBlocks(vec3, vec32, false, true, true);
@@ -487,7 +488,7 @@ public class Library {
 	public static RayTraceResult rayTraceEntitiesInCone(EntityPlayer player, double d, float f, float degrees) {
 		double cosDegrees = Math.cos(Math.toRadians(degrees));
 		Vec3d vec3 = getPosition(f, player);
-		vec3 = vec3.addVector(0D, (double) player.eyeHeight, 0D);
+		vec3 = vec3.addVector(0D, player.eyeHeight, 0D);
 		Vec3d vec31 = player.getLook(f);
 		Vec3d vec32 = vec3.addVector(vec31.x * d, vec31.y * d, vec31.z * d);
 		
@@ -761,9 +762,8 @@ public static boolean canConnect(IBlockAccess world, BlockPos pos, ForgeDirectio
 		
 		if(te instanceof IEnergyConnector) {
 			IEnergyConnector con = (IEnergyConnector) te;
-			
-			if(con.canConnect(dir.getOpposite() /* machine's connecting side */))
-				return true;
+
+            return con.canConnect(dir.getOpposite() /* machine's connecting side */);
 		}
 		
 		return false;
@@ -886,7 +886,7 @@ public static boolean canConnect(IBlockAccess world, BlockPos pos, ForgeDirectio
 				
 				for (int j = 0; j < p_76293_3_; ++j)
 		        {
-					WeightedRandomChestContentFrom1710 weightedrandomchestcontent = (WeightedRandomChestContentFrom1710)WeightedRandom.getRandomItem(p_76293_0_, Arrays.asList(p_76293_1_));
+					WeightedRandomChestContentFrom1710 weightedrandomchestcontent = WeightedRandom.getRandomItem(p_76293_0_, Arrays.asList(p_76293_1_));
 		            ItemStack[] stacks = weightedrandomchestcontent.generateChestContent(p_76293_0_, inventory);
 
 		            for (ItemStack item : stacks)

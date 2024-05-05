@@ -76,7 +76,7 @@ public class ItemSurveyScanner extends Item {
 					
 				String s = OreDictionary.getOreName(ids[j]);
 					
-				if(s.length() > 3 && s.substring(0, 3).equals("ore"))
+				if(s.length() > 3 && s.startsWith("ore"))
 					return 1;
 			}
 		} else {

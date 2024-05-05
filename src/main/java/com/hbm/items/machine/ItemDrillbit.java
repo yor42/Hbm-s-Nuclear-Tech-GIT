@@ -35,7 +35,7 @@ public class ItemDrillbit extends Item {
 		if(type.silk) list.add("§a"+I18nUtil.resolveKey("desc.silktouch"));
 	}
 	
-	public static enum EnumDrillType {
+	public enum EnumDrillType {
 		STEEL			(1.0D, 1, 0, false, false),
 		STEEL_DIAMOND	(1.0D, 1, 2, false, true),
 		HSS				(1.2D, 2, 0, true, false),
@@ -55,7 +55,7 @@ public class ItemDrillbit extends Item {
 		public boolean vein;
 		public boolean silk;
 		
-		private EnumDrillType(double speed, int tier, int fortune, boolean vein, boolean silk) {
+		EnumDrillType(double speed, int tier, int fortune, boolean vein, boolean silk) {
 			this.speed = speed;
 			this.tier = tier;
 			this.fortune = fortune;

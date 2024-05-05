@@ -53,10 +53,10 @@ public class ItemAssemblyTemplate extends Item implements IHasCustomModel {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public String getItemStackDisplayName(ItemStack stack) {
-		String s = ("" + I18n.format(this.getUnlocalizedName() + ".name")).trim();
+		String s = (I18n.format(this.getUnlocalizedName() + ".name")).trim();
 		int damage = getTagWithRecipeNumber(stack).getInteger("type");
 		ItemStack out = damage < AssemblerRecipes.recipeList.size() ? AssemblerRecipes.recipeList.get(damage).toStack() : ItemStack.EMPTY;
-		String s1 = ("" + I18n.format((out != ItemStack.EMPTY ? out.getUnlocalizedName() : "") + ".name")).trim();
+		String s1 = (I18n.format((out != ItemStack.EMPTY ? out.getUnlocalizedName() : "") + ".name")).trim();
 
 		if (s1 != null) {
 			s = s + " " + s1;
@@ -137,7 +137,7 @@ public class ItemAssemblyTemplate extends Item implements IHasCustomModel {
 					ItemStack inStack = ores.get((int) (Math.abs(System.currentTimeMillis() / 1000) % ores.size()));
 		    		list.add(" §c"+ input.count() + "x " + inStack.getDisplayName());
 				} else {
-		    		list.add("I AM ERROR - No OrdDict match found for "+o.toString());
+		    		list.add("I AM ERROR - No OrdDict match found for "+ o);
 				}
 			}
 		}

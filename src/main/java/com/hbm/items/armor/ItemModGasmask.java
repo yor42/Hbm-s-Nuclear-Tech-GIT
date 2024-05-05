@@ -36,8 +36,8 @@ public class ItemModGasmask extends ItemArmorMod implements IGasMask {
 	@SideOnly(Side.CLIENT)
 	private ModelM65 modelM65;
 	
-	private ResourceLocation tex = new ResourceLocation("hbm:textures/armor/ModelM65.png");
-	private ResourceLocation tex_mono = new ResourceLocation("hbm:textures/armor/ModelM65Mono.png");
+	private final ResourceLocation tex = new ResourceLocation("hbm:textures/armor/ModelM65.png");
+	private final ResourceLocation tex_mono = new ResourceLocation("hbm:textures/armor/ModelM65Mono.png");
 	
 	public ItemModGasmask(String s) {
 		super(ArmorModHandler.helmet_only, true, false, false, false, s);
@@ -110,9 +110,9 @@ public class ItemModGasmask extends ItemArmorMod implements IGasMask {
 	public ArrayList<HazardClass> getBlacklist(ItemStack stack) {
 		
 		if(this == ModItems.attachment_mask_mono) {
-			return new ArrayList<HazardClass>(Arrays.asList(new HazardClass[] {HazardClass.GAS_CHLORINE, HazardClass.GAS_CORROSIVE, HazardClass.NERVE_AGENT, HazardClass.BACTERIA}));
+			return new ArrayList<HazardClass>(Arrays.asList(HazardClass.GAS_CHLORINE, HazardClass.GAS_CORROSIVE, HazardClass.NERVE_AGENT, HazardClass.BACTERIA));
 		} else {
-			return new ArrayList<HazardClass>(Arrays.asList(new HazardClass[] {HazardClass.GAS_CORROSIVE, HazardClass.NERVE_AGENT}));
+			return new ArrayList<HazardClass>(Arrays.asList(HazardClass.GAS_CORROSIVE, HazardClass.NERVE_AGENT));
 		}
 	}
 

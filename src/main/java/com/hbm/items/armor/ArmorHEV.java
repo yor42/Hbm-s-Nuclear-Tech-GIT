@@ -51,8 +51,7 @@ public class ArmorHEV extends ArmorFSBPowered {
     		if(event.getType() == ElementType.HEALTH) {
     			event.setCanceled(true);
     			renderOverlay(event, player);
-    			return;
-    		}
+            }
     	}
     }
 
@@ -62,7 +61,7 @@ public class ArmorHEV extends ArmorFSBPowered {
 
     private void renderOverlay(RenderGameOverlayEvent.Pre event, EntityPlayer player) {
 		float in = 0;
-		in = (float)Library.getEntRadCap(player).getRads();
+		in = Library.getEntRadCap(player).getRads();
 
         float radiation = 0;
 

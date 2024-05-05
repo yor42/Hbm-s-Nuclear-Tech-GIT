@@ -198,14 +198,14 @@ public class ItemMissile extends Item {
 			case WARHEAD:
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.size") + " " + TextFormatting.GRAY + getSize(bottom));
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.type") + " " + TextFormatting.GRAY + getWarhead((WarheadType)attributes[0]));
-				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.strength") + " " + TextFormatting.RED + (Float)attributes[1]);
-				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.weight") + " " + TextFormatting.GRAY + (Float)attributes[2] + "t");
+				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.strength") + " " + TextFormatting.RED + attributes[1]);
+				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.weight") + " " + TextFormatting.GRAY + attributes[2] + "t");
 				break;
 			case FUSELAGE:
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.topsize") + " " + TextFormatting.GRAY + getSize(top));
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.botsize") + " " + TextFormatting.GRAY + getSize(bottom));
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.fueltype") + " " + TextFormatting.GRAY + getFuel((FuelType)attributes[0]));
-				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.fuelamnt") + " " + TextFormatting.GRAY + (Float)attributes[1] + "l");
+				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.fuelamnt") + " " + TextFormatting.GRAY + attributes[1] + "l");
 				break;
 			case FINS:
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.size") + " " + TextFormatting.GRAY + getSize(top));
@@ -214,8 +214,8 @@ public class ItemMissile extends Item {
 			case THRUSTER:
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.size") + " " + TextFormatting.GRAY + getSize(top));
 				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.fuelamnt") + " " + TextFormatting.GRAY + getFuel((FuelType)attributes[0]));
-				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.fuelcon") + " " + TextFormatting.GRAY + (Float)attributes[1] + "l/tick");
-				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.payload") + " " + TextFormatting.GRAY + (Float)attributes[2] + "t");
+				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.fuelcon") + " " + TextFormatting.GRAY + attributes[1] + "l/tick");
+				list.add(TextFormatting.BOLD + I18nUtil.resolveKey("desc.payload") + " " + TextFormatting.GRAY + attributes[2] + "t");
 				break;
 			}
 		} catch(Exception ex) {

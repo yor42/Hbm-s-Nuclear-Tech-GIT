@@ -284,8 +284,8 @@ public class ContaminationUtil {
 	public static double getPlayerRads(EntityLivingBase entity) {
 		double rads = HbmLivingProps.getRadBuf(entity);
 		if(entity instanceof EntityPlayer)
-			 rads = rads + HbmLivingProps.getNeutron((EntityPlayer)entity)*20;
-		return (double)rads;
+			 rads = rads + HbmLivingProps.getNeutron(entity)*20;
+		return rads;
 	}
 
 	public static double getNoNeutronPlayerRads(EntityLivingBase entity) {
@@ -311,12 +311,8 @@ public class ContaminationUtil {
 			return true;
 		}
 
-		if(stack.getItem() instanceof ItemBlockHazard && ((ItemBlockHazard)stack.getItem()).getModule().radiation > 0){
-			return true;
-		}
-
-		return false;
-	}
+        return stack.getItem() instanceof ItemBlockHazard && ((ItemBlockHazard) stack.getItem()).getModule().radiation > 0;
+    }
 
 	public static float getNeutronRads(ItemStack stack){
 		if(stack != null && !stack.isEmpty() && !isRadItem(stack)){
@@ -376,10 +372,8 @@ public class ContaminationUtil {
 	public static boolean isContaminated(ItemStack stack){
 		if(!stack.hasTagCompound())
 			return false;
-		if(stack.getTagCompound().hasKey(NTM_NEUTRON_NBT_KEY))
-			return true;
-		return false;
-	}
+        return stack.getTagCompound().hasKey(NTM_NEUTRON_NBT_KEY);
+    }
 	
 	public static String getPreffixFromRad(double rads) {
 
@@ -679,22 +673,18 @@ public class ContaminationUtil {
 			return true;
 		}
 
-		if(e instanceof EntityPlayer && (((EntityPlayer)e).isCreative() || ((EntityPlayer)e).isSpectator())) {
-			return true;
-		}
-
-		return false;
-	}
+        return e instanceof EntityPlayer && (((EntityPlayer) e).isCreative() || ((EntityPlayer) e).isSpectator());
+    }
 
 	
-	public static enum HazardType {
+	public enum HazardType {
 		MONOXIDE,
 		RADIATION,
 		NEUTRON,
 		DIGAMMA
 	}
 	
-	public static enum ContaminationType {
+	public enum ContaminationType {
 		GAS,				//filterable by gas mask
 		GAS_NON_REACTIVE,	//not filterable by gas mask
 		GOGGLES,			//preventable by goggles

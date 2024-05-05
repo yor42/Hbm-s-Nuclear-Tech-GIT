@@ -51,11 +51,11 @@ public class ItemFFFluidDuct extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public String getItemStackDisplayName(ItemStack stack) {
-		String s = ("" + I18n.format(this.getUnlocalizedName() + ".name")).trim();
+		String s = (I18n.format(this.getUnlocalizedName() + ".name")).trim();
 		Fluid f = getFluidFromStack(stack);
 		String s1 = null;
 		if(f != null)
-			s1  = ("" + f.getLocalizedName(new FluidStack(f, 1000)).trim());
+			s1  = (f.getLocalizedName(new FluidStack(f, 1000)).trim());
 
         if (s1 != null)
         {
@@ -83,7 +83,7 @@ public class ItemFFFluidDuct extends Item {
         {
             world.setBlockState(pos, ModBlocks.fluid_duct_mk2.getDefaultState());
             if(world.getTileEntity(pos) instanceof TileEntityFFFluidDuctMk2) {
-            	((TileEntityFFFluidDuctMk2)world.getTileEntity(pos)).setType(getFluidFromStack(stack));;
+            	((TileEntityFFFluidDuctMk2)world.getTileEntity(pos)).setType(getFluidFromStack(stack));
             }
             stack.shrink(1);
             world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_STONE_PLACE, SoundCategory.PLAYERS, 1F, 0.8F + world.rand.nextFloat() * 0.2F);

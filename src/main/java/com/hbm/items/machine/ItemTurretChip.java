@@ -37,7 +37,7 @@ public class ItemTurretChip extends ItemTurretBiometry {
 				((TileEntityTurretBase)te).players.clear();
 				((TileEntityTurretBase)te).players.addAll(Arrays.asList(getNames(stack)));
 				((TileEntityTurretBase)te).playerListChanged = true;
-				((TileEntityTurretBase)te).markDirty();
+				te.markDirty();
 			}
 	        if(world.isRemote)
 			{

@@ -25,8 +25,8 @@ public class ItemChemistryIcon extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public String getItemStackDisplayName(ItemStack stack) {
-		String s = ("" + I18n.format(ModItems.chemistry_template.getUnlocalizedName() + ".name")).trim();
-        String s1 = ("" + I18n.format("chem." + ChemplantRecipes.getName(stack))).trim();
+		String s = (I18n.format(ModItems.chemistry_template.getUnlocalizedName() + ".name")).trim();
+        String s1 = (I18n.format("chem." + ChemplantRecipes.getName(stack))).trim();
 
         if (s1 != null)
         {
