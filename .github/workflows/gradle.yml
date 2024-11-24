@@ -21,7 +21,7 @@ on:
 jobs:
   pre-release:
     runs-on: windows-latest
-    if: "!startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' && github.ref == 'refs/heads/master'"
+    if: "!startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' && github.ref == 'refs/heads/2.0.1'"
     permissions: write-all
 
     steps:
