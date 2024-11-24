@@ -1,9 +1,9 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerMachineRTG;
-import com.hbm.lib.RefStrings;
 import com.hbm.lib.Library;
 import com.hbm.tileentity.machine.TileEntityMachineRTG;
 
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineRTG extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_rtg.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_rtg.png");
 	private TileEntityMachineRTG rtg;
 	
 	public GUIMachineRTG(InventoryPlayer invPlayer, TileEntityMachineRTG tedf) {

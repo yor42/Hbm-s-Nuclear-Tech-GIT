@@ -1,8 +1,8 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelOSIPR;
 
@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 public class ItemRenderOSIPR extends TEISRBase {
 
 	protected ModelOSIPR osipr;
-	protected static ResourceLocation osipr_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelOSIPR.png");
+	protected static ResourceLocation osipr_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelOSIPR.png");
 	
 	public ItemRenderOSIPR() {
 		osipr = new ModelOSIPR();

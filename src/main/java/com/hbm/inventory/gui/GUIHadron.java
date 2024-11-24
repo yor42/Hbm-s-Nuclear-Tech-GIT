@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 
+import com.hbm.Tags;
 import com.hbm.inventory.container.ContainerHadron;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.AuxButtonPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.machine.TileEntityHadron;
@@ -22,7 +22,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIHadron extends GuiInfoContainer {
 
-	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_hadron.png");
+	public static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/machine/gui_hadron.png");
 	private TileEntityHadron hadron;
 
 	public GUIHadron(InventoryPlayer invPlayer, TileEntityHadron laser) {

@@ -1,8 +1,8 @@
 package com.hbm.render.tileentity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelTestRender;
 import com.hbm.tileentity.deco.TileEntityTestRender;
 
@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderTestRender extends TileEntitySpecialRenderer<TileEntityTestRender> {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID, "textures/models/misc/modeltestrender.png");
+	private static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID, "textures/models/misc/modeltestrender.png");
 	
 	private ModelTestRender model;
 	

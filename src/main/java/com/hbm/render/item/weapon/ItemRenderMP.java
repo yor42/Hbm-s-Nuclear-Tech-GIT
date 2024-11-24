@@ -1,8 +1,8 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelMP;
 
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 public class ItemRenderMP extends TEISRBase {
 
 	protected ModelMP swordModel;
-	protected static ResourceLocation mp_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelMP.png");
+	protected static ResourceLocation mp_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelMP.png");
 	
 	public ItemRenderMP() {
 		swordModel = new ModelMP();

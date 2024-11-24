@@ -1,7 +1,7 @@
 package com.hbm.handler.jei;
 
+import com.hbm.Tags;
 import com.hbm.inventory.RBMKOutgasserRecipes.RBMKOutgasserRecipe;
-import com.hbm.lib.RefStrings;
 
 import com.hbm.util.I18nUtil;
 import mezz.jei.api.IGuiHelper;
@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RBMKOutgasserRecipeHandler implements IRecipeCategory<RBMKOutgasserRecipe> {
 
-	public static final ResourceLocation gui_rl = new ResourceLocation(RefStrings.MODID, "textures/gui/reactors/gui_rbmk_outgasser.png");
+	public static final ResourceLocation gui_rl = new ResourceLocation(Tags.MOD_ID, "textures/gui/reactors/gui_rbmk_outgasser.png");
 	
 	protected final IDrawable background;
 	protected final IDrawableStatic progressStatic;
@@ -42,7 +42,7 @@ public class RBMKOutgasserRecipeHandler implements IRecipeCategory<RBMKOutgasser
 
 	@Override
 	public String getModName() {
-		return RefStrings.MODID;
+		return Tags.MOD_ID;
 	}
 
 	@Override

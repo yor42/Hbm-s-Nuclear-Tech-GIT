@@ -1,11 +1,11 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import com.hbm.util.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.inventory.container.ContainerMachineDiesel;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityMachineDiesel;
 
 import net.minecraft.client.Minecraft;
@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineDiesel extends GuiInfoContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/GUIDiesel.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/GUIDiesel.png");
 	private TileEntityMachineDiesel diFurnace;
 
 	public GUIMachineDiesel(InventoryPlayer invPlayer, TileEntityMachineDiesel tedf) {

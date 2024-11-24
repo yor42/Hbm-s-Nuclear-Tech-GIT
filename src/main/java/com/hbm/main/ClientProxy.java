@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import com.hbm.Tags;
 import com.hbm.entity.item.EntityMovingPackage;
 import com.hbm.render.entity.item.RenderMovingPackage;
 import com.hbm.tileentity.machine.*;
@@ -209,7 +210,6 @@ import com.hbm.handler.JetpackHandler;
 import com.hbm.items.ModItems;
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.lib.RecoilHandler;
-import com.hbm.lib.RefStrings;
 import com.hbm.particle.ParticleBatchRenderer;
 import com.hbm.particle.ParticleCoolingTower;
 import com.hbm.particle.ParticleDigammaSmoke;
@@ -2247,7 +2247,7 @@ public class ClientProxy extends ServerProxy {
 		if(SoundSystemConfig.getNumberNormalChannels() < 128){
 			SoundSystemConfig.setNumberNormalChannels(128);
 		}
-		OBJLoader.INSTANCE.addDomain(RefStrings.MODID);
+		OBJLoader.INSTANCE.addDomain(Tags.MOD_ID);
 		
 		ItemRenderLibrary.init();
 		

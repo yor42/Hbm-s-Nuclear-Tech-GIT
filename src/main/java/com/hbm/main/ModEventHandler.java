@@ -1,17 +1,9 @@
 package com.hbm.main;
 
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.nio.file.DirectoryStream;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
@@ -20,6 +12,7 @@ import java.util.Random;
 
 import api.hbm.energy.IBatteryItem;
 import api.hbm.energy.IEnergyConnector;
+import com.hbm.Tags;
 import com.hbm.config.MachineConfig;
 import com.hbm.handler.rf.ItemCapabilityProvider;
 import com.hbm.handler.rf.TEHeRfCompatLayer;
@@ -35,7 +28,6 @@ import com.hbm.capability.HbmLivingProps;
 import com.hbm.capability.HbmCapability.IHBMData;
 import com.hbm.config.GeneralConfig;
 import com.hbm.config.CompatibilityConfig;
-import com.hbm.config.RadiationConfig;
 import com.hbm.entity.logic.IChunkLoader;
 import com.hbm.entity.mob.EntityCyberCrab;
 import com.hbm.entity.mob.EntityTaintedCreeper;
@@ -49,7 +41,6 @@ import com.hbm.handler.EntityEffectHandler;
 import com.hbm.handler.HTTPHandler;
 import com.hbm.handler.JetpackHandler;
 import com.hbm.handler.MissileStruct;
-import com.hbm.handler.RadiationWorldHandler;
 import com.hbm.handler.WeightedRandomChestContentFrom1710;
 import com.hbm.handler.HbmKeybinds.EnumKeybind;
 import com.hbm.interfaces.IBomb;
@@ -78,15 +69,10 @@ import com.hbm.packet.PlayerInformPacket;
 import com.hbm.packet.SurveyPacket;
 import com.hbm.particle.bullet_hit.EntityHitDataHandler;
 import com.hbm.render.amlfrom1710.Vec3;
-import com.hbm.saveddata.AuxSavedData;
-import com.hbm.saveddata.RadiationSavedData;
 import com.hbm.tileentity.machine.rbmk.RBMKDials;
 import com.hbm.tileentity.network.RTTYSystem;
 import com.hbm.util.EnchantmentUtil;
 import com.hbm.util.EntityDamageUtil;
-import com.hbm.util.ContaminationUtil;
-import com.hbm.util.ContaminationUtil.ContaminationType;
-import com.hbm.util.ContaminationUtil.HazardType;
 import com.hbm.world.generator.TimedGenerator;
 
 import net.minecraft.block.Block;
@@ -98,21 +84,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCaveSpider;
-import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.monster.EntityZombieVillager;
 import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntityMooshroom;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.passive.EntityZombieHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -138,7 +116,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootEntry;
@@ -185,8 +162,8 @@ import net.minecraftforge.registries.DataSerializerEntry;
 
 public class ModEventHandler {
 
-	public static final ResourceLocation ENT_HBM_PROP_ID = new ResourceLocation(RefStrings.MODID, "HBMLIVINGPROPS");
-	public static final ResourceLocation DATA_LOC = new ResourceLocation(RefStrings.MODID, "HBMDATA");
+	public static final ResourceLocation ENT_HBM_PROP_ID = new ResourceLocation(Tags.MOD_ID, "HBMLIVINGPROPS");
+	public static final ResourceLocation DATA_LOC = new ResourceLocation(Tags.MOD_ID, "HBMDATA");
 
 	public static boolean showMessage = true;
 	public static Random rand = new Random();
@@ -211,8 +188,8 @@ public class ModEventHandler {
 		}
 	}
 
-	private static final ResourceLocation ITEM_CAPABILITY_RF_HFBridge = new ResourceLocation(RefStrings.MODID, "item_fe_cap");
-	private static final ResourceLocation TE_CAPABILITY_RF_HFBridge = new ResourceLocation(RefStrings.MODID, "te_fe_cap");
+	private static final ResourceLocation ITEM_CAPABILITY_RF_HFBridge = new ResourceLocation(Tags.MOD_ID, "item_fe_cap");
+	private static final ResourceLocation TE_CAPABILITY_RF_HFBridge = new ResourceLocation(Tags.MOD_ID, "te_fe_cap");
 
 	@SubscribeEvent
 	public void attachTECapability(AttachCapabilitiesEvent<TileEntity> event){
@@ -1087,7 +1064,7 @@ public class ModEventHandler {
 
 	@SubscribeEvent
 	public void onDataSerializerRegister(RegistryEvent.Register<DataSerializerEntry> evt) {
-		evt.getRegistry().register(new DataSerializerEntry(MissileStruct.SERIALIZER).setRegistryName(new ResourceLocation(RefStrings.MODID, "missile_struct")));
+		evt.getRegistry().register(new DataSerializerEntry(MissileStruct.SERIALIZER).setRegistryName(new ResourceLocation(Tags.MOD_ID, "missile_struct")));
 	}
 	
 	@SubscribeEvent

@@ -5,12 +5,12 @@ import java.util.ArrayDeque;
 import java.util.Iterator;
 import java.util.Queue;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.google.common.collect.Queues;
 import com.hbm.config.GeneralConfig;
 import com.hbm.handler.HbmShaderManager2;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.ResourceManager;
 import com.hbm.render.GLCompat;
 import com.hbm.render.RenderHelper;
@@ -31,7 +31,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = RefStrings.MODID)
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 public class InstancedParticleRenderer {
 
 	//Position, scale, tex (texcoord offset and texcoord size), color (1 byte per channel), lightmap (two bytes).

@@ -3,15 +3,14 @@ package com.hbm.inventory.control_panel;
 import java.util.*;
 import java.util.Map.Entry;
 
+import com.hbm.Tags;
 import com.hbm.inventory.control_panel.nodes.NodeFunction;
-import com.hbm.main.MainRegistry;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.control_panel.nodes.Node;
 import com.hbm.inventory.control_panel.nodes.NodeInput;
 import com.hbm.inventory.control_panel.nodes.NodeOutput;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.RenderHelper;
 
 import net.minecraft.client.renderer.GlStateManager;
@@ -25,7 +24,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class NodeSystem {
 
-	public static final ResourceLocation node_tex = new ResourceLocation(RefStrings.MODID + ":textures/gui/control_panel/node.png");
+	public static final ResourceLocation node_tex = new ResourceLocation(Tags.MOD_ID + ":textures/gui/control_panel/node.png");
 	
 	@SideOnly(Side.CLIENT)
 	public SubElementNodeEditor nodeEditor;

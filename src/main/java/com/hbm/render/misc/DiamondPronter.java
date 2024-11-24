@@ -1,8 +1,8 @@
 package com.hbm.render.misc;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.render.RenderHelper;
 
 import net.minecraft.client.Minecraft;
@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class DiamondPronter {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/models/misc/danger_diamond.png");
+	private static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/models/misc/danger_diamond.png");
 	
 	public static void pront(int poison, int flammability, int reactivity, EnumSymbol symbol) {
 		

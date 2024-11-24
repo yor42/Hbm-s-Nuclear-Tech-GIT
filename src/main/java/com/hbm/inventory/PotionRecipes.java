@@ -1,9 +1,9 @@
 package com.hbm.inventory;
 
+import com.hbm.Tags;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.items.ModItems;
 import com.hbm.potion.HbmPotion;
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -58,7 +58,7 @@ public class PotionRecipes {
 	}
 
 	private static PotionType addPotion(PotionEffect effect, String baseName, String name) {
-		PotionType type = new PotionType(baseName, effect).setRegistryName(new ResourceLocation(RefStrings.MODID, name));
+		PotionType type = new PotionType(baseName, effect).setRegistryName(new ResourceLocation(Tags.MOD_ID, name));
 		ForgeRegistries.POTION_TYPES.register(type);
 
 		return type;

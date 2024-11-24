@@ -1,9 +1,9 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelNightmare;
 import com.hbm.render.model.ModelNightmare2;
@@ -17,8 +17,8 @@ public class ItemRenderRevolverNightmare extends TEISRBase {
 
 	protected ModelNightmare n1;
 	protected ModelNightmare2 n2;
-	protected ResourceLocation n1Loc = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelNightmare.png");
-	protected ResourceLocation n2Loc = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelNightmare2.png");
+	protected ResourceLocation n1Loc = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelNightmare.png");
+	protected ResourceLocation n2Loc = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelNightmare2.png");
 	
 	
 	public ItemRenderRevolverNightmare() {

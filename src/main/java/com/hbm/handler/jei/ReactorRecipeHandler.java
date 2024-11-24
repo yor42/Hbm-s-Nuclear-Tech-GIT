@@ -1,7 +1,7 @@
 package com.hbm.handler.jei;
 
+import com.hbm.Tags;
 import com.hbm.handler.jei.JeiRecipes.ReactorRecipe;
-import com.hbm.lib.RefStrings;
 
 import com.hbm.util.I18nUtil;
 import mezz.jei.api.IGuiHelper;
@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class ReactorRecipeHandler implements IRecipeCategory<ReactorRecipe> {
 
-	public static final ResourceLocation gui_rl = new ResourceLocation(RefStrings.MODID, "textures/gui/processing/gui_breeder.png");
+	public static final ResourceLocation gui_rl = new ResourceLocation(Tags.MOD_ID, "textures/gui/processing/gui_breeder.png");
 	
 	protected final IDrawable background;
 	protected final IDrawableStatic progressStatic;
@@ -54,7 +54,7 @@ public class ReactorRecipeHandler implements IRecipeCategory<ReactorRecipe> {
 
 	@Override
 	public String getModName() {
-		return RefStrings.MODID;
+		return Tags.MOD_ID;
 	}
 
 	@Override

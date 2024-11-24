@@ -2,12 +2,12 @@ package com.hbm.inventory.gui;
 
 import java.io.IOException;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.inventory.container.ContainerMachineReactorSmall;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.AuxButtonPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.machine.TileEntityMachineReactorSmall;
@@ -21,8 +21,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineReactorSmall extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_reactor_experimental.png");
-	private static ResourceLocation overlay = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_reactor_overlay_experimental.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_reactor_experimental.png");
+	private static ResourceLocation overlay = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_reactor_overlay_experimental.png");
 	private TileEntityMachineReactorSmall diFurnace;
 	private boolean toggleOverlay = false;
 

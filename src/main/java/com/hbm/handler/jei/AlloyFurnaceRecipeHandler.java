@@ -2,8 +2,8 @@ package com.hbm.handler.jei;
 
 import java.util.List;
 
+import com.hbm.Tags;
 import com.hbm.handler.jei.JeiRecipes.AlloyFurnaceRecipe;
-import com.hbm.lib.RefStrings;
 
 import com.hbm.util.I18nUtil;
 import mezz.jei.api.IGuiHelper;
@@ -21,7 +21,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class AlloyFurnaceRecipeHandler implements IRecipeCategory<AlloyFurnaceRecipe> {
 
-	public static final ResourceLocation gui_rl = new ResourceLocation(RefStrings.MODID, "textures/gui/guidifurnace.png");
+	public static final ResourceLocation gui_rl = new ResourceLocation(Tags.MOD_ID, "textures/gui/guidifurnace.png");
 	
 	protected final IDrawable background;
 	protected final IDrawableStatic powerStatic;
@@ -60,7 +60,7 @@ public class AlloyFurnaceRecipeHandler implements IRecipeCategory<AlloyFurnaceRe
 
 	@Override
 	public String getModName() {
-		return RefStrings.MODID;
+		return Tags.MOD_ID;
 	}
 
 	@Override

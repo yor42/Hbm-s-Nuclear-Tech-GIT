@@ -1,9 +1,9 @@
 package com.hbm.render.entity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.effect.EntityCloudFleijaRainbow;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.amlfrom1710.AdvancedModelLoader;
 import com.hbm.render.amlfrom1710.IModelCustom;
 
@@ -16,7 +16,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class RenderCloudRainbow extends Render<EntityCloudFleijaRainbow> {
 
-	private static final ResourceLocation objTesterModelRL = new ResourceLocation(/*"/assets/" + */RefStrings.MODID, "models/sphere.obj");
+	private static final ResourceLocation objTesterModelRL = new ResourceLocation(/*"/assets/" + */Tags.MOD_ID, "models/sphere.obj");
 	private IModelCustom blastModel;
     public float scale = 0;
     public float ring = 0;

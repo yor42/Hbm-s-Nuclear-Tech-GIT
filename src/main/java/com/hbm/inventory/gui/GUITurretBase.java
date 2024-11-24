@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hbm.Tags;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerTurretBase;
-import com.hbm.lib.RefStrings;
 import com.hbm.util.I18nUtil;
 import com.hbm.packet.AuxButtonPacket;
 import com.hbm.packet.NBTControlPacket;
@@ -28,7 +28,7 @@ import net.minecraft.util.text.TextFormatting;
 
 public abstract class GUITurretBase extends GuiInfoContainer {
 
-	protected static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/weapon/gui_turret_base.png");
+	protected static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/weapon/gui_turret_base.png");
 	protected TileEntityTurretBaseNT turret;
 	protected GuiTextField field;
 	int index;

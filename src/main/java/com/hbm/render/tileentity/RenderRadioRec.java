@@ -1,8 +1,8 @@
 package com.hbm.render.tileentity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelBroadcaster;
 import com.hbm.tileentity.machine.TileEntityRadioRec;
 
@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderRadioRec extends TileEntitySpecialRenderer<TileEntityRadioRec> {
 
-	private static final ResourceLocation texture8 = new ResourceLocation(RefStrings.MODID + ":" + "textures/models/deco/ModelRadioReceiver.png");
+	private static final ResourceLocation texture8 = new ResourceLocation(Tags.MOD_ID + ":" + "textures/models/deco/ModelRadioReceiver.png");
 	private ModelBroadcaster model6;
 	
 	public RenderRadioRec() {

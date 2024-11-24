@@ -1,9 +1,9 @@
 package com.hbm.render.entity.mob;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.mob.sodtekhnologiyah.EntityBallsOTronSegment;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.ResourceManager;
 import com.hbm.render.amlfrom1710.AdvancedModelLoader;
 import com.hbm.render.amlfrom1710.IModelCustom;
@@ -22,7 +22,7 @@ public class RenderBalls extends Render<EntityBallsOTronSegment> {
 		this.shadowOpaque = 0;
 	}
 
-	public static final IModelCustom capsule = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/mobs/capsule.obj"));
+	public static final IModelCustom capsule = AdvancedModelLoader.loadModel(new ResourceLocation(Tags.MOD_ID, "models/mobs/capsule.obj"));
 	
 	@Override
 	public void doRender(EntityBallsOTronSegment entity, double x, double y, double z, float entityYaw, float partialTicks) {

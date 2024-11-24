@@ -1,9 +1,9 @@
 package com.hbm.render.tileentity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.blocks.ModBlocks;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.ClientProxy;
 import com.hbm.main.ResourceManager;
 import com.hbm.render.model.ModelSteelCorner;
@@ -18,9 +18,9 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderDecoBlock extends TileEntitySpecialRenderer<TileEntityDecoBlock> {
 
-	private static final ResourceLocation texture1 = new ResourceLocation(RefStrings.MODID + ":" + "textures/models/deco/SteelWall.png");
-	private static final ResourceLocation texture2 = new ResourceLocation(RefStrings.MODID + ":" + "textures/models/deco/SteelCorner.png");
-	private static final ResourceLocation texture3 = new ResourceLocation(RefStrings.MODID + ":" + "textures/models/deco/SteelRoof.png");
+	private static final ResourceLocation texture1 = new ResourceLocation(Tags.MOD_ID + ":" + "textures/models/deco/SteelWall.png");
+	private static final ResourceLocation texture2 = new ResourceLocation(Tags.MOD_ID + ":" + "textures/models/deco/SteelCorner.png");
+	private static final ResourceLocation texture3 = new ResourceLocation(Tags.MOD_ID + ":" + "textures/models/deco/SteelRoof.png");
 
 	private ModelSteelWall model1;
 	private ModelSteelCorner model2;

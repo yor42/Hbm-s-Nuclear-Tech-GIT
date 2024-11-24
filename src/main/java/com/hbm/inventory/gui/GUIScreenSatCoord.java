@@ -2,13 +2,13 @@ package com.hbm.inventory.gui;
 
 import java.io.IOException;
 
+import com.hbm.Tags;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.items.tool.ItemSatInterface;
 import com.hbm.lib.HBMSoundHandler;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.packet.SatCoordPacket;
 import com.hbm.saveddata.satellites.Satellite.CoordActions;
@@ -24,7 +24,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIScreenSatCoord extends GuiScreen {
 	
-    protected static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/satellites/gui_sat_coord.png");
+    protected static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/satellites/gui_sat_coord.png");
     protected int xSize = 176;
     protected int ySize = 126;
     protected int guiLeft;

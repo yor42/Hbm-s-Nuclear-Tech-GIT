@@ -1,9 +1,9 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerBombMulti;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.bomb.TileEntityBombMulti;
 
 import net.minecraft.client.Minecraft;
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIBombMulti extends GuiContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/bombGeneric.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/bombGeneric.png");
 	private TileEntityBombMulti testNuke;
 	
 	public GUIBombMulti(InventoryPlayer invPlayer, TileEntityBombMulti tedf) {

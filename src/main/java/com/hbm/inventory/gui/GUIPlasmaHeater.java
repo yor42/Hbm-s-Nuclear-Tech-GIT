@@ -1,10 +1,10 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.inventory.container.ContainerPlasmaHeater;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityMachinePlasmaHeater;
 
 import net.minecraft.client.Minecraft;
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIPlasmaHeater extends GuiInfoContainer {
 
-	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/reactors/gui_fusion_heater.png");
+	public static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/reactors/gui_fusion_heater.png");
 	private TileEntityMachinePlasmaHeater microwave;
 
 	public GUIPlasmaHeater(InventoryPlayer invPlayer, TileEntityMachinePlasmaHeater microwave) {

@@ -1,9 +1,9 @@
 package com.hbm.render.entity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.projectile.EntityModBeam;
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
@@ -20,7 +20,7 @@ public class RenderBeam6 extends Render<EntityModBeam> {
 		return new RenderBeam6(man);
 	};
 
-	private static ResourceLocation beam_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/PlasmaBeam.png");
+	private static ResourceLocation beam_rl = new ResourceLocation(Tags.MOD_ID + ":textures/models/projectiles/PlasmaBeam.png");
 
 	protected RenderBeam6(RenderManager renderManager) {
 		super(renderManager);

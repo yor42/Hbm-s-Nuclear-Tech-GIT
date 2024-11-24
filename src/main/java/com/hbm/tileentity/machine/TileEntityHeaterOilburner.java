@@ -1,6 +1,7 @@
 package com.hbm.tileentity.machine;
 
 import api.hbm.tile.IHeatSource;
+import com.hbm.Tags;
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.interfaces.IControlReceiver;
@@ -10,7 +11,6 @@ import com.hbm.inventory.container.ContainerOilburner;
 import com.hbm.inventory.gui.GUIOilburner;
 import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemForgeFluidIdentifier;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.FluidTankPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.IGUIProvider;
@@ -269,7 +269,7 @@ public class TileEntityHeaterOilburner extends TileEntityMachineBase implements 
     @SideOnly(Side.CLIENT)
     public GuiScreen provideGUI(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if(texture == null) {
-            texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_oilburner.png");
+            texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/machine/gui_oilburner.png");
         }
 
         return new GUIOilburner(player.inventory, this, texture);

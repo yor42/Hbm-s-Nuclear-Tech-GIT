@@ -3,9 +3,9 @@ package com.hbm.items.machine;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.hbm.Tags;
 import com.hbm.interfaces.IHasCustomModel;
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.MainRegistry;
 import com.hbm.config.GeneralConfig;
 import com.hbm.tileentity.conductor.TileEntityFFDuctBaseMk2;
@@ -33,7 +33,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class ItemForgeFluidIdentifier extends Item implements IHasCustomModel {
 
-	public static final ModelResourceLocation identifierModel = new ModelResourceLocation(RefStrings.MODID + ":forge_fluid_identifier", "inventory");
+	public static final ModelResourceLocation identifierModel = new ModelResourceLocation(Tags.MOD_ID + ":forge_fluid_identifier", "inventory");
 
 	public ItemForgeFluidIdentifier(String s) {
 		this.setUnlocalizedName(s);

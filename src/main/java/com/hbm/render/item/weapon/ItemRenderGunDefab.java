@@ -1,8 +1,8 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelDefabricator;
 
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 public class ItemRenderGunDefab extends TEISRBase {
 
 	protected ModelDefabricator defab;
-	protected static ResourceLocation defab_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelDefabricator.png");
+	protected static ResourceLocation defab_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelDefabricator.png");
 	
 	public ItemRenderGunDefab() {
 		defab = new ModelDefabricator();

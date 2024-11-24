@@ -1,11 +1,11 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.inventory.container.ContainerStorageDrum;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityStorageDrum;
 
 import net.minecraft.client.Minecraft;
@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIStorageDrum extends GuiInfoContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_drum.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/processing/gui_drum.png");
 	private TileEntityStorageDrum drum;
 
 	public GUIStorageDrum(InventoryPlayer invPlayer, TileEntityStorageDrum tedf) {

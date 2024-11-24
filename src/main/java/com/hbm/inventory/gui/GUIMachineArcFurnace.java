@@ -1,9 +1,9 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerMachineArcFurnace;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityMachineArcFurnace;
 
 import net.minecraft.client.Minecraft;
@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineArcFurnace extends GuiInfoContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_arc.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_arc.png");
 	private TileEntityMachineArcFurnace diFurnace;
 
 	public GUIMachineArcFurnace(InventoryPlayer invPlayer, TileEntityMachineArcFurnace tedf) {

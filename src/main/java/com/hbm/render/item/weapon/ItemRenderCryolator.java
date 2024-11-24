@@ -1,8 +1,8 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelCryolator;
 
@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 public class ItemRenderCryolator extends TEISRBase {
 
 	protected ModelCryolator swordModel;
-	protected static ResourceLocation cryo_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelCryolator.png");
+	protected static ResourceLocation cryo_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelCryolator.png");
 	
 	public ItemRenderCryolator() {
 		swordModel = new ModelCryolator();

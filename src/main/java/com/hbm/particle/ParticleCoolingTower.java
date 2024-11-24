@@ -1,8 +1,7 @@
 package com.hbm.particle;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
-
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
@@ -19,7 +18,7 @@ import net.minecraft.world.World;
 
 public class ParticleCoolingTower extends Particle {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/particle/particle_base.png");
+	private static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/particle/particle_base.png");
 	private float baseScale = 0.1F;
 	private float maxScale = 1.0F;
 	private float lift = 0.3F;

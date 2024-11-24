@@ -5,10 +5,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.google.common.collect.Queues;
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
@@ -28,7 +28,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 //Drillgon200: Like the vanilla particle manager, but supports more gl states.
 @SideOnly(Side.CLIENT)
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = RefStrings.MODID)
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 public class ParticleBatchRenderer {
 	
 	public static List<ParticleRenderLayer> layers = new ArrayList<>();

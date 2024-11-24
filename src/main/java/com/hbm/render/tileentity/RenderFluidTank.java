@@ -2,11 +2,11 @@ package com.hbm.render.tileentity;
 
 import java.io.IOException;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.forgefluid.FFUtils;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.ResourceManager;
 import com.hbm.tileentity.machine.TileEntityMachineFluidTank;
 
@@ -77,14 +77,14 @@ public class RenderFluidTank extends TileEntitySpecialRenderer<TileEntityMachine
 			}
 		}
 		
-		ResourceLocation rotTexture = new ResourceLocation(RefStrings.MODID, "textures/models/tank/tank_" + s + ".png");
+		ResourceLocation rotTexture = new ResourceLocation(Tags.MOD_ID, "textures/models/tank/tank_" + s + ".png");
 		
 		try {
 			Minecraft.getMinecraft().getResourceManager().getResource(rotTexture);
 		} catch (IOException e) {
 			//Drillgon200: Set to my really ugly unknown texture
 			//Alcater: found a way to textract the color from the fluids texture
-			rotTexture = new ResourceLocation(RefStrings.MODID, "textures/models/tank/tank_generic.png");
+			rotTexture = new ResourceLocation(Tags.MOD_ID, "textures/models/tank/tank_generic.png");
 			if(type != null){
 				FFUtils.setRGBFromHex(ModForgeFluids.getFluidColor(type));
 			}

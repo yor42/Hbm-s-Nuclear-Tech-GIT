@@ -1,9 +1,9 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelPip;
 import com.hbm.render.model.ModelSpark;
@@ -17,18 +17,18 @@ public class ItemRenderOverkill extends TEISRBase {
 
 	/*protected ModelJack powerJack;
 	*/protected ModelSpark sparkPlug;
-	public static ResourceLocation sparkLoc = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelSpark.png");
+	public static ResourceLocation sparkLoc = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelSpark.png");
 	/*protected ModelHP hppLaserjet;
 	protected ModelEuthanasia euthanasia;
 	protected ModelDefabricator defab;
 	protected ModelDash dasher;
 	protected ModelTwiGun rgottp;*/
 	protected ModelPip pip;
-	protected ResourceLocation pipLoc = new ResourceLocation(RefStrings.MODID + ":textures/models/weapons/ModelPip.png");
-	protected ResourceLocation noPipLoc = new ResourceLocation(RefStrings.MODID + ":textures/models/weapons/ModelPipNoScope.png");
-	protected ResourceLocation blackjackLoc = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelPipGrey.png");
-	protected ResourceLocation redLoc = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelPipRed.png");
-	protected ResourceLocation silverLoc = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelPipSilver.png");
+	protected ResourceLocation pipLoc = new ResourceLocation(Tags.MOD_ID + ":textures/models/weapons/ModelPip.png");
+	protected ResourceLocation noPipLoc = new ResourceLocation(Tags.MOD_ID + ":textures/models/weapons/ModelPipNoScope.png");
+	protected ResourceLocation blackjackLoc = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelPipGrey.png");
+	protected ResourceLocation redLoc = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelPipRed.png");
+	protected ResourceLocation silverLoc = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelPipSilver.png");
 	/*protected ModelLacunae lacunae;
 	protected ModelFolly folly;
 	

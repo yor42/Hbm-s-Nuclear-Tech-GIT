@@ -2,8 +2,8 @@ package com.hbm.handler.gs;
 
 import com.cleanroommc.groovyscript.api.GroovyPlugin;
 import com.cleanroommc.groovyscript.compat.mods.GroovyContainer;
-import com.cleanroommc.groovyscript.compat.mods.ModPropertyContainer;
-import com.cleanroommc.groovyscript.compat.mods.ModSupport;
+import com.cleanroommc.groovyscript.documentation.linkgenerator.LinkGeneratorHooks;
+import com.hbm.Tags;
 import com.hbm.handler.gs.script.*;
 import com.hbm.lib.RefStrings;
 
@@ -29,7 +29,7 @@ public class NTM implements GroovyPlugin {
 
     @Override
     public String getModId() {
-        return RefStrings.MODID;
+        return Tags.MOD_ID;
     }
 
     @Override
@@ -38,6 +38,7 @@ public class NTM implements GroovyPlugin {
     }
     @Override
     public void onCompatLoaded(GroovyContainer<?> groovyContainer) {
-        groovyContainer.getRegistrar().addFieldsOf(this);
+        groovyContainer.addPropertiesOfFields(this, true);
+        LinkGeneratorHooks.registerLinkGenerator(new NTMLinkGenerator());
     }
 }

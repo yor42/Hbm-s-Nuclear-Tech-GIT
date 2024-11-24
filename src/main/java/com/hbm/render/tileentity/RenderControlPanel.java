@@ -1,9 +1,7 @@
 package com.hbm.render.tileentity;
 
+import com.hbm.Tags;
 import com.hbm.inventory.control_panel.ControlPanel;
-import com.hbm.lib.RefStrings;
-import com.hbm.main.MainRegistry;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
@@ -87,7 +85,7 @@ public class RenderControlPanel extends TileEntitySpecialRenderer<TileEntityCont
 
 		if (height != 0) {
 			GlStateManager.disableLighting();
-			ResourceLocation texxy = new ResourceLocation(RefStrings.MODID + ":textures/models/misc/control_panel.png");
+			ResourceLocation texxy = new ResourceLocation(Tags.MOD_ID + ":textures/models/misc/control_panel.png");
 			bindTexture(texxy);
 			net.minecraft.client.renderer.Tessellator tess = net.minecraft.client.renderer.Tessellator.getInstance();
 			BufferBuilder buf = tess.getBuffer();
@@ -143,7 +141,7 @@ public class RenderControlPanel extends TileEntitySpecialRenderer<TileEntityCont
         }
 
 		GL11.glPushMatrix();
-			bindTexture(new ResourceLocation(RefStrings.MODID + ":textures/models/control_panel/control_panel_front.png"));
+			bindTexture(new ResourceLocation(Tags.MOD_ID + ":textures/models/control_panel/control_panel_front.png"));
             ResourceManager.control_panel_front.renderAll();
         GL11.glPopMatrix();
 

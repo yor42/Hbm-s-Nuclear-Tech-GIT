@@ -2,12 +2,12 @@ package com.hbm.inventory.gui;
 
 import java.io.IOException;
 
+import com.hbm.Tags;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerRBMKControlAuto;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.NBTControlPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.machine.rbmk.TileEntityRBMKControlAuto;
@@ -24,7 +24,7 @@ import net.minecraft.util.math.MathHelper;
 
 public class GUIRBMKControlAuto extends GuiInfoContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/reactors/gui_rbmk_control_auto.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/reactors/gui_rbmk_control_auto.png");
 	private TileEntityRBMKControlAuto rod;
 	
 	private GuiTextField[] fields;

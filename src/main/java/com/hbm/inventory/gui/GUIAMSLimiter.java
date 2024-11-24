@@ -1,10 +1,10 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.inventory.container.ContainerAMSLimiter;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityAMSLimiter;
 
 import net.minecraft.client.Minecraft;
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIAMSLimiter extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_ams_limiter.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_ams_limiter.png");
 	private TileEntityAMSLimiter limiter;
 	
 	public GUIAMSLimiter(InventoryPlayer invPlayer, TileEntityAMSLimiter tedf) {

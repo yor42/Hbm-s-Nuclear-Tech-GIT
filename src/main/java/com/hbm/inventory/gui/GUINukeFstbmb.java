@@ -2,12 +2,12 @@ package com.hbm.inventory.gui;
 
 import java.io.IOException;
 
+import com.hbm.Tags;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerNukeFstbmb;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.AuxButtonPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.bomb.TileEntityNukeBalefire;
@@ -21,7 +21,7 @@ import net.minecraft.util.math.MathHelper;
 
 public class GUINukeFstbmb extends GuiInfoContainer {
 
-	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/weapon/fstbmbSchematic.png");
+	public static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/weapon/fstbmbSchematic.png");
 	private TileEntityNukeBalefire bomb;
 	private GuiTextField timer;
 

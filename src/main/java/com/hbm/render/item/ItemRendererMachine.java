@@ -1,9 +1,9 @@
 package com.hbm.render.item;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.blocks.ModBlocks;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelBroadcaster;
 
 import net.minecraft.client.Minecraft;
@@ -16,7 +16,7 @@ public class ItemRendererMachine extends TEISRBase {
 	///// THIS IS A TEST CLASS. CARVE THIS INTO A BASE CLASS FOR LESS CRAPPY BLOCK ITEM RENDERERS IN THE FUTURE ////
 	double scale = 1.0D;
 	private ModelBroadcaster broadcaster;
-	private static final ResourceLocation broadcasterTex = new ResourceLocation(RefStrings.MODID + ":" + "textures/models/deco/ModelRadioReceiver.png");
+	private static final ResourceLocation broadcasterTex = new ResourceLocation(Tags.MOD_ID + ":" + "textures/models/deco/ModelRadioReceiver.png");
 	
 	public ItemRendererMachine(double scale) {
 		this.scale = scale;

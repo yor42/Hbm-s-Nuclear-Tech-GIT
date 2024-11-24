@@ -6,6 +6,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hbm.Tags;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Level;
 import org.lwjgl.BufferUtils;
@@ -21,7 +22,6 @@ import org.lwjgl.opengl.GLContext;
 
 import com.hbm.config.GeneralConfig;
 import com.hbm.interfaces.Spaghetti;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.MainRegistry;
 import com.hbm.util.BobMathUtil;
 
@@ -266,7 +266,7 @@ public class HbmShaderManager {
 			dissolve = createShader("dissolve.frag", "dissolve.vert");
 			bfg_worm = createShader("bfg_worm.frag", "bfg_worm.vert");
 			bfg_beam = createShader("bfg_beam.frag", "bfg_worm.vert");
-			SimpleTexture tex = new SimpleTexture(new ResourceLocation(RefStrings.MODID, "textures/misc/perlin1.png"));
+			SimpleTexture tex = new SimpleTexture(new ResourceLocation(Tags.MOD_ID, "textures/misc/perlin1.png"));
 			try {
 				tex.loadTexture(Minecraft.getMinecraft().getResourceManager());
 			} catch(IOException e) {
@@ -276,7 +276,7 @@ public class HbmShaderManager {
 			GlStateManager.bindTexture(noise1);
 			GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL14.GL_MIRRORED_REPEAT);
 			GlStateManager.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL14.GL_MIRRORED_REPEAT);
-			tex = new SimpleTexture(new ResourceLocation(RefStrings.MODID, "textures/misc/perlin2.png"));
+			tex = new SimpleTexture(new ResourceLocation(Tags.MOD_ID, "textures/misc/perlin2.png"));
 			try {
 				tex.loadTexture(Minecraft.getMinecraft().getResourceManager());
 			} catch(IOException e) {
@@ -293,8 +293,8 @@ public class HbmShaderManager {
 		int prog = OpenGlHelper.glCreateProgram();
 		if(prog == 0)
 			return 0;
-		int vertexShader = createVertexShader("/assets/" + RefStrings.MODID + "/shaders/" + vert);
-		int fragShader = createFragShader("/assets/" + RefStrings.MODID + "/shaders/" + frag);
+		int vertexShader = createVertexShader("/assets/" + Tags.MOD_ID + "/shaders/" + vert);
+		int fragShader = createFragShader("/assets/" + Tags.MOD_ID + "/shaders/" + frag);
 		OpenGlHelper.glAttachShader(prog, vertexShader);
 		OpenGlHelper.glAttachShader(prog, fragShader);
 

@@ -2,13 +2,13 @@ package com.hbm.items.machine;
 
 import java.util.List;
 
+import com.hbm.Tags;
 import com.hbm.interfaces.IHasCustomModel;
 import com.hbm.inventory.ChemplantRecipes;
 import com.hbm.inventory.RecipesCommon.AStack;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
 import com.hbm.inventory.RecipesCommon.OreDictStack;
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.MainRegistry;
 import com.hbm.util.I18nUtil;
 
@@ -27,7 +27,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemChemistryTemplate extends Item implements IHasCustomModel {
 
-	public static final ModelResourceLocation chemModel = new ModelResourceLocation(RefStrings.MODID + ":chemistry_template", "inventory");
+	public static final ModelResourceLocation chemModel = new ModelResourceLocation(Tags.MOD_ID + ":chemistry_template", "inventory");
 	
 	public ItemChemistryTemplate(String s){
 		this.setUnlocalizedName(s);

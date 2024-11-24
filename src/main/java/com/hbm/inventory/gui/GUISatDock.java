@@ -1,9 +1,9 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerSatDock;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityMachineSatDock;
 
 import net.minecraft.client.Minecraft;
@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUISatDock extends GuiInfoContainer {
 
-	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_dock.png");
+	public static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_dock.png");
 	private TileEntityMachineSatDock diFurnace;
 	
 	public GUISatDock(InventoryPlayer invPlayer, TileEntityMachineSatDock tedf) {

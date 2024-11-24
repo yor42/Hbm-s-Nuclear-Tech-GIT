@@ -1,9 +1,9 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerCrateIron;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityCrateIron;
 
 import net.minecraft.client.Minecraft;
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUICrateIron extends GuiContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/storage/gui_crate_iron.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/storage/gui_crate_iron.png");
 	private TileEntityCrateIron diFurnace;
 
 	public GUICrateIron(InventoryPlayer invPlayer, TileEntityCrateIron tedf) {

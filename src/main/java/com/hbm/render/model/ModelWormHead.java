@@ -1,8 +1,8 @@
 package com.hbm.render.model;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.render.amlfrom1710.AdvancedModelLoader;
 import com.hbm.render.amlfrom1710.IModelCustom;
 
@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class ModelWormHead extends ModelBase {
 
-	public static final IModelCustom head = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/mobs/bot_prime_head.obj"));
+	public static final IModelCustom head = AdvancedModelLoader.loadModel(new ResourceLocation(Tags.MOD_ID, "models/mobs/bot_prime_head.obj"));
 
 	@Override
 	public void render(Entity entity, float x, float y, float z, float f3, float f4, float f5) {

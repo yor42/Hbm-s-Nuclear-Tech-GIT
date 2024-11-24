@@ -1,7 +1,7 @@
 package com.hbm.world.generator.room;
 
+import com.hbm.Tags;
 import com.hbm.blocks.ModBlocks;
-import com.hbm.lib.RefStrings;
 import com.hbm.world.generator.CellularDungeon;
 import com.hbm.world.generator.CellularDungeonRoom;
 import com.hbm.world.generator.DungeonToolbox;
@@ -30,7 +30,7 @@ public class TestDungeonRoom3 extends CellularDungeonRoom {
 
         if (tileentitymobspawner2 != null)
         {
-            tileentitymobspawner2.getSpawnerBaseLogic().setEntityId(new ResourceLocation(RefStrings.MODID, "entity_cyber_crab"));
+            tileentitymobspawner2.getSpawnerBaseLogic().setEntityId(new ResourceLocation(Tags.MOD_ID, "entity_cyber_crab"));
         }
 	}
 }

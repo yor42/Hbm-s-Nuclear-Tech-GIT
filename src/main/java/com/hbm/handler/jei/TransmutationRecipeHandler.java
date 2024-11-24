@@ -1,7 +1,7 @@
 package com.hbm.handler.jei;
 
+import com.hbm.Tags;
 import com.hbm.handler.jei.JeiRecipes.TransmutationRecipe;
-import com.hbm.lib.RefStrings;
 
 import com.hbm.util.I18nUtil;
 import mezz.jei.api.IGuiHelper;
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class TransmutationRecipeHandler implements IRecipeCategory<TransmutationRecipe> {
 
-	public static final ResourceLocation gui_rl = new ResourceLocation(RefStrings.MODID, "textures/gui/jei/gui_nei_transmutation.png");
+	public static final ResourceLocation gui_rl = new ResourceLocation(Tags.MOD_ID, "textures/gui/jei/gui_nei_transmutation.png");
 	
 	protected final IDrawable background;
 	
@@ -34,7 +34,7 @@ public class TransmutationRecipeHandler implements IRecipeCategory<Transmutation
 
 	@Override
 	public String getModName() {
-		return RefStrings.MODID;
+		return Tags.MOD_ID;
 	}
 
 	@Override

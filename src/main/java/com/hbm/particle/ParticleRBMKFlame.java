@@ -1,8 +1,7 @@
 package com.hbm.particle;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
-
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
@@ -13,7 +12,6 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
@@ -21,7 +19,7 @@ import net.minecraft.world.World;
 
 public class ParticleRBMKFlame extends Particle {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/particle/rbmk_fire.png");
+	private static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/particle/rbmk_fire.png");
 	
 	public ParticleRBMKFlame(World worldIn, double posXIn, double posYIn, double posZIn, int maxAge){
 		super(worldIn, posXIn, posYIn, posZIn);

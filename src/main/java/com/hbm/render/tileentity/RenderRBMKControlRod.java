@@ -1,22 +1,20 @@
 package com.hbm.render.tileentity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.blocks.machine.rbmk.RBMKBase;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.ResourceManager;
-import com.hbm.tileentity.machine.rbmk.RBMKDials;
 import com.hbm.tileentity.machine.rbmk.TileEntityRBMKBase;
 import com.hbm.tileentity.machine.rbmk.TileEntityRBMKControl;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 
 public class RenderRBMKControlRod extends TileEntitySpecialRenderer<TileEntityRBMKControl>{
 
-	private ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/blocks/rbmk/rbmk_control.png");
+	private ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/blocks/rbmk/rbmk_control.png");
 	
 	@Override
 	public boolean isGlobalRenderer(TileEntityRBMKControl te){

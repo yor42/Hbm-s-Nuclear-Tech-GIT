@@ -2,10 +2,10 @@ package com.hbm.render.entity;
 
 import java.util.Random;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.projectile.EntityBullet;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelBullet;
 
 import net.minecraft.client.renderer.entity.Render;
@@ -40,11 +40,11 @@ public class RenderBullet extends Render<EntityBullet> {
 				1.0F, 0.0F, 0.0F);
 
 		if (rocket instanceof EntityBullet && ((EntityBullet) rocket).getIsChopper()) {
-			bindTexture(new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/emplacer.png"));
+			bindTexture(new ResourceLocation(Tags.MOD_ID + ":textures/models/projectiles/emplacer.png"));
 		} else if (rocket instanceof EntityBullet && ((EntityBullet) rocket).getIsCritical()) {
-			bindTexture(new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/tau.png"));
+			bindTexture(new ResourceLocation(Tags.MOD_ID + ":textures/models/projectiles/tau.png"));
 		} else if (rocket instanceof EntityBullet) {
-			bindTexture(new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/bullet.png"));
+			bindTexture(new ResourceLocation(Tags.MOD_ID + ":textures/models/projectiles/bullet.png"));
 		}
 		miniNuke.renderAll(0.0625F);
 		
@@ -60,11 +60,11 @@ public class RenderBullet extends Render<EntityBullet> {
 	@Override
 	protected ResourceLocation getEntityTexture(EntityBullet entity) {
 		if (entity.getIsChopper()) {
-			return new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/emplacer.png");
+			return new ResourceLocation(Tags.MOD_ID + ":textures/models/projectiles/emplacer.png");
 		} else if (entity.getIsCritical()) {
-			return new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/tau.png");
+			return new ResourceLocation(Tags.MOD_ID + ":textures/models/projectiles/tau.png");
 		} else {
-			return new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/bullet.png");
+			return new ResourceLocation(Tags.MOD_ID + ":textures/models/projectiles/bullet.png");
 		}
 	}
 

@@ -1,8 +1,7 @@
 package com.hbm.render.util;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
-
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -14,13 +13,13 @@ public class GaugeUtil {
 
 	public static enum Gauge {
 
-		ROUND_SMALL(new ResourceLocation(RefStrings.MODID + ":textures/gui/gauges/small_round.png"), 18, 18, 13),
-		ROUND_LARGE(new ResourceLocation(RefStrings.MODID + ":textures/gui/gauges/large_round.png"), 36, 36, 13),
-		BOW_SMALL(new ResourceLocation(RefStrings.MODID + ":textures/gui/gauges/small_bow.png"), 18, 18, 13),
-		BOW_LARGE(new ResourceLocation(RefStrings.MODID + ":textures/gui/gauges/large_bow.png"), 36, 36, 13),
-		WIDE_SMALL(new ResourceLocation(RefStrings.MODID + ":textures/gui/gauges/small_wide.png"), 18, 12, 7),
-		WIDE_LARGE(new ResourceLocation(RefStrings.MODID + ":textures/gui/gauges/large_wide.png"), 36, 24, 11),
-		BAR_SMALL(new ResourceLocation(RefStrings.MODID + ":textures/gui/gauges/small_bar.png"), 36, 12, 16);
+		ROUND_SMALL(new ResourceLocation(Tags.MOD_ID + ":textures/gui/gauges/small_round.png"), 18, 18, 13),
+		ROUND_LARGE(new ResourceLocation(Tags.MOD_ID + ":textures/gui/gauges/large_round.png"), 36, 36, 13),
+		BOW_SMALL(new ResourceLocation(Tags.MOD_ID + ":textures/gui/gauges/small_bow.png"), 18, 18, 13),
+		BOW_LARGE(new ResourceLocation(Tags.MOD_ID + ":textures/gui/gauges/large_bow.png"), 36, 36, 13),
+		WIDE_SMALL(new ResourceLocation(Tags.MOD_ID + ":textures/gui/gauges/small_wide.png"), 18, 12, 7),
+		WIDE_LARGE(new ResourceLocation(Tags.MOD_ID + ":textures/gui/gauges/large_wide.png"), 36, 24, 11),
+		BAR_SMALL(new ResourceLocation(Tags.MOD_ID + ":textures/gui/gauges/small_bar.png"), 36, 12, 16);
 
 		ResourceLocation texture;
 		int width;

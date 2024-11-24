@@ -1,9 +1,9 @@
 package com.hbm.render.tileentity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.blocks.machine.Radiobox;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelRadio;
 import com.hbm.tileentity.machine.TileEntityRadiobox;
 
@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderRadiobox extends TileEntitySpecialRenderer<TileEntityRadiobox> {
 
-	private static final ResourceLocation texture7 = new ResourceLocation(RefStrings.MODID + ":" + "textures/models/turrets/ModelRadio.png");
+	private static final ResourceLocation texture7 = new ResourceLocation(Tags.MOD_ID + ":" + "textures/models/turrets/ModelRadio.png");
 	private ModelRadio model7;
 	
 	public RenderRadiobox() {

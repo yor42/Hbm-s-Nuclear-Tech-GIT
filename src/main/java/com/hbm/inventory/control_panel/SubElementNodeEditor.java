@@ -2,13 +2,13 @@ package com.hbm.inventory.control_panel;
 
 import java.util.*;
 
+import com.hbm.Tags;
 import com.hbm.inventory.control_panel.nodes.*;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.main.ClientProxy;
 import com.hbm.render.RenderHelper;
 
@@ -19,8 +19,8 @@ import net.minecraft.util.math.MathHelper;
 
 public class SubElementNodeEditor extends SubElement {
 
-	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/control_panel/gui_placement_front.png");
-	public static ResourceLocation grid = new ResourceLocation(RefStrings.MODID + ":textures/gui/control_panel/grid.png");
+	public static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/control_panel/gui_placement_front.png");
+	public static ResourceLocation grid = new ResourceLocation(Tags.MOD_ID + ":textures/gui/control_panel/grid.png");
 	
 	public GuiButton btn_back;
 	public GuiButton btn_variables;

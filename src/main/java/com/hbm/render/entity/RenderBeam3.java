@@ -1,9 +1,9 @@
 package com.hbm.render.entity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.projectile.EntityMinerBeam;
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 public class RenderBeam3 extends Render<EntityMinerBeam> {
 
 	public static final IRenderFactory<EntityMinerBeam> FACTORY = (RenderManager man) -> {return new RenderBeam3(man);};
-	public static final ResourceLocation beam_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/PlasmaBeam.png");
+	public static final ResourceLocation beam_rl = new ResourceLocation(Tags.MOD_ID + ":textures/models/projectiles/PlasmaBeam.png");
 	
 	protected RenderBeam3(RenderManager renderManager) {
 		super(renderManager);

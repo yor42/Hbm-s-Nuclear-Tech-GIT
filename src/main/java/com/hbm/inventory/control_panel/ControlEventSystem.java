@@ -6,9 +6,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.hbm.lib.RefStrings;
+import com.hbm.Tags;
 
-import com.hbm.main.MainRegistry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.WorldEvent;
@@ -16,7 +15,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 
-@Mod.EventBusSubscriber(modid = RefStrings.MODID)
+@Mod.EventBusSubscriber(modid = Tags.MOD_ID)
 public class ControlEventSystem {
 
 	private static Map<World, ControlEventSystem> systems = new HashMap<>();

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.hbm.Tags;
 import com.hbm.handler.BobmazonOfferFactory;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.main.AdvancementManager;
 import com.hbm.packet.ItemBobmazonPacket;
 import com.hbm.packet.PacketDispatcher;
@@ -30,7 +30,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GUIScreenBobmazon extends GuiScreen {
 	
-    protected static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_bobmazon.png");
+    protected static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_bobmazon.png");
     protected int xSize = 176;
     protected int ySize = 229;
     protected int guiLeft;
@@ -318,7 +318,7 @@ public class GUIScreenBobmazon extends GuiScreen {
 		
 		@SideOnly(Side.CLIENT)
 		private Advancement getAchClient(){
-			return Minecraft.getMinecraft().player.connection.getAdvancementManager().getAdvancementList().getAdvancement(new ResourceLocation(RefStrings.MODID, advName));
+			return Minecraft.getMinecraft().player.connection.getAdvancementManager().getAdvancementList().getAdvancement(new ResourceLocation(Tags.MOD_ID, advName));
 		}
 
 		public void setAchievement(Advancement achievement) {

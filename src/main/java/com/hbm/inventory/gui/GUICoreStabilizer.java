@@ -2,11 +2,11 @@ package com.hbm.inventory.gui;
 
 import java.io.IOException;
 
+import com.hbm.Tags;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.lwjgl.input.Keyboard;
 
 import com.hbm.inventory.container.ContainerCoreStabilizer;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.AuxButtonPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.machine.TileEntityCoreStabilizer;
@@ -23,7 +23,7 @@ import net.minecraft.util.math.MathHelper;
 
 public class GUICoreStabilizer extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/dfc/gui_stabilizer.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/dfc/gui_stabilizer.png");
 	private TileEntityCoreStabilizer stabilizer;
     private GuiTextField field;
 

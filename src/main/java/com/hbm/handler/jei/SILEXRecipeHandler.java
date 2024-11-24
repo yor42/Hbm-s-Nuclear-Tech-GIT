@@ -1,9 +1,8 @@
 package com.hbm.handler.jei;
 
+import com.hbm.Tags;
 import com.hbm.handler.jei.JeiRecipes.SILEXRecipe;
-import com.hbm.lib.RefStrings;
 import com.hbm.util.I18nUtil;
-import com.hbm.items.machine.ItemFELCrystal.EnumWavelengths;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
@@ -11,14 +10,11 @@ import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
 
 public class SILEXRecipeHandler implements IRecipeCategory<SILEXRecipe> {
 
-	public static final ResourceLocation gui_rl = new ResourceLocation(RefStrings.MODID, "textures/gui/jei/gui_nei_silex.png");
+	public static final ResourceLocation gui_rl = new ResourceLocation(Tags.MOD_ID, "textures/gui/jei/gui_nei_silex.png");
 	
 	protected final IDrawable background;
 	
@@ -40,7 +36,7 @@ public class SILEXRecipeHandler implements IRecipeCategory<SILEXRecipe> {
 
 	@Override
 	public String getModName(){
-		return RefStrings.MODID;
+		return Tags.MOD_ID;
 	}
 
 	@Override

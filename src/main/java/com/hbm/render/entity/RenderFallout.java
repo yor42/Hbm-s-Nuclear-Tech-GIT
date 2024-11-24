@@ -2,10 +2,10 @@ package com.hbm.render.entity;
 
 import java.util.Random;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.effect.EntityFalloutRain;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.RenderHelper;
 import com.hbm.render.amlfrom1710.Vec3;
 
@@ -35,7 +35,7 @@ public class RenderFallout extends Render<EntityFalloutRain> {
 	float[] rainYCoords;
 	private int rendererUpdateCount;
 	long lastTime = System.nanoTime();
-	private static final ResourceLocation falloutTexture = new ResourceLocation(RefStrings.MODID, "textures/entity/fallout.png");
+	private static final ResourceLocation falloutTexture = new ResourceLocation(Tags.MOD_ID, "textures/entity/fallout.png");
 	
 	public RenderFallout(RenderManager renderManager) {
         super(renderManager);

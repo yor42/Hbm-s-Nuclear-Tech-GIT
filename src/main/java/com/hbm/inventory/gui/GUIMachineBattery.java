@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.Math;
 
+import com.hbm.Tags;
 import com.hbm.inventory.container.ContainerMachineBattery;
-import com.hbm.lib.RefStrings;
 import com.hbm.lib.Library;
 import com.hbm.util.I18nUtil;
 import com.hbm.packet.AuxButtonPacket;
@@ -25,7 +25,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineBattery extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/storage/gui_battery.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/storage/gui_battery.png");
 	private TileEntityMachineBattery battery;
 
 	private ConnectionPriority lastPrio = ConnectionPriority.LOW;

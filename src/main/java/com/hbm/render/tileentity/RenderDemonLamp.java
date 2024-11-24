@@ -1,9 +1,9 @@
 package com.hbm.render.tileentity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.hfr.render.loader.HFRWavefrontObject;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.amlfrom1710.IModelCustom;
 import com.hbm.render.amlfrom1710.Vec3;
 import com.hbm.tileentity.machine.TileEntityDemonLamp;
@@ -19,8 +19,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderDemonLamp extends TileEntitySpecialRenderer<TileEntityDemonLamp> {
 
-	public static final IModelCustom demon_lamp = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/blocks/demon_lamp.obj"));
-	public static final ResourceLocation tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/demon_lamp.png");
+	public static final IModelCustom demon_lamp = new HFRWavefrontObject(new ResourceLocation(Tags.MOD_ID, "models/blocks/demon_lamp.obj"));
+	public static final ResourceLocation tex = new ResourceLocation(Tags.MOD_ID, "textures/models/machines/demon_lamp.png");
 	
 	@Override
 	public boolean isGlobalRenderer(TileEntityDemonLamp te){

@@ -2,13 +2,12 @@ package com.hbm.render.entity;
 
 import java.util.Random;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.effect.EntityBlackHole;
 import com.hbm.entity.effect.EntityRagingVortex;
 import com.hbm.entity.effect.EntityVortex;
-import com.hbm.forgefluid.FFUtils;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.ClientProxy;
 import com.hbm.render.amlfrom1710.AdvancedModelLoader;
 import com.hbm.render.amlfrom1710.IModelCustom;
@@ -18,7 +17,6 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
@@ -33,11 +31,11 @@ public class RenderBlackHole extends Render<EntityBlackHole> {
 		return new RenderBlackHole(man);
 	};
 
-	protected static final ResourceLocation objTesterModelRL = new ResourceLocation(RefStrings.MODID, "models/Sphere.obj");
+	protected static final ResourceLocation objTesterModelRL = new ResourceLocation(Tags.MOD_ID, "models/Sphere.obj");
 	protected IModelCustom blastModel;
-	protected ResourceLocation hole = new ResourceLocation(RefStrings.MODID, "textures/models/explosion/BlackHole.png");
-	protected ResourceLocation swirl = new ResourceLocation(RefStrings.MODID, "textures/entity/bhole.png");
-	protected ResourceLocation disc = new ResourceLocation(RefStrings.MODID, "textures/entity/bholeDisc.png");
+	protected ResourceLocation hole = new ResourceLocation(Tags.MOD_ID, "textures/models/explosion/BlackHole.png");
+	protected ResourceLocation swirl = new ResourceLocation(Tags.MOD_ID, "textures/entity/bhole.png");
+	protected ResourceLocation disc = new ResourceLocation(Tags.MOD_ID, "textures/entity/bholeDisc.png");
 
 	protected RenderBlackHole(RenderManager renderManager){
 		super(renderManager);

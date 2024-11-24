@@ -1,9 +1,9 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerNukeMan;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.bomb.TileEntityNukeMan;
 
 import net.minecraft.client.Minecraft;
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUINukeMan extends GuiContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/fatManSchematic.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/fatManSchematic.png");
 	private TileEntityNukeMan testNuke;
 	
 	public GUINukeMan(InventoryPlayer invPlayer, TileEntityNukeMan tedf) {

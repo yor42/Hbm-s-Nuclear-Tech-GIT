@@ -1,5 +1,6 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 import java.math.BigDecimal;
 
@@ -7,7 +8,6 @@ import com.hbm.forgefluid.FFUtils;
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.inventory.container.ContainerCoreReceiver;
 import com.hbm.lib.Library;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityCoreReceiver;
 
 import net.minecraft.client.Minecraft;
@@ -17,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUICoreReceiver extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/dfc/gui_receiver.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/dfc/gui_receiver.png");
 	private TileEntityCoreReceiver receiver;
 	
 	public GUICoreReceiver(EntityPlayer invPlayer, TileEntityCoreReceiver tedf) {

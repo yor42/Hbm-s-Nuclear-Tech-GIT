@@ -4,6 +4,7 @@ import java.util.Map.Entry;
 
 import static com.hbm.inventory.OreDictManager.*;
 
+import com.hbm.Tags;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.config.GeneralConfig;
 import com.hbm.crafting.handlers.MKUCraftingHandler;
@@ -28,7 +29,6 @@ import com.hbm.items.tool.ItemBombCaller.EnumCallerType;
 import com.hbm.items.tool.ItemFluidCanister;
 import com.hbm.items.weapon.GunB92Cell;
 import com.hbm.lib.Library;
-import com.hbm.lib.RefStrings;
 import com.hbm.util.EnchantmentUtil;
 
 import net.minecraft.block.Block;
@@ -68,9 +68,9 @@ public class CraftingManager {
 		addCrafting();
 		addSmelting();
 
-		hack.getRegistry().register(new SmallReactorFuelCraftingHandler().setRegistryName(new ResourceLocation(RefStrings.MODID, "reactor_fuel_crafting_handler")));
-		hack.getRegistry().register(new RBMKFuelCraftingHandler().setRegistryName(new ResourceLocation(RefStrings.MODID, "rbmk_fuel_crafting_handler")));
-		hack.getRegistry().register(new MKUCraftingHandler().setRegistryName(new ResourceLocation(RefStrings.MODID, "mku_crafting_handler")));
+		hack.getRegistry().register(new SmallReactorFuelCraftingHandler().setRegistryName(new ResourceLocation(Tags.MOD_ID, "reactor_fuel_crafting_handler")));
+		hack.getRegistry().register(new RBMKFuelCraftingHandler().setRegistryName(new ResourceLocation(Tags.MOD_ID, "rbmk_fuel_crafting_handler")));
+		hack.getRegistry().register(new MKUCraftingHandler().setRegistryName(new ResourceLocation(Tags.MOD_ID, "mku_crafting_handler")));
 	}
 
 	public static void addCrafting(){
@@ -3201,12 +3201,12 @@ public class CraftingManager {
 	}
 
 	public static ResourceLocation getRecipeName(ItemStack output){
-		ResourceLocation loc = new ResourceLocation(RefStrings.MODID, output.getItem().getRegistryName().getResourcePath());
+		ResourceLocation loc = new ResourceLocation(Tags.MOD_ID, output.getItem().getRegistryName().getResourcePath());
 		int i = 0;
 		ResourceLocation r_loc = loc;
 		while(net.minecraft.item.crafting.CraftingManager.REGISTRY.containsKey(r_loc)) {
 			i++;
-			r_loc = new ResourceLocation(RefStrings.MODID, loc.getResourcePath() + "_" + i);
+			r_loc = new ResourceLocation(Tags.MOD_ID, loc.getResourcePath() + "_" + i);
 		}
 		return r_loc;
 	}

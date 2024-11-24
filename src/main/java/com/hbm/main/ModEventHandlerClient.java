@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.hbm.Tags;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -23,7 +24,6 @@ import com.hbm.blocks.ILookOverlay;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.generic.TrappedBrick.Trap;
 import com.hbm.capability.HbmCapability;
-import com.hbm.capability.HbmLivingCapability.EntityHbmPropsProvider;
 import com.hbm.config.GeneralConfig;
 import com.hbm.entity.mob.EntityHunterChopper;
 import com.hbm.entity.projectile.EntityChopperMine;
@@ -46,7 +46,6 @@ import com.hbm.interfaces.IItemHUD;
 import com.hbm.interfaces.IPostRender;
 import com.hbm.interfaces.Spaghetti;
 import com.hbm.inventory.AssemblerRecipes;
-import com.hbm.inventory.BedrockOreRegistry;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
 import com.hbm.inventory.RecipesCommon.NbtComparableStack;
 import com.hbm.inventory.gui.GUIArmorTable;
@@ -64,7 +63,6 @@ import com.hbm.items.machine.ItemRBMKPellet;
 import com.hbm.items.special.ItemHot;
 import com.hbm.items.special.ItemWasteLong;
 import com.hbm.items.special.ItemWasteShort;
-import com.hbm.items.special.ItemBedrockOre;
 import com.hbm.items.special.weapon.GunB92;
 import com.hbm.items.tool.ItemFluidCanister;
 import com.hbm.items.tool.ItemGuideBook;
@@ -77,7 +75,6 @@ import com.hbm.modules.ItemHazardModule;
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.lib.Library;
 import com.hbm.lib.RecoilHandler;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.AuxButtonPacket;
 import com.hbm.packet.GunButtonPacket;
 import com.hbm.packet.MeathookJumpPacket;
@@ -319,7 +316,7 @@ public class ModEventHandlerClient {
 
 		if(item == ModItems.chemistry_icon) {
 			for(int i: ChemplantRecipes.recipeNames.keySet()){
-				ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(RefStrings.MODID + ":chem_icon_" + ChemplantRecipes.getName(i).toLowerCase(), "inventory"));
+				ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(Tags.MOD_ID + ":chem_icon_" + ChemplantRecipes.getName(i).toLowerCase(), "inventory"));
 			}
 		} else if(item == ModItems.chemistry_template) {
 			for(int i: ChemplantRecipes.recipeNames.keySet()){
@@ -331,9 +328,9 @@ public class ModEventHandlerClient {
 			}
 		} else if(item == ModItems.ingot_u238m2) {
 			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
-			ModelLoader.setCustomModelResourceLocation(item, 1, new ModelResourceLocation(RefStrings.MODID + ":hs-elements", "inventory"));
-			ModelLoader.setCustomModelResourceLocation(item, 2, new ModelResourceLocation(RefStrings.MODID + ":hs-arsenic", "inventory"));
-			ModelLoader.setCustomModelResourceLocation(item, 3, new ModelResourceLocation(RefStrings.MODID + ":hs-vault", "inventory"));
+			ModelLoader.setCustomModelResourceLocation(item, 1, new ModelResourceLocation(Tags.MOD_ID + ":hs-elements", "inventory"));
+			ModelLoader.setCustomModelResourceLocation(item, 2, new ModelResourceLocation(Tags.MOD_ID + ":hs-arsenic", "inventory"));
+			ModelLoader.setCustomModelResourceLocation(item, 3, new ModelResourceLocation(Tags.MOD_ID + ":hs-vault", "inventory"));
 		} else if(item == ModItems.polaroid || item == ModItems.glitch) {
 			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName() + "_" + MainRegistry.polaroidID, "inventory"));
 		} else if(item == Item.getItemFromBlock(ModBlocks.brick_jungle_glyph)){
@@ -365,7 +362,7 @@ public class ModEventHandlerClient {
 			}
 		} else if(item == ModItems.coin_siege){
 			for(int i = 0; i < SiegeTier.getLength(); i ++){
-				ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(RefStrings.MODID + ":coin_siege_" + SiegeTier.tiers[i].name, "inventory"));
+				ModelLoader.setCustomModelResourceLocation(item, i, new ModelResourceLocation(Tags.MOD_ID + ":coin_siege_" + SiegeTier.tiers[i].name, "inventory"));
 			}
 		} else if(item == Item.getItemFromBlock(ModBlocks.volcano_core)){
 			for(int i = 0; i < 4; i ++){
@@ -631,258 +628,258 @@ public class ModEventHandlerClient {
 
 	@SubscribeEvent
 	public void textureStitch(TextureStitchEvent.Pre evt) {
-		DSmokeRenderer.sprites[0] = evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "particle/d_smoke1"));
-		DSmokeRenderer.sprites[1] = evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "particle/d_smoke2"));
-		DSmokeRenderer.sprites[2] = evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "particle/d_smoke3"));
-		DSmokeRenderer.sprites[3] = evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "particle/d_smoke4"));
-		DSmokeRenderer.sprites[4] = evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "particle/d_smoke5"));
-		DSmokeRenderer.sprites[5] = evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "particle/d_smoke6"));
-		DSmokeRenderer.sprites[6] = evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "particle/d_smoke7"));
-		DSmokeRenderer.sprites[7] = evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "particle/d_smoke8"));
+		DSmokeRenderer.sprites[0] = evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "particle/d_smoke1"));
+		DSmokeRenderer.sprites[1] = evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "particle/d_smoke2"));
+		DSmokeRenderer.sprites[2] = evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "particle/d_smoke3"));
+		DSmokeRenderer.sprites[3] = evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "particle/d_smoke4"));
+		DSmokeRenderer.sprites[4] = evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "particle/d_smoke5"));
+		DSmokeRenderer.sprites[5] = evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "particle/d_smoke6"));
+		DSmokeRenderer.sprites[6] = evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "particle/d_smoke7"));
+		DSmokeRenderer.sprites[7] = evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "particle/d_smoke8"));
 		ParticleDSmokeFX.sprites = DSmokeRenderer.sprites;
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/steam_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/steam_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotsteam_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotsteam_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/superhotsteam_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/superhotsteam_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/ultrahotsteam_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/ultrahotsteam_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/coolant_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/coolant_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotcoolant_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotcoolant_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/steam_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/steam_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotsteam_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotsteam_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/superhotsteam_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/superhotsteam_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/ultrahotsteam_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/ultrahotsteam_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/coolant_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/coolant_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotcoolant_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotcoolant_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/heavywater_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/heavywater_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/deuterium_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/deuterium_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/tritium_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/tritium_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/heavywater_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/heavywater_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/deuterium_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/deuterium_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/tritium_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/tritium_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/oil_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/oil_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotoil_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotoil_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/oil_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/oil_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotoil_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotoil_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/crackoil_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/crackoil_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotcrackoil_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotcrackoil_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/crackoil_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/crackoil_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotcrackoil_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotcrackoil_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/heavyoil_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/heavyoil_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/bitumen_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/bitumen_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/smear_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/smear_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/heatingoil_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/heatingoil_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/heavyoil_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/heavyoil_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/bitumen_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/bitumen_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/smear_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/smear_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/heatingoil_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/heatingoil_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/reclaimed_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/reclaimed_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/petroil_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/petroil_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/reclaimed_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/reclaimed_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/petroil_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/petroil_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/fracksol_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/fracksol_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/fracksol_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/fracksol_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/lubricant_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/lubricant_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/lubricant_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/lubricant_flowing"));
 
 		// Yes yes I know, I spelled 'naphtha' wrong.
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/napatha_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/napatha_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/diesel_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/diesel_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/napatha_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/napatha_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/diesel_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/diesel_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/lightoil_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/lightoil_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/kerosene_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/kerosene_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/lightoil_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/lightoil_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/kerosene_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/kerosene_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/gas_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/gas_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/petroleum_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/petroleum_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/gas_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/gas_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/petroleum_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/petroleum_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/aromatics_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/aromatics_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/unsaturateds_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/unsaturateds_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/aromatics_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/aromatics_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/unsaturateds_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/unsaturateds_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/biogas_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/biogas_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/biofuel_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/biofuel_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/biogas_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/biogas_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/biofuel_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/biofuel_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/ethanol_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/ethanol_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/fishoil_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/fishoil_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/sunfloweroil_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/sunfloweroil_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/colloid_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/colloid_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/ethanol_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/ethanol_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/fishoil_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/fishoil_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/sunfloweroil_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/sunfloweroil_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/colloid_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/colloid_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/nitan_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/nitan_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/nitan_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/nitan_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/uf6_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/uf6_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/puf6_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/puf6_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/sas3_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/sas3_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/uf6_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/uf6_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/puf6_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/puf6_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/sas3_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/sas3_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/amat_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/amat_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/aschrab_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/aschrab_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/amat_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/amat_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/aschrab_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/aschrab_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/acid_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/acid_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/sulfuric_acid_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/sulfuric_acid_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/nitric_acid_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/nitric_acid_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/solvent_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/solvent_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/radiosolvent_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/radiosolvent_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/nitroglycerin_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/nitroglycerin_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/liquid_osmiridium_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/liquid_osmiridium_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/watz_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/watz_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/cryogel_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/cryogel_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/acid_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/acid_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/sulfuric_acid_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/sulfuric_acid_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/nitric_acid_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/nitric_acid_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/solvent_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/solvent_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/radiosolvent_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/radiosolvent_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/nitroglycerin_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/nitroglycerin_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/liquid_osmiridium_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/liquid_osmiridium_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/watz_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/watz_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/cryogel_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/cryogel_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hydrogen_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hydrogen_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/oxygen_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/oxygen_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/xenon_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/xenon_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/balefire_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/balefire_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hydrogen_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hydrogen_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/oxygen_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/oxygen_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/xenon_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/xenon_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/balefire_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/balefire_flowing"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/mercury_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/mercury_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/mercury_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/mercury_flowing"));
 		
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_dt_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_dt_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_hd_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_hd_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_ht_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_ht_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_put_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_put_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_xm_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_xm_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_bf_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_bf_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/uu_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/uu_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_dt_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_dt_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_hd_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_hd_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_ht_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_ht_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_put_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_put_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_xm_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_xm_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_bf_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_bf_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/uu_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/uu_flowing"));
 		
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/gasoline_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/gasoline_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/experience_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/experience_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/spentsteam_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/spentsteam_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/pain_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/pain_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/wastefluid_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/wastefluid_flowing"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/wastegas_still"));
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/wastegas_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/gasoline_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/gasoline_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/experience_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/experience_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/spentsteam_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/spentsteam_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/pain_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/pain_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/wastefluid_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/wastefluid_flowing"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/wastegas_still"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/wastegas_flowing"));
 
-		contrail = evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID + ":particle/contrail"));
-		particle_base = evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "particle/particle_base"));
-		fog = evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "particle/fog"));
-		uv_debug = evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "misc/uv_debug"));
+		contrail = evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID + ":particle/contrail"));
+		particle_base = evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "particle/particle_base"));
+		fog = evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "particle/fog"));
+		uv_debug = evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "misc/uv_debug"));
 
-		evt.getMap().registerSprite(new ResourceLocation(RefStrings.MODID, "items/ore_bedrock_layer"));
+		evt.getMap().registerSprite(new ResourceLocation(Tags.MOD_ID, "items/ore_bedrock_layer"));
 	}
 
 	@SubscribeEvent
 	public void textureStitchPost(TextureStitchEvent.Post evt) {
-		RenderStructureMarker.fac_ti[0][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/factory_titanium_hull");
-		RenderStructureMarker.fac_ti[0][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/factory_titanium_hull");
-		RenderStructureMarker.fac_ti[1][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/factory_titanium_hull");
-		RenderStructureMarker.fac_ti[1][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/factory_titanium_furnace");
-		RenderStructureMarker.fac_ti[2][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/factory_titanium_core");
-		RenderStructureMarker.fac_ti[2][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/factory_titanium_core");
+		RenderStructureMarker.fac_ti[0][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/factory_titanium_hull");
+		RenderStructureMarker.fac_ti[0][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/factory_titanium_hull");
+		RenderStructureMarker.fac_ti[1][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/factory_titanium_hull");
+		RenderStructureMarker.fac_ti[1][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/factory_titanium_furnace");
+		RenderStructureMarker.fac_ti[2][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/factory_titanium_core");
+		RenderStructureMarker.fac_ti[2][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/factory_titanium_core");
 
-		RenderStructureMarker.reactor[0][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/reactor_element_top");
-		RenderStructureMarker.reactor[0][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/reactor_element_side");
-		RenderStructureMarker.reactor[1][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/reactor_computer");
-		RenderStructureMarker.reactor[1][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/reactor_computer");
-		RenderStructureMarker.reactor[2][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/reactor_control_top");
-		RenderStructureMarker.reactor[2][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/reactor_control_side");
-		RenderStructureMarker.reactor[3][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/brick_concrete");
-		RenderStructureMarker.reactor[3][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/reactor_hatch");
-		RenderStructureMarker.reactor[4][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/reactor_conductor_top");
-		RenderStructureMarker.reactor[4][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/reactor_conductor_side");
-		RenderStructureMarker.reactor[5][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/brick_concrete");
-		RenderStructureMarker.reactor[5][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/brick_concrete");
+		RenderStructureMarker.reactor[0][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/reactor_element_top");
+		RenderStructureMarker.reactor[0][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/reactor_element_side");
+		RenderStructureMarker.reactor[1][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/reactor_computer");
+		RenderStructureMarker.reactor[1][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/reactor_computer");
+		RenderStructureMarker.reactor[2][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/reactor_control_top");
+		RenderStructureMarker.reactor[2][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/reactor_control_side");
+		RenderStructureMarker.reactor[3][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/brick_concrete");
+		RenderStructureMarker.reactor[3][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/reactor_hatch");
+		RenderStructureMarker.reactor[4][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/reactor_conductor_top");
+		RenderStructureMarker.reactor[4][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/reactor_conductor_side");
+		RenderStructureMarker.reactor[5][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/brick_concrete");
+		RenderStructureMarker.reactor[5][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/brick_concrete");
 
-		RenderStructureMarker.fusion[0][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/block_steel");
-		RenderStructureMarker.fusion[0][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fusion_conductor_side_alt3");
-		RenderStructureMarker.fusion[1][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fusion_heater_top");
-		RenderStructureMarker.fusion[1][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fusion_heater_side");
-		RenderStructureMarker.fusion[2][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/block_tungsten");
-		RenderStructureMarker.fusion[2][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fusion_hatch");
-		RenderStructureMarker.fusion[3][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fusion_motor_top_alt");
-		RenderStructureMarker.fusion[3][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fusion_motor_side_alt");
-		RenderStructureMarker.fusion[4][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fusion_center_top_alt");
-		RenderStructureMarker.fusion[4][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fusion_center_side_alt");
-		RenderStructureMarker.fusion[5][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fusion_center_top_alt");
-		RenderStructureMarker.fusion[5][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fusion_core_side_alt");
-		RenderStructureMarker.fusion[6][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/block_tungsten");
-		RenderStructureMarker.fusion[6][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/block_tungsten");
+		RenderStructureMarker.fusion[0][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/block_steel");
+		RenderStructureMarker.fusion[0][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fusion_conductor_side_alt3");
+		RenderStructureMarker.fusion[1][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fusion_heater_top");
+		RenderStructureMarker.fusion[1][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fusion_heater_side");
+		RenderStructureMarker.fusion[2][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/block_tungsten");
+		RenderStructureMarker.fusion[2][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fusion_hatch");
+		RenderStructureMarker.fusion[3][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fusion_motor_top_alt");
+		RenderStructureMarker.fusion[3][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fusion_motor_side_alt");
+		RenderStructureMarker.fusion[4][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fusion_center_top_alt");
+		RenderStructureMarker.fusion[4][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fusion_center_side_alt");
+		RenderStructureMarker.fusion[5][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fusion_center_top_alt");
+		RenderStructureMarker.fusion[5][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fusion_core_side_alt");
+		RenderStructureMarker.fusion[6][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/block_tungsten");
+		RenderStructureMarker.fusion[6][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/block_tungsten");
 		
-		RenderStructureMarker.watz[0][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/reinforced_brick");
-		RenderStructureMarker.watz[0][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/reinforced_brick");
-		RenderStructureMarker.watz[1][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/reinforced_brick");
-		RenderStructureMarker.watz[1][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/watz_hatch");
-		RenderStructureMarker.watz[2][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/watz_control_top");
-		RenderStructureMarker.watz[2][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/watz_control_side");
-		RenderStructureMarker.watz[3][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/watz_end");
-		RenderStructureMarker.watz[3][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/watz_end");
-		RenderStructureMarker.watz[4][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/watz_conductor_top");
-		RenderStructureMarker.watz[4][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/watz_conductor_side");
-		RenderStructureMarker.watz[5][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/watz_computer");
-		RenderStructureMarker.watz[5][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/watz_computer");
-		RenderStructureMarker.watz[6][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/watz_cooler");
-		RenderStructureMarker.watz[6][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/watz_cooler");
-		RenderStructureMarker.watz[7][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/watz_element_top");
-		RenderStructureMarker.watz[7][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/watz_element_side");
+		RenderStructureMarker.watz[0][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/reinforced_brick");
+		RenderStructureMarker.watz[0][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/reinforced_brick");
+		RenderStructureMarker.watz[1][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/reinforced_brick");
+		RenderStructureMarker.watz[1][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/watz_hatch");
+		RenderStructureMarker.watz[2][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/watz_control_top");
+		RenderStructureMarker.watz[2][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/watz_control_side");
+		RenderStructureMarker.watz[3][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/watz_end");
+		RenderStructureMarker.watz[3][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/watz_end");
+		RenderStructureMarker.watz[4][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/watz_conductor_top");
+		RenderStructureMarker.watz[4][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/watz_conductor_side");
+		RenderStructureMarker.watz[5][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/watz_computer");
+		RenderStructureMarker.watz[5][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/watz_computer");
+		RenderStructureMarker.watz[6][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/watz_cooler");
+		RenderStructureMarker.watz[6][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/watz_cooler");
+		RenderStructureMarker.watz[7][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/watz_element_top");
+		RenderStructureMarker.watz[7][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/watz_element_side");
 
-		RenderStructureMarker.fwatz[0][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fwatz_scaffold");
-		RenderStructureMarker.fwatz[0][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fwatz_scaffold");
-		RenderStructureMarker.fwatz[1][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fwatz_scaffold");
-		RenderStructureMarker.fwatz[1][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fwatz_hatch");
-		RenderStructureMarker.fwatz[2][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fwatz_cooler_top");
-		RenderStructureMarker.fwatz[2][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fwatz_cooler");
-		RenderStructureMarker.fwatz[3][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fwatz_tank");
-		RenderStructureMarker.fwatz[3][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fwatz_tank");
-		RenderStructureMarker.fwatz[4][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/block_combine_steel");
-		RenderStructureMarker.fwatz[4][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fwatz_conductor_side");
-		RenderStructureMarker.fwatz[5][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fwatz_computer");
-		RenderStructureMarker.fwatz[5][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fwatz_computer");
-		RenderStructureMarker.fwatz[6][0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fwatz_core");
-		RenderStructureMarker.fwatz[6][1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/fwatz_core");
+		RenderStructureMarker.fwatz[0][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fwatz_scaffold");
+		RenderStructureMarker.fwatz[0][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fwatz_scaffold");
+		RenderStructureMarker.fwatz[1][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fwatz_scaffold");
+		RenderStructureMarker.fwatz[1][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fwatz_hatch");
+		RenderStructureMarker.fwatz[2][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fwatz_cooler_top");
+		RenderStructureMarker.fwatz[2][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fwatz_cooler");
+		RenderStructureMarker.fwatz[3][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fwatz_tank");
+		RenderStructureMarker.fwatz[3][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fwatz_tank");
+		RenderStructureMarker.fwatz[4][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/block_combine_steel");
+		RenderStructureMarker.fwatz[4][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fwatz_conductor_side");
+		RenderStructureMarker.fwatz[5][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fwatz_computer");
+		RenderStructureMarker.fwatz[5][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fwatz_computer");
+		RenderStructureMarker.fwatz[6][0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fwatz_core");
+		RenderStructureMarker.fwatz[6][1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/fwatz_core");
 
-		RenderMultiblock.structLauncher = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/struct_launcher");
-		RenderMultiblock.structScaffold = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/struct_scaffold");
+		RenderMultiblock.structLauncher = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/struct_launcher");
+		RenderMultiblock.structScaffold = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/struct_scaffold");
 
-		RenderSoyuzMultiblock.blockIcons[0] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/struct_launcher");
-		RenderSoyuzMultiblock.blockIcons[1] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/concrete_smooth");
-		RenderSoyuzMultiblock.blockIcons[2] = evt.getMap().getAtlasSprite(RefStrings.MODID + ":blocks/struct_scaffold");
+		RenderSoyuzMultiblock.blockIcons[0] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/struct_launcher");
+		RenderSoyuzMultiblock.blockIcons[1] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/concrete_smooth");
+		RenderSoyuzMultiblock.blockIcons[2] = evt.getMap().getAtlasSprite(Tags.MOD_ID + ":blocks/struct_scaffold");
 	}
 
 	public static TextureAtlasSprite contrail;
@@ -2069,7 +2066,7 @@ public class ModEventHandlerClient {
 		}
 	}
 	
-	private static final ResourceLocation poster = new ResourceLocation(RefStrings.MODID + ":textures/models/misc/poster.png");
+	private static final ResourceLocation poster = new ResourceLocation(Tags.MOD_ID + ":textures/models/misc/poster.png");
 
 	@SubscribeEvent
 	public void renderFrame(RenderItemInFrameEvent event) {

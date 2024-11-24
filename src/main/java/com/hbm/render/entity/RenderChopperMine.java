@@ -1,9 +1,9 @@
 package com.hbm.render.entity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.projectile.EntityChopperMine;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelChopperMine;
 
 import net.minecraft.client.renderer.entity.Render;
@@ -15,7 +15,7 @@ public class RenderChopperMine extends Render<EntityChopperMine> {
 
 	public static final IRenderFactory<EntityChopperMine> FACTORY = (RenderManager man) -> {return new RenderChopperMine(man);};
 	
-	public static final ResourceLocation mine_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/chopperBomb.png");
+	public static final ResourceLocation mine_rl = new ResourceLocation(Tags.MOD_ID + ":textures/models/projectiles/chopperBomb.png");
 	
 	ModelChopperMine mine;
 	

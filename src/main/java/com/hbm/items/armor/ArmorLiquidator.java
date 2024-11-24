@@ -2,6 +2,8 @@ package com.hbm.items.armor;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.google.common.collect.Multimap;
@@ -9,7 +11,6 @@ import com.hbm.handler.ArmorModHandler;
 import com.hbm.handler.ArmorUtil;
 import com.hbm.items.ModItems;
 import com.hbm.items.gear.ArmorFSB;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelM65;
 import com.hbm.util.ArmorRegistry.HazardClass;
 
@@ -41,7 +42,7 @@ public class ArmorLiquidator extends ArmorFSB implements IGasMask {
 
 	@SideOnly(Side.CLIENT)
 	private ModelM65 model;
-	private final ResourceLocation hazmatBlur = new ResourceLocation(RefStrings.MODID + ":textures/misc/overlay_dark.png");
+	private final ResourceLocation hazmatBlur = new ResourceLocation(Tags.MOD_ID + ":textures/misc/overlay_dark.png");
 	
 	public ArmorLiquidator(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String texture, String name) {
 		super(materialIn, renderIndexIn, equipmentSlotIn, texture, name);

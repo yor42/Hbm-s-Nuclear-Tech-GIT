@@ -2,10 +2,10 @@ package com.hbm.render.entity;
 
 import java.util.Random;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.projectile.EntityRubble;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelRubble;
 
 import net.minecraft.block.Block;
@@ -68,7 +68,7 @@ public class RenderRubble extends Render<EntityRubble> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityRubble entity) {
-		return new ResourceLocation(RefStrings.MODID + ":textures/models/ModelRubbleScrap.png");
+		return new ResourceLocation(Tags.MOD_ID + ":textures/models/ModelRubbleScrap.png");
 	}
 
 }

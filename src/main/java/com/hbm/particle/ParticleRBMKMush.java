@@ -1,5 +1,6 @@
 package com.hbm.particle;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
@@ -16,7 +17,7 @@ import net.minecraft.world.World;
 
 public class ParticleRBMKMush extends Particle {
 
-	private static final ResourceLocation texture = new ResourceLocation(com.hbm.lib.RefStrings.MODID + ":textures/particle/rbmk_mush.png");
+	private static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/particle/rbmk_mush.png");
 	
 	public ParticleRBMKMush(World worldIn, double posXIn, double posYIn, double posZIn, float scale){
 		super(worldIn, posXIn, posYIn, posZIn);

@@ -2,6 +2,7 @@ package com.hbm.inventory.gui;
 
 import java.io.IOException;
 
+import com.hbm.Tags;
 import com.hbm.util.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
@@ -9,7 +10,6 @@ import com.hbm.forgefluid.FFUtils;
 import com.hbm.inventory.container.ContainerLaunchTable;
 import com.hbm.items.weapon.ItemCustomMissile;
 import com.hbm.items.weapon.ItemMissile.PartSize;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.AuxButtonPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.render.misc.MissileMultipart;
@@ -26,7 +26,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineLaunchTable extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_launch_table.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_launch_table.png");
 	private TileEntityLaunchTable launcher;
 	
 	public GUIMachineLaunchTable(InventoryPlayer invPlayer, TileEntityLaunchTable tedf) {

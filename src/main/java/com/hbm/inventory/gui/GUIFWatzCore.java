@@ -1,12 +1,12 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.inventory.container.ContainerFWatzCore;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.NBTControlPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.machine.TileEntityFWatzCore;
@@ -21,7 +21,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIFWatzCore extends GuiInfoContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_fwatz_multiblock.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_fwatz_multiblock.png");
 	private TileEntityFWatzCore fwatz;
 
 	public GUIFWatzCore(InventoryPlayer invPlayer, TileEntityFWatzCore tedf) {

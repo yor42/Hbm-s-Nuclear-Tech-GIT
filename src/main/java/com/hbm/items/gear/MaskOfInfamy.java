@@ -1,7 +1,7 @@
 package com.hbm.items.gear;
 
+import com.hbm.Tags;
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -20,7 +20,7 @@ public class MaskOfInfamy extends ItemArmor {
 	
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-		return (RefStrings.MODID + ":textures/armor/MaskOfInfamy.png");
+		return (Tags.MOD_ID + ":textures/armor/MaskOfInfamy.png");
 	}
 
 }

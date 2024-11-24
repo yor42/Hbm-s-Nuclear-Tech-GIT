@@ -1,8 +1,8 @@
 package com.hbm.handler;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.Project;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.ResourceManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = RefStrings.MODID)
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = Tags.MOD_ID)
 public class WorldSpaceFPRender {
 
 	public static boolean shouldCustomRender = false;

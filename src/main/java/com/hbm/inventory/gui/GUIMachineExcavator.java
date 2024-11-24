@@ -1,12 +1,12 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import com.hbm.util.I18nUtil;
 import org.lwjgl.opengl.GL11;
 import java.io.IOException;
 
 import com.hbm.inventory.container.ContainerMachineExcavator;
 import com.hbm.forgefluid.FFUtils;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.NBTControlPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.machine.TileEntityMachineExcavator;
@@ -21,7 +21,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineExcavator extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_mining_drill.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/machine/gui_mining_drill.png");
 	private TileEntityMachineExcavator drill;
 
 	public GUIMachineExcavator(InventoryPlayer inventory, TileEntityMachineExcavator tile) {

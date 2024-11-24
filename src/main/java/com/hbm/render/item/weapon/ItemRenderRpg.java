@@ -1,9 +1,9 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelGustav;
 import com.hbm.render.model.ModelPanzerschreck;
@@ -18,9 +18,9 @@ public class ItemRenderRpg extends TEISRBase {
 	protected ModelGustav swordModel;
 	protected ModelPanzerschreck panz;
 	
-	protected static ResourceLocation gustav_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelGustav.png");
-	protected static ResourceLocation karl_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelGustavYellow.png");
-	protected static ResourceLocation panzer_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelPanzerschreck.png");
+	protected static ResourceLocation gustav_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelGustav.png");
+	protected static ResourceLocation karl_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelGustavYellow.png");
+	protected static ResourceLocation panzer_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelPanzerschreck.png");
 	
 	public ItemRenderRpg() {
 		swordModel = new ModelGustav();

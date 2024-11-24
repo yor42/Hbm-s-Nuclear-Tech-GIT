@@ -1,8 +1,8 @@
 package com.hbm.render.entity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 import com.hbm.entity.effect.EntityCloudFleija;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.amlfrom1710.AdvancedModelLoader;
 import com.hbm.render.amlfrom1710.IModelCustom;
 
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class RenderCloudFleija extends Render<EntityCloudFleija> {
 
-	private static final ResourceLocation objTesterModelRL = new ResourceLocation(/*"/assets/" + */RefStrings.MODID, "models/Sphere.obj");
+	private static final ResourceLocation objTesterModelRL = new ResourceLocation(/*"/assets/" + */Tags.MOD_ID, "models/Sphere.obj");
 	private IModelCustom blastModel;
     private ResourceLocation blastTexture;
     public float scale = 0;
@@ -26,7 +26,7 @@ public class RenderCloudFleija extends Render<EntityCloudFleija> {
 	protected RenderCloudFleija(RenderManager renderManager) {
 		super(renderManager);
 		blastModel = AdvancedModelLoader.loadModel(objTesterModelRL);
-    	blastTexture = new ResourceLocation(RefStrings.MODID, "textures/models/explosion/BlastFleija.png");
+    	blastTexture = new ResourceLocation(Tags.MOD_ID, "textures/models/explosion/BlastFleija.png");
     	scale = 0;
 	}
 	

@@ -1,12 +1,9 @@
 package com.hbm.inventory.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerMixer;
-import com.hbm.lib.RefStrings;
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.tileentity.machine.TileEntityMachineMixer;
 
@@ -17,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMixer extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_mixer.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/processing/gui_mixer.png");
 	private TileEntityMachineMixer mixer;
 
 	public GUIMixer(InventoryPlayer player, TileEntityMachineMixer mixer) {

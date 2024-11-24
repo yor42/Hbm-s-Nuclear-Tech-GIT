@@ -2,10 +2,10 @@ package com.hbm.inventory.gui;
 
 import java.io.IOException;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerRailgun;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.AuxButtonPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.bomb.TileEntityRailgun;
@@ -17,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIRailgun extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_railgun.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_railgun.png");
 	private TileEntityRailgun railgun;
 
 	public GUIRailgun(InventoryPlayer invPlayer, TileEntityRailgun tedf) {

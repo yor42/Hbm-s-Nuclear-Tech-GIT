@@ -1,9 +1,9 @@
 package com.hbm.items.gear;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.RenderHelper;
 
 import net.minecraft.client.Minecraft;
@@ -27,7 +27,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ArmorAsbestos extends ItemArmor implements ISpecialArmor {
 
-	private final ResourceLocation asbestosBlur = new ResourceLocation(RefStrings.MODID + ":textures/misc/overlay_asbestos.png");
+	private final ResourceLocation asbestosBlur = new ResourceLocation(Tags.MOD_ID + ":textures/misc/overlay_asbestos.png");
 	
 	public ArmorAsbestos(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String s) {
 		super(materialIn, renderIndexIn, equipmentSlotIn);
@@ -41,10 +41,10 @@ public class ArmorAsbestos extends ItemArmor implements ISpecialArmor {
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
 		if(stack.getItem().equals(ModItems.asbestos_helmet) || stack.getItem().equals(ModItems.asbestos_plate) || stack.getItem().equals(ModItems.asbestos_boots)) {
-			return (RefStrings.MODID + ":textures/armor/asbestos_1.png");
+			return (Tags.MOD_ID + ":textures/armor/asbestos_1.png");
 		}
 		if(stack.getItem().equals(ModItems.asbestos_legs)) {
-			return (RefStrings.MODID + ":textures/armor/asbestos_2.png");
+			return (Tags.MOD_ID + ":textures/armor/asbestos_2.png");
 		}
 		return null;
 	}

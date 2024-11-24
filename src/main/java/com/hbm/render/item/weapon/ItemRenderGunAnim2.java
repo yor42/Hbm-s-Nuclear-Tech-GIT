@@ -1,9 +1,9 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.anim.HbmAnimations;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelB92;
@@ -23,10 +23,10 @@ public class ItemRenderGunAnim2 extends TEISRBase {
 	protected ModelBoltAction boltaction;
 	protected ModelB92 b92;
 	protected ModelB93 b93;
-	protected ResourceLocation leverActionLoc = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelLeverAction.png");
-	protected ResourceLocation leverActionDark_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelLeverActionDark.png");
-	protected ResourceLocation leverBoltAction_green = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelBoltActionGreen.png");
-	protected ResourceLocation leverBoltAction = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelBoltActionDark.png");
+	protected ResourceLocation leverActionLoc = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelLeverAction.png");
+	protected ResourceLocation leverActionDark_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelLeverActionDark.png");
+	protected ResourceLocation leverBoltAction_green = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelBoltActionGreen.png");
+	protected ResourceLocation leverBoltAction = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelBoltActionDark.png");
 	
 	public ItemRenderGunAnim2() {
 		leveraction = new ModelLeverAction();

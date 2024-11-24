@@ -1,9 +1,9 @@
 package com.hbm.render.entity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.missile.EntityBombletSelena;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.amlfrom1710.AdvancedModelLoader;
 import com.hbm.render.amlfrom1710.IModelCustom;
 
@@ -15,14 +15,14 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 public class RenderBombletSelena extends Render<EntityBombletSelena> {
 
 	public static final IRenderFactory<EntityBombletSelena> FACTORY = (RenderManager man) -> {return new RenderBombletSelena(man);};
-	private static final ResourceLocation objTesterModelRL = new ResourceLocation(/*"/assets/" + */RefStrings.MODID, "models/bombletSelena.obj");
+	private static final ResourceLocation objTesterModelRL = new ResourceLocation(/*"/assets/" + */Tags.MOD_ID, "models/bombletSelena.obj");
 	private IModelCustom boyModel;
     private ResourceLocation boyTexture;
 	
 	protected RenderBombletSelena(RenderManager renderManager) {
 		super(renderManager);
 		boyModel = AdvancedModelLoader.loadModel(objTesterModelRL);
-		boyTexture = new ResourceLocation(RefStrings.MODID, "textures/models/misc/universalDark.png");
+		boyTexture = new ResourceLocation(Tags.MOD_ID, "textures/models/misc/universalDark.png");
 	}
 	
 	@Override

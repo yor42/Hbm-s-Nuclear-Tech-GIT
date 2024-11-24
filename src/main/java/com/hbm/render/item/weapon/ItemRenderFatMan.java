@@ -1,8 +1,8 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelFatman;
 
@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 public class ItemRenderFatMan extends TEISRBase {
 
 	protected ModelFatman swordModel;
-	protected static ResourceLocation man_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/FatmanLauncher.png");
+	protected static ResourceLocation man_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/FatmanLauncher.png");
 	
 	public ItemRenderFatMan() {
 		swordModel = new ModelFatman();

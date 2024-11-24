@@ -1,9 +1,9 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelStinger;
 
@@ -15,8 +15,8 @@ import net.minecraft.util.ResourceLocation;
 public class ItemRenderStinger extends TEISRBase {
 
 	protected ModelStinger stinger;
-	protected static ResourceLocation stinger_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelStinger.png");
-	protected static ResourceLocation skystinger_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelSkyStinger.png");
+	protected static ResourceLocation stinger_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelStinger.png");
+	protected static ResourceLocation skystinger_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelSkyStinger.png");
 	
 	public ItemRenderStinger() {
 		stinger = new ModelStinger();

@@ -1,10 +1,10 @@
 package com.hbm.render.tileentity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.RenderHelper;
 import com.hbm.render.model.ModelGun;
 import com.hbm.render.model.ModelStatue;
@@ -21,8 +21,8 @@ import net.minecraftforge.client.ForgeHooksClient;
 
 public class RenderDecoBlockAlt extends TileEntitySpecialRenderer<TileEntityDecoBlockAlt> {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":" + "textures/models/misc/ModelStatue.png");
-	private static final ResourceLocation gunTexture = new ResourceLocation(RefStrings.MODID + ":" + "textures/models/weapons/ModelGun.png");
+	private static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":" + "textures/models/misc/ModelStatue.png");
+	private static final ResourceLocation gunTexture = new ResourceLocation(Tags.MOD_ID + ":" + "textures/models/weapons/ModelGun.png");
 
 	private ModelStatue model;
 	private ModelGun gun;

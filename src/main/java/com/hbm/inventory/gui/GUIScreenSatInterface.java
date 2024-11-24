@@ -3,11 +3,11 @@ package com.hbm.inventory.gui;
 import java.util.Arrays;
 import java.util.List;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.items.tool.ItemSatInterface;
 import com.hbm.lib.HBMSoundHandler;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.packet.SatLaserPacket;
 import com.hbm.blocks.ModBlocks;
@@ -34,7 +34,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class GUIScreenSatInterface extends GuiScreen {
 	
-    protected static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/satellites/gui_sat_interface.png");
+    protected static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/satellites/gui_sat_interface.png");
     protected int xSize = 216;
     protected int ySize = 216;
     protected int guiLeft;

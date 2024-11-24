@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.hbm.Tags;
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 import com.hbm.handler.ArmorUtil;
 import com.hbm.render.RenderHelper;
 import com.hbm.render.model.ModelGasMask;
@@ -42,18 +42,18 @@ public class ArmorGasMask extends ItemArmor implements IGasMask {
 	@SideOnly(Side.CLIENT)
 	private ModelM65 modelM65;
 	
-	private final ResourceLocation goggleBlur0 = new ResourceLocation(RefStrings.MODID + ":textures/misc/overlay_goggles_0.png");
-	private final ResourceLocation goggleBlur1 = new ResourceLocation(RefStrings.MODID + ":textures/misc/overlay_goggles_1.png");
-	private final ResourceLocation goggleBlur2 = new ResourceLocation(RefStrings.MODID + ":textures/misc/overlay_goggles_2.png");
-	private final ResourceLocation goggleBlur3 = new ResourceLocation(RefStrings.MODID + ":textures/misc/overlay_goggles_3.png");
-	private final ResourceLocation goggleBlur4 = new ResourceLocation(RefStrings.MODID + ":textures/misc/overlay_goggles_4.png");
-	private final ResourceLocation goggleBlur5 = new ResourceLocation(RefStrings.MODID + ":textures/misc/overlay_goggles_5.png");
-	private final ResourceLocation gasmaskBlur0 = new ResourceLocation(RefStrings.MODID + ":textures/misc/overlay_gasmask_0.png");
-	private final ResourceLocation gasmaskBlur1 = new ResourceLocation(RefStrings.MODID + ":textures/misc/overlay_gasmask_1.png");
-	private final ResourceLocation gasmaskBlur2 = new ResourceLocation(RefStrings.MODID + ":textures/misc/overlay_gasmask_2.png");
-	private final ResourceLocation gasmaskBlur3 = new ResourceLocation(RefStrings.MODID + ":textures/misc/overlay_gasmask_3.png");
-	private final ResourceLocation gasmaskBlur4 = new ResourceLocation(RefStrings.MODID + ":textures/misc/overlay_gasmask_4.png");
-	private final ResourceLocation gasmaskBlur5 = new ResourceLocation(RefStrings.MODID + ":textures/misc/overlay_gasmask_5.png");
+	private final ResourceLocation goggleBlur0 = new ResourceLocation(Tags.MOD_ID + ":textures/misc/overlay_goggles_0.png");
+	private final ResourceLocation goggleBlur1 = new ResourceLocation(Tags.MOD_ID + ":textures/misc/overlay_goggles_1.png");
+	private final ResourceLocation goggleBlur2 = new ResourceLocation(Tags.MOD_ID + ":textures/misc/overlay_goggles_2.png");
+	private final ResourceLocation goggleBlur3 = new ResourceLocation(Tags.MOD_ID + ":textures/misc/overlay_goggles_3.png");
+	private final ResourceLocation goggleBlur4 = new ResourceLocation(Tags.MOD_ID + ":textures/misc/overlay_goggles_4.png");
+	private final ResourceLocation goggleBlur5 = new ResourceLocation(Tags.MOD_ID + ":textures/misc/overlay_goggles_5.png");
+	private final ResourceLocation gasmaskBlur0 = new ResourceLocation(Tags.MOD_ID + ":textures/misc/overlay_gasmask_0.png");
+	private final ResourceLocation gasmaskBlur1 = new ResourceLocation(Tags.MOD_ID + ":textures/misc/overlay_gasmask_1.png");
+	private final ResourceLocation gasmaskBlur2 = new ResourceLocation(Tags.MOD_ID + ":textures/misc/overlay_gasmask_2.png");
+	private final ResourceLocation gasmaskBlur3 = new ResourceLocation(Tags.MOD_ID + ":textures/misc/overlay_gasmask_3.png");
+	private final ResourceLocation gasmaskBlur4 = new ResourceLocation(Tags.MOD_ID + ":textures/misc/overlay_gasmask_4.png");
+	private final ResourceLocation gasmaskBlur5 = new ResourceLocation(Tags.MOD_ID + ":textures/misc/overlay_gasmask_5.png");
 	
 	public ArmorGasMask(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String s) {
 		super(materialIn, renderIndexIn, equipmentSlotIn);
@@ -94,25 +94,25 @@ public class ArmorGasMask extends ItemArmor implements IGasMask {
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
 		if (stack.getItem() == ModItems.gas_mask) {
-			return (RefStrings.MODID + ":textures/armor/GasMask.png");
+			return (Tags.MOD_ID + ":textures/armor/GasMask.png");
 		}
 		if (stack.getItem() == ModItems.gas_mask_m65) {
-			return (RefStrings.MODID + ":textures/armor/ModelM65.png");
+			return (Tags.MOD_ID + ":textures/armor/ModelM65.png");
 		}
 		if (stack.getItem() == ModItems.gas_mask_mono) {
-			return (RefStrings.MODID + ":textures/armor/ModelM65Mono.png");
+			return (Tags.MOD_ID + ":textures/armor/ModelM65Mono.png");
 		}
 		if(stack.getItem() == ModItems.hazmat_helmet) {
-			return (RefStrings.MODID + ":textures/armor/hazmat_1.png");
+			return (Tags.MOD_ID + ":textures/armor/hazmat_1.png");
 		}
 		if (stack.getItem() == ModItems.hazmat_helmet_red) {
-			return (RefStrings.MODID + ":textures/armor/ModelHazRed.png");
+			return (Tags.MOD_ID + ":textures/armor/ModelHazRed.png");
 		}
 		if (stack.getItem() == ModItems.hazmat_helmet_grey) {
-			return (RefStrings.MODID + ":textures/armor/ModelHazGrey.png");
+			return (Tags.MOD_ID + ":textures/armor/ModelHazGrey.png");
 		}
 		if(stack.getItem() == ModItems.hazmat_paa_helmet) {
-			return (RefStrings.MODID + ":textures/armor/ModelHazPaa.png");
+			return (Tags.MOD_ID + ":textures/armor/ModelHazPaa.png");
 		}
 		return "hbm:textures/models/capes/CapeUnknown.png";
 	}

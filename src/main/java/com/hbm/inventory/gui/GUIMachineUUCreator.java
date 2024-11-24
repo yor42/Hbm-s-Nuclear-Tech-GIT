@@ -2,12 +2,12 @@ package com.hbm.inventory.gui;
 
 import java.io.IOException;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.inventory.container.ContainerMachineUUCreator;
-import com.hbm.lib.RefStrings;
 import com.hbm.lib.Library;
 import com.hbm.packet.AuxButtonPacket;
 import com.hbm.packet.PacketDispatcher;
@@ -22,7 +22,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineUUCreator extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_uu_creator.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/machine/gui_uu_creator.png");
 	private TileEntityMachineUUCreator uu_creator;
 	
 	public GUIMachineUUCreator(InventoryPlayer invPlayer, TileEntityMachineUUCreator tedf) {

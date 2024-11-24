@@ -1,8 +1,8 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelMIRVLauncher;
 
@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 public class ItemRenderMIRVLauncher extends TEISRBase {
 
 	protected ModelMIRVLauncher swordModel;
-	public static ResourceLocation mirv_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/MIRVLauncher.png");
+	public static ResourceLocation mirv_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/MIRVLauncher.png");
 	
 	public ItemRenderMIRVLauncher() {
 		swordModel = new ModelMIRVLauncher();

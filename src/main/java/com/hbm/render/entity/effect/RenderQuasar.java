@@ -1,10 +1,10 @@
 package com.hbm.render.entity.effect;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.effect.EntityBlackHole;
 import com.hbm.entity.effect.EntityQuasar;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.ClientProxy;
 import com.hbm.render.entity.RenderBlackHole;
 
@@ -17,7 +17,7 @@ public class RenderQuasar extends RenderBlackHole {
 
 	public static final IRenderFactory<EntityQuasar> FACTORY = man -> new RenderQuasar(man);
 	
-	protected ResourceLocation quasar = new ResourceLocation(RefStrings.MODID, "textures/entity/bholeD.png");
+	protected ResourceLocation quasar = new ResourceLocation(Tags.MOD_ID, "textures/entity/bholeD.png");
 	
 	public RenderQuasar(RenderManager renderManager){
 		super(renderManager);

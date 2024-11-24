@@ -1,9 +1,7 @@
 package com.hbm.handler.jei;
 
-import com.hbm.forgefluid.ModForgeFluids;
+import com.hbm.Tags;
 import com.hbm.inventory.CrystallizerRecipes.CrystallizerRecipe;
-import com.hbm.items.machine.ItemFluidIcon;
-import com.hbm.lib.RefStrings;
 
 import com.hbm.util.I18nUtil;
 import mezz.jei.api.IGuiHelper;
@@ -20,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class CrystallizerRecipeHandler implements IRecipeCategory<CrystallizerRecipe> {
 
-	public static ResourceLocation gui_rl = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_crystallizer.png");
+	public static ResourceLocation gui_rl = new ResourceLocation(Tags.MOD_ID + ":textures/gui/processing/gui_crystallizer.png");
 	
 	protected final IDrawable background;
 	protected final IDrawableStatic progressStatic;
@@ -50,7 +48,7 @@ public class CrystallizerRecipeHandler implements IRecipeCategory<CrystallizerRe
 
 	@Override
 	public String getModName() {
-		return RefStrings.MODID;
+		return Tags.MOD_ID;
 	}
 
 	@Override

@@ -1,9 +1,9 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelUzi;
 import com.hbm.render.model.ModelUziBarrel;
@@ -21,10 +21,10 @@ public class ItemRenderUzi extends TEISRBase {
 	protected ModelUziBarrel barrel;
 	protected ModelUziSilencer silencer;
 	
-	protected static ResourceLocation uzi_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelUzi.png");
-	protected static ResourceLocation sat_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelUziSaturnite.png");
-	protected static ResourceLocation barrel_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelUziBarrel.png");
-	protected static ResourceLocation silencer_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelUziSilencer.png");
+	protected static ResourceLocation uzi_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelUzi.png");
+	protected static ResourceLocation sat_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelUziSaturnite.png");
+	protected static ResourceLocation barrel_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelUziBarrel.png");
+	protected static ResourceLocation silencer_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelUziSilencer.png");
 	
 	public ItemRenderUzi() {
 		uzi = new ModelUzi();

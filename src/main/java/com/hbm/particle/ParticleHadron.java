@@ -1,8 +1,7 @@
 package com.hbm.particle;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
-
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
@@ -24,7 +23,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ParticleHadron extends Particle {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/particle/hadron.png");
+	private static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/particle/hadron.png");
 	
 	public ParticleHadron(World worldIn, double posXIn, double posYIn, double posZIn) {
 		super(worldIn, posXIn, posYIn, posZIn);

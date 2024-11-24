@@ -3,16 +3,14 @@ package com.hbm.inventory.control_panel;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hbm.Tags;
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.inventory.control_panel.ContainerControlEdit.SlotDisableable;
 import com.hbm.inventory.control_panel.ContainerControlEdit.SlotItemHandlerDisableable;
 import com.hbm.items.tool.ItemMultiDetonator;
-import com.hbm.lib.RefStrings;
 
-import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.machine.TileEntityDummy;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -20,11 +18,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 
 public class SubElementLinker extends SubElement {
 
-	public static ResourceLocation inv_tex = new ResourceLocation(RefStrings.MODID + ":textures/gui/control_panel/gui_linker_add_element.png");
+	public static ResourceLocation inv_tex = new ResourceLocation(Tags.MOD_ID + ":textures/gui/control_panel/gui_linker_add_element.png");
 	
 	public GuiButton clear;
 	public GuiButton accept;

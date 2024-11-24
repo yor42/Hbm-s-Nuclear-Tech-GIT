@@ -182,16 +182,18 @@ dependencies {
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     }
 
-    compileOnly  rfg.deobf("li.cil.oc:OpenComputers:MC1.12.2-1.7.+:api")
+    compileOnly rfg.deobf("CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-${version_crafttweaker}")
+    compileOnly rfg.deobf("curse.maven:galacticraft-legacy-564236:4671122")
+    compileOnly rfg.deobf("curse.maven:baubles-lts-655747:3916343")
+    compileOnly rfg.deobf("cofh:RedstoneFlux:1.12-${version_redstoneflux}:universal")
+
+    //compileOnly  rfg.deobf("li.cil.oc:OpenComputers:MC1.12.2-1.7.+:api")
     implementation rfg.deobf('curse.maven:had-enough-items-557549:4543375')
-    implementation rfg.deobf("curse.maven:groovyscript-687577:5219945")
+    implementation rfg.deobf("curse.maven:groovyscript-687577:5789690")
     implementation rfg.deobf("curse.maven:mekanism-ce-399904:4804509")
     implementation rfg.deobf("curse.maven:baubles-227083:2518667")
-    compileOnly "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-${version_crafttweaker}"
-    compileOnly rfg.deobf("dev.galacticraft:galacticraft-legacy:${version_gc}")
-    compileOnly rfg.deobf("cofh:RedstoneFlux:1.12-${version_redstoneflux}:universal")
-    compileOnly rfg.deobf("CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-${version_crafttweaker}")
-    compileOnly "li.cil.oc:OpenComputers:MC1.12.2-1.7.+:api"
+    implementation rfg.deobf("curse.maven:opencomputers-223008:5741939")
+    //compileOnly "li.cil.oc:OpenComputers:MC1.12.2-1.7.+:api"
 }
 
 apply from: 'gradle/scripts/dependencies.gradle'

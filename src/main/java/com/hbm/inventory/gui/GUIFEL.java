@@ -3,18 +3,17 @@ package com.hbm.inventory.gui;
 import java.awt.Color;
 import java.io.IOException;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerFEL;
 import com.hbm.items.machine.ItemFELCrystal.EnumWavelengths;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.AuxButtonPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.machine.TileEntityFEL;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -26,7 +25,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIFEL extends GuiInfoContainer {
 
-	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_fel.png");
+	public static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/machine/gui_fel.png");
 	private TileEntityFEL fel;
 
 	public GUIFEL(InventoryPlayer invPlayer, TileEntityFEL laser) {

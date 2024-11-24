@@ -1,9 +1,9 @@
 package com.hbm.render.entity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.projectile.EntityFallingNuke;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.amlfrom1710.AdvancedModelLoader;
 import com.hbm.render.amlfrom1710.IModelCustom;
 
@@ -16,15 +16,15 @@ public class RenderFallingNuke extends Render<EntityFallingNuke> {
 
 	public static final IRenderFactory<EntityFallingNuke> FACTORY = (RenderManager man) -> {return new RenderFallingNuke(man);};
 	
-	private static final ResourceLocation objTesterModelRL = new ResourceLocation(/*"/assets/" + */RefStrings.MODID, "models/bombs/LilBoy.obj");
+	private static final ResourceLocation objTesterModelRL = new ResourceLocation(/*"/assets/" + */Tags.MOD_ID, "models/bombs/LilBoy.obj");
 	private IModelCustom boyModel;
     private ResourceLocation boyTexture;
-    private static final ResourceLocation gadget_rl = new ResourceLocation(RefStrings.MODID +":textures/models/bombs/gadget.png");
+    private static final ResourceLocation gadget_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/bombs/gadget.png");
 	
 	protected RenderFallingNuke(RenderManager renderManager) {
 		super(renderManager);
 		boyModel = AdvancedModelLoader.loadModel(objTesterModelRL);
-		boyTexture = new ResourceLocation(RefStrings.MODID, "textures/models/bombs/CustomNuke.png");
+		boyTexture = new ResourceLocation(Tags.MOD_ID, "textures/models/bombs/CustomNuke.png");
 	}
 
 	@Override

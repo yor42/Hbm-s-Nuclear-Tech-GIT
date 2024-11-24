@@ -1,9 +1,9 @@
 package com.hbm.render.entity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.projectile.EntityRainbow;
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
@@ -18,7 +18,7 @@ public class RenderRainbow extends Render<EntityRainbow> {
 
 	public static final IRenderFactory<EntityRainbow> FACTORY = (RenderManager man) -> {return new RenderRainbow(man);};
 	
-	protected static ResourceLocation rainbow_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/Rainbow.png");
+	protected static ResourceLocation rainbow_rl = new ResourceLocation(Tags.MOD_ID + ":textures/models/Rainbow.png");
 	
 	protected RenderRainbow(RenderManager renderManager) {
 		super(renderManager);

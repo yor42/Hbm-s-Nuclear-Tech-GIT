@@ -1,8 +1,8 @@
 package com.hbm.particle;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.main.ResourceManager;
 
 import net.minecraft.client.Minecraft;
@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 public class ParticleRift extends Particle {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/particle/hadron.png");
+	private static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/particle/hadron.png");
 	
 	public ParticleRift(World worldIn, double posXIn, double posYIn, double posZIn){
 		super(worldIn, posXIn, posYIn, posZIn);

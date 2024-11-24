@@ -1,10 +1,10 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import com.hbm.util.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerLaunchPadTier1;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.bomb.TileEntityLaunchPad;
 
 import net.minecraft.client.Minecraft;
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUILaunchPadTier1 extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_launch_pad.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_launch_pad.png");
 	private TileEntityLaunchPad diFurnace;
 
 	public GUILaunchPadTier1(InventoryPlayer invPlayer, TileEntityLaunchPad tedf) {

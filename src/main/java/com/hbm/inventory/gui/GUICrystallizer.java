@@ -1,11 +1,10 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.forgefluid.FFUtils;
-import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.inventory.container.ContainerCrystallizer;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityMachineCrystallizer;
 
 import net.minecraft.client.Minecraft;
@@ -15,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUICrystallizer extends GuiInfoContainer {
 
-	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_crystallizer_alt.png");
+	public static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/processing/gui_crystallizer_alt.png");
 	private TileEntityMachineCrystallizer acidomatic;
 
 	public GUICrystallizer(InventoryPlayer invPlayer, TileEntityMachineCrystallizer acidomatic) {

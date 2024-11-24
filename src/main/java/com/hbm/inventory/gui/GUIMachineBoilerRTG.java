@@ -1,11 +1,11 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import com.hbm.util.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.inventory.container.ContainerMachineBoilerRTG;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityMachineBoilerRTG;
 
 import net.minecraft.client.Minecraft;
@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineBoilerRTG extends GuiInfoContainer {
 
-	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_boiler_rtg.png");
+	public static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_boiler_rtg.png");
 	private TileEntityMachineBoilerRTG rtgBoiler;
 	
 	public GUIMachineBoilerRTG(InventoryPlayer invPlayer, TileEntityMachineBoilerRTG tedf) {

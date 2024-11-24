@@ -1,16 +1,13 @@
 package com.hbm.render.tileentity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.blocks.BlockDummyable;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.machine.rbmk.RBMKBase;
 import com.hbm.blocks.machine.rbmk.RBMKRod;
-import com.hbm.items.machine.ItemRBMKRod;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.ResourceManager;
 import com.hbm.render.amlfrom1710.WavefrontObject;
-import com.hbm.tileentity.machine.rbmk.RBMKDials;
 import com.hbm.tileentity.machine.rbmk.TileEntityRBMKBase;
 import com.hbm.tileentity.machine.rbmk.TileEntityRBMKBoiler;
 import com.hbm.tileentity.machine.rbmk.TileEntityRBMKHeater;
@@ -24,13 +21,12 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 
 public class RenderRBMKLid extends TileEntitySpecialRenderer<TileEntityRBMKBase> {
 
-	private ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/blocks/rbmk/rbmk_blank.png");
-	private ResourceLocation texture_glass = new ResourceLocation(RefStrings.MODID + ":textures/blocks/rbmk/rbmk_blank_glass.png");
-	private static final ResourceLocation texture_rods = new ResourceLocation(RefStrings.MODID + ":textures/blocks/rbmk/rbmk_element_colorable.png");
+	private ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/blocks/rbmk/rbmk_blank.png");
+	private ResourceLocation texture_glass = new ResourceLocation(Tags.MOD_ID + ":textures/blocks/rbmk/rbmk_blank_glass.png");
+	private static final ResourceLocation texture_rods = new ResourceLocation(Tags.MOD_ID + ":textures/blocks/rbmk/rbmk_element_colorable.png");
 	
 	@Override
 	public boolean isGlobalRenderer(TileEntityRBMKBase te){

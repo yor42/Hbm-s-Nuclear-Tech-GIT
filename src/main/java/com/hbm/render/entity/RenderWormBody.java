@@ -1,10 +1,10 @@
 package com.hbm.render.entity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.mob.botprime.EntityBOTPrimeBody;
 import com.hbm.hfr.render.loader.HFRWavefrontObject;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.amlfrom1710.IModelCustom;
 
 import net.minecraft.client.renderer.GlStateManager;
@@ -17,8 +17,8 @@ public class RenderWormBody extends Render<EntityBOTPrimeBody> {
 
 	public static final IRenderFactory<EntityBOTPrimeBody> FACTORY = man -> new RenderWormBody(man);
 	
-	public static final IModelCustom body = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/mobs/bot_prime_body.obj"));
-	public static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID, "textures/entity/mark_zero_body.png");
+	public static final IModelCustom body = new HFRWavefrontObject(new ResourceLocation(Tags.MOD_ID, "models/mobs/bot_prime_body.obj"));
+	public static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID, "textures/entity/mark_zero_body.png");
 
 	protected RenderWormBody(RenderManager renderManager) {
 		super(renderManager);

@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.hbm.Tags;
 import com.hbm.inventory.AssemblerRecipes;
 import com.hbm.inventory.PressRecipes;
 import com.hbm.forgefluid.FluidTypeHandler;
 import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemCassette;
-import com.hbm.items.machine.ItemChemistryTemplate;
 import com.hbm.inventory.ChemplantRecipes;
 import com.hbm.items.machine.ItemForgeFluidIdentifier;
 import com.hbm.items.machine.ItemCassette.TrackType;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.ItemFolderPacket;
 import com.hbm.packet.PacketDispatcher;
 
@@ -37,7 +36,7 @@ import org.lwjgl.input.Keyboard;
 
 public class GUIScreenTemplateFolder extends GuiScreen {
 	
-    protected static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_planner.png");
+    protected static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_planner.png");
     protected int xSize = 176;
     protected int ySize = 229;
     protected int guiLeft;

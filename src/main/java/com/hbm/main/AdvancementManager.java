@@ -1,8 +1,7 @@
 package com.hbm.main;
 
+import com.hbm.Tags;
 import org.apache.logging.log4j.Level;
-
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.entity.player.EntityPlayer;
@@ -55,41 +54,41 @@ public class AdvancementManager {
 	public static void init(MinecraftServer serv){
 		net.minecraft.advancements.AdvancementManager adv = serv.getAdvancementManager();
 		
-		root = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "root"));
-		achSpace = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "space"));
-		bobMetalworks = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "bobmetalworks"));
-		bobAssembly = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "bobassembly"));
-		bobChemistry = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "bobchemistry"));
-		bobOil = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "boboil"));
-		bobNuclear = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "bobnuclear"));
-		bobHidden = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "bobhidden"));
-		achSacrifice = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "achsacrifice"));
-		achFOEQ = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "achfoeq"));
-		achFiend = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "achfiend"));
-		achFiend2 = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "achfiend2"));
-		horizonsStart = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "horizonsstart"));
-		horizonsEnd = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "horizonsend"));
-		horizonsBonus = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "horizonsbonus"));
-		soyuz = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "soyuz"));
-		achRadPoison = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "achradpoison"));
-		achRadDeath = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "achraddeath"));
-		achStratum = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "achstratum"));
-		achMeltdown = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "achmeltdown"));
-		achOmega12 = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "achomega12"));
-		digammaSee = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "digammasee"));
-		digammaFeel = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "digammafeel"));
-		digammaKnow = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "digammaknow"));
-		digammaKauaiMoho = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "digammakauaimoho"));
-		digammaUpOnTop = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "digammaupontop"));
-		achSomeWounds = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "achsomewounds"));
-		progress_dfc = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "progress_dfc"));
-		progress_rbmk_boom = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "progress_rbmk_boom"));
+		root = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "root"));
+		achSpace = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "space"));
+		bobMetalworks = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "bobmetalworks"));
+		bobAssembly = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "bobassembly"));
+		bobChemistry = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "bobchemistry"));
+		bobOil = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "boboil"));
+		bobNuclear = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "bobnuclear"));
+		bobHidden = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "bobhidden"));
+		achSacrifice = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "achsacrifice"));
+		achFOEQ = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "achfoeq"));
+		achFiend = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "achfiend"));
+		achFiend2 = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "achfiend2"));
+		horizonsStart = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "horizonsstart"));
+		horizonsEnd = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "horizonsend"));
+		horizonsBonus = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "horizonsbonus"));
+		soyuz = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "soyuz"));
+		achRadPoison = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "achradpoison"));
+		achRadDeath = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "achraddeath"));
+		achStratum = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "achstratum"));
+		achMeltdown = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "achmeltdown"));
+		achOmega12 = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "achomega12"));
+		digammaSee = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "digammasee"));
+		digammaFeel = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "digammafeel"));
+		digammaKnow = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "digammaknow"));
+		digammaKauaiMoho = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "digammakauaimoho"));
+		digammaUpOnTop = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "digammaupontop"));
+		achSomeWounds = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "achsomewounds"));
+		progress_dfc = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "progress_dfc"));
+		progress_rbmk_boom = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "progress_rbmk_boom"));
 		
-		bossCreeper = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "bosscreeper"));
-		bossMeltdown = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "bossmeltdown"));
-		bossMaskman = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "bossmaskman"));
-		bossWorm = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "bossworm"));
-		bossUFO = adv.getAdvancement(new ResourceLocation(RefStrings.MODID, "bossufo"));
+		bossCreeper = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "bosscreeper"));
+		bossMeltdown = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "bossmeltdown"));
+		bossMaskman = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "bossmaskman"));
+		bossWorm = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "bossworm"));
+		bossUFO = adv.getAdvancement(new ResourceLocation(Tags.MOD_ID, "bossufo"));
 	}
 	
 	public static void grantAchievement(EntityPlayerMP player, Advancement a){

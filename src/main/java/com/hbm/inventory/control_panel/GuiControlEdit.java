@@ -5,9 +5,9 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 
+import com.hbm.Tags;
 import org.lwjgl.input.Mouse;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.NBTControlPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.machine.TileEntityControlPanel;
@@ -24,7 +24,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiControlEdit extends GuiContainer {
 
-	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/control_panel/gui_placement_back.png");
+	public static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/control_panel/gui_placement_back.png");
 
 	public float mouseX, mouseY;
 	

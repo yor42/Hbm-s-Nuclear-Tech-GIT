@@ -1,9 +1,9 @@
 package com.hbm.render.entity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.projectile.EntityMeteor;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.RenderHelper;
 
 import net.minecraft.client.renderer.GlStateManager;
@@ -16,7 +16,7 @@ public class RenderMeteor extends Render<EntityMeteor> {
 
 	public static final IRenderFactory<EntityMeteor> FACTORY = (RenderManager man) -> {return new RenderMeteor(man);};
 	
-	private static final ResourceLocation block_rl = new ResourceLocation(RefStrings.MODID + ":textures/blocks/block_meteor_molten.png");
+	private static final ResourceLocation block_rl = new ResourceLocation(Tags.MOD_ID + ":textures/blocks/block_meteor_molten.png");
 	
 	protected RenderMeteor(RenderManager renderManager) {
 		super(renderManager);

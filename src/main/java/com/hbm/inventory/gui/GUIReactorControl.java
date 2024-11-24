@@ -2,11 +2,11 @@ package com.hbm.inventory.gui;
 
 import java.io.IOException;
 
+import com.hbm.Tags;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerReactorControl;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.AuxButtonPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.machine.TileEntityReactorControl;
@@ -20,7 +20,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIReactorControl extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_reactor_control.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_reactor_control.png");
 	private TileEntityReactorControl control;
 	
 	public GUIReactorControl(InventoryPlayer invPlayer, TileEntityReactorControl tedf) {

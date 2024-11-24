@@ -1,9 +1,9 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.items.weapon.GunFolly;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelFolly;
 
@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 public class ItemRenderFolly extends TEISRBase {
 
 	protected ModelFolly folly;
-	protected static ResourceLocation folly_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelFolly.png");
+	protected static ResourceLocation folly_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelFolly.png");
 	
 	public ItemRenderFolly() {
 		folly = new ModelFolly();

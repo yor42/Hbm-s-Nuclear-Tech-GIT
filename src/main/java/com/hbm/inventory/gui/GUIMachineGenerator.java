@@ -1,11 +1,11 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import com.hbm.util.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.inventory.container.ContainerMachineGenerator;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityMachineGenerator;
 
 import net.minecraft.client.Minecraft;
@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineGenerator extends GuiInfoContainer {
 
-	private static final ResourceLocation TEXTURE = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_generator.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_generator.png");
 	private TileEntityMachineGenerator diFurnace;
 	
 	public GUIMachineGenerator(EntityPlayer invPlayer, TileEntityMachineGenerator tedf) {

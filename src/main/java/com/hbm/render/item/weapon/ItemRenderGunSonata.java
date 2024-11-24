@@ -1,9 +1,9 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.items.weapon.GunLeverActionS;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelLeverAction;
 
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class ItemRenderGunSonata extends TEISRBase {
 
-	private static ResourceLocation sonata_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/weapons/ModelLeverAction.png");
+	private static ResourceLocation sonata_rl = new ResourceLocation(Tags.MOD_ID + ":textures/models/weapons/ModelLeverAction.png");
 	protected ModelLeverAction leveraction;
 
 	public ItemRenderGunSonata() {

@@ -1,9 +1,10 @@
 package com.hbm.handler.gs.script;
 
 import com.cleanroommc.groovyscript.api.GroovyLog;
-import com.cleanroommc.groovyscript.helper.SimpleObjectStream;
+import com.cleanroommc.groovyscript.api.documentation.annotations.*;
 import com.cleanroommc.groovyscript.helper.recipe.AbstractRecipeBuilder;
-import com.cleanroommc.groovyscript.registry.VirtualizedRegistry;
+import com.cleanroommc.groovyscript.registry.StandardListRegistry;
+import com.hbm.Tags;
 import com.hbm.handler.gs.NTM;
 import com.hbm.handler.gs.script.recipes.GroovyAnvilSmithingRecipes;
 import com.hbm.inventory.AnvilRecipes;
@@ -11,111 +12,91 @@ import com.hbm.inventory.AnvilSmithingRecipe;
 import net.minecraft.item.ItemStack;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
-public class AnvilSmithing extends VirtualizedRegistry<AnvilSmithingRecipe> {
+@RegistryDescription(linkGenerator = Tags.MOD_ID)
+public class AnvilSmithing extends StandardListRegistry<AnvilSmithingRecipe> {
 
     @Override
-    public void onReload() {
-        Collection<AnvilSmithingRecipe> collection = this.removeScripted();
-        List<AnvilSmithingRecipe> recipelist = AnvilRecipes.getSmithing();
-        collection.forEach(recipelist::remove);
-        collection = this.restoreFromBackup();
-        recipelist = AnvilRecipes.getSmithing();
-        recipelist.addAll(collection);
+    public Collection<AnvilSmithingRecipe> getRecipes() {
+        return AnvilRecipes.getSmithing();
     }
 
+    @RecipeBuilderDescription(example = {
+            @Example(".input(item('minecraft:clay'), item('minecraft:clay')).tierIron().output(item('minecraft:diamond'))"),
+            @Example(".input(item('minecraft:clay'), item('minecraft:clay')).tier(2).output(item('minecraft:diamond')*2)")
+    })
     public RecipeBuilder recipeBuilder() {
         return new RecipeBuilder();
     }
 
-    public void add(AnvilSmithingRecipe recipe) {
-        this.addScripted(recipe);
-        AnvilRecipes.getSmithing().add(recipe);
-    }
-
-    public boolean remove(AnvilSmithingRecipe recipe){
-        if(AnvilRecipes.getSmithing().contains(recipe)){
-            this.addBackup(recipe);
-            AnvilRecipes.getSmithing().remove(recipe);
-            return true;
-        }
-        return false;
-    }
-
-    public void removeAll(){
-        AnvilRecipes.getSmithing().forEach(this::addBackup);
-        AnvilRecipes.getSmithing().clear();
-    }
-
-    public SimpleObjectStream<AnvilSmithingRecipe> streamRecipes() {
-        return new SimpleObjectStream<>(AnvilRecipes.getSmithing()).setRemover(this::remove);
-    }
-
+    @MethodDescription(example = @Example("item('minecraft:clay')"))
     public void removeByOutput(ItemStack item) {
-
         for (AnvilSmithingRecipe recipe : AnvilRecipes.getSmithing().stream().filter((x) -> x.getSimpleOutput().isItemEqual(item)).collect(Collectors.toList())) {
             this.remove(recipe);
         }
-
     }
 
+    @Property(property = "input", comp = @Comp(gte=1))
+    @Property(property = "input", comp = @Comp(lte=2))
+    @Property(property = "output", comp = @Comp(eq=1))
     public static class RecipeBuilder extends AbstractRecipeBuilder<AnvilSmithingRecipe> {
 
+        @Property(defaultValue = "1", comp = @Comp(gt = 0))
         int tier = 1;
 
+        @RecipeBuilderMethodDescription(field = "tier")
         public RecipeBuilder tier(int tier){
             this.tier = tier;
             return this;
         }
-
+        @RecipeBuilderMethodDescription(field = "tier")
         public RecipeBuilder tierIron(){
             this.tier = 1;
             return this;
         }
-
+        @RecipeBuilderMethodDescription(field = "tier")
         public RecipeBuilder tierSteel(){
             this.tier = 1;
             return this;
         }
-
+        @RecipeBuilderMethodDescription(field = "tier")
         public RecipeBuilder tierMeteorite(){
             this.tier = 2;
             return this;
         }
-
+        @RecipeBuilderMethodDescription(field = "tier")
         public RecipeBuilder tierStarmetal(){
             this.tier = 3;
             return this;
         }
-
+        @RecipeBuilderMethodDescription(field = "tier")
         public RecipeBuilder tierFerrouranium(){
             this.tier = 4;
             return this;
         }
-
+        @RecipeBuilderMethodDescription(field = "tier")
         public RecipeBuilder tierBismuth(){
             this.tier = 5;
             return this;
         }
-
+        @RecipeBuilderMethodDescription(field = "tier")
         public RecipeBuilder tierSchrabidate(){
             this.tier = 6;
             return this;
         }
-
+        @RecipeBuilderMethodDescription(field = "tier")
         public RecipeBuilder tierDNT(){
             this.tier = 7;
             return this;
         }
-
+        @RecipeBuilderMethodDescription(field = "tier")
         public RecipeBuilder tierOsmiridium(){
             this.tier = 8;
             return this;
         }
-
+        @RecipeBuilderMethodDescription(field = "tier")
         public RecipeBuilder tierMurky(){
             this.tier = 1916169;
             return this;
@@ -133,6 +114,7 @@ public class AnvilSmithing extends VirtualizedRegistry<AnvilSmithingRecipe> {
         }
 
         @Override
+        @RecipeBuilderRegistrationMethod
         public AnvilSmithingRecipe register() {
             if (!this.validate()) {
                 return null;

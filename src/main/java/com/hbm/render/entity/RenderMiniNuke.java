@@ -1,9 +1,9 @@
 package com.hbm.render.entity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.projectile.EntityMiniNuke;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelMiniNuke;
 
 import net.minecraft.client.renderer.entity.Render;
@@ -16,7 +16,7 @@ public class RenderMiniNuke extends Render<EntityMiniNuke> {
 
 	public static final IRenderFactory<EntityMiniNuke> FACTORY = (RenderManager man) -> {return new RenderMiniNuke(man);};
 	
-	protected static ResourceLocation nuke_rl = new ResourceLocation(RefStrings.MODID + ":textures/models/projectiles/MiniNuke.png");
+	protected static ResourceLocation nuke_rl = new ResourceLocation(Tags.MOD_ID + ":textures/models/projectiles/MiniNuke.png");
 	private ModelMiniNuke miniNuke;
 	
 	protected RenderMiniNuke(RenderManager renderManager) {

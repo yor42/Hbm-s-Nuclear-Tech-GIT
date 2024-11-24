@@ -1,10 +1,10 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.items.ModItems;
 import com.hbm.items.weapon.GunB93;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelB93;
 
@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 public class RenderGunB93 extends TEISRBase {
 
 	protected ModelB93 b93;
-	protected ResourceLocation b93_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelB93.png");
+	protected ResourceLocation b93_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelB93.png");
 	
 	public RenderGunB93(){
 		b93 = new ModelB93();

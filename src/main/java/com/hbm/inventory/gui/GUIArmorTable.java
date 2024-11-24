@@ -1,8 +1,8 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import com.hbm.handler.ArmorModHandler;
 import com.hbm.inventory.container.ContainerArmorTable;
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIArmorTable extends GuiContainer {
 
-	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_armor_modifier.png");
+	public static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/machine/gui_armor_modifier.png");
 	public int left;
 	public int top;
 

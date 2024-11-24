@@ -1,8 +1,8 @@
 package com.hbm.render.tileentity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.main.ResourceManager;
 import com.hbm.render.util.RenderMiscEffects;
 import com.hbm.tileentity.bomb.TileEntityNukeBalefire;
@@ -45,7 +45,7 @@ public class RenderNukeFstbmb extends TileEntitySpecialRenderer<TileEntityNukeBa
 
 
         if(bf.loaded) {
-	        bindTexture(new ResourceLocation(RefStrings.MODID + ":textures/misc/glintBF.png"));
+	        bindTexture(new ResourceLocation(Tags.MOD_ID + ":textures/misc/glintBF.png"));
 	        RenderMiscEffects.renderClassicGlint(bf.getWorld(), partialTicks, ResourceManager.fstbmb, "Balefire", 0.0F, 0.8F, 0.15F, 5, 2F);
 
 	        FontRenderer font = Minecraft.getMinecraft().fontRenderer;

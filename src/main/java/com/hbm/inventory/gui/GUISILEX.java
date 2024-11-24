@@ -3,13 +3,13 @@ package com.hbm.inventory.gui;
 import java.awt.Color;
 import java.io.IOException;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.inventory.container.ContainerSILEX;
 import com.hbm.items.machine.ItemFELCrystal.EnumWavelengths;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.AuxButtonPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.machine.TileEntitySILEX;
@@ -28,7 +28,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUISILEX extends GuiInfoContainer {
 
-	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_silex.png");
+	public static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/processing/gui_silex.png");
 	private TileEntitySILEX silex;
 
 	public GUISILEX(InventoryPlayer invPlayer, TileEntitySILEX laser) {

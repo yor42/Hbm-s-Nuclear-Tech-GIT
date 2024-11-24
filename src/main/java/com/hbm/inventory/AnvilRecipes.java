@@ -6,6 +6,7 @@ import static com.hbm.inventory.OreDictManager.STEEL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static com.hbm.inventory.OreDictManager.*;
@@ -794,20 +795,20 @@ public class AnvilRecipes {
 		}
 		
 		public AnvilConstructionRecipe(AStack[] input, AnvilOutput output) {
-			for(AStack stack : input) this.input.add(stack);
+            Collections.addAll(this.input, input);
 			this.output.add(output);
 			this.setOverlay(OverlayType.CONSTRUCTION); //preferred overlay for many:1 conversions is construction
 		}
 		
 		public AnvilConstructionRecipe(AStack input, AnvilOutput[] output) {
 			this.input.add(input);
-			for(AnvilOutput out : output) this.output.add(out);
+            this.output.addAll(Arrays.asList(output));
 			this.setOverlay(OverlayType.RECYCLING); //preferred overlay for 1:many conversions is recycling
 		}
 		
 		public AnvilConstructionRecipe(AStack[] input, AnvilOutput[] output) {
-			for(AStack stack : input) this.input.add(stack);
-			for(AnvilOutput out : output) this.output.add(out);
+            this.input.addAll(Arrays.asList(input));
+            this.output.addAll(Arrays.asList(output));
 			this.setOverlay(OverlayType.NONE); //no preferred overlay for many:many conversions
 		}
 		

@@ -1,9 +1,9 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerRBMKHeater;
-import com.hbm.lib.RefStrings;
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.tileentity.machine.rbmk.TileEntityRBMKHeater;
 
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIRBMKHeater extends GuiInfoContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/reactors/gui_rbmk_heater.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/reactors/gui_rbmk_heater.png");
 	private TileEntityRBMKHeater rod;
 
 	public GUIRBMKHeater(InventoryPlayer invPlayer, TileEntityRBMKHeater tedf) {

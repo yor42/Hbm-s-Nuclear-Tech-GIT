@@ -1,6 +1,6 @@
 package com.hbm.packet;
 
-import com.hbm.lib.RefStrings;
+import com.hbm.Tags;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -10,7 +10,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public class PacketDispatcher {
 	
-	public static final SimpleNetworkWrapper wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(RefStrings.MODID);
+	public static final SimpleNetworkWrapper wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(Tags.MOD_ID);
 	
 	public static final void registerPackets(){
 		int i = 0;

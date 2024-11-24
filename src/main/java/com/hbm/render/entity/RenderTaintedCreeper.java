@@ -1,9 +1,9 @@
 package com.hbm.render.entity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.mob.EntityTaintedCreeper;
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -13,7 +13,7 @@ import net.minecraft.util.math.MathHelper;
 
 public class RenderTaintedCreeper extends RenderLiving<EntityTaintedCreeper> {
 
-    private static final ResourceLocation creeperTextures = new ResourceLocation(RefStrings.MODID + ":" + "textures/entity/creeper_tainted.png");
+    private static final ResourceLocation creeperTextures = new ResourceLocation(Tags.MOD_ID + ":" + "textures/entity/creeper_tainted.png");
 	
 	public RenderTaintedCreeper(RenderManager rendermanagerIn) {
 		super(rendermanagerIn, new ModelCreeper(), 0.5F);

@@ -1,9 +1,9 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerCoreAdvanced;
-import com.hbm.lib.RefStrings;
 import com.hbm.lib.Library;
 import com.hbm.tileentity.machine.TileEntityCoreAdvanced;
 
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUICoreAdvanced extends GuiInfoContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/factory_advanced.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/factory_advanced.png");
 	private TileEntityCoreAdvanced diFurnace;
 
 	public GUICoreAdvanced(InventoryPlayer invPlayer, TileEntityCoreAdvanced tedf) {

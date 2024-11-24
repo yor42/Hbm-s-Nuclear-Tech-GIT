@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.effect.EntityNukeTorex;
 import com.hbm.entity.effect.EntityNukeTorex.Cloudlet;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.MainRegistry;
 import com.hbm.render.amlfrom1710.Vec3;
 
@@ -25,7 +25,6 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
@@ -35,8 +34,8 @@ public class RenderTorex extends Render<EntityNukeTorex> {
 
 	public static final IRenderFactory<EntityNukeTorex> FACTORY = man -> new RenderTorex(man);
 	
-	private static final ResourceLocation cloudlet = new ResourceLocation(RefStrings.MODID + ":textures/particle/particle_base.png");
-	private static final ResourceLocation flare = new ResourceLocation(RefStrings.MODID + ":textures/particle/flare.png");
+	private static final ResourceLocation cloudlet = new ResourceLocation(Tags.MOD_ID + ":textures/particle/particle_base.png");
+	private static final ResourceLocation flare = new ResourceLocation(Tags.MOD_ID + ":textures/particle/flare.png");
 
 	public static final int flashBaseDuration = 30;
 	public static final int flareBaseDuration = 100;

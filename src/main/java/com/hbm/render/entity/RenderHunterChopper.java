@@ -1,9 +1,9 @@
 package com.hbm.render.entity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.mob.EntityHunterChopper;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelHunterChopper;
 
 import net.minecraft.client.renderer.entity.Render;
@@ -15,7 +15,7 @@ public class RenderHunterChopper extends Render<EntityHunterChopper> {
 
 	public static final IRenderFactory<EntityHunterChopper> FACTORY = (RenderManager man) -> {return new RenderHunterChopper(man);};
 	
-	public static final ResourceLocation chopper_rl = new ResourceLocation(RefStrings.MODID + ":textures/entity/chopper.png");
+	public static final ResourceLocation chopper_rl = new ResourceLocation(Tags.MOD_ID + ":textures/entity/chopper.png");
 	
 	//ProtoCopter mine;
 	ModelHunterChopper mine2;

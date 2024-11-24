@@ -1,9 +1,9 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerNukeFurnace;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityNukeFurnace;
 
 import net.minecraft.client.Minecraft;
@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUINukeFurnace extends GuiInfoContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_nuke_furnace.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/processing/gui_nuke_furnace.png");
 	private TileEntityNukeFurnace furnace;
 
 	public GUINukeFurnace(InventoryPlayer invPlayer, TileEntityNukeFurnace tedf) {

@@ -1,11 +1,11 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.inventory.container.ContainerMachineTurbine;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityMachineTurbine;
 
 import net.minecraft.client.Minecraft;
@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineTurbine extends GuiInfoContainer {
 
-	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_turbine.png");
+	public static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_turbine.png");
 	private TileEntityMachineTurbine diFurnace;
 	
 	public GUIMachineTurbine(InventoryPlayer invPlayer, TileEntityMachineTurbine tedf) {

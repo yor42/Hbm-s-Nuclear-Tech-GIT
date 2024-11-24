@@ -3,8 +3,8 @@ package com.hbm.items.gear;
 import java.util.List;
 import java.util.Random;
 
+import com.hbm.Tags;
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -51,7 +51,7 @@ public class ArmorAustralium extends ItemArmor {
 	
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
 		if(stack.getItem().equals(ModItems.australium_iii)) {
-			return (RefStrings.MODID + ":textures/armor/australium_iii.png");
+			return (Tags.MOD_ID + ":textures/armor/australium_iii.png");
 		}
 		return super.getArmorTexture(stack, entity, slot, type);
 	}

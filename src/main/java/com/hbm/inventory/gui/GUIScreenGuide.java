@@ -3,12 +3,12 @@ package com.hbm.inventory.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hbm.Tags;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.items.tool.ItemGuideBook.BookType;
 import com.hbm.items.tool.ItemGuideBook.GuidePage;
-import com.hbm.lib.RefStrings;
 import com.hbm.util.I18nUtil;
 
 import net.minecraft.client.Minecraft;
@@ -26,8 +26,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIScreenGuide extends GuiScreen {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/book/book.png");
-	private static final ResourceLocation texture_cover = new ResourceLocation(RefStrings.MODID + ":textures/gui/book/book_cover.png");
+	private static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/book/book.png");
+	private static final ResourceLocation texture_cover = new ResourceLocation(Tags.MOD_ID + ":textures/gui/book/book_cover.png");
 
 	protected int xSize;
 	protected int ySize;

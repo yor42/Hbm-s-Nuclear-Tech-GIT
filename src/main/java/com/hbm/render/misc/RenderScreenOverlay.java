@@ -1,7 +1,7 @@
 package com.hbm.render.misc;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
-import com.hbm.lib.RefStrings;
 import com.hbm.config.RadiationConfig;
 
 import net.minecraft.client.Minecraft;
@@ -22,7 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderScreenOverlay {
 
-	private static final ResourceLocation misc = new ResourceLocation(RefStrings.MODID + ":textures/misc/overlay_misc.png");
+	private static final ResourceLocation misc = new ResourceLocation(Tags.MOD_ID + ":textures/misc/overlay_misc.png");
 	private static final RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
 	
 	private static long lastRadSurvey;

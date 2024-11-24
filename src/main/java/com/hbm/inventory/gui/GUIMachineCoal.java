@@ -1,11 +1,11 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import com.hbm.util.I18nUtil;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.inventory.container.ContainerMachineCoal;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.TileEntityMachineCoal;
 
 import net.minecraft.client.Minecraft;
@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineCoal extends GuiInfoContainer {
 
-	private static final ResourceLocation TEXTURE = new ResourceLocation(RefStrings.MODID + ":textures/gui/GUICoal.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(Tags.MOD_ID + ":textures/gui/GUICoal.png");
 	private TileEntityMachineCoal diFurnace;
 	
 	public GUIMachineCoal(InventoryPlayer invPlayer, TileEntityMachineCoal tedf) {

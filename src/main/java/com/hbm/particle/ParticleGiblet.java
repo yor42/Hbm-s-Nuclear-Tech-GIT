@@ -1,8 +1,7 @@
 package com.hbm.particle;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
-
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -21,7 +20,7 @@ import net.minecraft.world.World;
 
 public class ParticleGiblet extends Particle {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/particle/meat.png");
+	private static final ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/particle/meat.png");
 	
 	private float momentumYaw;
 	private float momentumPitch;

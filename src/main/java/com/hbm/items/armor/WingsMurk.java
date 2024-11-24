@@ -1,10 +1,10 @@
 package com.hbm.items.armor;
 
+import com.hbm.Tags;
 import com.hbm.capability.HbmCapability;
 import com.hbm.capability.HbmCapability.IHBMData;
 import com.hbm.handler.ArmorUtil;
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 import com.hbm.render.amlfrom1710.Vec3;
 import com.hbm.render.model.ModelArmorWings;
 
@@ -45,7 +45,7 @@ public class WingsMurk extends ItemArmor {
 	@SideOnly(Side.CLIENT)
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type){
 		//Drillgon200: Unused, just so forge doesn't yell in the log
-		return RefStrings.MODID + ":textures/armor/steel_1.png";
+		return Tags.MOD_ID + ":textures/armor/steel_1.png";
 	}
 	
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {

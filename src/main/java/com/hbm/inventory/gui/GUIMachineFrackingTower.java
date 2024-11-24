@@ -1,10 +1,9 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.inventory.container.ContainerMachineFrackingTower;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.oil.TileEntityMachineFrackingTower;
-import com.hbm.tileentity.machine.oil.TileEntityMachinePumpjack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -13,7 +12,7 @@ import org.lwjgl.opengl.GL11;
 
 public class GUIMachineFrackingTower extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_fracking_tower.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_fracking_tower.png");
 	private TileEntityMachineFrackingTower frackingTower;
 
 	public GUIMachineFrackingTower(InventoryPlayer invPlayer, TileEntityMachineFrackingTower tedf) {

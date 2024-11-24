@@ -1,7 +1,7 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import com.hbm.inventory.container.ContainerCraneBoxer;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.NBTControlPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.network.TileEntityCraneBoxer;
@@ -17,7 +17,7 @@ import org.lwjgl.opengl.GL11;
 import java.io.IOException;
 
 public class GUICraneBoxer extends GuiInfoContainer {
-    private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/storage/gui_crane_boxer.png");
+    private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/storage/gui_crane_boxer.png");
     private TileEntityCraneBoxer boxer;
 
     private String[] modeDesc = new String[] { 

@@ -1,7 +1,7 @@
 package com.hbm.particle;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
-import com.hbm.lib.RefStrings;
 import com.hbm.util.BobMathUtil;
 
 import net.minecraft.client.Minecraft;
@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 
 public class ParticleExp5 extends Particle {
 
-	public static final ResourceLocation tex3 = new ResourceLocation(RefStrings.MODID, "textures/particle/explosion.png");
+	public static final ResourceLocation tex3 = new ResourceLocation(Tags.MOD_ID, "textures/particle/explosion.png");
 	
 	public ParticleExp5(World worldIn, double posXIn, double posYIn, double posZIn) {
 		super(worldIn, posXIn, posYIn, posZIn);

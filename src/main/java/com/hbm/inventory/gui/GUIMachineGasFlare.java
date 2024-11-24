@@ -1,5 +1,6 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.FluidCombustionRecipes;
@@ -8,7 +9,6 @@ import com.hbm.packet.PacketDispatcher;
 import com.hbm.util.I18nUtil;
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.inventory.container.ContainerMachineGasFlare;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.machine.oil.TileEntityMachineGasFlare;
 
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -23,7 +23,7 @@ import java.io.IOException;
 
 public class GUIMachineGasFlare extends GuiInfoContainer {
 
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/generators/gui_flare_stack.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/generators/gui_flare_stack.png");
 	private TileEntityMachineGasFlare flare;
 	
 	public GUIMachineGasFlare(InventoryPlayer invPlayer, TileEntityMachineGasFlare tedf) {

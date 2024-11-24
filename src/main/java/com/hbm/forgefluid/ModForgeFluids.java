@@ -3,6 +3,7 @@ package com.hbm.forgefluid;
 import java.awt.Color;
 import java.util.HashMap;
 
+import com.hbm.Tags;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.fluid.CoriumBlock;
 import com.hbm.blocks.fluid.CoriumFluid;
@@ -17,7 +18,6 @@ import com.hbm.blocks.fluid.RadWaterFluid;
 import com.hbm.blocks.fluid.VolcanicBlock;
 import com.hbm.blocks.fluid.VolcanicFluid;
 import com.hbm.lib.ModDamageSource;
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.world.WorldEvent;
@@ -26,102 +26,102 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber(modid = RefStrings.MODID)
+@Mod.EventBusSubscriber(modid = Tags.MOD_ID)
 public class ModForgeFluids {
 
 	public static HashMap<Fluid, Integer> fluidColors = new HashMap<Fluid, Integer>();
 	
-	public static Fluid spentsteam = new Fluid("spentsteam", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/spentsteam_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/spentsteam_flowing"), null, Color.WHITE).setTemperature(40 + 273);
-	public static Fluid steam = new Fluid("steam", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/steam_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/steam_flowing"), null, Color.WHITE).setTemperature(100 + 273);
-	public static Fluid hotsteam = new Fluid("hotsteam", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotsteam_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotsteam_flowing"), null, Color.WHITE).setTemperature(300 + 273);
-	public static Fluid superhotsteam = new Fluid("superhotsteam", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/superhotsteam_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/superhotsteam_flowing"), null, Color.WHITE).setTemperature(450 + 273);
-	public static Fluid ultrahotsteam = new Fluid("ultrahotsteam", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/ultrahotsteam_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/ultrahotsteam_flowing"), Color.WHITE).setTemperature(600 + 273);
-	public static Fluid coolant = new Fluid("coolant", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/coolant_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/coolant_flowing"), null, Color.WHITE).setTemperature(203);
-	public static Fluid hotcoolant = new Fluid("hotcoolant", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotcoolant_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotcoolant_flowing"), null, Color.WHITE).setTemperature(400 + 273);
+	public static Fluid spentsteam = new Fluid("spentsteam", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/spentsteam_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/spentsteam_flowing"), null, Color.WHITE).setTemperature(40 + 273);
+	public static Fluid steam = new Fluid("steam", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/steam_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/steam_flowing"), null, Color.WHITE).setTemperature(100 + 273);
+	public static Fluid hotsteam = new Fluid("hotsteam", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotsteam_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotsteam_flowing"), null, Color.WHITE).setTemperature(300 + 273);
+	public static Fluid superhotsteam = new Fluid("superhotsteam", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/superhotsteam_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/superhotsteam_flowing"), null, Color.WHITE).setTemperature(450 + 273);
+	public static Fluid ultrahotsteam = new Fluid("ultrahotsteam", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/ultrahotsteam_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/ultrahotsteam_flowing"), Color.WHITE).setTemperature(600 + 273);
+	public static Fluid coolant = new Fluid("coolant", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/coolant_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/coolant_flowing"), null, Color.WHITE).setTemperature(203);
+	public static Fluid hotcoolant = new Fluid("hotcoolant", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotcoolant_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotcoolant_flowing"), null, Color.WHITE).setTemperature(400 + 273);
 
-	public static Fluid heavywater = new Fluid("heavywater", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/heavywater_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/heavywater_flowing"), null, Color.WHITE);
-	public static Fluid deuterium = new Fluid("deuterium", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/deuterium_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/deuterium_flowing"), null, Color.WHITE);
-	public static Fluid tritium = new Fluid("tritium", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/tritium_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/tritium_flowing"), null, Color.WHITE);
+	public static Fluid heavywater = new Fluid("heavywater", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/heavywater_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/heavywater_flowing"), null, Color.WHITE);
+	public static Fluid deuterium = new Fluid("deuterium", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/deuterium_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/deuterium_flowing"), null, Color.WHITE);
+	public static Fluid tritium = new Fluid("tritium", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/tritium_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/tritium_flowing"), null, Color.WHITE);
 
-	public static Fluid oil = new Fluid("oil", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/oil_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/oil_flowing"), null, Color.WHITE);
-	public static Fluid hotoil = new Fluid("hotoil", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotoil_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotoil_flowing"), null, Color.WHITE).setTemperature(350+273);
-	public static Fluid crackoil = new Fluid("crackoil", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/crackoil_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/crackoil_flowing"), null, Color.WHITE);
-	public static Fluid hotcrackoil = new Fluid("hotcrackoil", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotcrackoil_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hotcrackoil_flowing"), null, Color.WHITE).setTemperature(350+273);
+	public static Fluid oil = new Fluid("oil", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/oil_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/oil_flowing"), null, Color.WHITE);
+	public static Fluid hotoil = new Fluid("hotoil", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotoil_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotoil_flowing"), null, Color.WHITE).setTemperature(350+273);
+	public static Fluid crackoil = new Fluid("crackoil", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/crackoil_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/crackoil_flowing"), null, Color.WHITE);
+	public static Fluid hotcrackoil = new Fluid("hotcrackoil", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotcrackoil_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hotcrackoil_flowing"), null, Color.WHITE).setTemperature(350+273);
 
-	public static Fluid heavyoil = new Fluid("heavyoil", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/heavyoil_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/heavyoil_flowing"), null, Color.WHITE);
-	public static Fluid bitumen = new Fluid("bitumen", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/bitumen_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/bitumen_flowing"), null, Color.WHITE);
-	public static Fluid smear = new Fluid("smear", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/smear_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/smear_flowing"), null, Color.WHITE);
-	public static Fluid heatingoil = new Fluid("heatingoil", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/heatingoil_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/heatingoil_flowing"), null, Color.WHITE);
+	public static Fluid heavyoil = new Fluid("heavyoil", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/heavyoil_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/heavyoil_flowing"), null, Color.WHITE);
+	public static Fluid bitumen = new Fluid("bitumen", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/bitumen_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/bitumen_flowing"), null, Color.WHITE);
+	public static Fluid smear = new Fluid("smear", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/smear_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/smear_flowing"), null, Color.WHITE);
+	public static Fluid heatingoil = new Fluid("heatingoil", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/heatingoil_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/heatingoil_flowing"), null, Color.WHITE);
 
-	public static Fluid reclaimed = new Fluid("reclaimed", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/reclaimed_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/reclaimed_flowing"), null, Color.WHITE);
-	public static Fluid petroil = new Fluid("petroil", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/petroil_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/petroil_flowing"), null, Color.WHITE);
+	public static Fluid reclaimed = new Fluid("reclaimed", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/reclaimed_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/reclaimed_flowing"), null, Color.WHITE);
+	public static Fluid petroil = new Fluid("petroil", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/petroil_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/petroil_flowing"), null, Color.WHITE);
 
-	public static Fluid fracksol = new Fluid("fracksol", new ResourceLocation(RefStrings.MODID,  "blocks/forgefluid/fracksol_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/fracksol_flowing"), null, Color.WHITE);
+	public static Fluid fracksol = new Fluid("fracksol", new ResourceLocation(Tags.MOD_ID,  "blocks/forgefluid/fracksol_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/fracksol_flowing"), null, Color.WHITE);
 	//Drillgon200: Bruh I spelled this wrong, too.
-	public static Fluid lubricant = new Fluid("lubricant", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/lubricant_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/lubricant_flowing"), null, Color.WHITE);
+	public static Fluid lubricant = new Fluid("lubricant", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/lubricant_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/lubricant_flowing"), null, Color.WHITE);
 
 	//Yes yes I know, I spelled 'naphtha' wrong.
-	public static Fluid naphtha = new Fluid("naphtha", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/napatha_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/napatha_flowing"), null, Color.WHITE);
-	public static Fluid diesel = new Fluid("diesel", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/diesel_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/diesel_flowing"), null, Color.WHITE);
+	public static Fluid naphtha = new Fluid("naphtha", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/napatha_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/napatha_flowing"), null, Color.WHITE);
+	public static Fluid diesel = new Fluid("diesel", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/diesel_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/diesel_flowing"), null, Color.WHITE);
 
-	public static Fluid lightoil = new Fluid("lightoil", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/lightoil_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/lightoil_flowing"), null, Color.WHITE);
-	public static Fluid kerosene = new Fluid("kerosene", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/kerosene_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/kerosene_flowing"), null, Color.WHITE);
+	public static Fluid lightoil = new Fluid("lightoil", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/lightoil_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/lightoil_flowing"), null, Color.WHITE);
+	public static Fluid kerosene = new Fluid("kerosene", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/kerosene_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/kerosene_flowing"), null, Color.WHITE);
 
-	public static Fluid gas = new Fluid("gas", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/gas_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/gas_flowing"), null, Color.WHITE).setTemperature(111);
-	public static Fluid petroleum = new Fluid("petroleum", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/petroleum_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/petroleum_flowing"), null, Color.WHITE);
+	public static Fluid gas = new Fluid("gas", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/gas_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/gas_flowing"), null, Color.WHITE).setTemperature(111);
+	public static Fluid petroleum = new Fluid("petroleum", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/petroleum_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/petroleum_flowing"), null, Color.WHITE);
 
-	public static Fluid aromatics = new Fluid("aromatics", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/aromatics_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/aromatics_flowing"), null, Color.WHITE);
-	public static Fluid unsaturateds = new Fluid("unsaturateds", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/unsaturateds_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/unsaturateds_flowing"), null, Color.WHITE);
+	public static Fluid aromatics = new Fluid("aromatics", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/aromatics_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/aromatics_flowing"), null, Color.WHITE);
+	public static Fluid unsaturateds = new Fluid("unsaturateds", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/unsaturateds_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/unsaturateds_flowing"), null, Color.WHITE);
 	
-	public static Fluid biogas = new Fluid("biogas", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/biogas_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/biogas_flowing"), null, Color.WHITE);
-	public static Fluid biofuel = new Fluid("biofuel", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/biofuel_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/biofuel_flowing"), null, Color.WHITE);
+	public static Fluid biogas = new Fluid("biogas", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/biogas_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/biogas_flowing"), null, Color.WHITE);
+	public static Fluid biofuel = new Fluid("biofuel", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/biofuel_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/biofuel_flowing"), null, Color.WHITE);
 
-	public static Fluid ethanol = new Fluid("ethanol", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/ethanol_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/ethanol_flowing"), null, Color.WHITE);
-	public static Fluid fishoil = new Fluid("fishoil", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/fishoil_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/fishoil_flowing"), null, Color.WHITE);
-	public static Fluid sunfloweroil = new Fluid("sunfloweroil", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/sunfloweroil_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/sunfloweroil_flowing"), null, Color.WHITE);
-	public static Fluid colloid = new Fluid("colloid", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/colloid_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/colloid_flowing"), null, Color.WHITE);
+	public static Fluid ethanol = new Fluid("ethanol", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/ethanol_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/ethanol_flowing"), null, Color.WHITE);
+	public static Fluid fishoil = new Fluid("fishoil", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/fishoil_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/fishoil_flowing"), null, Color.WHITE);
+	public static Fluid sunfloweroil = new Fluid("sunfloweroil", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/sunfloweroil_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/sunfloweroil_flowing"), null, Color.WHITE);
+	public static Fluid colloid = new Fluid("colloid", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/colloid_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/colloid_flowing"), null, Color.WHITE);
 
-	public static Fluid nitan = new Fluid("nitan", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/nitan_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/nitan_flowing"), null, Color.WHITE);
+	public static Fluid nitan = new Fluid("nitan", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/nitan_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/nitan_flowing"), null, Color.WHITE);
 
-	public static Fluid uf6 = new Fluid("uf6", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/uf6_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/uf6_flowing"), null, Color.WHITE);
-	public static Fluid puf6 = new Fluid("puf6", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/puf6_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/puf6_flowing"), null, Color.WHITE);
-	public static Fluid sas3 = new Fluid("sas3", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/sas3_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/sas3_flowing"), null, Color.WHITE);
+	public static Fluid uf6 = new Fluid("uf6", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/uf6_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/uf6_flowing"), null, Color.WHITE);
+	public static Fluid puf6 = new Fluid("puf6", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/puf6_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/puf6_flowing"), null, Color.WHITE);
+	public static Fluid sas3 = new Fluid("sas3", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/sas3_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/sas3_flowing"), null, Color.WHITE);
 
-	public static Fluid amat = new Fluid("amat", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/amat_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/amat_flowing"), null, Color.WHITE);
-	public static Fluid aschrab = new Fluid("aschrab", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/aschrab_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/aschrab_flowing"), null, Color.WHITE);
+	public static Fluid amat = new Fluid("amat", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/amat_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/amat_flowing"), null, Color.WHITE);
+	public static Fluid aschrab = new Fluid("aschrab", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/aschrab_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/aschrab_flowing"), null, Color.WHITE);
 
-	public static Fluid acid = new Fluid("acid", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/acid_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/acid_flowing"), null, Color.WHITE);
-	public static Fluid sulfuric_acid = new Fluid("sulfuric_acid", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/sulfuric_acid_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/sulfuric_acid_flowing"), null, Color.WHITE);
-	public static Fluid nitric_acid = new Fluid("nitric_acid", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/nitric_acid_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/nitric_acid_flowing"), null, Color.WHITE);
-	public static Fluid solvent = new Fluid("solvent", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/solvent_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/solvent_flowing"), null, Color.WHITE);
-	public static Fluid radiosolvent = new Fluid("radiosolvent", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/radiosolvent_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/radiosolvent_flowing"), null, Color.WHITE);
-	public static Fluid nitroglycerin = new Fluid("nitroglycerin", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/nitroglycerin_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/nitroglycerin_flowing"), null, Color.WHITE);
+	public static Fluid acid = new Fluid("acid", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/acid_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/acid_flowing"), null, Color.WHITE);
+	public static Fluid sulfuric_acid = new Fluid("sulfuric_acid", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/sulfuric_acid_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/sulfuric_acid_flowing"), null, Color.WHITE);
+	public static Fluid nitric_acid = new Fluid("nitric_acid", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/nitric_acid_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/nitric_acid_flowing"), null, Color.WHITE);
+	public static Fluid solvent = new Fluid("solvent", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/solvent_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/solvent_flowing"), null, Color.WHITE);
+	public static Fluid radiosolvent = new Fluid("radiosolvent", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/radiosolvent_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/radiosolvent_flowing"), null, Color.WHITE);
+	public static Fluid nitroglycerin = new Fluid("nitroglycerin", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/nitroglycerin_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/nitroglycerin_flowing"), null, Color.WHITE);
 	
-	public static Fluid liquid_osmiridium = new Fluid("liquid_osmiridium", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/liquid_osmiridium_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/liquid_osmiridium_flowing"), null, Color.WHITE).setTemperature(573);
-	public static Fluid watz = new Fluid("watz", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/watz_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/watz_flowing"), null, Color.WHITE).setDensity(2500).setViscosity(3000).setLuminosity(5).setTemperature(2773);
-	public static Fluid cryogel = new Fluid("cryogel", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/cryogel_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/cryogel_flowing"), null, Color.WHITE).setTemperature(50);
+	public static Fluid liquid_osmiridium = new Fluid("liquid_osmiridium", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/liquid_osmiridium_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/liquid_osmiridium_flowing"), null, Color.WHITE).setTemperature(573);
+	public static Fluid watz = new Fluid("watz", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/watz_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/watz_flowing"), null, Color.WHITE).setDensity(2500).setViscosity(3000).setLuminosity(5).setTemperature(2773);
+	public static Fluid cryogel = new Fluid("cryogel", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/cryogel_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/cryogel_flowing"), null, Color.WHITE).setTemperature(50);
 
-	public static Fluid hydrogen = new Fluid("hydrogen", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hydrogen_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/hydrogen_flowing"), null, Color.WHITE).setTemperature(21);
-	public static Fluid oxygen = new Fluid("oxygen", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/oxygen_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/oxygen_flowing"), null, Color.WHITE).setTemperature(90);
-	public static Fluid xenon = new Fluid("xenon", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/xenon_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/xenon_flowing"), null, Color.WHITE).setTemperature(163);
-	public static Fluid balefire = new Fluid("balefire", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/balefire_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/balefire_flowing"), null, Color.WHITE).setTemperature(15000 + 273);
+	public static Fluid hydrogen = new Fluid("hydrogen", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hydrogen_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/hydrogen_flowing"), null, Color.WHITE).setTemperature(21);
+	public static Fluid oxygen = new Fluid("oxygen", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/oxygen_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/oxygen_flowing"), null, Color.WHITE).setTemperature(90);
+	public static Fluid xenon = new Fluid("xenon", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/xenon_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/xenon_flowing"), null, Color.WHITE).setTemperature(163);
+	public static Fluid balefire = new Fluid("balefire", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/balefire_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/balefire_flowing"), null, Color.WHITE).setTemperature(15000 + 273);
 
-	public static Fluid mercury = new Fluid("mercury", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/mercury_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/mercury_flowing"), null, Color.WHITE);
+	public static Fluid mercury = new Fluid("mercury", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/mercury_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/mercury_flowing"), null, Color.WHITE);
 
-	public static Fluid plasma_hd = new Fluid("plasma_hd", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_hd_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_hd_flowing"), null, Color.WHITE).setTemperature(25000 + 273);
-	public static Fluid plasma_ht = new Fluid("plasma_ht", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_ht_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_ht_flowing"), null, Color.WHITE).setTemperature(30000 + 273);
-	public static Fluid plasma_dt = new Fluid("plasma_dt", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_dt_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_dt_flowing"), null, Color.WHITE).setTemperature(32500 + 273);
-	public static Fluid plasma_xm = new Fluid("plasma_xm", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_xm_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_xm_flowing"), null, Color.WHITE).setTemperature(45000 + 273);
-	public static Fluid plasma_put = new Fluid("plasma_put", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_put_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_put_flowing"), null, Color.WHITE).setTemperature(50000 + 273);
-	public static Fluid plasma_bf = new Fluid("plasma_bf", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_bf_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/plasma_bf_flowing"), null, Color.WHITE).setTemperature(85000 + 273);
+	public static Fluid plasma_hd = new Fluid("plasma_hd", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_hd_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_hd_flowing"), null, Color.WHITE).setTemperature(25000 + 273);
+	public static Fluid plasma_ht = new Fluid("plasma_ht", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_ht_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_ht_flowing"), null, Color.WHITE).setTemperature(30000 + 273);
+	public static Fluid plasma_dt = new Fluid("plasma_dt", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_dt_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_dt_flowing"), null, Color.WHITE).setTemperature(32500 + 273);
+	public static Fluid plasma_xm = new Fluid("plasma_xm", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_xm_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_xm_flowing"), null, Color.WHITE).setTemperature(45000 + 273);
+	public static Fluid plasma_put = new Fluid("plasma_put", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_put_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_put_flowing"), null, Color.WHITE).setTemperature(50000 + 273);
+	public static Fluid plasma_bf = new Fluid("plasma_bf", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_bf_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/plasma_bf_flowing"), null, Color.WHITE).setTemperature(85000 + 273);
 	
-	public static Fluid uu_matter = new Fluid("ic2uu_matter", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/uu_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/uu_flowing"), null, Color.WHITE).setTemperature(1000000 + 273);
+	public static Fluid uu_matter = new Fluid("ic2uu_matter", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/uu_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/uu_flowing"), null, Color.WHITE).setTemperature(1000000 + 273);
 
-	public static Fluid pain = new Fluid("pain", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/pain_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/pain_flowing"), null, Color.WHITE);
-	public static Fluid wastefluid = new Fluid("wastefluid", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/wastefluid_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/wastefluid_flowing"), null, Color.WHITE);
-	public static Fluid wastegas = new Fluid("wastegas", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/wastegas_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/wastegas_flowing"), null, Color.WHITE);
-	public static Fluid gasoline = new Fluid("gasoline", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/gasoline_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/gasoline_flowing"), null, Color.WHITE);
-	public static Fluid experience = new Fluid("experience", new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/experience_still"), new ResourceLocation(RefStrings.MODID, "blocks/forgefluid/experience_flowing"), null, Color.WHITE);
+	public static Fluid pain = new Fluid("pain", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/pain_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/pain_flowing"), null, Color.WHITE);
+	public static Fluid wastefluid = new Fluid("wastefluid", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/wastefluid_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/wastefluid_flowing"), null, Color.WHITE);
+	public static Fluid wastegas = new Fluid("wastegas", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/wastegas_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/wastegas_flowing"), null, Color.WHITE);
+	public static Fluid gasoline = new Fluid("gasoline", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/gasoline_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/gasoline_flowing"), null, Color.WHITE);
+	public static Fluid experience = new Fluid("experience", new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/experience_still"), new ResourceLocation(Tags.MOD_ID, "blocks/forgefluid/experience_flowing"), null, Color.WHITE);
 	
 	//Block fluids
 	public static Fluid toxic_fluid = new ToxicFluid("toxic_fluid").setDensity(2500).setViscosity(2000).setTemperature(70+273);

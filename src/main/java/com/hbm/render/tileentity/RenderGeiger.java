@@ -1,8 +1,8 @@
 package com.hbm.render.tileentity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.render.model.ModelGeiger;
 import com.hbm.tileentity.machine.TileEntityGeiger;
 
@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderGeiger extends TileEntitySpecialRenderer<TileEntityGeiger> {
 
-	private static final ResourceLocation texture9 = new ResourceLocation(RefStrings.MODID + ":" + "textures/models/tools/ModelGeiger.png");
+	private static final ResourceLocation texture9 = new ResourceLocation(Tags.MOD_ID + ":" + "textures/models/tools/ModelGeiger.png");
 	private ModelGeiger model8;
 	
 	public RenderGeiger() {

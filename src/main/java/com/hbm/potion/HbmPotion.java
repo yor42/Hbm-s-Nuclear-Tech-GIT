@@ -1,16 +1,15 @@
 package com.hbm.potion;
 
+import com.hbm.Tags;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.bomb.BlockTaint;
 import com.hbm.capability.HbmLivingCapability;
 import com.hbm.config.GeneralConfig;
-import com.hbm.config.PotionConfig;
 import com.hbm.config.CompatibilityConfig;
 import com.hbm.entity.mob.EntityTaintedCreeper;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.lib.ModDamageSource;
-import com.hbm.lib.RefStrings;
 import com.hbm.util.ContaminationUtil;
 import com.hbm.util.ContaminationUtil.ContaminationType;
 import com.hbm.util.ContaminationUtil.HazardType;
@@ -45,7 +44,7 @@ public class HbmPotion extends Potion {
 	public HbmPotion(boolean isBad, int color, String name, int x, int y){
 		super(isBad, color);
 		this.setPotionName(name);
-		this.setRegistryName(RefStrings.MODID, name);
+		this.setRegistryName(Tags.MOD_ID, name);
 		this.setIconIndex(x, y);
 	}
 
@@ -74,7 +73,7 @@ public class HbmPotion extends Potion {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getStatusIconIndex() {
-		ResourceLocation loc = new ResourceLocation(RefStrings.MODID, "textures/gui/potions.png");
+		ResourceLocation loc = new ResourceLocation(Tags.MOD_ID, "textures/gui/potions.png");
 		Minecraft.getMinecraft().renderEngine.bindTexture(loc);
 		return super.getStatusIconIndex();
 	}

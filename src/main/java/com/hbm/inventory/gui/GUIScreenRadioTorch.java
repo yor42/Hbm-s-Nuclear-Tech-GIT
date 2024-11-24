@@ -3,10 +3,10 @@ package com.hbm.inventory.gui;
 import java.io.IOException;
 import java.util.Arrays;
 
+import com.hbm.Tags;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.NBTControlPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.network.TileEntityRadioTorchBase;
@@ -25,8 +25,8 @@ import net.minecraft.util.ResourceLocation;
 public class GUIScreenRadioTorch extends GuiScreen {
 
 	protected ResourceLocation texture;
-	protected static final ResourceLocation textureSender = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_rtty_sender.png");
-	protected static final ResourceLocation textureReceiver = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_rtty_receiver.png");
+	protected static final ResourceLocation textureSender = new ResourceLocation(Tags.MOD_ID + ":textures/gui/machine/gui_rtty_sender.png");
+	protected static final ResourceLocation textureReceiver = new ResourceLocation(Tags.MOD_ID + ":textures/gui/machine/gui_rtty_receiver.png");
 	protected TileEntityRadioTorchBase radio;
 	protected static boolean isSender;
 	protected String title = "";

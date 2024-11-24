@@ -1,11 +1,10 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.blocks.bomb.NukeCustom;
 import com.hbm.config.BombConfig;
 import com.hbm.inventory.container.ContainerNukeCustom;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.bomb.TileEntityNukeCustom;
 
 import net.minecraft.client.Minecraft;
@@ -16,7 +15,7 @@ import net.minecraft.util.text.TextFormatting;
 
 public class GUINukeCustom extends GuiInfoContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gunBombSchematic.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gunBombSchematic.png");
 	private TileEntityNukeCustom testNuke;
 	
 	public GUINukeCustom(InventoryPlayer invPlayer, TileEntityNukeCustom tedf) {

@@ -1,9 +1,9 @@
 package com.hbm.render.entity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.logic.EntityDeathBlast;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.ClientProxy;
 import com.hbm.render.amlfrom1710.AdvancedModelLoader;
 import com.hbm.render.amlfrom1710.IModelCustom;
@@ -24,7 +24,7 @@ public class RenderDeathBlast extends Render<EntityDeathBlast> {
 
 	public static final IRenderFactory<EntityDeathBlast> FACTORY = (RenderManager man) -> {return new RenderDeathBlast(man);};
 	
-	private static final IModelCustom sphere = AdvancedModelLoader.loadModel(new ResourceLocation(RefStrings.MODID, "models/sphere.obj"));
+	private static final IModelCustom sphere = AdvancedModelLoader.loadModel(new ResourceLocation(Tags.MOD_ID, "models/sphere.obj"));
 	
 	protected RenderDeathBlast(RenderManager renderManager) {
 		super(renderManager);

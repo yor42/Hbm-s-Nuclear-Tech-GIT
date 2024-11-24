@@ -2,13 +2,13 @@ package com.hbm.items.tool;
 
 import java.util.List;
 
+import com.hbm.Tags;
 import com.hbm.forgefluid.HbmFluidHandlerCanister;
 import com.hbm.forgefluid.HbmFluidHandlerItemStack;
 import com.hbm.forgefluid.ModForgeFluids;
 import com.hbm.forgefluid.SpecialContainerFillLists.EnumCanister;
 import com.hbm.interfaces.IHasCustomModel;
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.MainRegistry;
 
 import com.hbm.util.I18nUtil;
@@ -30,7 +30,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemFluidCanister extends Item implements IHasCustomModel {
 
-	public static final ModelResourceLocation fluidCanisterModel = new ModelResourceLocation(RefStrings.MODID + ":canister_empty", "inventory");
+	public static final ModelResourceLocation fluidCanisterModel = new ModelResourceLocation(Tags.MOD_ID + ":canister_empty", "inventory");
 	public int cap;
 	
 	

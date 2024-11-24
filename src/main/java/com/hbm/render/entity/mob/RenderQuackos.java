@@ -1,7 +1,7 @@
 package com.hbm.render.entity.mob;
 
+import com.hbm.Tags;
 import com.hbm.interfaces.IConstantRenderer;
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.client.renderer.entity.RenderChicken;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -11,7 +11,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class RenderQuackos extends RenderChicken implements IConstantRenderer {
 
-	public static final ResourceLocation ducc = new ResourceLocation(RefStrings.MODID, "textures/entity/duck.png");
+	public static final ResourceLocation ducc = new ResourceLocation(Tags.MOD_ID, "textures/entity/duck.png");
 	
 	public static final IRenderFactory<EntityChicken> FACTORY = man -> new RenderQuackos(man);
 	

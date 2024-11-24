@@ -1,8 +1,8 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelBaleflare;
 import com.hbm.render.model.ModelMP40;
@@ -21,10 +21,10 @@ public class ItemRenderBullshit extends TEISRBase {
 	protected ModelPip pip;
 	protected ModelMP40 mp40;
 	protected ModelBaleflare bomb;
-	protected static ResourceLocation mp40_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelMP40.png");
-	protected static ResourceLocation spark_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelSpark.png");
-	protected static ResourceLocation pip_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelPip.png");
-	protected static ResourceLocation bomb_rl = new ResourceLocation(RefStrings.MODID +":textures/models/projectiles/BaleFlare.png");
+	protected static ResourceLocation mp40_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelMP40.png");
+	protected static ResourceLocation spark_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelSpark.png");
+	protected static ResourceLocation pip_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelPip.png");
+	protected static ResourceLocation bomb_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/projectiles/BaleFlare.png");
 	
 	public ItemRenderBullshit() {
 		sparkPlug = new ModelSpark();

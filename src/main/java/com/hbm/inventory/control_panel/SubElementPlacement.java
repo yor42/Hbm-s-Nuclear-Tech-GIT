@@ -1,5 +1,6 @@
 package com.hbm.inventory.control_panel;
 
+import com.hbm.Tags;
 import com.hbm.inventory.control_panel.controls.DialLarge;
 import com.hbm.inventory.control_panel.controls.DisplaySevenSeg;
 import com.hbm.inventory.control_panel.controls.DisplayText;
@@ -11,7 +12,6 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.main.ClientProxy;
 import com.hbm.render.RenderHelper;
 
@@ -26,8 +26,8 @@ import net.minecraft.util.math.MathHelper;
 
 public class SubElementPlacement extends SubElement {
 
-	public static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/control_panel/gui_placement_front.png");
-	public static ResourceLocation grid = new ResourceLocation(RefStrings.MODID + ":textures/gui/control_panel/placement_grid.png");
+	public static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/control_panel/gui_placement_front.png");
+	public static ResourceLocation grid = new ResourceLocation(Tags.MOD_ID + ":textures/gui/control_panel/placement_grid.png");
 	
 	public float ogPosX;
 	public float ogPosY;

@@ -1,8 +1,8 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelHP;
 
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 public class ItemRenderGunHP extends TEISRBase {
 
 	protected ModelHP hppLaserjet;
-	protected ResourceLocation hp_loc = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelHP.png");
+	protected ResourceLocation hp_loc = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelHP.png");
 	
 	public ItemRenderGunHP() {
 		hppLaserjet = new ModelHP();

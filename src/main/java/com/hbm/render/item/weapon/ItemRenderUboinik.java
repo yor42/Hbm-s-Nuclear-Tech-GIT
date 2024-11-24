@@ -1,8 +1,8 @@
 package com.hbm.render.item.weapon;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
-import com.hbm.lib.RefStrings;
 import com.hbm.render.item.TEISRBase;
 import com.hbm.render.model.ModelUboinik;
 
@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 public class ItemRenderUboinik extends TEISRBase {
 
 	protected ModelUboinik uboinik;
-	protected static ResourceLocation uboinik_rl = new ResourceLocation(RefStrings.MODID +":textures/models/weapons/ModelUboinik.png");
+	protected static ResourceLocation uboinik_rl = new ResourceLocation(Tags.MOD_ID +":textures/models/weapons/ModelUboinik.png");
 	
 	public ItemRenderUboinik() {
 		uboinik = new ModelUboinik();

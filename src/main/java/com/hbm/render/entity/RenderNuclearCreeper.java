@@ -1,9 +1,9 @@
 package com.hbm.render.entity;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.entity.mob.EntityNuclearCreeper;
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
 public class RenderNuclearCreeper extends RenderLiving<EntityNuclearCreeper> {
-    private static final ResourceLocation creeperTextures = new ResourceLocation(RefStrings.MODID + ":" + "textures/entity/creeper.png");
+    private static final ResourceLocation creeperTextures = new ResourceLocation(Tags.MOD_ID + ":" + "textures/entity/creeper.png");
     /** The creeper model. */
 	public RenderNuclearCreeper(RenderManager rendermanagerIn) {
 		super(rendermanagerIn, new ModelCreeper(), 0.5F);

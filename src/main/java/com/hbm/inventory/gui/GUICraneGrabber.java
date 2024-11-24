@@ -1,7 +1,7 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import com.hbm.inventory.container.ContainerCraneGrabber;
-import com.hbm.lib.RefStrings;
 import com.hbm.packet.NBTControlPacket;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.tileentity.network.TileEntityCraneGrabber;
@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class GUICraneGrabber extends GuiInfoContainer {
-    private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/storage/gui_crane_grabber.png");
+    private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/storage/gui_crane_grabber.png");
     public TileEntityCraneGrabber grabber;
 
     public GUICraneGrabber(InventoryPlayer invPlayer, TileEntityCraneGrabber tedf) {

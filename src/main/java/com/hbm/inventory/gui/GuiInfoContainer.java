@@ -4,11 +4,11 @@ import java.util.Iterator;
 import java.util.Arrays;
 import java.util.List;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import com.hbm.lib.Library;
-import com.hbm.lib.RefStrings;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -21,7 +21,7 @@ import net.minecraft.util.ResourceLocation;
 
 public abstract class GuiInfoContainer extends GuiContainer {
 	
-	ResourceLocation guiUtil =  new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_utility.png");
+	ResourceLocation guiUtil =  new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_utility.png");
 
 	public GuiInfoContainer(Container p_i1072_1_) {
 		super(p_i1072_1_);

@@ -1,9 +1,9 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerNukePrototype;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.bomb.TileEntityNukePrototype;
 
 import net.minecraft.client.Minecraft;
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUINukePrototype extends GuiContainer {
 	
-	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_prototype.png");
+	private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/gui_prototype.png");
 	private TileEntityNukePrototype testNuke;
 	
 	public GUINukePrototype(InventoryPlayer invPlayer, TileEntityNukePrototype tedf) {

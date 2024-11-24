@@ -1,7 +1,7 @@
 package com.hbm.inventory.gui;
 
+import com.hbm.Tags;
 import com.hbm.inventory.container.ContainerCraneUnboxer;
-import com.hbm.lib.RefStrings;
 import com.hbm.tileentity.network.TileEntityCraneUnboxer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -9,11 +9,9 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-import java.io.IOException;
-
 public class GUICraneUnboxer extends GuiInfoContainer {
 
-    private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/storage/gui_crane_unboxer.png");
+    private static ResourceLocation texture = new ResourceLocation(Tags.MOD_ID + ":textures/gui/storage/gui_crane_unboxer.png");
     private TileEntityCraneUnboxer unboxer;
 
     public GUICraneUnboxer(InventoryPlayer invPlayer, TileEntityCraneUnboxer tedf) {

@@ -3,11 +3,11 @@ package com.hbm.items.machine;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.hbm.Tags;
 import com.hbm.forgefluid.HbmFluidHandlerItemStack;
 import com.hbm.interfaces.IHasCustomModel;
 import com.hbm.config.GeneralConfig;
 import com.hbm.items.ModItems;
-import com.hbm.lib.RefStrings;
 import com.hbm.main.MainRegistry;
 import com.hbm.forgefluid.FluidTypeHandler;
 
@@ -31,10 +31,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemFluidTank extends Item implements IHasCustomModel {
 
 	public static final ModelResourceLocation fluidTankModel = new ModelResourceLocation(
-			RefStrings.MODID + ":fluid_tank_full", "inventory");
+			Tags.MOD_ID + ":fluid_tank_full", "inventory");
 	
 	public static final ModelResourceLocation fluidBarrelModel = new ModelResourceLocation(
-			RefStrings.MODID + ":fluid_barrel_full", "inventory");
+			Tags.MOD_ID + ":fluid_barrel_full", "inventory");
 
 	private final int cap;
 
